@@ -85,31 +85,16 @@ onMounted(() => {
   &__body {
     flex: 1;
     min-width: 0;
-  }
-
-  &__name {
-    font-family: f.$font-accent;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: c.$PHB-TEXT-1;
-  }
-
-  &__sep {
-    color: c.$PHB-TEXT-3;
-    font-size: 0.78rem;
-  }
-
-  &__location {
-    font-family: f.$font-accent;
-    font-size: 0.78rem;
-    color: c.$PHB-TEXT-3;
+    display: flex;
+    align-items: center;
   }
 
   &__action {
     font-family: f.$font-secondary;
-    font-size: 0.8rem;
-    color: c.$PHB-TEXT-2;
-    margin: 0.2rem 0 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: c.$PHB-TEXT-1;
+    margin: 0;
     line-height: 1.3;
   }
 
