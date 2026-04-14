@@ -10,6 +10,7 @@ const contactStore = useContactStore()
 const { t, locale, toggleLocale } = useLocale()
 
 const showModal = ref(false)
+const showExitWarning = ref(false)
 const submitting = ref(false)
 const form = ref({ nombre: '', email: '', telefono: '' })
 const errors = ref({ nombre: '', email: '', telefono: '' })
@@ -32,7 +33,23 @@ function openModal() {
   document.body.style.overflow = 'hidden'
 }
 
+function requestClose() {
+  showExitWarning.value = true
+}
+
+function confirmClose() {
+  showExitWarning.value = false
+  showModal.value = false
+  document.body.style.overflow = ''
+}
+
+function stayInModal() {
+  showExitWarning.value = false
+}
+
+// kept for programmatic close (e.g. after successful submit)
 function closeModal() {
+  showExitWarning.value = false
   showModal.value = false
   document.body.style.overflow = ''
 }
@@ -589,9 +606,27 @@ async function submit() {
 
     <!-- MODAL CONTACTO -->
     <Transition name="modal">
-      <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
+      <div v-if="showModal" class="modal-overlay" @click.self="requestClose">
         <div class="modal-box">
-          <button class="modal-box__close" @click="closeModal" aria-label="Cerrar">
+          <!-- Exit warning layer -->
+          <Transition name="exit-warn">
+            <div v-if="showExitWarning" class="modal-exit-warn">
+              <div class="modal-exit-warn__icon">
+                <i class="fa-solid fa-heart-pulse"></i>
+              </div>
+              <h3 class="modal-exit-warn__title">{{ t.exitWarning.title }}</h3>
+              <p class="modal-exit-warn__sub">{{ t.exitWarning.sub }}</p>
+              <p class="modal-exit-warn__body">{{ t.exitWarning.body }}</p>
+              <button class="modal-exit-warn__stay" @click="stayInModal">
+                <i class="fa-solid fa-arrow-left"></i>
+                {{ t.exitWarning.stay }}
+              </button>
+              <button class="modal-exit-warn__leave" @click="confirmClose">
+                {{ t.exitWarning.leave }}
+              </button>
+            </div>
+          </Transition>
+          <button class="modal-box__close" @click="requestClose" aria-label="Cerrar">
             <i class="fa-solid fa-xmark"></i>
           </button>
           <div class="modal-box__header">
@@ -1952,6 +1987,96 @@ async function submit() {
 .modal-enter-from, .modal-leave-to { opacity: 0; }
 .modal-enter-active .modal-box { transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 .modal-enter-from .modal-box { transform: translateY(20px) scale(0.97); }
+
+// ── Exit warning ───────────────────────────────────────────────────────────────
+.modal-exit-warn {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  border-radius: 20px;
+  background: c.$PHB-SURFACE;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 2.5rem 2rem;
+
+  &__icon {
+    font-size: 2.5rem;
+    color: c.$PHB-PURPLE;
+    animation: pulse-warn 1.4s ease-in-out infinite;
+  }
+
+  &__title {
+    font-family: f.$font-principal;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: c.$PHB-TEXT-1;
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  &__sub {
+    font-family: f.$font-accent;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: c.$PHB-PURPLE;
+    margin: 0;
+  }
+
+  &__body {
+    font-family: f.$font-secondary;
+    font-size: 0.9rem;
+    color: c.$PHB-TEXT-2;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 360px;
+  }
+
+  &__stay {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, c.$PHB-PURPLE, c.$PHB-CYAN);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: f.$font-accent;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(107, 31, 191, 0.35);
+    transition: all 0.2s;
+    &:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(107, 31, 191, 0.45); }
+  }
+
+  &__leave {
+    background: none;
+    border: none;
+    font-family: f.$font-secondary;
+    font-size: 0.8rem;
+    color: c.$PHB-TEXT-3;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0.2rem;
+    &:hover { color: c.$PHB-TEXT-2; }
+  }
+}
+
+@keyframes pulse-warn {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.75; }
+}
+
+.exit-warn-enter-active { transition: opacity 0.18s ease, transform 0.2s ease; }
+.exit-warn-leave-active { transition: opacity 0.15s ease; }
+.exit-warn-enter-from { opacity: 0; transform: scale(0.97); }
+.exit-warn-leave-to { opacity: 0; }
 
 // ── Hero photo bg ─────────────────────────────────────────────────────────────
 .hero__bg-photo {

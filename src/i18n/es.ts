@@ -134,6 +134,13 @@ export const es = {
     privacy: 'Política de Privacidad',
     legal: 'Aviso Legal',
   },
+  exitWarning: {
+    title: '¿Seguro que quieres salir?',
+    sub: 'Estás a un paso de cambiar tu vida para siempre.',
+    body: 'Esta evaluación puede ser la diferencia entre seguir buscando sin respuestas… o finalmente entender lo que está pasando en tu cuerpo.',
+    stay: 'Continuar con mi evaluación',
+    leave: 'Sí, prefiero salir',
+  },
   modal: {
     title: 'Solicita tu Evaluación',
     sub: 'Sin costo · Solo las primeras 100 personas · 20% de aceptación',

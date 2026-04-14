@@ -136,6 +136,13 @@ export const en: PhbTranslation = {
     privacy: 'Privacy Policy',
     legal: 'Legal Notice',
   },
+  exitWarning: {
+    title: 'Are you sure you want to leave?',
+    sub: 'You are one step away from changing your life forever.',
+    body: 'This assessment could be the difference between keep searching without answers… or finally understanding what is happening in your body.',
+    stay: 'Continue with my assessment',
+    leave: 'Yes, I prefer to leave',
+  },
   modal: {
     title: 'Request Your Assessment',
     sub: 'Free access · First 100 people only · 20% acceptance',
