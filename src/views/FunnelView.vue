@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import RegistrationModal from '@/components/RegistrationModal.vue'
 import { captureFbParams } from '@/utils/fbclid'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const bakanoLogo = 'https://res.cloudinary.com/dpuody0df/image/upload/v1775587085/bakano/logos/bakano-light.png'
 const luisPhoto = 'https://res.cloudinary.com/dpuody0df/image/upload/v1775587087/bakano/team/luis.webp'
@@ -67,7 +71,108 @@ onMounted(() => {
     minutes.value = String(Math.floor((total % 3600) / 60)).padStart(2, '0')
     seconds.value = String(total % 60).padStart(2, '0')
   }, 1000)
+
+  initScrollAnimations()
 })
+
+onUnmounted(() => {
+  clearInterval(interval)
+  ScrollTrigger.getAll().forEach(st => st.kill())
+})
+
+function initScrollAnimations() {
+  // ── Stats entrance ────────────────────────────────────────────────────────
+  ScrollTrigger.create({
+    trigger: '.funnel__stats',
+    start: 'top 80%',
+    once: true,
+    onEnter: () => {
+      gsap.from('.funnel__stat', {
+        opacity: 0,
+        y: 32,
+        stagger: 0.15,
+        duration: 0.6,
+        ease: 'power2.out',
+      })
+    },
+  })
+
+  // ── Authority entrance ────────────────────────────────────────────────────
+  ScrollTrigger.create({
+    trigger: '.funnel__authority',
+    start: 'top 75%',
+    once: true,
+    onEnter: () => {
+      gsap.from('.funnel__authority-photo-wrap', {
+        opacity: 0,
+        x: -40,
+        duration: 0.9,
+        ease: 'power3.out',
+      })
+      gsap.from('.funnel__authority-bio > *', {
+        opacity: 0,
+        x: 40,
+        stagger: 0.1,
+        duration: 0.7,
+        ease: 'power3.out',
+        delay: 0.15,
+      })
+    },
+  })
+
+  // ── Showcase pinned section ───────────────────────────────────────────────
+  if (!document.querySelector('.funnel__showcase')) return
+
+  const isMobile = window.innerWidth < 769
+
+  if (!isMobile) {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.funnel__showcase',
+        start: 'top top',
+        end: '+=300%',
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+      },
+      defaults: { ease: 'none' },
+    })
+
+    tl
+      .to({}, { duration: 1 })
+      // Slide 1 → 2
+      .to('.showcase__slide--1', { opacity: 0, yPercent: -20, duration: 1 })
+      .to('.showcase__bg--2', { opacity: 1, duration: 1 }, '<')
+      .to('.showcase__progress--1', { opacity: 0.3, duration: 0.5 }, '<')
+      .to('.showcase__progress--2', { opacity: 1, duration: 0.5 }, '<')
+      .fromTo('.showcase__slide--2',
+        { opacity: 0, yPercent: 20 },
+        { opacity: 1, yPercent: 0, duration: 0.8 },
+        '<0.2')
+      .to({}, { duration: 1 })
+      // Slide 2 → 3
+      .to('.showcase__slide--2', { opacity: 0, yPercent: -20, duration: 1 })
+      .to('.showcase__bg--3', { opacity: 1, duration: 1 }, '<')
+      .to('.showcase__progress--2', { opacity: 0.3, duration: 0.5 }, '<')
+      .to('.showcase__progress--3', { opacity: 1, duration: 0.5 }, '<')
+      .fromTo('.showcase__slide--3',
+        { opacity: 0, yPercent: 20 },
+        { opacity: 1, yPercent: 0, duration: 0.8 },
+        '<0.2')
+      .to({}, { duration: 1 })
+  } else {
+    gsap.utils.toArray<Element>('.showcase__slide').forEach(el => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 85%',
+        once: true,
+        onEnter: () => {
+          gsap.from(el, { opacity: 0, y: 40, duration: 0.7, ease: 'power2.out' })
+        },
+      })
+    })
+  }
+}
 </script>
 
 <template>
@@ -187,6 +292,77 @@ onMounted(() => {
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         SHOWCASE — scroll-pinned storytelling
+         ══════════════════════════════════════════════ -->
+    <section class="funnel__showcase" aria-label="Por qué funciona">
+
+      <!-- Background layers — opacity driven by GSAP -->
+      <div class="showcase__bg showcase__bg--1" aria-hidden="true" />
+      <div class="showcase__bg showcase__bg--2" aria-hidden="true" />
+      <div class="showcase__bg showcase__bg--3" aria-hidden="true" />
+      <div class="showcase__overlay" aria-hidden="true" />
+
+      <!-- Slide 1 — El Problema -->
+      <div class="showcase__slide showcase__slide--1">
+        <p class="funnel__eyebrow">Por qué te quedas atrás</p>
+        <h2 class="showcase__heading">
+          Tu negocio crece lento porque<br>
+          <span class="funnel__headline-accent">tu marketing no tiene sistema</span>
+        </h2>
+        <p class="showcase__body">
+          Sin una metodología probada, cada mes comienzas desde cero.
+          La facturación sube y baja sin control, dependiendo de la suerte o del boca a boca.
+        </p>
+        <div class="showcase__stat-card">
+          <strong>8 de cada 10</strong>
+          <span>negocios no escalan por falta de estrategia</span>
+        </div>
+      </div>
+
+      <!-- Slide 2 — La Metodología -->
+      <div class="showcase__slide showcase__slide--2" aria-hidden="true">
+        <p class="funnel__eyebrow">La solución probada</p>
+        <h2 class="showcase__heading">
+          <span class="funnel__headline-accent">Data Growth Business™</span><br>
+          marketing predecible
+        </h2>
+        <p class="showcase__body">
+          Un sistema estructurado que convierte tus datos en decisiones.
+          Genera ventas consistentes mes a mes, sin improvisar y sin depender de videos virales.
+        </p>
+        <div class="showcase__stat-card">
+          <strong>+25 negocios</strong>
+          <span>ya escalaron con este sistema en Latinoamérica</span>
+        </div>
+      </div>
+
+      <!-- Slide 3 — Los Resultados -->
+      <div class="showcase__slide showcase__slide--3" aria-hidden="true">
+        <p class="funnel__eyebrow">Lo que logran nuestros clientes</p>
+        <h2 class="showcase__heading">
+          <span class="funnel__headline-accent">10% a 20% más</span><br>
+          de facturación en 90 días
+        </h2>
+        <p class="showcase__body">
+          Sin depender de videos virales, sin improvisar.
+          Con estrategia data-driven que funciona en cualquier industria establecida.
+        </p>
+        <div class="showcase__stat-card">
+          <strong>+$50K USD</strong>
+          <span>generados para clientes con estrategia digital estructurada</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="showcase__progress-wrap" aria-hidden="true">
+        <span class="showcase__progress showcase__progress--1" />
+        <span class="showcase__progress showcase__progress--2" />
+        <span class="showcase__progress showcase__progress--3" />
+      </div>
+
     </section>
 
     <!-- ══════════════════════════════════════════════
@@ -1014,5 +1190,174 @@ $text-body: rgba(255, 255, 255, 0.72);
   max-width: 680px;
   margin-inline: auto;
   margin-bottom: 0;
+}
+
+// ── Showcase pinned section ───────────────────────────────────────────────────
+.funnel__showcase {
+  position: relative;
+  height: 100vh;
+  min-height: 580px;
+  overflow: hidden;
+}
+
+.showcase__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  will-change: opacity;
+
+  &--1 {
+    background-image: url('https://images.pexels.com/photos/3760072/pexels-photo-3760072.jpeg?auto=compress&cs=tinysrgb&w=1400');
+    opacity: 1;
+  }
+  &--2 {
+    background-image: url('https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1400');
+    opacity: 0;
+  }
+  &--3 {
+    background-image: url('https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=1400');
+    opacity: 0;
+  }
+}
+
+.showcase__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(#07050e, 0.78) 0%,
+    rgba(#07050e, 0.65) 50%,
+    rgba(#07050e, 0.82) 100%
+  );
+  z-index: 1;
+}
+
+.showcase__slide {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+  will-change: opacity, transform;
+
+  &--1 { opacity: 1; }
+  &--2, &--3 { opacity: 0; }
+}
+
+.showcase__heading {
+  font-family: fonts.$font-principal;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: colors.$white;
+  margin: 0 0 24px;
+  max-width: 700px;
+
+  @media (max-width: 600px) {
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+
+    br { display: none; }
+  }
+}
+
+.showcase__body {
+  font-family: fonts.$font-secondary;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 560px;
+  margin: 0 auto 36px;
+}
+
+.showcase__stat-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(colors.$BAKANO-PINK, 0.35);
+  border-radius: 16px;
+  padding: 20px 36px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  strong {
+    font-family: fonts.$font-accent;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(110deg, colors.$BAKANO-PINK, colors.$BAKANO-PURPLE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  span {
+    font-family: fonts.$font-interface;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 240px;
+    text-align: center;
+  }
+}
+
+.showcase__progress-wrap {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+}
+
+.showcase__progress {
+  display: block;
+  width: 36px;
+  height: 3px;
+  border-radius: 2px;
+  background: colors.$BAKANO-PINK;
+  will-change: opacity;
+
+  &--1 { opacity: 1; }
+  &--2, &--3 { opacity: 0.3; }
+}
+
+// Mobile — stacked slides, no pin
+@media (max-width: 768px) {
+  .funnel__showcase {
+    height: auto;
+    min-height: unset;
+  }
+
+  .showcase__slide {
+    position: relative;
+    inset: unset;
+    opacity: 1 !important;
+    transform: none !important;
+    padding: 64px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+    &--3 { border-bottom: none; }
+  }
+
+  .showcase__bg--2,
+  .showcase__bg--3 {
+    display: none;
+  }
+
+  .showcase__bg--1 {
+    opacity: 0.4;
+  }
+
+  .showcase__progress-wrap {
+    display: none;
+  }
 }
 </style>
