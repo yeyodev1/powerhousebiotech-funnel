@@ -5,6 +5,7 @@ import { useContactStore } from '@/stores/contact'
 import { useLocale } from '@/composables/useLocale'
 import { useScrollAnimations } from '@/composables/useScrollAnimations'
 import SocialProofToast from '@/components/SocialProofToast.vue'
+import brandLogo from '@/assets/logos/logo.png'
 
 const router = useRouter()
 const contactStore = useContactStore()
@@ -92,7 +93,7 @@ async function submit() {
       <div class="navbar__inner">
         <img
           class="navbar__logo"
-          src="https://static.wixstatic.com/media/2361a8_1db8efe7c9d74e49be06a716224efb99~mv2.png"
+          :src="brandLogo"
           alt="PowerHouse Biotech"
         />
         <div class="navbar__actions">
