@@ -155,6 +155,37 @@ export const en: PhbTranslation = {
       'just completed the initial evaluation',
     ],
   },
+  testimonials: {
+    label: 'Real testimonials',
+    title: 'When the right decision is made…',
+    titleAccent: 'results are no longer a matter of luck',
+    items: [
+      {
+        name: 'María R.',
+        age: '42 years old',
+        location: 'Mexico City',
+        condition: 'Chronic Fatigue',
+        quote: 'After 7 years trying all kinds of therapies, PowerHouse Biotech was the only place that explained WHY my body wasn\'t responding. They didn\'t sell me a treatment — they gave me clarity and a real path forward.',
+        initials: 'MR',
+      },
+      {
+        name: 'Carlos V.',
+        age: '55 years old',
+        location: 'Bogotá, Colombia',
+        condition: 'Chronic Joint Pain',
+        quote: 'Other doctors wanted to start treatment immediately. Here they told me I wasn\'t ready yet. We worked on preparing my biology and when we did apply the treatment, the result was completely different.',
+        initials: 'CV',
+      },
+      {
+        name: 'Gabriela S.',
+        age: '38 years old',
+        location: 'Lima, Peru',
+        condition: 'Autoimmune Condition',
+        quote: 'For the first time in years, someone explained what was happening in my body with real clinical criteria. The assessment completely changed my understanding of my own health and what was possible for me.',
+        initials: 'GS',
+      },
+    ],
+  },
   qualify: {
     stepOf: 'of',
     intro: {

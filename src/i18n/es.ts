@@ -153,6 +153,37 @@ export const es = {
       'acaba de completar la evaluación inicial',
     ],
   },
+  testimonials: {
+    label: 'Testimonios reales',
+    title: 'Cuando se decide con criterio clínico…',
+    titleAccent: 'los resultados dejan de ser suerte',
+    items: [
+      {
+        name: 'María R.',
+        age: '42 años',
+        location: 'Ciudad de México',
+        condition: 'Fatiga Crónica',
+        quote: 'Después de 7 años probando todo tipo de terapias, PowerHouse Biotech fue el único lugar que me explicó POR QUÉ mi cuerpo no respondía. No me vendieron un tratamiento — me dieron claridad y una ruta real hacia la mejora.',
+        initials: 'MR',
+      },
+      {
+        name: 'Carlos V.',
+        age: '55 años',
+        location: 'Bogotá, Colombia',
+        condition: 'Dolor Articular Crónico',
+        quote: 'Otros médicos querían empezar tratamiento de inmediato. Aquí me dijeron que todavía no era candidato. Trabajamos en prepararme biológicamente y cuando sí aplicamos el tratamiento, el resultado fue completamente diferente.',
+        initials: 'CV',
+      },
+      {
+        name: 'Gabriela S.',
+        age: '38 años',
+        location: 'Lima, Perú',
+        condition: 'Condición Autoinmune',
+        quote: 'Por primera vez en años, alguien me explicó lo que estaba pasando en mi cuerpo con criterio clínico real. La evaluación cambió completamente mi comprensión de mi propia salud y lo que era posible para mí.',
+        initials: 'GS',
+      },
+    ],
+  },
   qualify: {
     stepOf: 'de',
     intro: {
