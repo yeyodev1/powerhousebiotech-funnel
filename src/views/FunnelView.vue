@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -59,7 +59,7 @@ const seconds = ref('12')
 
 let interval: ReturnType<typeof setInterval>
 
-onMounted(() => {
+onMounted(async () => {
   // Captura fbclid de la URL (llega cuando usuario hace click en anuncio Meta)
   captureFbParams()
 
@@ -72,6 +72,7 @@ onMounted(() => {
     seconds.value = String(total % 60).padStart(2, '0')
   }, 1000)
 
+  await nextTick()
   initScrollAnimations()
 })
 
@@ -120,25 +121,26 @@ function initScrollAnimations() {
     },
   })
 
-  // ── Showcase pinned section ───────────────────────────────────────────────
-  if (!document.querySelector('.funnel__showcase')) return
+  // ── Showcase CSS-sticky + GSAP scrub ─────────────────────────────────────
+  const track = document.querySelector('.funnel__showcase-track')
+  if (!track) return
 
   const isMobile = window.innerWidth < 769
 
   if (!isMobile) {
+    // CSS sticky keeps showcase fixed — GSAP just maps scroll → animation
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '.funnel__showcase',
+        trigger: '.funnel__showcase-track',
         start: 'top top',
-        end: '+=300%',
-        pin: true,
+        end: 'bottom bottom',
         scrub: 1,
-        anticipatePin: 1,
       },
       defaults: { ease: 'none' },
     })
 
     tl
+      // Hold on slide 1
       .to({}, { duration: 1 })
       // Slide 1 → 2
       .to('.showcase__slide--1', { opacity: 0, yPercent: -20, duration: 1 })
@@ -149,6 +151,7 @@ function initScrollAnimations() {
         { opacity: 0, yPercent: 20 },
         { opacity: 1, yPercent: 0, duration: 0.8 },
         '<0.2')
+      // Hold on slide 2
       .to({}, { duration: 1 })
       // Slide 2 → 3
       .to('.showcase__slide--2', { opacity: 0, yPercent: -20, duration: 1 })
@@ -159,6 +162,7 @@ function initScrollAnimations() {
         { opacity: 0, yPercent: 20 },
         { opacity: 1, yPercent: 0, duration: 0.8 },
         '<0.2')
+      // Hold on slide 3
       .to({}, { duration: 1 })
   } else {
     gsap.utils.toArray<Element>('.showcase__slide').forEach(el => {
@@ -172,6 +176,8 @@ function initScrollAnimations() {
       })
     })
   }
+
+  ScrollTrigger.refresh()
 }
 </script>
 
@@ -295,8 +301,9 @@ function initScrollAnimations() {
     </section>
 
     <!-- ══════════════════════════════════════════════
-         SHOWCASE — scroll-pinned storytelling
+         SHOWCASE — CSS sticky + GSAP scrub storytelling
          ══════════════════════════════════════════════ -->
+    <div class="funnel__showcase-track">
     <section class="funnel__showcase" aria-label="Por qué funciona">
 
       <!-- Background layers — opacity driven by GSAP -->
@@ -364,6 +371,7 @@ function initScrollAnimations() {
       </div>
 
     </section>
+    </div><!-- /.funnel__showcase-track -->
 
     <!-- ══════════════════════════════════════════════
          AUTHORITY — Luis Reyes
@@ -1192,12 +1200,16 @@ $text-body: rgba(255, 255, 255, 0.72);
   margin-bottom: 0;
 }
 
-// ── Showcase pinned section ───────────────────────────────────────────────────
+// ── Showcase CSS-sticky scroll storytelling ───────────────────────────────────
+.funnel__showcase-track {
+  height: 400vh; // 4× viewport = scroll room for 3 slides
+}
+
 .funnel__showcase {
-  position: relative;
+  position: sticky;
+  top: 0;
   height: 100vh;
   min-height: 580px;
-  overflow: hidden;
 }
 
 .showcase__bg {
@@ -1329,9 +1341,14 @@ $text-body: rgba(255, 255, 255, 0.72);
   &--2, &--3 { opacity: 0.3; }
 }
 
-// Mobile — stacked slides, no pin
+// Mobile — stacked slides, no sticky
 @media (max-width: 768px) {
+  .funnel__showcase-track {
+    height: auto;
+  }
+
   .funnel__showcase {
+    position: relative;
     height: auto;
     min-height: unset;
   }

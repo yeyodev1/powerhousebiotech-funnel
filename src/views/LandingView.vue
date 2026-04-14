@@ -3,11 +3,13 @@ import { ref, computed, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useContactStore } from '@/stores/contact'
 import { useLocale } from '@/composables/useLocale'
+import { useScrollAnimations } from '@/composables/useScrollAnimations'
 import SocialProofToast from '@/components/SocialProofToast.vue'
 
 const router = useRouter()
 const contactStore = useContactStore()
 const { t, locale, toggleLocale } = useLocale()
+useScrollAnimations()
 
 const showModal = ref(false)
 const showExitWarning = ref(false)
@@ -792,6 +794,16 @@ async function submit() {
   backdrop-filter: blur(16px);
   border-bottom: 1px solid c.$PHB-BORDER;
   box-shadow: c.$PHB-SHADOW-SM;
+  transition: background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+
+  // Shrink variant when user scrolls past hero
+  &--scrolled {
+    background: rgba(245, 248, 255, 0.98);
+    box-shadow: 0 4px 24px rgba(0, 10, 40, 0.12);
+
+    .navbar__inner { padding: 0.55rem 1.5rem; }
+    .navbar__logo { height: 36px; }
+  }
 
   &__inner {
     max-width: 1100px;
@@ -800,8 +812,13 @@ async function submit() {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: padding 0.3s ease;
   }
-  &__logo { height: 44px; width: auto; }
+  &__logo {
+    height: 44px;
+    width: auto;
+    transition: height 0.3s ease;
+  }
   &__actions { display: flex; align-items: center; gap: 0.7rem; }
 }
 
