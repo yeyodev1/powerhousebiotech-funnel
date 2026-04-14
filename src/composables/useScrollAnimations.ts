@@ -305,6 +305,36 @@ export function useScrollAnimations() {
     })
   }
 
+  // ── Effect: Inline CTA banner reveals ───────────────────────────────────────
+  function initInlineCtaReveals() {
+    const ctaBanners = document.querySelectorAll('.inline-cta')
+    if (!ctaBanners.length) return
+
+    gsap.set(ctaBanners, { opacity: 0, y: 30, scale: 0.96 })
+
+    ctaBanners.forEach((el) => {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              gsap.to(entry.target, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: 'power3.out',
+              })
+              obs.unobserve(entry.target)
+            }
+          })
+        },
+        { threshold: 0.3 }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+  }
+
   // ── Effect: Proof diff badge ────────────────────────────────────────────────
   function initProofDiffReveal() {
     const diff = document.querySelector('.proof__diff')
@@ -384,6 +414,7 @@ export function useScrollAnimations() {
         initProblemTruthReveal()
         initMethodFlowReveal()
         initCloseReveal()
+        initInlineCtaReveals()
         initProofDiffReveal()
         initParallaxGlows()
       }

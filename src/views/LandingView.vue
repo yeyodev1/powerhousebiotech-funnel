@@ -291,6 +291,24 @@ async function submit() {
       </div>
     </section>
 
+    <!-- CTA INTERMEDIO 1: Post-Problem -->
+    <div class="inline-cta">
+      <div class="inline-cta__inner">
+        <p class="inline-cta__text">
+          {{ locale === 'es'
+            ? '¿Te identificas con alguno de estos problemas?'
+            : 'Do any of these problems sound familiar?' }}
+        </p>
+        <button class="inline-cta__btn" @click="openModal">
+          <i class="fa-solid fa-bolt"></i>
+          {{ locale === 'es' ? 'Descubre si podemos ayudarte' : 'Find out if we can help you' }}
+        </button>
+        <span class="inline-cta__micro">
+          {{ locale === 'es' ? 'Sin costo · Cupos limitados' : 'Free · Limited spots' }}
+        </span>
+      </div>
+    </div>
+
     <!-- DATOS -->
     <section class="data">
       <div class="data__photo-bg" aria-hidden="true">
@@ -308,6 +326,24 @@ async function submit() {
         </div>
       </div>
     </section>
+
+    <!-- CTA INTERMEDIO 2: Post-Data -->
+    <div class="inline-cta inline-cta--light">
+      <div class="inline-cta__inner">
+        <p class="inline-cta__text">
+          {{ locale === 'es'
+            ? 'Los datos son claros. La pregunta es: ¿qué vas a hacer con esta información?'
+            : 'The data is clear. The question is: what will you do with it?' }}
+        </p>
+        <button class="inline-cta__btn" @click="openModal">
+          <i class="fa-solid fa-arrow-right"></i>
+          {{ locale === 'es' ? 'Solicitar mi evaluación ahora' : 'Request my assessment now' }}
+        </button>
+        <span class="inline-cta__micro">
+          {{ locale === 'es' ? 'Solo aceptamos el 20% de los casos' : 'We only accept 20% of cases' }}
+        </span>
+      </div>
+    </div>
 
     <!-- SOLUCIÓN / EVR -->
     <section class="solution">
@@ -407,6 +443,24 @@ async function submit() {
       </div>
     </section>
 
+    <!-- CTA INTERMEDIO 3: Post-Testimonials -->
+    <div class="inline-cta">
+      <div class="inline-cta__inner">
+        <p class="inline-cta__text">
+          {{ locale === 'es'
+            ? 'Ellos ya tomaron la decisión. ¿Y tú?'
+            : 'They already made the decision. What about you?' }}
+        </p>
+        <button class="inline-cta__btn" @click="openModal">
+          <i class="fa-solid fa-calendar-check"></i>
+          {{ locale === 'es' ? 'Agendar mi evaluación gratuita' : 'Schedule my free assessment' }}
+        </button>
+        <span class="inline-cta__micro">
+          {{ locale === 'es' ? 'Primeras 100 personas · Sin compromiso' : 'First 100 people · No commitment' }}
+        </span>
+      </div>
+    </div>
+
     <!-- PRUEBA SOCIAL / CASOS -->
     <section class="proof">
       <div class="container">
@@ -445,6 +499,24 @@ async function submit() {
         </div>
       </div>
     </section>
+
+    <!-- CTA INTERMEDIO 4: Post-Proof -->
+    <div class="inline-cta inline-cta--light">
+      <div class="inline-cta__inner">
+        <p class="inline-cta__text">
+          {{ locale === 'es'
+            ? 'Resultados reales, no promesas. ¿Listo para saber si tu caso es viable?'
+            : 'Real results, not promises. Ready to find out if your case is viable?' }}
+        </p>
+        <button class="inline-cta__btn" @click="openModal">
+          <i class="fa-solid fa-shield-check"></i>
+          {{ locale === 'es' ? 'Verificar mi viabilidad' : 'Check my viability' }}
+        </button>
+        <span class="inline-cta__micro">
+          {{ locale === 'es' ? 'Evaluación clínica real · No es un cuestionario genérico' : 'Real clinical evaluation · Not a generic quiz' }}
+        </span>
+      </div>
+    </div>
 
     <!-- AUTORIDAD / EXPERTISE -->
     <section class="authority">
@@ -517,6 +589,24 @@ async function submit() {
         </div>
       </div>
     </section>
+
+    <!-- CTA INTERMEDIO 5: Post-Authority -->
+    <div class="inline-cta">
+      <div class="inline-cta__inner">
+        <p class="inline-cta__text">
+          {{ locale === 'es'
+            ? '+15 años de experiencia respaldan cada decisión. Deja de adivinar.'
+            : '+15 years of experience back every decision. Stop guessing.' }}
+        </p>
+        <button class="inline-cta__btn" @click="openModal">
+          <i class="fa-solid fa-rocket"></i>
+          {{ locale === 'es' ? 'Quiero mi evaluación personalizada' : 'I want my personalized assessment' }}
+        </button>
+        <span class="inline-cta__micro">
+          {{ locale === 'es' ? 'Acceso limitado · Respuesta en 24h' : 'Limited access · Response within 24h' }}
+        </span>
+      </div>
+    </div>
 
     <!-- MÉTODO DECIDE -->
     <section class="method">
@@ -2272,5 +2362,129 @@ async function submit() {
     border-radius: 0;
     box-shadow: none !important;
   }
+}
+
+// ── Inline CTA Banners (gradient brand style) ─────────────────────────────────
+.inline-cta {
+  position: relative;
+  z-index: 50; // above sticky panels
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, #171846 0%, #1a2260 40%, #143a6a 70%, #21bcfb 100%);
+  overflow: hidden;
+
+  // Subtle animated shimmer
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 25%,
+      rgba(33, 188, 251, 0.08) 50%,
+      transparent 75%
+    );
+    background-size: 200% 100%;
+    animation: ctaShimmer 4s ease-in-out infinite;
+  }
+
+  // Light variant (for alternating visual rhythm)
+  &--light {
+    background: linear-gradient(135deg, #21bcfb 0%, #1278f3 50%, #171846 100%);
+
+    .inline-cta__text { color: #FFFFFF; }
+    .inline-cta__micro { color: rgba(255, 255, 255, 0.7); }
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__text {
+    font-family: f.$font-principal;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2.2rem;
+    border: none;
+    border-radius: 14px;
+    background: #18e7f0;
+    color: #171846;
+    font-family: f.$font-principal;
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    box-shadow:
+      0 4px 20px rgba(24, 231, 240, 0.35),
+      0 0 40px rgba(24, 231, 240, 0.15);
+    animation: ctaPulseGlow 2.5s ease-in-out infinite;
+    letter-spacing: 0.02em;
+
+    i { font-size: 0.9rem; }
+
+    &:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow:
+        0 8px 32px rgba(24, 231, 240, 0.5),
+        0 0 60px rgba(24, 231, 240, 0.25);
+      background: #2ff5fc;
+    }
+
+    &:active { transform: translateY(-1px) scale(0.99); }
+  }
+
+  &__micro {
+    font-family: f.$font-secondary;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  @media (max-width: 767px) {
+    padding: 2.5rem 1.2rem;
+
+    &__btn {
+      width: 100%;
+      justify-content: center;
+      padding: 1rem 1.5rem;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+@keyframes ctaPulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 4px 20px rgba(24, 231, 240, 0.35),
+      0 0 40px rgba(24, 231, 240, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 6px 28px rgba(24, 231, 240, 0.50),
+      0 0 60px rgba(24, 231, 240, 0.25);
+  }
+}
+
+@keyframes ctaShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 </style>
