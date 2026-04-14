@@ -2,21 +2,34 @@ import { onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 
 /**
- * Composable that initializes scroll-triggered animations across the landing page.
- * Uses GSAP ScrollTrigger for reveal, parallax, counter, and stagger effects.
+ * Composable that creates a "sticky scroll-pinning" experience.
  *
- * IMPORTANT: We manually implement IntersectionObserver-based triggers
- * instead of GSAP ScrollTrigger plugin to avoid the paid plugin dependency.
+ * HOW IT WORKS:
+ * The middle content sections (Problem, Data, Solution, Testimonials, Proof,
+ * Authority, Method) each become sticky panels that fill the viewport.
+ * As the user scrolls, each panel pins in place and the NEXT section
+ * scrolls up OVER it, creating the illusion that content transitions
+ * "in the same place" — Blue World Voyages style.
+ *
+ * Technically this is achieved with:
+ * - A wrapper div with enough scrollable height (spacer)
+ * - Each pinned section uses `position: sticky; top: <navbar_height>`
+ * - Sections stack via z-index layering
+ * - Content fades/animates as it enters the viewport via IntersectionObserver
+ *
+ * IMPLEMENTATION NOTE: Uses pure CSS `position: sticky` + z-index stacking
+ * rather than GSAP ScrollTrigger (paid plugin). This is more performant and
+ * doesn't require additional dependencies.
  */
 export function useScrollAnimations() {
   const observers: IntersectionObserver[] = []
-  const animations: gsap.core.Tween[] = []
+  const cleanupFns: (() => void)[] = []
 
   // ── Utility: observe elements entering viewport ─────────────────────────────
   function observeElements(
     selector: string,
     callback: (el: Element, index: number) => void,
-    options: IntersectionObserverInit = { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
+    options: IntersectionObserverInit = { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
   ) {
     const elements = document.querySelectorAll(selector)
     if (!elements.length) return
@@ -35,9 +48,12 @@ export function useScrollAnimations() {
     observers.push(observer)
   }
 
-  // ── Effect: Fade-up reveal for sections ─────────────────────────────────────
-  function initSectionReveals() {
-    const sectionSelectors = [
+  // ── CORE: Convert middle sections into sticky pinned panels ─────────────────
+  function initStickyPanels() {
+    // Skip on mobile — effect requires enough horizontal space
+    if (window.innerWidth < 768) return
+
+    const stickySelectors = [
       '.problem',
       '.data',
       '.solution',
@@ -45,24 +61,134 @@ export function useScrollAnimations() {
       '.proof',
       '.authority',
       '.method',
-      '.close-section',
     ]
 
-    sectionSelectors.forEach((sel) => {
-      const el = document.querySelector(sel)
+    const navbarHeight = 65 // approximate sticky navbar pixel height
+
+    stickySelectors.forEach((sel, i) => {
+      const el = document.querySelector(sel) as HTMLElement
       if (!el) return
 
-      gsap.set(el, { opacity: 0, y: 60 })
+      // Make each section sticky and full-viewport
+      el.style.position = 'sticky'
+      el.style.top = `${navbarHeight}px`
+      el.style.zIndex = `${10 + i}` // each successive section stacks higher
+      el.style.minHeight = `calc(100vh - ${navbarHeight}px)`
+      el.style.display = 'flex'
+      el.style.flexDirection = 'column'
+      el.style.justifyContent = 'center'
 
-      observeElements(sel, (target) => {
-        const tween = gsap.to(target, {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          ease: 'power3.out',
-        })
-        animations.push(tween)
-      })
+      // Add subtle shadow to top edge so panels feel like stacking cards
+      el.style.boxShadow = '0 -8px 40px rgba(0, 10, 40, 0.08)'
+    })
+
+    // The parent `.landing` needs to allow this stacking behavior
+    const landing = document.querySelector('.landing') as HTMLElement
+    if (landing) {
+      landing.style.position = 'relative'
+    }
+  }
+
+  // ── Effect: Hero entrance animation ─────────────────────────────────────────
+  function initHeroEntrance() {
+    const badge = document.querySelector('.hero__badge')
+    const title = document.querySelector('.hero__title')
+    const sub = document.querySelector('.hero__sub')
+    const intro = document.querySelector('.hero__intro')
+    const ctaGroup = document.querySelector('.hero__cta-group')
+    const visual = document.querySelector('.hero__visual')
+    const floats = document.querySelectorAll('.hero__float')
+
+    const heroEls = [badge, title, sub, intro, ctaGroup].filter(Boolean)
+    gsap.set(heroEls, { opacity: 0, y: 30 })
+    if (visual) gsap.set(visual, { opacity: 0, x: 60, scale: 0.95 })
+    gsap.set(floats, { opacity: 0, scale: 0.8 })
+
+    const tl = gsap.timeline({ delay: 0.3 })
+
+    heroEls.forEach((el, i) => {
+      tl.to(el!, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, i * 0.12)
+    })
+
+    if (visual) {
+      tl.to(visual, { opacity: 1, x: 0, scale: 1, duration: 1, ease: 'power3.out' }, 0.2)
+    }
+
+    tl.to(floats, { opacity: 1, scale: 1, duration: 0.6, stagger: 0.2, ease: 'back.out(1.7)' }, 0.8)
+  }
+
+  // ── Effect: Hero biomarker bar fill animation ───────────────────────────────
+  function initBarAnimation() {
+    const bars = document.querySelectorAll('.hero__visual-bar-fill')
+    if (!bars.length) return
+
+    bars.forEach((bar) => {
+      const targetWidth = (bar as HTMLElement).style.width
+      gsap.set(bar, { width: '0%' })
+
+      setTimeout(() => {
+        gsap.to(bar, { width: targetWidth, duration: 1.2, ease: 'power2.out' })
+      }, 800)
+    })
+  }
+
+  // ── Effect: Content reveals inside each sticky panel ────────────────────────
+  function initContentReveals() {
+    // Section labels slide in from left
+    const labels = document.querySelectorAll('.section-label')
+    gsap.set(labels, { opacity: 0, x: -30 })
+    labels.forEach((el) => {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              gsap.to(entry.target, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' })
+              obs.unobserve(entry.target)
+            }
+          })
+        },
+        { threshold: 0.5 }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+
+    // Section titles fade up
+    const titles = document.querySelectorAll('.section-title, .authority__title')
+    gsap.set(titles, { opacity: 0, y: 30 })
+    titles.forEach((el) => {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              gsap.to(entry.target, { opacity: 1, y: 0, duration: 0.8, delay: 0.1, ease: 'power3.out' })
+              obs.unobserve(entry.target)
+            }
+          })
+        },
+        { threshold: 0.3 }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+
+    // Subtitles fade up
+    const subs = document.querySelectorAll('.section-sub, .authority__sub')
+    gsap.set(subs, { opacity: 0, y: 20 })
+    subs.forEach((el) => {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              gsap.to(entry.target, { opacity: 1, y: 0, duration: 0.7, delay: 0.2, ease: 'power3.out' })
+              obs.unobserve(entry.target)
+            }
+          })
+        },
+        { threshold: 0.3 }
+      )
+      obs.observe(el)
+      observers.push(obs)
     })
   }
 
@@ -86,101 +212,47 @@ export function useScrollAnimations() {
       const children = container.querySelectorAll(child)
       if (!children.length) return
 
-      gsap.set(children, { opacity: 0, y: 40, scale: 0.96 })
+      gsap.set(children, { opacity: 0, y: 35, scale: 0.97 })
 
       observeElements(parent, () => {
-        const tween = gsap.to(children, {
+        gsap.to(children, {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 0.7,
-          stagger: 0.12,
+          duration: 0.65,
+          stagger: 0.1,
           ease: 'power2.out',
         })
-        animations.push(tween)
       })
     })
   }
 
-  // ── Effect: Section label + title slide-in ──────────────────────────────────
-  function initTitleReveals() {
-    const labels = document.querySelectorAll('.section-label')
-    const titles = document.querySelectorAll('.section-title')
-    const subs = document.querySelectorAll('.section-sub')
+  // ── Effect: Solution section split reveal ───────────────────────────────────
+  function initSplitReveals() {
+    // Solution: left from left, right from right
+    const solLeft = document.querySelector('.solution__left')
+    const solRight = document.querySelector('.solution__right')
+    if (solLeft) gsap.set(solLeft, { opacity: 0, x: -40 })
+    if (solRight) gsap.set(solRight, { opacity: 0, x: 40 })
 
-    const allEls = [...Array.from(labels), ...Array.from(titles), ...Array.from(subs)]
+    observeElements('.solution__inner', () => {
+      if (solLeft) gsap.to(solLeft, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out' })
+      if (solRight) gsap.to(solRight, { opacity: 1, x: 0, duration: 0.9, delay: 0.15, ease: 'power3.out' })
+    })
 
-    gsap.set(labels, { opacity: 0, x: -30 })
-    gsap.set(titles, { opacity: 0, y: 30 })
-    gsap.set(subs, { opacity: 0, y: 20 })
+    // Authority: content from left, visual from right
+    const authContent = document.querySelector('.authority__content')
+    const authVisual = document.querySelector('.authority__visual')
+    if (authContent) gsap.set(authContent, { opacity: 0, x: -40 })
+    if (authVisual) gsap.set(authVisual, { opacity: 0, x: 40 })
 
-    allEls.forEach((el) => {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const tween = gsap.to(entry.target, {
-                opacity: 1,
-                x: 0,
-                y: 0,
-                duration: 0.8,
-                ease: 'power3.out',
-                delay: el.classList.contains('section-label') ? 0 : 0.15,
-              })
-              animations.push(tween)
-              observer.unobserve(entry.target)
-            }
-          })
-        },
-        { threshold: 0.3 }
-      )
-      observer.observe(el)
-      observers.push(observer)
+    observeElements('.authority__container', () => {
+      if (authContent) gsap.to(authContent, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out' })
+      if (authVisual) gsap.to(authVisual, { opacity: 1, x: 0, duration: 0.9, delay: 0.15, ease: 'power3.out' })
     })
   }
 
-  // ── Effect: Hero entrance animation ─────────────────────────────────────────
-  function initHeroEntrance() {
-    const badge = document.querySelector('.hero__badge')
-    const title = document.querySelector('.hero__title')
-    const sub = document.querySelector('.hero__sub')
-    const intro = document.querySelector('.hero__intro')
-    const ctaGroup = document.querySelector('.hero__cta-group')
-    const visual = document.querySelector('.hero__visual')
-    const floats = document.querySelectorAll('.hero__float')
-
-    const heroEls = [badge, title, sub, intro, ctaGroup].filter(Boolean)
-    gsap.set(heroEls, { opacity: 0, y: 30 })
-    if (visual) gsap.set(visual, { opacity: 0, x: 60, scale: 0.95 })
-    gsap.set(floats, { opacity: 0, scale: 0.8 })
-
-    // Animate on mount (hero is always visible on load)
-    const tl = gsap.timeline({ delay: 0.3 })
-
-    heroEls.forEach((el, i) => {
-      tl.to(
-        el!,
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' },
-        i * 0.12
-      )
-    })
-
-    if (visual) {
-      tl.to(
-        visual,
-        { opacity: 1, x: 0, scale: 1, duration: 1, ease: 'power3.out' },
-        0.2
-      )
-    }
-
-    tl.to(
-      floats,
-      { opacity: 1, scale: 1, duration: 0.6, stagger: 0.2, ease: 'back.out(1.7)' },
-      0.8
-    )
-  }
-
-  // ── Effect: Trust strip counter animation ───────────────────────────────────
+  // ── Effect: Trust strip values ──────────────────────────────────────────────
   function initTrustStripCounters() {
     const values = document.querySelectorAll('.trust-strip__value')
     if (!values.length) return
@@ -188,96 +260,17 @@ export function useScrollAnimations() {
     gsap.set(values, { opacity: 0, y: 20 })
 
     observeElements('.trust-strip', () => {
-      const tween = gsap.to(values, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-      })
-      animations.push(tween)
+      gsap.to(values, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' })
     })
   }
 
-  // ── Effect: Hero biomarker bar fill animation ───────────────────────────────
-  function initBarAnimation() {
-    const bars = document.querySelectorAll('.hero__visual-bar-fill')
-    if (!bars.length) return
-
-    bars.forEach((bar) => {
-      const targetWidth = (bar as HTMLElement).style.width
-      gsap.set(bar, { width: '0%' })
-
-      setTimeout(() => {
-        const tween = gsap.to(bar, {
-          width: targetWidth,
-          duration: 1.2,
-          ease: 'power2.out',
-        })
-        animations.push(tween)
-      }, 800)
-    })
-  }
-
-  // ── Effect: Solution section split reveal ───────────────────────────────────
-  function initSolutionReveal() {
-    const left = document.querySelector('.solution__left')
-    const right = document.querySelector('.solution__right')
-
-    if (left) gsap.set(left, { opacity: 0, x: -40 })
-    if (right) gsap.set(right, { opacity: 0, x: 40 })
-
-    observeElements('.solution__inner', () => {
-      if (left) {
-        const tween = gsap.to(left, {
-          opacity: 1,
-          x: 0,
-          duration: 0.9,
-          ease: 'power3.out',
-        })
-        animations.push(tween)
-      }
-      if (right) {
-        const tween = gsap.to(right, {
-          opacity: 1,
-          x: 0,
-          duration: 0.9,
-          delay: 0.2,
-          ease: 'power3.out',
-        })
-        animations.push(tween)
-      }
-    })
-  }
-
-  // ── Effect: Authority split reveal ──────────────────────────────────────────
-  function initAuthorityReveal() {
-    const content = document.querySelector('.authority__content')
-    const visual = document.querySelector('.authority__visual')
-
-    if (content) gsap.set(content, { opacity: 0, x: -40 })
-    if (visual) gsap.set(visual, { opacity: 0, x: 40 })
-
-    observeElements('.authority__container', () => {
-      if (content) {
-        const tween = gsap.to(content, {
-          opacity: 1,
-          x: 0,
-          duration: 0.9,
-          ease: 'power3.out',
-        })
-        animations.push(tween)
-      }
-      if (visual) {
-        const tween = gsap.to(visual, {
-          opacity: 1,
-          x: 0,
-          duration: 0.9,
-          delay: 0.2,
-          ease: 'power3.out',
-        })
-        animations.push(tween)
-      }
+  // ── Effect: Problem truth block ─────────────────────────────────────────────
+  function initProblemTruthReveal() {
+    const truth = document.querySelector('.problem__truth')
+    if (!truth) return
+    gsap.set(truth, { opacity: 0, y: 30 })
+    observeElements('.problem__truth', () => {
+      gsap.to(truth, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
     })
   }
 
@@ -285,18 +278,9 @@ export function useScrollAnimations() {
   function initMethodFlowReveal() {
     const items = document.querySelectorAll('.method__flow-wrap')
     if (!items.length) return
-
     gsap.set(items, { opacity: 0, y: 20 })
-
     observeElements('.method__flow', () => {
-      const tween = gsap.to(items, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-      })
-      animations.push(tween)
+      gsap.to(items, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' })
     })
   }
 
@@ -321,21 +305,13 @@ export function useScrollAnimations() {
     })
   }
 
-  // ── Effect: Proof section diff badge ────────────────────────────────────────
+  // ── Effect: Proof diff badge ────────────────────────────────────────────────
   function initProofDiffReveal() {
     const diff = document.querySelector('.proof__diff')
     if (!diff) return
-
     gsap.set(diff, { opacity: 0, scale: 0.9 })
-
     observeElements('.proof__diff', () => {
-      const tween = gsap.to(diff, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.7,
-        ease: 'back.out(1.5)',
-      })
-      animations.push(tween)
+      gsap.to(diff, { opacity: 1, scale: 1, duration: 0.7, ease: 'back.out(1.5)' })
     })
   }
 
@@ -362,11 +338,7 @@ export function useScrollAnimations() {
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-
-    // Cleanup stored for onUnmounted
-    ;(window as any).__parallaxCleanup = () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
+    cleanupFns.push(() => window.removeEventListener('scroll', handleScroll))
   }
 
   // ── Effect: Navbar auto-shrink on scroll ────────────────────────────────────
@@ -389,62 +361,39 @@ export function useScrollAnimations() {
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    ;(window as any).__navbarCleanup = () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }
-
-  // ── Effect: Smooth reveal for the "problem truth" block ─────────────────────
-  function initProblemTruthReveal() {
-    const truth = document.querySelector('.problem__truth')
-    if (!truth) return
-
-    gsap.set(truth, { opacity: 0, y: 30 })
-
-    observeElements('.problem__truth', () => {
-      const tween = gsap.to(truth, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-      })
-      animations.push(tween)
-    })
+    cleanupFns.push(() => window.removeEventListener('scroll', handleScroll))
   }
 
   // ── Initialize all ──────────────────────────────────────────────────────────
   onMounted(() => {
-    // Small delay to ensure DOM is painted
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
     requestAnimationFrame(() => {
-      initHeroEntrance()
-      initBarAnimation()
-      initTrustStripCounters()
-      initSectionReveals()
-      initTitleReveals()
-      initCardStagger()
-      initSolutionReveal()
-      initAuthorityReveal()
-      initMethodFlowReveal()
-      initCloseReveal()
-      initProofDiffReveal()
-      initProblemTruthReveal()
-      initParallaxGlows()
+      // Always init sticky panels (layout effect, not animation)
+      initStickyPanels()
       initNavbarShrink()
+
+      if (!prefersReducedMotion) {
+        initHeroEntrance()
+        initBarAnimation()
+        initTrustStripCounters()
+        initContentReveals()
+        initCardStagger()
+        initSplitReveals()
+        initProblemTruthReveal()
+        initMethodFlowReveal()
+        initCloseReveal()
+        initProofDiffReveal()
+        initParallaxGlows()
+      }
     })
   })
 
   // ── Cleanup ─────────────────────────────────────────────────────────────────
   onUnmounted(() => {
     observers.forEach((obs) => obs.disconnect())
-    animations.forEach((anim) => anim.kill())
-
-    if ((window as any).__parallaxCleanup) {
-      ;(window as any).__parallaxCleanup()
-      delete (window as any).__parallaxCleanup
-    }
-    if ((window as any).__navbarCleanup) {
-      ;(window as any).__navbarCleanup()
-      delete (window as any).__navbarCleanup
-    }
+    cleanupFns.forEach((fn) => fn())
+    gsap.killTweensOf('*')
   })
 }

@@ -2248,4 +2248,28 @@ async function submit() {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-6px); }
 }
+
+// ── Sticky Stacking Panels (applied via JS on desktop) ────────────────────────
+// Each section gets rounded top corners to feel like "cards stacking"
+.problem,
+.data,
+.solution,
+.testimonials,
+.proof,
+.authority,
+.method {
+  border-radius: 24px 24px 0 0;
+  will-change: transform;
+
+  // On mobile, disable sticky stacking (too narrow for the effect)
+  @media (max-width: 767px) {
+    position: relative !important;
+    top: auto !important;
+    z-index: auto !important;
+    min-height: auto !important;
+    display: block !important;
+    border-radius: 0;
+    box-shadow: none !important;
+  }
+}
 </style>
