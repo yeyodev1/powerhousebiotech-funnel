@@ -1,25 +1,49 @@
-// Colores principales de Bakano
-$BAKANO-PINK: #e6285c;
-$BAKANO-DARK: #191423;
-$BAKANO-LIGHT: #f5f3ef;
+// ─── PowerHouse Biotech — Light mode color system ────────────────────────────
+
+// ── Page surfaces ─────────────────────────────────────────────────────────────
+$PHB-BG:         #F5F8FF;   // page background
+$PHB-BG-ALT:     #EBF0FB;   // alternate section bg
+$PHB-SURFACE:    #FFFFFF;   // card / modal surface
+$PHB-SURFACE-2:  #F0F4FF;   // subtle inner surface
+
+// ── Brand colors ──────────────────────────────────────────────────────────────
+$PHB-PURPLE:       #6B1FBF;   // brand purple (adjusted for light bg)
+$PHB-PURPLE-LIGHT: #8B40E0;   // lighter purple for hovers / accents
+$PHB-CYAN:         #0BA0C8;   // brand cyan (darker for contrast on white)
+$PHB-TEAL:         #009880;   // success / confirmed green-teal
+$PHB-PRIMARY:      $PHB-CYAN;
+
+// ── Text ──────────────────────────────────────────────────────────────────────
+$PHB-TEXT-1:  #0B1934;   // headings
+$PHB-TEXT-2:  #3D5070;   // body text
+$PHB-TEXT-3:  #7A8BA5;   // muted / placeholders
+
+// ── Borders & shadows ─────────────────────────────────────────────────────────
+$PHB-BORDER:        rgba(30, 60, 120, 0.12);
+$PHB-BORDER-MEDIUM: rgba(30, 60, 120, 0.18);
+$PHB-SHADOW-XS: 0 1px 4px rgba(0, 10, 40, 0.06);
+$PHB-SHADOW-SM: 0 2px 14px rgba(0, 10, 40, 0.08);
+$PHB-SHADOW-MD: 0 6px 32px rgba(0, 10, 40, 0.12);
+
+// ── Legacy compat (used in Bakano components) ─────────────────────────────────
+$BAKANO-PINK:   #e6285c;
+$BAKANO-DARK:   #191423;
 $BAKANO-PURPLE: #85529c;
-$BAKANO-GREEN: #3bb77e;
+$BAKANO-GREEN:  #3bb77e;
 
-// Color primario principal (usando el rosa como principal)
-$BAKANO-PRIMARY: $BAKANO-PINK;
-
-// Colores base
-$white: #ffffff;
+$white:      #FFFFFF;
 $text-light: #f5f5f5;
-$overlay-purple: rgba($BAKANO-PURPLE, 0.1);
+$gray-100:   #f8f9fa;
+$gray-200:   #e9ecef;
+$gray-500:   #adb5bd;
+$gray-600:   #6c757d;
+$gray-800:   #343a40;
 
-// Colores adicionales para UI
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #6c757d;
-$gray-700: #495057;
-$gray-800: #343a40;
-$gray-900: #212529;
+// Keep old dark names mapping to new light values for backward compat
+$PHB-DARK:         $PHB-BG;
+$PHB-NAVY:         $PHB-BG-ALT;
+$PHB-CARD:         $PHB-SURFACE;
+$PHB-WHITE:        $PHB-TEXT-1;
+$PHB-GRAY:         $PHB-TEXT-3;
+$PHB-GRAY-LIGHT:   $PHB-TEXT-2;
+$PHB-BORDER-CARD:  $PHB-BORDER;

@@ -12,7 +12,7 @@ const calendarOpen = ref(false)
 
 // ── Contact capture guard ─────────────────────────────────────────────────────
 const captureOpen = ref(false)
-const captureForm = ref({ nombre: '', apellido: '', negocio: '', email: '', telefono: '' })
+const captureForm = ref({ nombre: '', email: '', telefono: '' })
 const captureErrors = ref<Record<string, string>>({})
 const captureTouched = ref<Record<string, boolean>>({})
 const captureSubmitting = ref(false)
@@ -20,8 +20,6 @@ const captureSubmitting = ref(false)
 const validateCapture = () => {
   const e: Record<string, string> = {}
   if (captureForm.value.nombre.trim().length < 2) e.nombre = 'Ingresa tu nombre'
-  if (captureForm.value.apellido.trim().length < 2) e.apellido = 'Ingresa tu apellido'
-  if (captureForm.value.negocio.trim().length < 2) e.negocio = 'Ingresa el nombre de tu negocio'
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(captureForm.value.email.trim())) e.email = 'Email inválido'
   if (captureForm.value.telefono.trim().length < 7) e.telefono = 'Teléfono inválido'
   captureErrors.value = e
@@ -29,14 +27,12 @@ const validateCapture = () => {
 }
 
 const submitCapture = async () => {
-  captureTouched.value = { nombre: true, apellido: true, negocio: true, email: true, telefono: true }
+  captureTouched.value = { nombre: true, email: true, telefono: true }
   if (!validateCapture()) return
   captureSubmitting.value = true
 
   contactStore.save({
     nombre: captureForm.value.nombre.trim(),
-    apellido: captureForm.value.apellido.trim(),
-    negocio: captureForm.value.negocio.trim(),
     email: captureForm.value.email.trim().toLowerCase(),
     telefono: captureForm.value.telefono.trim(),
   })
@@ -45,8 +41,6 @@ const submitCapture = async () => {
   const leadEventId = generateEventId('lead_video')
   trackStage('lead_capturado', {
     nombre: c.nombre,
-    apellido: c.apellido,
-    negocio: c.negocio,
     email: c.email,
     telefono: c.telefono,
     event_id: leadEventId,
@@ -241,33 +235,6 @@ onUnmounted(() => {
               <span v-if="captureTouched.nombre && captureErrors.nombre" class="cap-error">{{ captureErrors.nombre }}</span>
             </div>
 
-            <div class="cap-field" :class="{ 'cap-field--error': captureTouched.apellido && captureErrors.apellido }">
-              <label class="cap-label" for="cap-apellido">Apellido</label>
-              <input
-                id="cap-apellido"
-                v-model="captureForm.apellido"
-                type="text"
-                class="cap-input"
-                placeholder="Tu apellido"
-                autocomplete="family-name"
-                @blur="captureTouched.apellido = true; validateCapture()"
-              />
-              <span v-if="captureTouched.apellido && captureErrors.apellido" class="cap-error">{{ captureErrors.apellido }}</span>
-            </div>
-          </div>
-
-          <div class="cap-field" :class="{ 'cap-field--error': captureTouched.negocio && captureErrors.negocio }">
-            <label class="cap-label" for="cap-negocio">Nombre de tu negocio</label>
-            <input
-              id="cap-negocio"
-              v-model="captureForm.negocio"
-              type="text"
-              class="cap-input"
-              placeholder="Ej: Pastelería Nicole"
-              autocomplete="organization"
-              @blur="captureTouched.negocio = true; validateCapture()"
-            />
-            <span v-if="captureTouched.negocio && captureErrors.negocio" class="cap-error">{{ captureErrors.negocio }}</span>
           </div>
 
           <div class="cap-field" :class="{ 'cap-field--error': captureTouched.email && captureErrors.email }">

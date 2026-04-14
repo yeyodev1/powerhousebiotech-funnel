@@ -72,8 +72,7 @@ const handleSubmit = async () => {
 
   const nota = `${califica ? '✅ LEAD CALIFICADO' : '❌ NO CALIFICA'} — Bakano Funnel
 ━━━━━━━━━━━━━━━━━━━━━━━━
-👤 ${contact.nombre} ${contact.apellido}
-🏢 Negocio: ${contact.negocio}
+👤 ${contact.nombre}
 📧 ${contact.email}
 📱 ${contact.telefono}
 ━━━━━━━━━━━━━━━━━━━━━━━━
@@ -88,8 +87,6 @@ const handleSubmit = async () => {
 
   const payload = {
     nombre: contact.nombre || props.nombre,
-    apellido: contact.apellido,
-    negocio: contact.negocio,
     email: contact.email,
     telefono: contact.telefono,
     facturacion: form.value.facturacion,

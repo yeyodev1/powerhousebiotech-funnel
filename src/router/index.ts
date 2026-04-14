@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory, type RouteMeta } from 'vue-router'
-import FunnelView from '../views/FunnelView.vue'
-import VideoView from '../views/VideoView.vue'
+import LandingView from '../views/LandingView.vue'
+import QualifyView from '../views/QualifyView.vue'
+import BookingView from '../views/BookingView.vue'
+import ConfirmedView from '../views/ConfirmedView.vue'
+import NotQualifiedView from '../views/NotQualifiedView.vue'
 import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import LegalNoticeView from '../views/LegalNoticeView.vue'
-import BookingView from '../views/BookingView.vue'
-import BookedView from '../views/BookedView.vue'
-import NoSpaceView from '../views/NoSpaceView.vue'
 
 import 'vue-router'
 
@@ -17,42 +17,39 @@ declare module 'vue-router' {
     ogTitle: string
     ogDescription: string
     ogUrl: string
-    jsonLd?: object[]
   }
 }
 
-// ── Router ─────────────────────────────────────────────────────────────────────
+const BASE = 'https://evr.powerhousebiotech.com'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior: () => ({ top: 0, behavior: 'instant' }),
   routes: [
     {
       path: '/',
-      alias: '/registro-vsl-tr',
-      name: 'funnel',
-      component: FunnelView,
+      name: 'landing',
+      component: LandingView,
       meta: {
-        title: 'Bakano | Aumenta tu facturación entre 10% y 20% — Asesoría Gratuita',
-        description:
-          'Ayudamos a dueños de negocios establecidos a aumentar su facturación entre un 10% y 20% de forma predecible con la metodología Data Growth Business. Agenda tu asesoría gratuita.',
-        canonical: 'https://mkt.bakano.ec/registro-vsl-tr',
-        ogTitle: 'Bakano | Aumenta tu facturación entre 10% y 20%',
-        ogDescription:
-          'Metodología Data Growth Business: profesionaliza tu marketing y ventas sin depender de la suerte ni de agencias de viralidad. Asesoría gratuita — cupos limitados.',
-        ogUrl: 'https://mkt.bakano.ec/registro-vsl-tr',
+        title: 'PowerHouse Biotech | Evaluación de Viabilidad Regenerativa™',
+        description: 'Somos la primera Health Decision Platform enfocada en Medicina Regenerativa. Descubre hoy si tu cuerpo está listo para repararse.',
+        canonical: `${BASE}/`,
+        ogTitle: 'PowerHouse Biotech | ¿Puede tu cuerpo mejorar?',
+        ogDescription: '+15 años, +100,000 casos analizados. Evaluación honesta antes de cualquier tratamiento.',
+        ogUrl: `${BASE}/`,
       } satisfies RouteMeta,
     },
     {
-      path: '/ver-video',
-      name: 'video',
-      component: VideoView,
+      path: '/cualificar',
+      name: 'qualify',
+      component: QualifyView,
       meta: {
-        title: 'Mira el video | Bakano — Paso 1 de 2',
-        description: 'Ve el video completo y descubre cómo la metodología Data Growth Business puede aumentar la facturación de tu negocio entre un 10% y 20%.',
-        canonical: 'https://bakano.ec/ver-video',
-        ogTitle: 'Mira el video | Bakano',
-        ogDescription: 'Ve el video y agenda tu Cita Estratégica gratuita con el equipo de Bakano.',
-        ogUrl: 'https://bakano.ec/ver-video',
+        title: 'Evaluación Inicial | PowerHouse Biotech',
+        description: 'Responde 3 preguntas para saber si eres candidato a la Evaluación de Viabilidad Regenerativa™.',
+        canonical: `${BASE}/cualificar`,
+        ogTitle: 'Evaluación Inicial | PowerHouse Biotech',
+        ogDescription: 'Responde 3 preguntas y descubre si tu cuerpo puede regenerarse.',
+        ogUrl: `${BASE}/cualificar`,
       } satisfies RouteMeta,
     },
     {
@@ -60,38 +57,38 @@ const router = createRouter({
       name: 'booking',
       component: BookingView,
       meta: {
-        title: 'Agenda tu Cita | Bakano — Paso 2 de 2',
-        description: 'Selecciona el día y hora para tu Cita Estratégica gratuita con el equipo de Bakano.',
-        canonical: 'https://bakano.ec/agendar',
-        ogTitle: 'Agenda tu Cita | Bakano',
-        ogDescription: 'Elige tu horario y reserva tu Cita Estratégica gratuita con Bakano.',
-        ogUrl: 'https://bakano.ec/agendar',
+        title: 'Agenda tu Consulta | PowerHouse Biotech',
+        description: 'Selecciona tu horario para la Evaluación de Viabilidad Regenerativa™.',
+        canonical: `${BASE}/agendar`,
+        ogTitle: 'Agenda tu Consulta | PowerHouse Biotech',
+        ogDescription: 'Elige el día y hora para tu consulta de evaluación con el equipo de PowerHouse Biotech.',
+        ogUrl: `${BASE}/agendar`,
       } satisfies RouteMeta,
     },
     {
-      path: '/cita-confirmada',
-      name: 'booked',
-      component: BookedView,
+      path: '/evaluacion-confirmada',
+      name: 'confirmed',
+      component: ConfirmedView,
       meta: {
-        title: 'Cita Confirmada | Bakano',
-        description: 'Tu cita estratégica con el equipo de Bakano está confirmada. Revisa tu correo y prepárate.',
-        canonical: 'https://bakano.ec/cita-confirmada',
-        ogTitle: 'Cita Confirmada | Bakano',
-        ogDescription: 'Tu cita con el equipo de Bakano está reservada. Te contactaremos pronto.',
-        ogUrl: 'https://bakano.ec/cita-confirmada',
+        title: 'Consulta Confirmada | PowerHouse Biotech',
+        description: 'Tu consulta de Evaluación de Viabilidad Regenerativa™ está confirmada.',
+        canonical: `${BASE}/evaluacion-confirmada`,
+        ogTitle: 'Consulta Confirmada | PowerHouse Biotech',
+        ogDescription: 'Tu consulta está confirmada. Prepárate para descubrir si tu cuerpo puede regenerarse.',
+        ogUrl: `${BASE}/evaluacion-confirmada`,
       } satisfies RouteMeta,
     },
     {
-      path: '/sin-espacio',
-      name: 'no-space',
-      component: NoSpaceView,
+      path: '/no-califica',
+      name: 'not-qualified',
+      component: NotQualifiedView,
       meta: {
-        title: 'Sin Espacio Disponible | Bakano',
-        description: 'En este momento los cupos de asesoría de Bakano están completos. Te notificaremos cuando se libere un espacio.',
-        canonical: 'https://bakano.ec/sin-espacio',
-        ogTitle: 'Sin Espacio Disponible | Bakano',
-        ogDescription: 'Los cupos de asesoría están completos. Te avisaremos cuando haya disponibilidad.',
-        ogUrl: 'https://bakano.ec/sin-espacio',
+        title: 'No Califica | PowerHouse Biotech',
+        description: 'En este momento no eres candidato para la Evaluación de Viabilidad Regenerativa™.',
+        canonical: `${BASE}/no-califica`,
+        ogTitle: 'Resultado de Evaluación | PowerHouse Biotech',
+        ogDescription: 'Tu perfil actual requiere una preparación diferente.',
+        ogUrl: `${BASE}/no-califica`,
       } satisfies RouteMeta,
     },
     {
@@ -99,12 +96,12 @@ const router = createRouter({
       name: 'privacy-policy',
       component: PrivacyPolicyView,
       meta: {
-        title: 'Política de Privacidad | Bakano Ecuador',
-        description: 'Política de privacidad de Bakano. Información sobre el tratamiento de datos personales conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador.',
-        canonical: 'https://bakano.ec/politicas-privacidad',
-        ogTitle: 'Política de Privacidad | Bakano Ecuador',
-        ogDescription: 'Política de privacidad de Bakano Ecuador.',
-        ogUrl: 'https://bakano.ec/politicas-privacidad',
+        title: 'Política de Privacidad | PowerHouse Biotech',
+        description: 'Política de privacidad de PowerHouse Biotech.',
+        canonical: `${BASE}/politicas-privacidad`,
+        ogTitle: 'Política de Privacidad | PowerHouse Biotech',
+        ogDescription: 'Política de privacidad de PowerHouse Biotech.',
+        ogUrl: `${BASE}/politicas-privacidad`,
       } satisfies RouteMeta,
     },
     {
@@ -112,15 +109,26 @@ const router = createRouter({
       name: 'legal-notice',
       component: LegalNoticeView,
       meta: {
-        title: 'Aviso Legal | Bakano Ecuador',
-        description: 'Aviso legal de Bakano Ecuador. Términos y condiciones de uso del sitio web bakano.ec.',
-        canonical: 'https://bakano.ec/aviso-legal',
-        ogTitle: 'Aviso Legal | Bakano Ecuador',
-        ogDescription: 'Aviso legal de Bakano Ecuador.',
-        ogUrl: 'https://bakano.ec/aviso-legal',
+        title: 'Aviso Legal | PowerHouse Biotech',
+        description: 'Aviso legal de PowerHouse Biotech.',
+        canonical: `${BASE}/aviso-legal`,
+        ogTitle: 'Aviso Legal | PowerHouse Biotech',
+        ogDescription: 'Aviso legal de PowerHouse Biotech.',
+        ogUrl: `${BASE}/aviso-legal`,
       } satisfies RouteMeta,
     },
   ],
+})
+
+// ── Guards de navegación ───────────────────────────────────────────────────────
+router.beforeEach((to) => {
+  if (to.name === 'qualify' && !localStorage.getItem('phb_contact')) {
+    return { name: 'landing' }
+  }
+  if ((to.name === 'booking' || to.name === 'confirmed') && !localStorage.getItem('phb_qualified_at')) {
+    if (!localStorage.getItem('phb_contact')) return { name: 'landing' }
+    return { name: 'qualify' }
+  }
 })
 
 // ── SEO dinámico por ruta ──────────────────────────────────────────────────────
@@ -144,7 +152,7 @@ const setCanonical = (href: string) => {
 
 router.afterEach((to) => {
   const meta = to.meta
-  document.title = meta.title ?? 'Bakano'
+  document.title = meta.title ?? 'PowerHouse Biotech'
   setMeta('description', meta.description ?? '')
   setOgMeta('og:title', meta.ogTitle ?? meta.title ?? '')
   setOgMeta('og:description', meta.ogDescription ?? meta.description ?? '')

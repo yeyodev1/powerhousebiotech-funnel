@@ -1,363 +1,235 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useContactStore } from '@/stores/contact'
+import { useLocale } from '@/composables/useLocale'
 
 const router = useRouter()
-const iframeEl = ref<HTMLIFrameElement | null>(null)
-const iframeHeight = ref(1100)
+const contactStore = useContactStore()
+const { locale, t, toggleLocale } = useLocale()
 
-const LOGO = 'https://res.cloudinary.com/dpuody0df/image/upload/v1775587085/bakano/logos/bakano-light.png'
-const BASE_URL = 'https://api.leadconnectorhq.com/widget/booking/dtpY2GCQjoOkpm8JUtYz'
-
-// Pre-fill calendar with stored contact data
-const calendarUrl = computed(() => {
-  try {
-    const stored = localStorage.getItem('bk_contact')
-    if (!stored) return BASE_URL
-    const { nombre, email, phone } = JSON.parse(stored)
-    const params = new URLSearchParams()
-    if (nombre) params.set('firstName', nombre)
-    if (email)  params.set('email', email)
-    if (phone)  params.set('phone', phone)
-    const qs = params.toString()
-    return qs ? `${BASE_URL}?${qs}` : BASE_URL
-  } catch {
-    return BASE_URL
-  }
+onMounted(() => {
+  if (!localStorage.getItem('phb_qualified_at')) router.replace('/cualificar')
 })
 
-function onMessage(event: MessageEvent) {
-  if (!event.data) return
+const firstName = computed(() => contactStore.contact.nombre.split(' ')[0] || '')
+const CALENDAR_URL = 'https://phbteam.pipedrive.com/scheduler/zX22ryuq/consulta-informativa-virtual'
 
-  // GHL dynamic height resize
-  if (
-    typeof event.data === 'object' &&
-    !Array.isArray(event.data) &&
-    event.data.type === 'booking-app' &&
-    event.data.height
-  ) {
-    iframeHeight.value = Math.max(900, event.data.height + 120)
-    return
-  }
-
-  // GHL booking confirmed — exact event: ['msgsndr-booking-complete', {...}]
-  if (Array.isArray(event.data) && event.data[0] === 'msgsndr-booking-complete') {
-    localStorage.setItem('bk_booked_at', String(Date.now()))
-    router.push('/cita-confirmada')
-  }
+function confirmed() {
+  router.push('/evaluacion-confirmada')
 }
-
-onMounted(() => window.addEventListener('message', onMessage))
-onUnmounted(() => window.removeEventListener('message', onMessage))
 </script>
 
 <template>
   <div class="booking">
+    <nav class="booking__nav">
+      <img
+        src="https://static.wixstatic.com/media/2361a8_1db8efe7c9d74e49be06a716224efb99~mv2.png"
+        alt="PowerHouse Biotech"
+        class="booking__nav-logo"
+      />
+      <button class="lang-toggle" @click="toggleLocale" :aria-label="locale === 'es' ? 'Switch to English' : 'Cambiar a Español'">
+        {{ locale === 'es' ? 'EN' : 'ES' }}
+      </button>
+    </nav>
 
-    <!-- TOP BAR -->
-    <header class="booking__topbar">
-      <img :src="LOGO" alt="Bakano" class="booking__logo" />
-    </header>
-
-    <!-- STEPPER -->
-    <div class="booking__stepper">
-      <div class="stepper__track">
-        <div class="stepper__step stepper__step--done">
-          <span class="stepper__num"><i class="fa-solid fa-check"></i></span>
-          <span class="stepper__label">Registro</span>
+    <div class="booking__wrap">
+      <div class="booking__header">
+        <div class="booking__badge">
+          <i class="fa-solid fa-circle-check"></i>
+          {{ t.booking.badge }}
         </div>
-        <div class="stepper__line stepper__line--done"></div>
-        <div class="stepper__step stepper__step--active">
-          <span class="stepper__num">2</span>
-          <span class="stepper__label">Agenda tu cita</span>
+        <h1 class="booking__title">
+          <span v-if="firstName">{{ firstName }}{{ t.booking.titlePrefix }}</span>{{ t.booking.title }}
+        </h1>
+        <p class="booking__sub" v-html="t.booking.sub.replace('20%', '<strong>20%</strong>')"></p>
+        <div class="booking__pillars">
+          <div v-for="p in t.booking.pillars" :key="p.label" class="booking__pillar">
+            <i :class="p.label.includes('min') || p.label.includes('minute') ? 'fa-solid fa-clock' : p.label.includes('Virtual') || p.label.includes('Online') ? 'fa-solid fa-video' : 'fa-solid fa-circle-check'"></i>
+            <span>{{ p.label }}</span>
+          </div>
         </div>
       </div>
-      <p class="stepper__caption">Paso 2 de 2</p>
-    </div>
 
-    <!-- HEADING -->
-    <section class="booking__hero">
-      <h1 class="booking__title">Selecciona tu horario</h1>
-      <p class="booking__subtitle">
-        Elige el día y la hora que mejor se adapte a tu agenda
-      </p>
-    </section>
-
-    <!-- CALENDAR EMBED -->
-    <section class="booking__calendar">
-      <div class="calendar__wrapper">
-        <iframe
-          ref="iframeEl"
-          :src="calendarUrl"
-          :style="{ height: iframeHeight + 'px' }"
-          title="Agenda tu asesoría con Bakano"
-          class="calendar__iframe"
-          frameborder="0"
-          scrolling="yes"
-        ></iframe>
+      <div class="booking__calendar">
+        <iframe :src="CALENDAR_URL" frameborder="0" allowtransparency="true" title="Agenda tu consulta"></iframe>
       </div>
 
-      <div class="calendar__fallback">
-        <button class="btn btn--ghost" @click="router.push('/cita-confirmada')">
-          Ya agendé mi cita
-          <i class="fa-solid fa-arrow-right"></i>
+      <div class="booking__confirm">
+        <p class="booking__confirm-text">
+          <i class="fa-solid fa-info-circle"></i>
+          {{ t.booking.confirmText }}
+        </p>
+        <button class="btn btn--primary btn--lg" @click="confirmed">
+          <i class="fa-solid fa-calendar-check"></i>
+          {{ t.booking.confirmBtn }}
         </button>
       </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="booking__footer">
-      <div class="footer__links">
-        <RouterLink to="/politicas-privacidad">Política de Privacidad</RouterLink>
-        <span class="footer__sep">·</span>
-        <RouterLink to="/aviso-legal">Aviso Legal</RouterLink>
-      </div>
-      <p class="footer__copy">© {{ new Date().getFullYear() }} NEGOCIOS DEL PACIFICO. Todos los derechos reservados.</p>
-    </footer>
-
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@use '@/styles/colorVariables.module.scss' as colors;
-@use '@/styles/fonts.modules.scss' as fonts;
+@use '@/styles/colorVariables.module.scss' as c;
+@use '@/styles/fonts.modules.scss' as f;
 
 .booking {
   min-height: 100vh;
-  background-color: #0a0712;
-  color: colors.$white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: c.$PHB-BG;
+  color: c.$PHB-TEXT-1;
 
-  // ── TOP BAR ──────────────────────────────────────────
-  &__topbar {
-    width: 100%;
-    padding: 1.25rem 2rem;
+  &__nav {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid c.$PHB-BORDER;
     display: flex;
+    align-items: center;
     justify-content: center;
-    background: rgba(#0a0712, 0.95);
-    border-bottom: 1px solid rgba(colors.$BAKANO-PURPLE, 0.2);
+    background: c.$PHB-SURFACE;
+    box-shadow: c.$PHB-SHADOW-SM;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 10;
   }
 
-  &__logo {
-    height: 36px;
-    width: auto;
-  }
+  &__nav-logo { height: 42px; width: auto; }
 
-  // ── STEPPER ──────────────────────────────────────────
-  &__stepper {
-    padding: 2rem 1rem 0.5rem;
+  &__wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+    gap: 2.5rem;
   }
 
-  // ── HERO ─────────────────────────────────────────────
-  &__hero {
-    text-align: center;
-    padding: 1.5rem 1.5rem 0.5rem;
-    max-width: 600px;
+  &__header { text-align: center; }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: f.$font-accent;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: c.$PHB-TEAL;
+    border: 1px solid rgba(0, 152, 128, 0.25);
+    border-radius: 100px;
+    padding: 0.35rem 1rem;
+    margin-bottom: 1.2rem;
+    background: rgba(0, 152, 128, 0.06);
   }
 
   &__title {
-    font-family: fonts.$font-principal;
+    font-family: f.$font-principal;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
     font-weight: 800;
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    line-height: 1.15;
-    margin: 0 0 0.75rem;
-    background: linear-gradient(135deg, colors.$white 40%, colors.$BAKANO-PURPLE);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: c.$PHB-TEXT-1;
+    margin: 0 0 1rem;
   }
 
-  &__subtitle {
-    font-family: fonts.$font-secondary;
-    font-size: 1.05rem;
-    color: rgba(colors.$white, 0.65);
-    margin: 0;
-    line-height: 1.6;
+  &__sub {
+    font-family: f.$font-secondary;
+    font-size: 1rem;
+    color: c.$PHB-TEXT-2;
+    line-height: 1.7;
+    max-width: 620px;
+    margin: 0 auto 2rem;
   }
 
-  // ── CALENDAR ─────────────────────────────────────────
+  &__pillars {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  &__pillar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid c.$PHB-BORDER;
+    border-radius: 100px;
+    background: c.$PHB-SURFACE;
+    font-family: f.$font-accent;
+    font-size: 0.85rem;
+    color: c.$PHB-TEXT-2;
+    box-shadow: c.$PHB-SHADOW-SM;
+    i { color: c.$PHB-PURPLE; }
+  }
+
   &__calendar {
-    width: 100%;
-    max-width: 860px;
-    padding: 2rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+    border: 1px solid c.$PHB-BORDER;
+    border-radius: 16px;
+    overflow: hidden;
+    background: c.$PHB-SURFACE;
+    min-height: 560px;
+    box-shadow: c.$PHB-SHADOW-MD;
+    iframe { width: 100%; min-height: 560px; border: none; display: block; }
   }
 
-  // ── FOOTER ───────────────────────────────────────────
-  &__footer {
-    margin-top: auto;
-    width: 100%;
-    padding: 2rem 1.5rem;
+  &__confirm {
     text-align: center;
-    border-top: 1px solid rgba(colors.$BAKANO-PURPLE, 0.15);
-  }
-}
-
-// ── STEPPER INTERNALS ─────────────────────────────────
-.stepper {
-  &__track {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  &__step {
+    padding: 2rem;
+    border: 1px solid c.$PHB-BORDER;
+    border-radius: 14px;
+    background: rgba(107, 31, 191, 0.03);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.35rem;
-  }
+    gap: 1.2rem;
 
-  &__num {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: fonts.$font-accent;
-    font-weight: 700;
-    font-size: 0.9rem;
-    border: 2px solid rgba(colors.$BAKANO-PURPLE, 0.4);
-    color: rgba(colors.$white, 0.4);
-    transition: all 0.3s ease;
-
-    .stepper__step--done & {
-      background: colors.$BAKANO-GREEN;
-      border-color: colors.$BAKANO-GREEN;
-      color: colors.$white;
+    &-text {
+      font-family: f.$font-secondary;
+      font-size: 0.9rem;
+      color: c.$PHB-TEXT-3;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      i { color: c.$PHB-PURPLE; }
     }
-
-    .stepper__step--active & {
-      background: colors.$BAKANO-PINK;
-      border-color: colors.$BAKANO-PINK;
-      color: colors.$white;
-    }
-  }
-
-  &__label {
-    font-family: fonts.$font-interface;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: rgba(colors.$white, 0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-
-    .stepper__step--done & { color: colors.$BAKANO-GREEN; }
-    .stepper__step--active & { color: colors.$white; }
-  }
-
-  &__line {
-    width: 48px;
-    height: 2px;
-    background: rgba(colors.$BAKANO-PURPLE, 0.25);
-    border-radius: 2px;
-
-    &--done { background: colors.$BAKANO-GREEN; }
-  }
-
-  &__caption {
-    font-family: fonts.$font-interface;
-    font-size: 0.8rem;
-    color: rgba(colors.$white, 0.4);
-    margin: 0;
   }
 }
 
-// ── CALENDAR INTERNALS ────────────────────────────────
-.calendar {
-  &__wrapper {
-    width: 100%;
-    border-radius: 16px;
-    overflow: visible;
-    border: 1px solid rgba(colors.$BAKANO-PURPLE, 0.25);
-    background: rgba(colors.$BAKANO-PURPLE, 0.05);
-  }
-
-  &__iframe {
-    width: 100%;
-    border: none;
-    display: block;
-    border-radius: 16px;
-    transition: height 0.3s ease;
-    background: #fff;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  &__fallback {
-    display: flex;
-    justify-content: center;
-  }
+.lang-toggle {
+  position: absolute;
+  right: 1.5rem;
+  background: rgba(107, 31, 191, 0.07);
+  color: c.$PHB-PURPLE;
+  border: 1px solid rgba(107, 31, 191, 0.2);
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  font-family: f.$font-accent;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: all 0.2s;
+  &:hover { background: rgba(107, 31, 191, 0.12); }
 }
 
-// ── BUTTONS ───────────────────────────────────────────
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
-  border-radius: 8px;
-  font-family: fonts.$font-accent;
+  gap: 0.6rem;
+  font-family: f.$font-accent;
   font-weight: 600;
-  font-size: 0.95rem;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.25s ease;
-  text-decoration: none;
+  transition: all 0.2s;
 
-  &--ghost {
-    background: transparent;
-    border: 1.5px solid rgba(colors.$white, 0.25);
-    color: rgba(colors.$white, 0.6);
-
-    &:hover {
-      border-color: colors.$BAKANO-PURPLE;
-      color: colors.$white;
-      background: rgba(colors.$BAKANO-PURPLE, 0.1);
-    }
+  &--primary {
+    background: c.$PHB-PURPLE;
+    color: #fff;
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+    box-shadow: 0 4px 18px rgba(107, 31, 191, 0.28);
+    &:hover { filter: brightness(1.1); transform: translateY(-1px); }
   }
-}
-
-// ── FOOTER INTERNALS ──────────────────────────────────
-.footer {
-  &__links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
-
-    a {
-      font-family: fonts.$font-interface;
-      font-size: 0.8rem;
-      color: rgba(colors.$white, 0.4);
-      text-decoration: none;
-      transition: color 0.2s;
-
-      &:hover { color: colors.$white; }
-    }
-  }
-
-  &__sep {
-    color: rgba(colors.$white, 0.2);
-  }
-
-  &__copy {
-    font-family: fonts.$font-interface;
-    font-size: 0.75rem;
-    color: rgba(colors.$white, 0.25);
-    margin: 0;
-  }
+  &--lg { padding: 1.1rem 2.2rem; font-size: 1.05rem; border-radius: 10px; }
 }
 </style>

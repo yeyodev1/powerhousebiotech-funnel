@@ -1,27 +1,22 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-export interface BkContact {
+export interface PhbContact {
   nombre: string
-  apellido: string
-  negocio: string
   email: string
   telefono: string
   timestamp?: number
 }
 
-const STORAGE_KEY = 'bk_contact'
+const STORAGE_KEY = 'phb_contact'
 
 export const useContactStore = defineStore('contact', () => {
-  const contact = ref<BkContact>({
+  const contact = ref<PhbContact>({
     nombre: '',
-    apellido: '',
-    negocio: '',
     email: '',
     telefono: '',
   })
 
-  // Hidrata desde localStorage al iniciar
   const stored = localStorage.getItem(STORAGE_KEY)
   if (stored) {
     try {
@@ -29,17 +24,17 @@ export const useContactStore = defineStore('contact', () => {
     } catch { /* ignorar */ }
   }
 
-  function save(data: Partial<BkContact>) {
+  function save(data: Partial<PhbContact>) {
     Object.assign(contact.value, data, { timestamp: Date.now() })
     localStorage.setItem(STORAGE_KEY, JSON.stringify(contact.value))
   }
 
-  function get(): BkContact {
+  function get(): PhbContact {
     return { ...contact.value }
   }
 
   function clear() {
-    contact.value = { nombre: '', apellido: '', negocio: '', email: '', telefono: '' }
+    contact.value = { nombre: '', email: '', telefono: '' }
     localStorage.removeItem(STORAGE_KEY)
   }
 
