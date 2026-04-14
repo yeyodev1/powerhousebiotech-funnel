@@ -47,5 +47,13 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
+    <!-- Netlify Forms detection (hidden, used by Vue component via fetch) -->
+    <form name="analisis-laboratorio" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="nombre" />
+      <input type="email" name="email" />
+      <input type="tel" name="whatsapp" />
+      <input type="file" name="archivos" multiple />
+      <input type="hidden" name="form-name" value="analisis-laboratorio" />
+    </form>
   </body>
 </html>
