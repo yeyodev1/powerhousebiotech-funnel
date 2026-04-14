@@ -146,11 +146,13 @@ export const es = {
   },
   toast: {
     actions: [
-      'acaba de agendar su evaluación',
-      'completó su perfil hace 2 min',
-      'se acaba de registrar',
-      'solicitó su evaluación',
-      'acaba de completar la evaluación inicial',
+      'Alguien acaba de agendar su evaluación',
+      'Un nuevo paciente completó su perfil',
+      'Alguien se acaba de registrar',
+      'Una persona solicitó su evaluación',
+      'Alguien completó la evaluación inicial',
+      'Una persona acaba de reservar su consulta',
+      'Nuevo registro en los últimos minutos',
     ],
   },
   testimonials: {

@@ -5,22 +5,14 @@ import { useLocale } from '@/composables/useLocale'
 const { t } = useLocale()
 
 const visible = ref(false)
-const current = ref({ name: '', action: '', location: '' })
-
-const firstNames = ['María', 'Carlos', 'Valeria', 'Roberto', 'Gabriela', 'Luis', 'Andrea', 'Miguel', 'Patricia', 'Fernando', 'Diego', 'Ana', 'Andrés', 'Laura', 'Sofía', 'Ricardo', 'Camila', 'Jorge']
-const initials = ['G.', 'M.', 'R.', 'T.', 'H.', 'S.', 'A.', 'P.', 'V.', 'C.', 'L.', 'F.']
-const locations = ['México', 'Colombia', 'Argentina', 'Perú', 'Chile', 'Venezuela', 'Ecuador', 'CDMX', 'Bogotá', 'Lima', 'Monterrey', 'Medellín', 'Santiago', 'Quito']
+const current = ref({ action: '' })
 
 function rand<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
 function show() {
-  current.value = {
-    name: `${rand(firstNames)} ${rand(initials)}`,
-    action: rand(t.value.toast.actions),
-    location: rand(locations),
-  }
+  current.value = { action: rand(t.value.toast.actions) }
   visible.value = true
   setTimeout(() => { visible.value = false }, 4500)
 }
@@ -32,7 +24,7 @@ onMounted(() => {
     show()
     interval = setInterval(() => {
       show()
-    }, 30000 + Math.random() * 15000)
+    }, 10000)
   }, 10000)
 
   onUnmounted(() => {
@@ -49,9 +41,6 @@ onMounted(() => {
         <i class="fa-solid fa-user-check"></i>
       </div>
       <div class="sp-toast__body">
-        <span class="sp-toast__name">{{ current.name }}</span>
-        <span class="sp-toast__sep"> · </span>
-        <span class="sp-toast__location">{{ current.location }}</span>
         <p class="sp-toast__action">{{ current.action }}</p>
       </div>
       <div class="sp-toast__dot"></div>

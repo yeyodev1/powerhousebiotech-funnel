@@ -148,11 +148,13 @@ export const en: PhbTranslation = {
   },
   toast: {
     actions: [
-      'just scheduled their assessment',
-      'completed their profile 2 min ago',
-      'just registered',
-      'requested their assessment',
-      'just completed the initial evaluation',
+      'Someone just scheduled their assessment',
+      'A new patient completed their profile',
+      'Someone just registered',
+      'A person requested their assessment',
+      'Someone completed the initial evaluation',
+      'A person just booked their consultation',
+      'New registration in the last few minutes',
     ],
   },
   testimonials: {
