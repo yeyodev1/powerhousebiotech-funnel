@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useContactStore } from '@/stores/contact'
 import { useLocale } from '@/composables/useLocale'
@@ -36,6 +36,10 @@ function closeModal() {
   showModal.value = false
   document.body.style.overflow = ''
 }
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+})
 
 function validate() {
   errors.value = { nombre: '', email: '', telefono: '' }
