@@ -175,7 +175,7 @@ function confirmed() {
     padding: 2rem;
     border: 1px solid c.$PHB-BORDER;
     border-radius: 14px;
-    background: rgba(107, 31, 191, 0.03);
+    background: rgba(18, 120, 243, 0.03);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -197,9 +197,9 @@ function confirmed() {
 .lang-toggle {
   position: absolute;
   right: 1.5rem;
-  background: rgba(107, 31, 191, 0.07);
+  background: rgba(18, 120, 243, 0.07);
   color: c.$PHB-PURPLE;
-  border: 1px solid rgba(107, 31, 191, 0.2);
+  border: 1px solid rgba(18, 120, 243, 0.2);
   border-radius: 6px;
   padding: 0.3rem 0.7rem;
   font-family: f.$font-accent;
@@ -208,7 +208,7 @@ function confirmed() {
   cursor: pointer;
   letter-spacing: 0.06em;
   transition: all 0.2s;
-  &:hover { background: rgba(107, 31, 191, 0.12); }
+  &:hover { background: rgba(18, 120, 243, 0.12); }
 }
 
 .btn {
@@ -227,7 +227,7 @@ function confirmed() {
     color: #fff;
     padding: 0.9rem 1.8rem;
     font-size: 1rem;
-    box-shadow: 0 4px 18px rgba(107, 31, 191, 0.28);
+    box-shadow: 0 4px 18px rgba(18, 120, 243, 0.28);
     &:hover { filter: brightness(1.1); transform: translateY(-1px); }
   }
   &--lg { padding: 1.1rem 2.2rem; font-size: 1.05rem; border-radius: 10px; }

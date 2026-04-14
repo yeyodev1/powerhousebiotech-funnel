@@ -280,10 +280,10 @@ async function submit() {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: c.$PHB-PURPLE;
-    border: 1px solid rgba(107, 31, 191, 0.25);
+    border: 1px solid rgba(18, 120, 243, 0.25);
     border-radius: 100px;
     padding: 0.35rem 1rem;
-    background: rgba(107, 31, 191, 0.06);
+    background: rgba(18, 120, 243, 0.06);
   }
 
   &__title {
@@ -307,7 +307,7 @@ async function submit() {
   &__quote {
     padding: 1.2rem 1.8rem;
     border-left: 3px solid c.$PHB-PURPLE;
-    background: rgba(107, 31, 191, 0.04);
+    background: rgba(18, 120, 243, 0.04);
     border-radius: 0 10px 10px 0;
     text-align: left;
     display: flex;
@@ -316,7 +316,7 @@ async function submit() {
     width: 100%;
     max-width: 560px;
 
-    i { color: rgba(107, 31, 191, 0.3); font-size: 1.1rem; flex-shrink: 0; margin-top: 0.15rem; }
+    i { color: rgba(18, 120, 243, 0.3); font-size: 1.1rem; flex-shrink: 0; margin-top: 0.15rem; }
 
     p {
       font-family: f.$font-secondary;
@@ -356,7 +356,7 @@ async function submit() {
     background: c.$PHB-SURFACE;
     box-shadow: c.$PHB-SHADOW-SM;
     transition: border-color 0.15s, box-shadow 0.15s;
-    &:hover { border-color: rgba(107, 31, 191, 0.25); box-shadow: c.$PHB-SHADOW-MD; }
+    &:hover { border-color: rgba(18, 120, 243, 0.25); box-shadow: c.$PHB-SHADOW-MD; }
 
     h3 {
       font-family: f.$font-accent;
@@ -376,8 +376,8 @@ async function submit() {
   &__offer-icon {
     width: 40px; height: 40px;
     border-radius: 10px;
-    background: rgba(107, 31, 191, 0.08);
-    border: 1px solid rgba(107, 31, 191, 0.15);
+    background: rgba(18, 120, 243, 0.08);
+    border: 1px solid rgba(18, 120, 243, 0.15);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
     i { color: c.$PHB-PURPLE; font-size: 1rem; }
@@ -479,7 +479,7 @@ async function submit() {
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
     text-align: center;
-    &:hover { border-color: c.$PHB-PURPLE; background: rgba(107, 31, 191, 0.03); }
+    &:hover { border-color: c.$PHB-PURPLE; background: rgba(18, 120, 243, 0.03); }
 
     i:first-child { font-size: 1.8rem; color: c.$PHB-PURPLE; opacity: 0.5; }
 
@@ -551,9 +551,9 @@ async function submit() {
 .lang-toggle {
   position: absolute;
   right: 1.5rem;
-  background: rgba(107, 31, 191, 0.07);
+  background: rgba(18, 120, 243, 0.07);
   color: c.$PHB-PURPLE;
-  border: 1px solid rgba(107, 31, 191, 0.2);
+  border: 1px solid rgba(18, 120, 243, 0.2);
   border-radius: 6px;
   padding: 0.3rem 0.7rem;
   font-family: f.$font-accent;
@@ -562,7 +562,7 @@ async function submit() {
   cursor: pointer;
   letter-spacing: 0.06em;
   transition: all 0.2s;
-  &:hover { background: rgba(107, 31, 191, 0.12); }
+  &:hover { background: rgba(18, 120, 243, 0.12); }
 }
 
 .btn {
@@ -583,8 +583,8 @@ async function submit() {
     color: #fff;
     padding: 1rem 2rem;
     font-size: 1rem;
-    box-shadow: 0 4px 20px rgba(107, 31, 191, 0.3);
-    &:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(107, 31, 191, 0.4); }
+    box-shadow: 0 4px 20px rgba(18, 120, 243, 0.3);
+    &:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(18, 120, 243, 0.4); }
     &:disabled { opacity: 0.6; cursor: not-allowed; }
   }
 

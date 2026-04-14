@@ -11,7 +11,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #F5F8FF;
+  background-color: #171846;
 }
 
 // ── Transición de página ──────────────────────────────────────────────────────

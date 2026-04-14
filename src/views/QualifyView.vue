@@ -217,8 +217,8 @@ function evaluate() {
     width: 64px;
     height: 64px;
     border-radius: 16px;
-    background: rgba(107, 31, 191, 0.07);
-    border: 1px solid rgba(107, 31, 191, 0.15);
+    background: rgba(18, 120, 243, 0.07);
+    border: 1px solid rgba(18, 120, 243, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -301,14 +301,14 @@ function evaluate() {
     transition: all 0.15s;
 
     &:hover {
-      border-color: rgba(107, 31, 191, 0.3);
-      background: rgba(107, 31, 191, 0.04);
+      border-color: rgba(18, 120, 243, 0.3);
+      background: rgba(18, 120, 243, 0.04);
       color: c.$PHB-TEXT-1;
     }
 
     &.is-selected {
       border-color: c.$PHB-PURPLE;
-      background: rgba(107, 31, 191, 0.06);
+      background: rgba(18, 120, 243, 0.06);
       color: c.$PHB-TEXT-1;
     }
 
@@ -351,9 +351,9 @@ function evaluate() {
 .lang-toggle {
   position: absolute;
   right: 1.5rem;
-  background: rgba(107, 31, 191, 0.07);
+  background: rgba(18, 120, 243, 0.07);
   color: c.$PHB-PURPLE;
-  border: 1px solid rgba(107, 31, 191, 0.2);
+  border: 1px solid rgba(18, 120, 243, 0.2);
   border-radius: 6px;
   padding: 0.3rem 0.7rem;
   font-family: f.$font-accent;
@@ -362,7 +362,7 @@ function evaluate() {
   cursor: pointer;
   letter-spacing: 0.06em;
   transition: all 0.2s;
-  &:hover { background: rgba(107, 31, 191, 0.12); }
+  &:hover { background: rgba(18, 120, 243, 0.12); }
 }
 
 .btn {
@@ -382,7 +382,7 @@ function evaluate() {
     color: #fff;
     padding: 0.9rem 1.8rem;
     font-size: 1rem;
-    box-shadow: 0 4px 18px rgba(107, 31, 191, 0.28);
+    box-shadow: 0 4px 18px rgba(18, 120, 243, 0.28);
 
     &:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
   }

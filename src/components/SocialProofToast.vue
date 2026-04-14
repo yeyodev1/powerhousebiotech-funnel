@@ -72,8 +72,8 @@ onMounted(() => {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(107, 31, 191, 0.08);
-    border: 1px solid rgba(107, 31, 191, 0.18);
+    background: rgba(18, 120, 243, 0.08);
+    border: 1px solid rgba(18, 120, 243, 0.18);
     display: flex;
     align-items: center;
     justify-content: center;

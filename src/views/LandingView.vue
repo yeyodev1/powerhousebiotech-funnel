@@ -695,11 +695,11 @@ async function submit() {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: c.$PHB-PURPLE;
-  border: 1px solid rgba(107, 31, 191, 0.25);
+  border: 1px solid rgba(18, 120, 243, 0.25);
   border-radius: 100px;
   padding: 0.3rem 0.9rem;
   margin-bottom: 1.2rem;
-  background: rgba(107, 31, 191, 0.05);
+  background: rgba(18, 120, 243, 0.05);
 }
 
 .section-title {
@@ -741,8 +741,8 @@ async function submit() {
     color: #FFFFFF;
     padding: 0.9rem 1.8rem;
     font-size: 1rem;
-    box-shadow: 0 4px 20px rgba(107, 31, 191, 0.25);
-    &:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(107, 31, 191, 0.35); }
+    box-shadow: 0 4px 20px rgba(18, 120, 243, 0.25);
+    &:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(18, 120, 243, 0.35); }
   }
 
   &--primary-sm {
@@ -775,7 +775,7 @@ async function submit() {
   cursor: pointer;
   transition: all 0.15s;
   i { color: c.$PHB-PURPLE; font-size: 0.85rem; }
-  &:hover { background: rgba(107, 31, 191, 0.05); border-color: rgba(107, 31, 191, 0.3); color: c.$PHB-PURPLE; }
+  &:hover { background: rgba(18, 120, 243, 0.05); border-color: rgba(18, 120, 243, 0.3); color: c.$PHB-PURPLE; }
 }
 
 // ── Landing ───────────────────────────────────────────────────────────────────
@@ -790,7 +790,7 @@ async function submit() {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(245, 248, 255, 0.94);
+  background: rgba(23, 24, 70, 0.94);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid c.$PHB-BORDER;
   box-shadow: c.$PHB-SHADOW-SM;
@@ -798,8 +798,8 @@ async function submit() {
 
   // Shrink variant when user scrolls past hero
   &--scrolled {
-    background: rgba(245, 248, 255, 0.98);
-    box-shadow: 0 4px 24px rgba(0, 10, 40, 0.12);
+    background: rgba(23, 24, 70, 0.98);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 
     .navbar__inner { padding: 0.55rem 1.5rem; }
     .navbar__logo { height: 36px; }
@@ -835,12 +835,12 @@ async function submit() {
     pointer-events: none;
     &--purple {
       width: 700px; height: 700px;
-      background: rgba(107, 31, 191, 0.07);
+      background: rgba(18, 120, 243, 0.15);
       top: -250px; left: 30%; transform: translateX(-50%);
     }
     &--cyan {
       width: 400px; height: 400px;
-      background: rgba(11, 160, 200, 0.05);
+      background: rgba(33, 188, 251, 0.12);
       bottom: 0; right: 5%;
     }
   }
@@ -867,8 +867,8 @@ async function submit() {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: c.$PHB-PURPLE;
-    background: rgba(107, 31, 191, 0.06);
-    border: 1px solid rgba(107, 31, 191, 0.2);
+    background: rgba(18, 120, 243, 0.06);
+    border: 1px solid rgba(18, 120, 243, 0.2);
     border-radius: 100px;
     padding: 0.4rem 1rem;
     margin-bottom: 1.8rem;
@@ -958,8 +958,8 @@ async function submit() {
   &__visual-avatar {
     width: 42px; height: 42px;
     border-radius: 10px;
-    background: rgba(107, 31, 191, 0.1);
-    border: 1px solid rgba(107, 31, 191, 0.2);
+    background: rgba(18, 120, 243, 0.1);
+    border: 1px solid rgba(18, 120, 243, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -994,7 +994,7 @@ async function submit() {
     width: 7px; height: 7px;
     border-radius: 50%;
     background: c.$PHB-TEAL;
-    box-shadow: 0 0 0 3px rgba(0, 152, 128, 0.2);
+    box-shadow: 0 0 0 3px rgba(24, 231, 240, 0.2);
     animation: pulse 2s infinite;
   }
 
@@ -1037,8 +1037,8 @@ async function submit() {
     font-family: f.$font-accent;
     font-size: 0.7rem;
     font-weight: 700;
-    &.pct-high    { color: #CC4444; }
-    &.pct-mid     { color: #CC8800; }
+    &.pct-high    { color: #ff6b6b; }
+    &.pct-mid     { color: #ffaa33; }
     &.pct-good    { color: c.$PHB-CYAN; }
     &.pct-optimal { color: c.$PHB-TEAL; }
   }
@@ -1048,8 +1048,8 @@ async function submit() {
     gap: 0.8rem;
     align-items: center;
     padding: 1rem 1.2rem;
-    background: rgba(0, 152, 128, 0.06);
-    border: 1px solid rgba(0, 152, 128, 0.2);
+    background: rgba(24, 231, 240, 0.06);
+    border: 1px solid rgba(24, 231, 240, 0.2);
     border-radius: 10px;
     i { color: c.$PHB-TEAL; font-size: 1.3rem; flex-shrink: 0; }
   }
@@ -1088,7 +1088,7 @@ async function submit() {
   &__float-icon {
     width: 36px; height: 36px;
     border-radius: 8px;
-    background: rgba(107, 31, 191, 0.08);
+    background: rgba(18, 120, 243, 0.08);
     display: flex; align-items: center; justify-content: center;
     color: c.$PHB-PURPLE;
     font-size: 0.9rem;
@@ -1189,15 +1189,15 @@ async function submit() {
       font-family: f.$font-principal;
       font-size: 2.5rem;
       font-weight: 800;
-      color: rgba(107, 31, 191, 0.07);
+      color: rgba(18, 120, 243, 0.07);
       line-height: 1;
     }
 
     &-icon {
       width: 52px; height: 52px;
       border-radius: 12px;
-      background: rgba(107, 31, 191, 0.07);
-      border: 1px solid rgba(107, 31, 191, 0.15);
+      background: rgba(18, 120, 243, 0.07);
+      border: 1px solid rgba(18, 120, 243, 0.15);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.3rem;
       color: c.$PHB-PURPLE;
@@ -1224,7 +1224,7 @@ async function submit() {
     margin: 0 auto;
     text-align: center;
     padding: 3rem 2.5rem;
-    border: 1px solid rgba(107, 31, 191, 0.12);
+    border: 1px solid rgba(18, 120, 243, 0.12);
     border-radius: 20px;
     background: c.$PHB-SURFACE;
     box-shadow: c.$PHB-SHADOW-MD;
@@ -1251,7 +1251,7 @@ async function submit() {
   padding: 6rem 0;
   position: relative;
   overflow: hidden;
-  background: #0a0a14;
+  background: #0f1130;
 
   &__photo-bg {
     position: absolute;
@@ -1269,7 +1269,7 @@ async function submit() {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(160deg, rgba(10, 10, 20, 0.85) 0%, rgba(30, 10, 60, 0.75) 100%);
+    background: linear-gradient(160deg, rgba(15, 17, 48, 0.85) 0%, rgba(23, 24, 70, 0.75) 100%);
   }
 
   &__inner {
@@ -1309,13 +1309,13 @@ async function submit() {
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(4px);
     transition: border-color 0.15s, background 0.15s;
-    &:hover { border-color: rgba(107, 31, 191, 0.4); background: rgba(107, 31, 191, 0.08); }
+    &:hover { border-color: rgba(18, 120, 243, 0.4); background: rgba(18, 120, 243, 0.08); }
 
     &-icon {
       width: 30px;
       height: 30px;
       border-radius: 6px;
-      background: rgba(107, 31, 191, 0.2);
+      background: rgba(18, 120, 243, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1341,9 +1341,9 @@ async function submit() {
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-family: f.$font-accent; font-size: 0.72rem; font-weight: 700;
     letter-spacing: 0.15em; text-transform: uppercase;
-    color: c.$PHB-CYAN; border: 1px solid rgba(11, 160, 200, 0.3);
+    color: c.$PHB-CYAN; border: 1px solid rgba(33, 188, 251, 0.3);
     border-radius: 100px; padding: 0.3rem 1rem; margin-bottom: 1.5rem;
-    background: rgba(11, 160, 200, 0.06);
+    background: rgba(33, 188, 251, 0.06);
   }
 
   &__question { font-family: f.$font-secondary; font-size: 1.1rem; color: c.$PHB-TEXT-2; margin: 0 0 0.5rem; }
@@ -1368,13 +1368,13 @@ async function submit() {
     font-family: f.$font-secondary; font-size: 0.92rem;
     color: c.$PHB-TEXT-2; line-height: 1.5;
     transition: border-color 0.15s;
-    &:hover { border-color: rgba(11, 160, 200, 0.3); }
+    &:hover { border-color: rgba(33, 188, 251, 0.3); }
 
     &-icon {
       width: 38px; height: 38px;
       border-radius: 8px;
-      background: rgba(11, 160, 200, 0.07);
-      border: 1px solid rgba(11, 160, 200, 0.15);
+      background: rgba(33, 188, 251, 0.07);
+      border: 1px solid rgba(33, 188, 251, 0.15);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       i { color: c.$PHB-CYAN; font-size: 1rem; }
@@ -1384,11 +1384,11 @@ async function submit() {
   &__notice {
     display: flex; gap: 1rem; align-items: flex-start;
     padding: 1.2rem 1.5rem;
-    border: 1px solid rgba(200, 130, 0, 0.2);
-    border-radius: 12px; background: rgba(255, 170, 0, 0.04);
+    border: 1px solid rgba(33, 188, 251, 0.2);
+    border-radius: 12px; background: rgba(33, 188, 251, 0.04);
     font-family: f.$font-secondary; font-size: 0.9rem;
     color: c.$PHB-TEXT-2; line-height: 1.6;
-    i { color: #CC8800; font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    i { color: #ffaa33; font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
   }
 
   // Right col
@@ -1413,7 +1413,7 @@ async function submit() {
     position: absolute;
     bottom: 1rem; left: 1rem;
     display: inline-flex; align-items: center; gap: 0.5rem;
-    background: rgba(107, 31, 191, 0.85);
+    background: rgba(18, 120, 243, 0.85);
     backdrop-filter: blur(8px);
     color: #fff;
     font-family: f.$font-accent;
@@ -1457,7 +1457,7 @@ async function submit() {
   &__bullet-icon {
     width: 22px; height: 22px;
     border-radius: 50%;
-    background: rgba(0, 152, 128, 0.1);
+    background: rgba(24, 231, 240, 0.1);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
     i { color: c.$PHB-TEAL; font-size: 0.65rem; }
@@ -1535,9 +1535,9 @@ async function submit() {
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(107, 31, 191, 0.3);
+    box-shadow: 0 4px 12px rgba(18, 120, 243, 0.3);
     position: relative;
-    border: 2px solid rgba(107, 31, 191, 0.25);
+    border: 2px solid rgba(18, 120, 243, 0.25);
   }
   &__avatar-img {
     width: 100%; height: 100%;
@@ -1613,8 +1613,8 @@ async function submit() {
     &-icon {
       width: 42px; height: 42px;
       border-radius: 10px;
-      background: rgba(107, 31, 191, 0.07);
-      border: 1px solid rgba(107, 31, 191, 0.12);
+      background: rgba(18, 120, 243, 0.07);
+      border: 1px solid rgba(18, 120, 243, 0.12);
       display: flex; align-items: center; justify-content: center;
       color: c.$PHB-PURPLE;
       font-size: 1rem;
@@ -1629,8 +1629,8 @@ async function submit() {
       color: c.$PHB-TEXT-3; line-height: 1.6; margin: 0;
     }
     &-finding {
-      background: rgba(11, 160, 200, 0.04);
-      border: 1px solid rgba(11, 160, 200, 0.15);
+      background: rgba(33, 188, 251, 0.04);
+      border: 1px solid rgba(33, 188, 251, 0.15);
       border-radius: 8px; padding: 0.9rem 1rem;
       &-label {
         display: flex; align-items: center; gap: 0.4rem;
@@ -1667,7 +1667,7 @@ async function submit() {
     color: c.$PHB-TEXT-2; line-height: 1.7;
     max-width: 680px; margin: 0 auto;
     padding: 2rem 2.5rem;
-    border: 1px solid rgba(107, 31, 191, 0.15);
+    border: 1px solid rgba(18, 120, 243, 0.15);
     border-radius: 14px;
     background: c.$PHB-SURFACE;
     box-shadow: c.$PHB-SHADOW-SM;
@@ -1801,7 +1801,7 @@ async function submit() {
 
     &-num {
       font-family: f.$font-principal; font-size: 1.8rem;
-      font-weight: 800; color: rgba(107, 31, 191, 0.15);
+      font-weight: 800; color: rgba(18, 120, 243, 0.15);
       flex-shrink: 0; line-height: 1;
     }
     &-body { flex: 1; }
@@ -1833,7 +1833,7 @@ async function submit() {
     i { color: c.$PHB-PURPLE; }
     &--last {
       border-color: c.$PHB-PURPLE; color: c.$PHB-PURPLE;
-      background: rgba(107, 31, 191, 0.05);
+      background: rgba(18, 120, 243, 0.05);
       font-weight: 700;
     }
   }
@@ -1852,8 +1852,8 @@ async function submit() {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 700px 400px at 50% 0%, rgba(107, 31, 191, 0.06) 0%, transparent 70%),
-      radial-gradient(ellipse 400px 300px at 80% 100%, rgba(11, 160, 200, 0.05) 0%, transparent 60%);
+      radial-gradient(ellipse 700px 400px at 50% 0%, rgba(18, 120, 243, 0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 300px at 80% 100%, rgba(33, 188, 251, 0.10) 0%, transparent 60%);
     pointer-events: none;
   }
 
@@ -1886,15 +1886,15 @@ async function submit() {
     text-align: left;
     max-width: 620px; margin: 0 auto 4rem;
     padding: 2rem 2.5rem;
-    border: 1px solid rgba(107, 31, 191, 0.15);
+    border: 1px solid rgba(18, 120, 243, 0.15);
     border-radius: 18px; background: c.$PHB-SURFACE;
     box-shadow: c.$PHB-SHADOW-MD;
 
     &-icon {
       width: 52px; height: 52px;
       border-radius: 12px;
-      background: rgba(107, 31, 191, 0.08);
-      border: 1px solid rgba(107, 31, 191, 0.15);
+      background: rgba(18, 120, 243, 0.08);
+      border: 1px solid rgba(18, 120, 243, 0.15);
       display: flex; align-items: center; justify-content: center;
       color: c.$PHB-PURPLE; font-size: 1.2rem;
       flex-shrink: 0;
@@ -1986,7 +1986,7 @@ async function submit() {
       color: c.$PHB-TEXT-1; font-family: f.$font-secondary;
       font-size: 0.95rem; transition: border-color 0.15s; outline: none;
       &::placeholder { color: c.$PHB-TEXT-3; }
-      &:focus { border-color: c.$PHB-PURPLE; box-shadow: 0 0 0 3px rgba(107, 31, 191, 0.08); }
+      &:focus { border-color: c.$PHB-PURPLE; box-shadow: 0 0 0 3px rgba(18, 120, 243, 0.08); }
     }
     &.has-error input { border-color: #CC3333; }
   }
@@ -2067,9 +2067,9 @@ async function submit() {
     font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(107, 31, 191, 0.35);
+    box-shadow: 0 4px 20px rgba(18, 120, 243, 0.35);
     transition: all 0.2s;
-    &:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(107, 31, 191, 0.45); }
+    &:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(18, 120, 243, 0.45); }
   }
 
   &__leave {
@@ -2162,8 +2162,8 @@ async function submit() {
       font-size: 0.72rem;
     }
     &:hover {
-      border-color: rgba(107, 31, 191, 0.3);
-      background: rgba(107, 31, 191, 0.04);
+      border-color: rgba(18, 120, 243, 0.3);
+      background: rgba(18, 120, 243, 0.04);
       color: c.$PHB-TEXT-1;
     }
   }
@@ -2191,7 +2191,7 @@ async function submit() {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(11, 25, 52, 0.88) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(23, 24, 70, 0.92) 0%, transparent 100%);
   padding: 2rem 1.5rem 1.5rem;
   display: flex;
   justify-content: space-around;
@@ -2240,8 +2240,8 @@ async function submit() {
 
 // ── Animations ────────────────────────────────────────────────────────────────
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(0, 152, 128, 0.2); }
-  50%       { box-shadow: 0 0 0 6px rgba(0, 152, 128, 0.06); }
+  0%, 100% { box-shadow: 0 0 0 3px rgba(24, 231, 240, 0.2); }
+  50%       { box-shadow: 0 0 0 6px rgba(24, 231, 240, 0.06); }
 }
 
 @keyframes floatBob {

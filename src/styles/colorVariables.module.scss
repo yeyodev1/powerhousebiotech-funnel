@@ -1,29 +1,39 @@
-// ─── PowerHouse Biotech — Light mode color system ────────────────────────────
+// ─── PowerHouse Biotech — Dark mode brand color system ───────────────────────
+// Based on Brand Guidelines: 60-30-10 rule
+// 60% → #171846 (dark navy) — backgrounds, main elements
+// 30% → #21bcfb (cyan) — icons, secondary elements
+// 10% → #1278f3 (blue) — CTAs, details
+// Accent → #18e7f0 (light cyan)
 
 // ── Page surfaces ─────────────────────────────────────────────────────────────
-$PHB-BG:         #F5F8FF;   // page background
-$PHB-BG-ALT:     #EBF0FB;   // alternate section bg
-$PHB-SURFACE:    #FFFFFF;   // card / modal surface
-$PHB-SURFACE-2:  #F0F4FF;   // subtle inner surface
+$PHB-BG:         #171846;   // dark navy page background (60%)
+$PHB-BG-ALT:     #1a1d52;   // alternate section bg (slightly lighter)
+$PHB-SURFACE:    #1e2260;   // card / modal surface
+$PHB-SURFACE-2:  #232770;   // subtle inner surface
 
 // ── Brand colors ──────────────────────────────────────────────────────────────
-$PHB-PURPLE:       #6B1FBF;   // brand purple (adjusted for light bg)
-$PHB-PURPLE-LIGHT: #8B40E0;   // lighter purple for hovers / accents
-$PHB-CYAN:         #0BA0C8;   // brand cyan (darker for contrast on white)
-$PHB-TEAL:         #009880;   // success / confirmed green-teal
-$PHB-PRIMARY:      $PHB-CYAN;
+$PHB-BLUE:         #1278f3;   // brand blue — CTAs (10%)
+$PHB-BLUE-LIGHT:   #3a92ff;   // lighter blue for hovers
+$PHB-CYAN:         #21bcfb;   // brand cyan — icons, secondary (30%)
+$PHB-ACCENT:       #18e7f0;   // light cyan accent
+$PHB-TEAL:         #18e7f0;   // success / confirmed (maps to accent)
+$PHB-PRIMARY:      $PHB-BLUE;
+
+// Legacy compat: old $PHB-PURPLE references now map to $PHB-BLUE
+$PHB-PURPLE:       $PHB-BLUE;
+$PHB-PURPLE-LIGHT: $PHB-BLUE-LIGHT;
 
 // ── Text ──────────────────────────────────────────────────────────────────────
-$PHB-TEXT-1:  #0B1934;   // headings
-$PHB-TEXT-2:  #3D5070;   // body text
-$PHB-TEXT-3:  #7A8BA5;   // muted / placeholders
+$PHB-TEXT-1:  #FFFFFF;                    // headings (white on dark)
+$PHB-TEXT-2:  rgba(255, 255, 255, 0.75);  // body text
+$PHB-TEXT-3:  rgba(255, 255, 255, 0.50);  // muted / placeholders
 
 // ── Borders & shadows ─────────────────────────────────────────────────────────
-$PHB-BORDER:        rgba(30, 60, 120, 0.12);
-$PHB-BORDER-MEDIUM: rgba(30, 60, 120, 0.18);
-$PHB-SHADOW-XS: 0 1px 4px rgba(0, 10, 40, 0.06);
-$PHB-SHADOW-SM: 0 2px 14px rgba(0, 10, 40, 0.08);
-$PHB-SHADOW-MD: 0 6px 32px rgba(0, 10, 40, 0.12);
+$PHB-BORDER:        rgba(33, 188, 251, 0.12);
+$PHB-BORDER-MEDIUM: rgba(33, 188, 251, 0.22);
+$PHB-SHADOW-XS: 0 1px 4px rgba(0, 0, 0, 0.20);
+$PHB-SHADOW-SM: 0 2px 14px rgba(0, 0, 0, 0.25);
+$PHB-SHADOW-MD: 0 6px 32px rgba(0, 0, 0, 0.35);
 
 // ── Legacy compat (used in Bakano components) ─────────────────────────────────
 $BAKANO-PINK:   #e6285c;
@@ -39,7 +49,7 @@ $gray-500:   #adb5bd;
 $gray-600:   #6c757d;
 $gray-800:   #343a40;
 
-// Keep old dark names mapping to new light values for backward compat
+// Keep old dark names mapping to new dark values for backward compat
 $PHB-DARK:         $PHB-BG;
 $PHB-NAVY:         $PHB-BG-ALT;
 $PHB-CARD:         $PHB-SURFACE;

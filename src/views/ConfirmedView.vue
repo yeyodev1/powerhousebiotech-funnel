@@ -194,8 +194,8 @@ const firstName = computed(() => contactStore.contact.nombre.split(' ')[0] || ''
       width: 44px;
       height: 44px;
       border-radius: 10px;
-      background: rgba(107, 31, 191, 0.07);
-      border: 1px solid rgba(107, 31, 191, 0.12);
+      background: rgba(18, 120, 243, 0.07);
+      border: 1px solid rgba(18, 120, 243, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -226,9 +226,9 @@ const firstName = computed(() => contactStore.contact.nombre.split(' ')[0] || ''
     gap: 1rem;
     align-items: flex-start;
     padding: 1.5rem 2rem;
-    border: 1px solid rgba(107, 31, 191, 0.15);
+    border: 1px solid rgba(18, 120, 243, 0.15);
     border-radius: 12px;
-    background: rgba(107, 31, 191, 0.04);
+    background: rgba(18, 120, 243, 0.04);
 
     i { color: c.$PHB-PURPLE; font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
 
@@ -276,9 +276,9 @@ const firstName = computed(() => contactStore.contact.nombre.split(' ')[0] || ''
 .lang-toggle {
   position: absolute;
   right: 1.5rem;
-  background: rgba(107, 31, 191, 0.07);
+  background: rgba(18, 120, 243, 0.07);
   color: c.$PHB-PURPLE;
-  border: 1px solid rgba(107, 31, 191, 0.2);
+  border: 1px solid rgba(18, 120, 243, 0.2);
   border-radius: 6px;
   padding: 0.3rem 0.7rem;
   font-family: f.$font-accent;
@@ -287,6 +287,6 @@ const firstName = computed(() => contactStore.contact.nombre.split(' ')[0] || ''
   cursor: pointer;
   letter-spacing: 0.06em;
   transition: all 0.2s;
-  &:hover { background: rgba(107, 31, 191, 0.12); }
+  &:hover { background: rgba(18, 120, 243, 0.12); }
 }
 </style>
