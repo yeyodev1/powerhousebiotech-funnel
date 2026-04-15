@@ -125,57 +125,42 @@ function initScrollAnimations() {
   const track = document.querySelector('.funnel__showcase-track')
   if (!track) return
 
-  const isMobile = window.innerWidth < 769
+  // Same effect on all screen sizes — CSS sticky handles the lock
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.funnel__showcase-track',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 0.8,
+    },
+    defaults: { ease: 'none' },
+  })
 
-  if (!isMobile) {
-    // CSS sticky keeps showcase fixed — GSAP just maps scroll → animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.funnel__showcase-track',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-      },
-      defaults: { ease: 'none' },
-    })
-
-    tl
-      // Hold on slide 1
-      .to({}, { duration: 1 })
-      // Slide 1 → 2
-      .to('.showcase__slide--1', { opacity: 0, yPercent: -20, duration: 1 })
-      .to('.showcase__bg--2', { opacity: 1, duration: 1 }, '<')
-      .to('.showcase__progress--1', { opacity: 0.3, duration: 0.5 }, '<')
-      .to('.showcase__progress--2', { opacity: 1, duration: 0.5 }, '<')
-      .fromTo('.showcase__slide--2',
-        { opacity: 0, yPercent: 20 },
-        { opacity: 1, yPercent: 0, duration: 0.8 },
-        '<0.2')
-      // Hold on slide 2
-      .to({}, { duration: 1 })
-      // Slide 2 → 3
-      .to('.showcase__slide--2', { opacity: 0, yPercent: -20, duration: 1 })
-      .to('.showcase__bg--3', { opacity: 1, duration: 1 }, '<')
-      .to('.showcase__progress--2', { opacity: 0.3, duration: 0.5 }, '<')
-      .to('.showcase__progress--3', { opacity: 1, duration: 0.5 }, '<')
-      .fromTo('.showcase__slide--3',
-        { opacity: 0, yPercent: 20 },
-        { opacity: 1, yPercent: 0, duration: 0.8 },
-        '<0.2')
-      // Hold on slide 3
-      .to({}, { duration: 1 })
-  } else {
-    gsap.utils.toArray<Element>('.showcase__slide').forEach(el => {
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top 85%',
-        once: true,
-        onEnter: () => {
-          gsap.from(el, { opacity: 0, y: 40, duration: 0.7, ease: 'power2.out' })
-        },
-      })
-    })
-  }
+  tl
+    // Hold on slide 1
+    .to({}, { duration: 1 })
+    // Slide 1 → 2
+    .to('.showcase__slide--1', { opacity: 0, yPercent: -20, duration: 1 })
+    .to('.showcase__bg--2', { opacity: 1, duration: 1 }, '<')
+    .to('.showcase__progress--1', { opacity: 0.3, duration: 0.5 }, '<')
+    .to('.showcase__progress--2', { opacity: 1, duration: 0.5 }, '<')
+    .fromTo('.showcase__slide--2',
+      { opacity: 0, yPercent: 20 },
+      { opacity: 1, yPercent: 0, duration: 0.8 },
+      '<0.2')
+    // Hold on slide 2
+    .to({}, { duration: 1 })
+    // Slide 2 → 3
+    .to('.showcase__slide--2', { opacity: 0, yPercent: -20, duration: 1 })
+    .to('.showcase__bg--3', { opacity: 1, duration: 1 }, '<')
+    .to('.showcase__progress--2', { opacity: 0.3, duration: 0.5 }, '<')
+    .to('.showcase__progress--3', { opacity: 1, duration: 0.5 }, '<')
+    .fromTo('.showcase__slide--3',
+      { opacity: 0, yPercent: 20 },
+      { opacity: 1, yPercent: 0, duration: 0.8 },
+      '<0.2')
+    // Hold on slide 3
+    .to({}, { duration: 1 })
 
   ScrollTrigger.refresh()
 }
@@ -1341,40 +1326,39 @@ $text-body: rgba(255, 255, 255, 0.72);
   &--2, &--3 { opacity: 0.3; }
 }
 
-// Mobile — stacked slides, no sticky
-@media (max-width: 768px) {
+// Mobile — same sticky effect, compact layout
+@media (max-width: 600px) {
   .funnel__showcase-track {
-    height: auto;
-  }
-
-  .funnel__showcase {
-    position: relative;
-    height: auto;
-    min-height: unset;
+    height: 380vh; // slightly shorter on mobile — faster to scroll through
   }
 
   .showcase__slide {
-    position: relative;
-    inset: unset;
-    opacity: 1 !important;
-    transform: none !important;
-    padding: 64px 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-
-    &--3 { border-bottom: none; }
+    padding: 32px 20px;
+    justify-content: center;
   }
 
-  .showcase__bg--2,
-  .showcase__bg--3 {
-    display: none;
+  .showcase__heading {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+    margin-bottom: 16px;
+
+    br { display: none; }
   }
 
-  .showcase__bg--1 {
-    opacity: 0.4;
+  .showcase__body {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .showcase__stat-card {
+    padding: 14px 24px;
+
+    strong { font-size: 1.6rem; }
+    span { font-size: 0.74rem; }
   }
 
   .showcase__progress-wrap {
-    display: none;
+    bottom: 20px;
   }
 }
 </style>
