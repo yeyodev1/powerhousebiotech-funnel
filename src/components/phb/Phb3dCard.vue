@@ -10,6 +10,8 @@ const props = defineProps({
 
 const containerRef = ref<HTMLElement | null>(null)
 const isHovered = ref(false)
+const rotateX = ref(0)
+const rotateY = ref(0)
 const mouseX = ref(0)
 const mouseY = ref(0)
 
