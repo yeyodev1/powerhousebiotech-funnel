@@ -127,17 +127,13 @@ onMounted(() => {
   <section class="phb-team" ref="containerRef">
     <div class="phb-team__wrapper">
       
-      <!-- Static Header -->
-      <div class="phb-team__header">
+      <!-- Immersive Header Overlay -->
+      <header class="phb-team__header">
         <div class="phb-team__header-content">
-          <div class="phb-team__label">Criterio Clínico —</div>
+          <span class="phb-team__label">Criterio Clínico —</span>
           <h2 class="phb-team__main-title">Expertos en Decisiones de Salud</h2>
-          <p class="phb-team__main-desc">
-            Somos la primera <b>Health Decision Platform</b> enfocada en Medicina Regenerativa. 
-            Nuestros especialistas no solo aplican tratamientos; analizan tu biología profunda para determinar si tu cuerpo realmente puede mejorar.
-          </p>
         </div>
-      </div>
+      </header>
 
       <!-- Slides Container -->
       <div class="phb-team__slides" ref="slideContainerRef">
@@ -210,11 +206,18 @@ onMounted(() => {
   }
 
   &__header {
-    z-index: 10;
-    margin-bottom: 2rem;
+    position: absolute;
+    top: 4rem;
+    left: 2rem;
+    z-index: 100;
+
+    @media (min-width: 1024px) {
+      left: 6rem;
+      top: 6rem;
+    }
 
     &-content {
-      max-width: 600px;
+      max-width: 800px;
     }
   }
 
@@ -229,24 +232,18 @@ onMounted(() => {
   }
 
   &__main-title {
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
     font-weight: 300;
     line-height: 1.1;
-    margin-bottom: 1.5rem;
-  }
-
-  &__main-desc {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: 300;
+    color: var(--phb-cyan, #21bcfa);
+    text-shadow: 0 0 30px rgba(33, 188, 250, 0.2);
   }
 
   &__slides {
     flex: 1;
     position: relative;
     width: 100%;
-    margin-top: 2rem;
+    height: 100%;
   }
 
   .phb-team-slide {
@@ -264,12 +261,12 @@ onMounted(() => {
       gap: 2rem;
       width: 100%;
       height: 100%;
-      padding-top: 10vh; // Space from header
+      padding-top: 15vh; // Leave space for overlay header
 
       @media (min-width: 1024px) {
         flex-direction: row;
         align-items: center;
-        gap: 6rem;
+        gap: 8rem;
         padding-top: 0;
       }
     }
