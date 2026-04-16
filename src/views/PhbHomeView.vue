@@ -2,11 +2,11 @@
   <div class="phb-home">
     <PhbNav />
     <PhbHero />
+    <PhbExpectations />
     <!-- New SHA-inspired sections -->
     <ShaKpiSection />
     <PhbScience />
     <PhbPrograms />
-    <PhbExpectations />
     <!-- End new sections -->
     <PhbCta />
     <PhbFooter />
