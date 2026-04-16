@@ -8,6 +8,7 @@
     <PhbScience />
     <PhbTeam />
     <PhbPrograms />
+    <PhbCases />
     <!-- End new sections -->
     <PhbCta />
     <PhbFooter />
@@ -28,6 +29,7 @@ import ShaKpiSection from '@/components/sha/ShaKpiSection.vue'
 import PhbScience from '@/components/phb/PhbScience.vue'
 import PhbTeam from '@/components/phb/PhbTeam.vue'
 import PhbPrograms from '@/components/phb/PhbPrograms.vue'
+import PhbCases from '@/components/phb/PhbCases.vue'
 import PhbExpectations from '@/components/phb/PhbExpectations.vue'
 import PhbCta from '@/components/phb/PhbCta.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
