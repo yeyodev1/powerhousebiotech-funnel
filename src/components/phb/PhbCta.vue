@@ -7,57 +7,48 @@
         <div class="phb-cta__copy" data-aos="fade-up">
           <div class="phb-line-title phb-line-title--light">
             <span class="phb-line-title__line"></span>
-            El cierre
+            {{ t.close.lineTitle }}
           </div>
           <h2 class="phb-cta__heading">
-            Puedes seguir intentando…<br>
-            <em>o puedes empezar a entender.</em>
+            {{ t.close.title }} <em>{{ t.close.titleAccent }}</em>
           </h2>
           <p class="phb-cta__body">
-            Miles de dólares se invierten cada año en terapias sin resultados.
-            La mayoría prueba múltiples opciones antes de encontrar una que funcione.
+            {{ t.close.body }}
           </p>
 
           <div class="phb-cta__pains">
-            <div class="phb-cta__pain" v-for="pain in pains" :key="pain">
+            <div class="phb-cta__pain" v-for="(pain, index) in t.close.pains" :key="index">
               <span class="phb-cta__pain-x">&#10006;</span>
               {{ pain }}
             </div>
           </div>
 
-          <p class="phb-cta__measurement">
-            Lo que no se mide…<br>
-            <strong>no se puede regenerar.</strong>
-          </p>
+          <p class="phb-cta__measurement" v-html="t.close.measurement"></p>
         </div>
 
         <!-- Right: CTA card -->
         <div class="phb-cta__card" data-aos="fade-up" data-aos-delay="150">
           <div class="phb-cta__card-badge">
-            Modelo de admisión selectivo
+            {{ t.close.badge }}
           </div>
-          <p class="phb-cta__card-desc">
-            No todos los pacientes son aceptados.<br>
-            Seleccionamos aproximadamente <strong>solo el 20%.</strong>
-          </p>
+          <p class="phb-cta__card-desc" v-html="t.close.cardDesc"></p>
 
           <div class="phb-cta__card-benefits">
-            <div v-for="b in benefits" :key="b" class="phb-cta__benefit">
+            <div v-for="(b, index) in t.close.benefits" :key="index" class="phb-cta__benefit">
               <span class="phb-cta__benefit-check">&#10003;</span>
               {{ b }}
             </div>
           </div>
 
           <a href="#" class="phb-cta__btn-primary">
-            &#128073; Agendar Evaluación de Viabilidad Regenerativa™
+            {{ t.close.cta }}
           </a>
           <a href="#" class="phb-cta__btn-secondary">
-            Hablar con un asesor ahora
+            {{ t.close.ctaSecondary }}
           </a>
 
           <p class="phb-cta__microcopy">
-            Somos una plataforma que prioriza criterio clínico sobre volumen.
-            Solo aceptamos pacientes cuando existe una probabilidad real de respuesta.
+            {{ t.close.microcopy }}
           </p>
         </div>
       </div>
@@ -67,17 +58,8 @@
 </template>
 
 <script setup lang="ts">
-const pains = [
-  'Dinero invertido en terapias que no funcionan.',
-  'Decisiones basadas en prueba y error.',
-  'Desgaste físico y emocional acumulado.',
-]
-
-const benefits = [
-  'Trabajar solo con casos viables.',
-  'Maximizar resultados.',
-  'Evitar intervenciones innecesarias.',
-]
+import { useLocale } from '@/composables/useLocale'
+const { t } = useLocale()
 </script>
 
 <style lang="scss" scoped>

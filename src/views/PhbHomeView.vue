@@ -2,6 +2,7 @@
   <div class="phb-home">
     <PhbNav />
     <PhbHero />
+    <PhbAbout />
     <PhbExpectations />
     <!-- New SHA-inspired sections -->
     <ShaKpiSection />
@@ -25,6 +26,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import PhbNav from '@/components/phb/PhbNav.vue'
 import PhbHero from '@/components/phb/PhbHero.vue'
+import PhbAbout from '@/components/phb/PhbAbout.vue'
 import ShaKpiSection from '@/components/sha/ShaKpiSection.vue'
 import PhbScience from '@/components/phb/PhbScience.vue'
 import PhbTeam from '@/components/phb/PhbTeam.vue'

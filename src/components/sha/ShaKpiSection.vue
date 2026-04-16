@@ -3,16 +3,11 @@ import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import PhbEncryptedText from '../phb/PhbEncryptedText.vue'
+import { useLocale } from '@/composables/useLocale'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const stats = [
-  { val: '50%', label: 'CRONICIDAD', text: 'De adultos +45 años viven con patologías crónicas no resueltas.' },
-  { val: '60%', text: 'De la población sufre de múltiples focos de malestar persistente.' },
-  { val: '70%', text: 'De casos clínicos no encuentran solución en la medicina reactiva.' },
-  { val: '20%', label: 'ADMISIÓN', text: 'Es nuestra tasa de aceptación para asegurar viabilidad real.' }
-]
-
+const { t } = useLocale()
 const sectionRef = ref<HTMLElement | null>(null)
 const bgRef = ref<HTMLElement | null>(null)
 
@@ -79,12 +74,12 @@ onMounted(() => {
         <div class="sha-kpi__content">
           <header class="sha-kpi__header">
             <h2 class="sha-kpi__quote">
-              La medicina reactiva ha fallado. <span>Es hora de la precisión biológica.</span>
+              {{ t.shaKpi.quote }} <span>{{ t.shaKpi.quoteAccent }}</span>
             </h2>
           </header>
 
           <div class="sha-kpi__stats-grid">
-            <div v-for="(stat, index) in stats" :key="index" class="sha-kpi-stat">
+            <div v-for="(stat, index) in t.shaKpi.stats" :key="index" class="sha-kpi-stat">
               <div class="sha-kpi-stat__wrap">
                 <h3 class="sha-kpi-stat__val">
                   <PhbEncryptedText 
@@ -100,7 +95,7 @@ onMounted(() => {
           </div>
 
           <footer class="sha-kpi__footer">
-            <p>Datos analizados sobre una base de +100,000 casos clínicos globales.</p>
+            <p>{{ t.shaKpi.footer }}</p>
           </footer>
         </div>
       </div>

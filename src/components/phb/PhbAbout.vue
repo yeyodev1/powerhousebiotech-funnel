@@ -7,31 +7,23 @@
         <div class="phb-about__left" data-aos="fade-up">
           <div class="phb-line-title">
             <span class="phb-line-title__line"></span>
-            Quiénes somos
+            {{ t.about.label }}
           </div>
-          <h2 class="phb-about__heading">
-            Somos la primera<br>
-            <em>Health Decision Platform</em><br>
-            enfocada en Medicina Regenerativa.
-          </h2>
-          <p class="phb-about__body">
-            Durante más de 15 años, hemos analizado <strong>+100,000 casos clínicos</strong>
-            y aprendido una verdad incómoda:
-          </p>
+          <h2 class="phb-about__heading" v-html="t.about.heading"></h2>
+          <p class="phb-about__body" v-html="t.about.body1"></p>
           <p class="phb-about__truth">
-            No todos los cuerpos están listos para Regenerarse.
+            {{ t.about.truth }}
           </p>
           <p class="phb-about__body phb-about__body--small">
-            Y esto es algo que el 90% de los doctores que no tienen nuestra
-            misma experiencia, ignoran por completo.
+            {{ t.about.body2 }}
           </p>
         </div>
 
         <!-- Right: bullets -->
         <div class="phb-about__right" data-aos="fade-up" data-aos-delay="150">
-          <div class="phb-about__bullets-label">Lo que hacemos por ti</div>
+          <div class="phb-about__bullets-label">{{ t.about.bulletsLabel }}</div>
           <ul class="phb-about__bullets">
-            <li v-for="bullet in bullets" :key="bullet">
+            <li v-for="bullet in t.about.bullets" :key="bullet">
               <span class="phb-about__bullet-icon">
                 <svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
@@ -40,7 +32,7 @@
           </ul>
 
           <a href="#cta" class="phb-btn">
-            Descubre hoy si tu cuerpo está listo
+            {{ t.about.cta }}
             <svg viewBox="0 0 20 20" fill="none" class="phb-btn__arrow"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -64,13 +56,8 @@
 </template>
 
 <script setup lang="ts">
-const bullets = [
-  'Evaluamos si todavía tu cuerpo puede repararse o ya es demasiado tarde.',
-  'Te explicamos a detalle el nivel de gravedad que dicen tus estudios de laboratorio.',
-  'Unimos las piezas y te explicamos los resultados para que puedas entender tu cuerpo con precisión.',
-  'Identificamos por qué no estás mejorando a pesar de seguir las indicaciones del médico.',
-  'Te guiamos en las siguientes decisiones que te acerquen más rápido a sentirte bien, libre del dolor y la preocupación.',
-]
+import { useLocale } from '@/composables/useLocale'
+const { t } = useLocale()
 </script>
 
 <style lang="scss" scoped>

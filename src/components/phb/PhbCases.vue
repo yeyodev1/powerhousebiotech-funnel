@@ -2,57 +2,23 @@
 import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLocale } from '@/composables/useLocale'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const { t, locale } = useLocale()
 const sectionRef = ref<HTMLElement | null>(null)
 const scrollContainerRef = ref<HTMLElement | null>(null)
 const bgRef = ref<HTMLElement | null>(null)
 
-const cases = [
-  {
-    id: '01',
-    outcome: 'ÉXITO TOTAL',
-    category: 'Caso de Éxito',
-    title: 'PATOLOGÍA: FATIGA CRÓNICA',
-    subtitle: 'Mujer 42 años | Evolución 7 años',
-    context: 'Había probado múltiples terapias sin éxito durante años. Su cuerpo no respondía a tratamientos regenerativos.',
-    analysis: 'Evaluación de Viabilidad detectó inflamación sistémica elevada y disfunción metabólica severa.',
-    strategy: 'Protocolo de Preparación Biológica™ obligatorio antes de cualquier intervención.',
-    result: 'Recuperación progresiva de energía en 21 días y normalización de biomarcadores.',
-    image: 'https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    accent: '#21bcfa',
-    isRejected: false
-  },
-  {
-    id: '02',
-    outcome: 'ÉXITO TOTAL',
-    category: 'Caso de Éxito',
-    title: 'PATOLOGÍA: DOLOR ARTICULAR',
-    subtitle: 'Hombre 55 años | Candidato a Cirugía',
-    context: 'Paciente buscaba terapia celular inmediata tras múltiples fallas en medicina convencional.',
-    analysis: 'Se identificó que el ambiente celular era hostil para la regeneración en ese momento.',
-    strategy: 'Recalibración del terreno celular para asegurar la tasa de éxito del tratamiento.',
-    result: 'Reducción de dolor sin cirugía inicial y éxito total en la aplicación posterior.',
-    image: 'https://images.pexels.com/photos/8442436/pexels-photo-8442436.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    accent: '#1278f3',
-    isRejected: false
-  },
-  {
-    id: '03',
-    outcome: 'REDIRECCIÓN',
-    category: 'Criterio de Selección',
-    title: 'CRITERIO: PACIENTE RECHAZADO',
-    subtitle: 'Ética Clínica sobre Volumen',
-    context: 'Paciente con alta expectativa de mejoría pero con un estado biológico irreversible.',
-    analysis: 'Evaluación Técnica indicó una probabilidad de respuesta menor al 10%.',
-    strategy: 'No se recomendó tratamiento. Se evitó inversión innecesaria en falsas esperanzas.',
-    result: 'Se redirigió al paciente a cuidados paliativos más adecuados para su caso real.',
-    image: 'https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=1200',
-    accent: '#adb5bd',
-    isRejected: true
-  }
+// Define images and accent colors separately as they are part of the design system
+const caseImages = [
+  'https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/8442436/pexels-photo-8442436.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=1200'
 ]
+
+const caseAccents = ['#21bcfa', '#1278f3', '#adb5bd']
 
 onMounted(() => {
   if (!sectionRef.value || !scrollContainerRef.value) return
@@ -159,15 +125,15 @@ onMounted(() => {
       
       <!-- Fixed Header -->
       <div class="phb-cases__header">
-        <span class="phb-cases__label phb-case-card__reveal">PRUEBA SOCIAL —</span>
-        <h2 class="phb-cases__title phb-case-card__reveal">Cuando se decide bien… <br>los resultados dejan de ser suerte</h2>
+        <span class="phb-cases__label phb-case-card__reveal">{{ t.proof.label }}</span>
+        <h2 class="phb-cases__title phb-case-card__reveal" v-html="t.proof.title.replace('…', '…<br>')"></h2>
       </div>
 
       <!-- Horizontal Motion Area -->
       <div class="phb-cases__scroll-row" ref="scrollContainerRef">
         
         <div 
-          v-for="(item, index) in cases" 
+          v-for="(item, index) in t.proof.cases" 
           :key="item.id" 
           class="phb-case-card"
           :class="{ 'is-rejected': item.isRejected }"
@@ -180,7 +146,7 @@ onMounted(() => {
             <div class="phb-case-card__body">
               <div class="phb-case-card__left">
                   <div class="phb-case-card__image-container">
-                    <img :src="item.image" :alt="item.title" class="phb-case-card__image" />
+                    <img :src="caseImages[index]" :alt="item.title" class="phb-case-card__image" />
                     <div class="phb-case-card__img-overlay"></div>
                     <div class="phb-case-card__outcome-header">
                        <span class="phb-case-card__outcome-label">{{ item.outcome }}</span>
@@ -195,23 +161,23 @@ onMounted(() => {
                     
                     <div class="phb-case-card__details">
                       <div class="phb-case-card__stat">
-                        <span class="phb-case-card__s-label">Situación Crítica</span>
+                        <span class="phb-case-card__s-label">{{ locale === 'es' ? 'Situación Crítica' : 'Critical Situation' }}</span>
                         <p class="phb-case-card__s-value">{{ item.context }}</p>
                       </div>
                       <div class="phb-case-card__stat">
-                        <span class="phb-case-card__s-label">Evaluación DECIDE™</span>
+                        <span class="phb-case-card__s-label">{{ locale === 'es' ? 'Evaluación DECIDE™' : 'DECIDE™ Evaluation' }}</span>
                         <p class="phb-case-card__s-value">{{ item.analysis }}</p>
                       </div>
                       <div class="phb-case-card__stat">
-                        <span class="phb-case-card__s-label">Protocolo Aplicado</span>
+                        <span class="phb-case-card__s-label">{{ locale === 'es' ? 'Protocolo Aplicado' : 'Applied Protocol' }}</span>
                         <p class="phb-case-card__s-value">{{ item.strategy }}</p>
                       </div>
                     </div>
 
-                    <div class="phb-case-card__result" :style="{ '--accent': item.accent }">
+                    <div class="phb-case-card__result" :style="{ '--accent': caseAccents[index] }">
                         <div class="phb-case-card__indicator"></div>
                         <div class="phb-case-card__r-content">
-                           <span class="phb-case-card__r-label">Respuesta Regenerativa</span>
+                           <span class="phb-case-card__r-label">{{ locale === 'es' ? 'Respuesta Regenerativa' : 'Regenerative Response' }}</span>
                            <p class="phb-case-card__r-text">{{ item.result }}</p>
                         </div>
                     </div>
@@ -225,10 +191,10 @@ onMounted(() => {
         <!-- Ending Slide -->
         <div class="phb-case-card phb-case-card--final">
             <div class="phb-case-card__reveal">
-              <h2 class="phb-case-final__h2">No todos los cuerpos están listos para regenerarse.</h2>
-              <p class="phb-case-final__p">E iniciar un tratamiento sin saber esto es perder tu tiempo, dinero y salud. Nosotros nos aseguramos primero.</p>
+              <h2 class="phb-case-final__h2">{{ t.proof.final.title }}</h2>
+              <p class="phb-case-final__p">{{ t.proof.final.desc }}</p>
               <div class="phb-case-final__cta-wrap">
-                  <span class="phb-case-final__badge">MÉTODO DECIDE™</span>
+                  <span class="phb-case-final__badge">{{ t.proof.final.badge }}</span>
               </div>
             </div>
         </div>
@@ -241,7 +207,7 @@ onMounted(() => {
             <div class="phb-cases__progress-fill"></div>
          </div>
          <div class="phb-cases__scroll-hint">
-            SCROLL PARA EXPLORAR <i class="fa-solid fa-arrow-right-long"></i>
+            {{ t.proof.footerHint }} <i class="fa-solid fa-arrow-right-long"></i>
          </div>
       </div>
 

@@ -1,3 +1,10 @@
+<script setup lang="ts">
+import { useLocale } from '@/composables/useLocale'
+
+const { t } = useLocale()
+const year = new Date().getFullYear()
+</script>
+
 <template>
   <footer class="phb-footer">
     <div class="phb-container">
@@ -8,33 +15,28 @@
             <span class="phb-footer__logo-text">PowerHouse Biotech</span>
           </div>
           <p class="phb-footer__tagline">
-            La primera Health Decision Platform<br>enfocada en Medicina Regenerativa.
+            {{ t.footer.tagline }}
           </p>
         </div>
 
         <div class="phb-footer__links">
-          <a href="/politicas-privacidad" class="phb-footer__link">Política de Privacidad</a>
-          <a href="/aviso-legal" class="phb-footer__link">Aviso Legal</a>
-          <a href="#cta" class="phb-footer__link">Contacto</a>
+          <a href="/politicas-privacidad" class="phb-footer__link">{{ t.footer.privacy }}</a>
+          <a href="/aviso-legal" class="phb-footer__link">{{ t.footer.legal }}</a>
+          <a href="#cta" class="phb-footer__link">{{ t.footer.contact }}</a>
         </div>
       </div>
 
       <div class="phb-footer__bottom">
         <p class="phb-footer__copy">
-          © {{ year }} PowerHouse Biotech · NEGOCIOS DEL PACIFICO · Todos los derechos reservados.
+          © {{ year }} PowerHouse Biotech · NEGOCIOS DEL PACIFICO · {{ t.footer.rights }}
         </p>
         <p class="phb-footer__disclaimer">
-          Esta plataforma no reemplaza la consulta médica. La Evaluación de Viabilidad Regenerativa™
-          es un servicio de orientación clínica previo a cualquier tratamiento.
+          {{ t.footer.disclaimer }}
         </p>
       </div>
     </div>
   </footer>
 </template>
-
-<script setup lang="ts">
-const year = new Date().getFullYear()
-</script>
 
 <style lang="scss" scoped>
 .phb-footer {

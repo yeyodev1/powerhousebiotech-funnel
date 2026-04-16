@@ -1,140 +1,238 @@
-import type { PhbTranslation } from './es'
-
-export const en: PhbTranslation = {
+export const en = {
   nav: {
-    cta: 'Schedule Assessment',
+    cta: 'Schedule Evaluation',
+    menu: {
+      about: 'About Us',
+      method: 'Method',
+      science: 'Science',
+      team: 'Team',
+      cases: 'Cases',
+    }
   },
   hero: {
     badge: 'Health Decision Platform · Regenerative Medicine',
-    title1: 'You can receive the best treatment in the world…',
-    title2: 'and still see no improvement.',
-    sub: 'Because it\'s not about the treatment.',
-    sub2: 'It\'s about your body\'s inability to use it.',
-    intro: 'We are the first Health Decision Platform focused on Regenerative Medicine. For over 15 years, we have analyzed',
-    introHighlight: '+100,000 clinical cases',
-    introTruth: 'and learned an uncomfortable truth: Not every body is ready to Regenerate.',
-    stats: [
-      { value: '+15', label: 'Years leading regenerative medicine in LATAM' },
-      { value: '+100K', label: 'Clinical cases analyzed' },
-      { value: '+5M', label: 'People educated' },
-      { value: '20%', label: 'Of applicants are accepted' },
-    ],
-    cta: 'Discover if your body can improve',
-    disclaimer: 'Free access · First 100 people only · 20% acceptance rate',
-  },
-  problem: {
-    label: 'The real problem',
-    title: 'Your body isn\'t failing from lack of treatments…',
-    titleAccent: 'It\'s failing because no one has explained what\'s really happening.',
-    sub: 'Because the medical system is designed to treat parts, not understand the full picture.',
-    cards: [
-      { title: 'Results without interpretation', desc: 'You receive test results… but no one explains what they all mean together.' },
-      { title: 'Actions without direction', desc: 'You try treatments, supplements or therapies… without a clear strategy.' },
-      { title: 'The body doesn\'t respond', desc: 'Not because it doesn\'t work… but because it\'s not ready to receive the therapy.' },
-    ],
-    truthLabel: 'The uncomfortable truth',
-    truthText: 'You go from doctor to doctor… from treatment to treatment… without a framework connecting it all.',
-    truthKey: 'The problem isn\'t what you\'re doing…',
-    truthKey2: 'it\'s that you\'re acting without understanding your biology.',
-    truthClose: 'And until you understand that… you\'ll keep trying… without seeing results.',
-  },
-  data: {
-    label: 'The numbers don\'t lie',
-    title: 'The reality of today\'s medical system',
-    points: [
-      'More than 50% of adults over 45 live with at least one chronic disease',
-      '6 out of 10 people have more than one condition causing them discomfort',
-      'Up to 70% of conventional treatments fail to achieve expected results',
-      'The conventional medical system is fragmented: each specialist sees one part',
-      'Most treatments focus on symptoms, not resolving root causes',
-      'Many doctors work with outdated information and protocols',
-      'The average consultation time is insufficient to understand a full case',
-      'The industry prioritizes standardization and volume, not biological personalization',
-      'No evaluation is done to see if the body is ready before intervening',
-      'The body\'s real response capacity is not measured before acting',
-    ],
-  },
-  solution: {
-    badge: 'Our exclusive solution',
-    title: 'We created the',
-    titleAccent: 'Regenerative Viability Assessment™',
-    question: 'An approach designed to answer one single question:',
-    bigQ: 'Can your body really improve… or not?',
-    pillars: [
-      'Honest and transparent evaluation of your current health status',
-      'Biomarker interpretation with clinical criteria',
-      'Regenerative guidance before suggesting any treatment',
-    ],
-    notice: 'This is not for everyone. We open free access to the first 100 people to identify cases that can truly benefit. We only accept 20% of the cases we receive.',
-    discoverTitle: 'In this assessment you will discover:',
+    title1: 'Your body must be capable of healing.',
+    titleAccent: 'The medicine of the future is precision.',
+    sub: 'It is not about the treatment, but about your capacity to utilize it.',
+    desc: 'We are the first Health Decision Platform focused on precision Regenerative Medicine. We analyze 100% of your biometrics to find what is blocking your recovery.',
     bullets: [
-      'Whether your body can respond to regenerative treatment',
-      'What is blocking your current recovery',
-      'Whether it\'s worth starting regenerative treatment now',
-      'Or what you need to do first to prepare your body',
+      'We evaluate your self-repair capacity.',
+      'We explain the real severity of your biomarkers.',
+      'We design your critical regeneration path.',
     ],
-    ctaCopy: 'We don\'t start treatment with everyone who contacts us. We only work with those we are truly confident we can help improve.',
-    cta: 'I want to know if my body can improve',
+    cta: 'Schedule My Medical Evaluation',
+    disclaimer: 'We only accept 20% of applications.',
+  },
+  about: {
+    label: 'Who we are',
+    heading: 'We are the first <em>Health Decision Platform</em> focused on Regenerative Medicine.',
+    body1: 'For more than 15 years, we have analyzed <strong>+100,000 clinical cases</strong> and learned an uncomfortable truth:',
+    truth: 'Not all bodies are ready to Regenerate.',
+    body2: 'And this is something that 90% of doctors who do not have our same experience, completely ignore.',
+    bulletsLabel: 'What we do for you',
+    bullets: [
+      'We evaluate if your body can still repair itself or if it is already too late.',
+      'We explain in detail the gravity level that your laboratory studies say.',
+      'We put the pieces together and explain the results so you can understand your body with precision.',
+      'We identify why you are not improving despite following the doctor\'s instructions.',
+      'We guide you in the next decisions that bring you closer to feeling good, free from pain and worry.',
+    ],
+    cta: 'Discover today if your body is ready',
+  },
+  expectations: {
+    title: 'What to Expect After a PowerHouse Program',
+    subtitle: 'Measurable, science-based improvements in a matter of days.',
+    results: [
+      { id: 1, val: '30%', label: 'Reduction in key inflammation markers.' },
+      { id: 2, val: '35%', label: 'Improvement in deep sleep quality.' },
+      { id: 3, val: '40%', label: 'Increase in energy and cognitive performance.' },
+      { id: 4, val: '70%', label: 'Patients maintain healthy habits after 3 months.' },
+    ],
+    quoteTitle: '10 YEARS YOUNGER.',
+    quoteText: 'This is how our patients often describe their vitality and focus after treatment.',
+  },
+  shaKpi: {
+    quote: 'Reactive medicine has failed.',
+    quoteAccent: 'It is time for biological precision.',
+    stats: [
+      { val: '50%', text: 'Of adults 45+ live with unresolved chronic pathologies.' },
+      { val: '60%', text: 'Of the population suffers from multiple persistent areas of discomfort.' },
+      { val: '70%', text: 'Of clinical cases find no solution in reactive medicine.' },
+      { val: '20%', text: 'Is our acceptance rate to ensure real viability.' }
+    ],
+    footer: 'Data analyzed over a base of +100,000 global clinical cases.',
+  },
+  science: {
+    title: 'What makes',
+    titleAccent: 'PowerHouse',
+    titleEnd: 'unique',
+    desc: 'PowerHouse integrates everything proven to optimize health and performance into a single, seamless method, driven by science and refined over years. Through hyper-personalized programs, advanced diagnostics, and expert care, our patients achieve tangible and lasting transformation in record time.',
+    stats: [
+      'Medical specialists and experts, backed by years of pioneering research.',
+      'Treatments based on advanced biotechnological evidence.',
+      'Integrated medical and regenerative specialties in one place.',
+      'Patients who have transformed their health with our biological approach.',
+      'International recognition for innovation in regenerative medicine.',
+    ]
+  },
+  team: {
+    label: 'Clinical Criteria —',
+    title: 'Experts in Health Decisions',
+    doctors: [
+      {
+        id: '01',
+        name: 'Dr. Mariel Silva',
+        role: 'Director of Medical Services',
+        location: 'PHB Spain',
+        desc: 'Expert in advanced regenerative medicine. Specializes in determining the real viability of systemic repair before any intervention.'
+      },
+      {
+        id: '02',
+        name: 'Dr. Jair Olivares',
+        role: 'Biotech Research Lead',
+        location: 'PHB Mexico',
+        desc: 'Leader in biomarker research. His work is to identify why an organism is not responding despite following medical instructions.'
+      },
+      {
+        id: '03',
+        name: 'Dr. Vicente Mera',
+        role: 'Internal Medicine & Longevity Specialist',
+        location: 'PHB Spain',
+        desc: 'Recognized for his ability to connect biological pieces and explain in detail the real severity level indicated by your lab results.'
+      },
+      {
+        id: '04',
+        name: 'Dr. Andrea Márquez',
+        role: 'Head of Regenerative Medicine',
+        location: 'PHB Mexico',
+        desc: 'Specialist in guiding clinical decisions. Helps patients understand if it is worth starting an advanced treatment based on their current state.'
+      },
+      {
+        id: '05',
+        name: 'Dr. Stefan Kraus',
+        role: 'Cellular Optimization Expert',
+        location: 'PHB Germany',
+        desc: 'Analyzes the organism\'s real response capacity. His approach avoids unnecessary interventions by focusing only on cases with a real probability of success.'
+      }
+    ]
+  },
+  programs: {
+    title: 'DECIDE™ METHOD',
+    subtitle: 'How we achieve real results:',
+    subtitleAccent: 'First we understand. Then we measure. Then we prepare. And only then... We initiate treatment.',
+    steps: [
+      {
+        letter: 'D', tag: '01', title: 'Detect',
+        desc: 'We understand what is happening in your body, analyzing the cellular base at a microscopic level.',
+        features: ['Comprehensive evaluation', 'Hidden symptoms']
+      },
+      {
+        letter: 'E', tag: '02', title: 'Evaluate',
+        desc: 'We analyze your real state, not just the symptoms. We measure the biological age of your organs.',
+        features: ['Biomarker interpretation', 'Inflammation level']
+      },
+      {
+        letter: 'C', tag: '03', title: 'Clarify',
+        desc: 'We define what can be improved... and what cannot. No false promises, only data-driven medicine.',
+        features: ['Total transparency', 'Real expectations']
+      },
+      {
+        letter: 'I', tag: '04', title: 'Identify',
+        desc: 'We determine if you are a candidate or not for treatments, always maximizing your probability of response.',
+        features: ['Rigorous selection', 'Probability of success']
+      },
+      {
+        letter: 'D', tag: '05', title: 'Design',
+        desc: 'We create a clear path, step by step, prioritizing biological preparation before intervention.',
+        features: ['Personalized protocol', 'Exact timing']
+      },
+      {
+        letter: 'E', tag: '06', title: 'Execute',
+        desc: 'We accompany you during the entire clinical process, adjusting variables for lasting results.',
+        features: ['Continuous support', 'Adaptive adjustments']
+      }
+    ]
   },
   proof: {
-    label: 'Real results',
-    title: 'When the right decision is made…',
-    titleAccent: 'results are no longer a matter of luck',
+    label: 'SOCIAL PROOF —',
+    title: 'When it is decided well… results stop being about luck',
     cases: [
       {
-        tag: 'Chronic fatigue — Woman, 42 years old',
-        context: 'Had tried multiple therapies without success for over 7 years.',
-        finding: 'Elevated systemic inflammation and metabolic dysfunction were detected. Biological preparation was prioritized before intervening.',
-        results: ['Progressive energy recovery within 3 weeks', 'Full improvement in inflammatory biomarkers'],
+        id: '01',
+        outcome: 'TOTAL SUCCESS',
+        category: 'Success Case',
+        title: 'CASE 01: CHRONIC FATIGUE',
+        subtitle: 'From despair to high performance',
+        context: 'Patient with 7 years searching for a solution without seeing real results.',
+        analysis: 'High systemic inflammation and cellular metabolic dysfunction were detected.',
+        strategy: 'Biological preparation of the cellular terrain before any advanced intervention.',
+        result: 'Total energy restoration in 3 weeks and normalization of biomarkers.',
+        isRejected: false,
       },
       {
-        tag: 'Joint pain — Man, 55 years old',
-        context: 'Was seeking immediate regenerative therapy for his condition.',
-        finding: 'Our assessment showed he was not a candidate at that time. Work was done first to optimize biological terrain.',
-        results: ['Significant pain reduction without initial intervention', 'Subsequent application with better biological response'],
+        id: '02',
+        outcome: 'SUCCESSFUL ADMISSION',
+        category: 'Decision Criterion',
+        title: 'CASE 02: GUIDED MEDICINE',
+        subtitle: 'Optimization before Intervention',
+        context: 'Sought immediate therapy. Clinical evaluation indicated low probability of success if started early.',
+        analysis: 'Cellular environment was not ready to receive regenerative stimuli.',
+        strategy: 'Cellular terrain recalibration to ensure the success rate of the treatment.',
+        result: 'Pain reduction without initial surgery and total success in subsequent application.',
+        isRejected: false,
       },
       {
-        tag: 'Rejected case — Patient with high expectations',
-        context: 'Assessment indicated low probability of treatment response.',
-        finding: 'No intervention was recommended.',
-        results: ['Unnecessary investment of time and money was avoided', 'Redirected toward the correct approach'],
+        id: '03',
+        outcome: 'REDIRECTION',
+        category: 'Selection Criterion',
+        title: 'CASE 03: REJECTED PATIENT',
+        subtitle: 'Clinical Ethics over Volume',
+        context: 'Patient with high expectation of improvement but with an irreversible biological state.',
+        analysis: 'Technical Evaluation indicated a response probability of less than 10%.',
+        strategy: 'No treatment was recommended. Unnecessary investment in false hopes was avoided.',
+        result: 'The patient was redirected to palliative care more suitable for their real case.',
+        isRejected: true,
       },
     ],
-    diff: 'This is what sets us apart: We don\'t apply treatments to everyone. We make clinical decisions based on real probability of response.',
-  },
-  method: {
-    label: 'Our methodology',
-    title: 'The',
-    titleAccent: 'DECIDE™ Method',
-    sub: 'A clinical process designed to make the right decisions before starting any intervention.',
-    steps: [
-      { num: '01', name: 'Detect', desc: 'We understand what is happening in your body with clinical precision' },
-      { num: '02', name: 'Evaluate', desc: 'We analyze your real status, not just the surface symptoms' },
-      { num: '03', name: 'Clarify', desc: 'We define what can be improved… and what cannot, with full transparency' },
-      { num: '04', name: 'Identify', desc: 'We determine whether you are a real candidate for treatment or not' },
-      { num: '05', name: 'Design', desc: 'We create a personalized roadmap, step by step, for your biology' },
-      { num: '06', name: 'Guide', desc: 'We accompany you throughout the entire process with clinical expertise' },
-    ],
-    flow: ['First we understand', 'Then we measure', 'Then we prepare', 'Only then we begin'],
+    final: {
+      title: 'Not all bodies are ready to regenerate.',
+      desc: 'And starting a treatment without knowing this is a waste of your time, money and health. We make sure first.',
+      badge: 'DECIDE™ METHOD',
+    },
+    footerHint: 'SCROLL TO EXPLORE',
   },
   close: {
+    lineTitle: 'The closing',
     title: 'You can keep trying…',
-    titleAccent: 'or you can start understanding.',
-    waste: [
-      'Thousands of dollars invested in therapies without results',
-      'Most people try multiple options before finding one that works',
-      'Every day without clarity is accumulated physical and emotional wear',
+    titleAccent: 'or you can start to understand.',
+    body: 'Thousands of dollars are invested every year in therapies without results. Most try multiple options before finding one that works.',
+    pains: [
+      'Money invested in therapies that don\'t work.',
+      'Decisions based on trial and error.',
+      'Accumulated physical and emotional wear.',
     ],
+    measurement: 'What is not measured…',
+    measurementAccent: 'cannot be regenerated.',
     modelTitle: 'Selective admission model',
-    modelText: 'Not all patients are accepted. We select approximately only 20%. This allows us to work only with viable cases, maximize results, and avoid unnecessary interventions.',
-    modelSub: 'What is not measured… cannot be regenerated.',
-    cta: 'Schedule Regenerative Viability Assessment™',
-    microcopy: 'We are a platform that prioritizes clinical judgment over volume. We only accept patients when there is a real probability of response.',
+    modelText: 'Not all patients are accepted. We select approximately only 20%.',
+    badge: 'REGENERATIVE VIABILITY',
+    cardDesc: 'Select the time for your <strong>Regenerative Viability Evaluation™ Informatative Consultation.</strong>',
+    benefits: [
+      'Working only with viable cases.',
+      'Maximizing results.',
+      'Avoiding unnecessary interventions.',
+    ],
+    cta: 'Schedule Regenerative Viability Evaluation™',
+    ctaSecondary: 'Talk to an advisor now',
+    microcopy: 'We are a platform that prioritizes clinical criteria over volume. We only accept patients when there is a real probability of response.',
   },
   footer: {
+    tagline: 'The first Health Decision Platform focused on Regenerative Medicine.',
+    contact: 'Contact',
     rights: 'All rights reserved.',
     privacy: 'Privacy Policy',
     legal: 'Legal Notice',
+    disclaimer: 'This platform does not replace medical consultation. The Regenerative Viability Evaluation™ is a clinical guidance service prior to any treatment.',
   },
   exitWarning: {
     title: 'Are you sure you want to leave?',

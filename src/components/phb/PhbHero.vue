@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import gsap from 'gsap'
+import { useLocale } from '@/composables/useLocale'
+
+const { t } = useLocale()
 
 onMounted(() => {
   const tl = gsap.timeline()
@@ -38,33 +41,25 @@ onMounted(() => {
     <div class="phb-hero__content">
       <div class="phb-hero__text-column">
         <h1 class="phb-hero__title">
-          Tu cuerpo debe ser capaz de sanar.
-          <span class="phb-hero__title-highlight">La medicina del futuro es la precisión.</span>
+          {{ t.hero.title1 }}
+          <span class="phb-hero__title-highlight">{{ t.hero.titleAccent }}</span>
         </h1>
         
         <div class="phb-hero__subtitle">
-          <p>No se trata del tratamiento, sino de tu capacidad para aprovecharlo.</p>
-          <p>Somos la primera <strong>Health Decision Platform</strong> enfocada en Medicina Regenerativa de precisión. Analizamos el 100% de tu biometría para encontrar qué bloquea tu recuperación.</p>
+          <p>{{ t.hero.sub }}</p>
+          <p>{{ t.hero.desc }}</p>
         </div>
 
         <ul class="phb-hero__bullets">
-          <li>
+          <li v-for="(bullet, index) in t.hero.bullets" :key="index">
             <i class="fa-solid fa-check"></i>
-            Evaluamos tu capacidad de autoreparación.
-          </li>
-          <li>
-            <i class="fa-solid fa-check"></i>
-            Explicamos la gravedad real de tus biomarcadores.
-          </li>
-          <li>
-            <i class="fa-solid fa-check"></i>
-            Diseñamos tu ruta crítica de regeneración.
+            {{ bullet }}
           </li>
         </ul>
         
         <div class="phb-hero__cta-wrapper">
-          <button class="phb-hero__cta-btn">Agendar mi Evaluación Médica</button>
-          <p class="phb-hero__cta-sub">Solo aceptamos el 20% de las aplicaciones.</p>
+          <button class="phb-hero__cta-btn">{{ t.hero.cta }}</button>
+          <p class="phb-hero__cta-sub">{{ t.hero.disclaimer }}</p>
         </div>
       </div>
     </div>

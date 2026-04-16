@@ -2,54 +2,22 @@
 import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLocale } from '@/composables/useLocale'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const team = [
-  {
-    id: '01',
-    name: 'Dra. Mariel Silva',
-    role: 'Medical Services Director',
-    location: 'PHB Spain',
-    desc: 'Experta en medicina regenerativa avanzada. Se especializa en determinar la viabilidad real de reparación sistémica antes de cualquier intervención.',
-    image: 'https://images.pexels.com/photos/5214958/pexels-photo-5214958.jpeg?auto=compress&cs=tinysrgb&w=1200'
-  },
-  {
-    id: '02',
-    name: 'Dr. Jair Olivares',
-    role: 'Biotech Research Lead',
-    location: 'PHB Mexico',
-    desc: 'Líder en investigación de biomarcadores. Su trabajo es identificar por qué un organismo no está respondiendo a pesar de seguir las indicaciones médicas.',
-    image: 'https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=1200'
-  },
-  {
-    id: '03',
-    name: 'Dr. Vicente Mera',
-    role: 'Internal & Longevity Specialist',
-    location: 'PHB Spain',
-    desc: 'Reconocido por su capacidad de unir las piezas biológicas y explicar a detalle el nivel de gravedad real que dicen tus estudios de laboratorio.',
-    image: 'https://images.pexels.com/photos/6129112/pexels-photo-6129112.jpeg?auto=compress&cs=tinysrgb&w=1200'
-  },
-  {
-    id: '04',
-    name: 'Dra. Andrea Márquez',
-    role: 'Head of Regenerative Medicine',
-    location: 'PHB Mexico',
-    desc: 'Especialista en encaminar decisiones clínicas. Ayuda a los pacientes a entender si vale la pena o no iniciar un tratamiento avanzado según su estado actual.',
-    image: 'https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=1200'
-  },
-  {
-    id: '05',
-    name: 'Dr. Stefan Kraus',
-    role: 'Cellular Optimization Expert',
-    location: 'PHB Germany',
-    desc: 'Analiza la capacidad real de respuesta del organismo. Su enfoque evita intervenciones innecesarias enfocándose solo en casos con probabilidad real de éxito.',
-    image: 'https://images.pexels.com/photos/5327656/pexels-photo-5327656.jpeg?auto=compress&cs=tinysrgb&w=1200'
-  }
-]
-
+const { t } = useLocale()
 const containerRef = ref<HTMLElement | null>(null)
 const slideContainerRef = ref<HTMLElement | null>(null)
+
+// Define images separately since they are assets, not text
+const doctorImages = [
+  'https://images.pexels.com/photos/5214958/pexels-photo-5214958.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/6129112/pexels-photo-6129112.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'https://images.pexels.com/photos/5327656/pexels-photo-5327656.jpeg?auto=compress&cs=tinysrgb&w=1200'
+]
 
 onMounted(() => {
   if (!containerRef.value || !slideContainerRef.value) return
@@ -130,15 +98,15 @@ onMounted(() => {
       <!-- Immersive Header Overlay -->
       <header class="phb-team__header">
         <div class="phb-team__header-content">
-          <span class="phb-team__label">Criterio Clínico —</span>
-          <h2 class="phb-team__main-title">Expertos en Decisiones de Salud</h2>
+          <span class="phb-team__label">{{ t.team.label }}</span>
+          <h2 class="phb-team__main-title">{{ t.team.title }}</h2>
         </div>
       </header>
 
       <!-- Slides Container -->
       <div class="phb-team__slides" ref="slideContainerRef">
         <div 
-          v-for="(doctor, index) in team" 
+          v-for="(doctor, index) in t.team.doctors" 
           :key="doctor.id"
           class="phb-team-slide"
           :class="{ 'is-first': index === 0 }"
@@ -159,7 +127,7 @@ onMounted(() => {
 
             <!-- Right: Image -->
             <div class="phb-team-slide__image-wrap">
-              <img :src="doctor.image" :alt="doctor.name" class="phb-team-slide__image" />
+              <img :src="doctorImages[index]" :alt="doctor.name" class="phb-team-slide__image" />
               <div class="phb-team-slide__image-gradient"></div>
             </div>
           </div>

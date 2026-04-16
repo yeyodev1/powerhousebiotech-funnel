@@ -1,138 +1,190 @@
 export const es = {
   nav: {
     cta: 'Agendar Evaluación',
+    menu: {
+      about: 'Quiénes somos',
+      method: 'Método',
+      science: 'Ciencia',
+      team: 'Equipo',
+      cases: 'Casos',
+    }
   },
   hero: {
     badge: 'Health Decision Platform · Medicina Regenerativa',
-    title1: 'Puedes recibir el mejor tratamiento del mundo…',
-    title2: 'y aún así tu cuerpo seguir igual de enfermo.',
-    sub: 'Y es que no se trata del tratamiento.',
-    sub2: 'Se trata de la incapacidad de tu cuerpo de aprovecharlo.',
-    intro: 'Somos la primera Health Decision Platform enfocada en Medicina Regenerativa. Durante más de 15 años, hemos analizado',
-    introHighlight: '+100,000 casos clínicos',
-    introTruth: 'y aprendido una verdad incómoda: No todos los cuerpos están listos para Regenerarse.',
-    stats: [
-      { value: '+15', label: 'Años liderando medicina regenerativa en LATAM' },
-      { value: '+100K', label: 'Casos clínicos analizados' },
-      { value: '+5M', label: 'Personas educadas' },
-      { value: '20%', label: 'De los pacientes que aplican son aceptados' },
-    ],
-    cta: 'Descubre si tu cuerpo puede mejorar',
-    disclaimer: 'Acceso sin costo · Solo las primeras 100 personas · 20% de aceptación',
-  },
-  problem: {
-    label: 'El problema real',
-    title: 'Tu cuerpo no falla por falta de tratamientos…',
-    titleAccent: 'Falla porque nadie te ha explicado lo que realmente está pasando.',
-    sub: 'Y porque el sistema médico está diseñado para tratar partes, no para entender el panorama completo.',
-    cards: [
-      { title: 'Estudios sin interpretación', desc: 'Te entregan resultados… pero nadie te explica qué significan todos juntos.' },
-      { title: 'Intervenciones sin estrategia', desc: 'Pruebas tratamientos, suplementos o terapias… sin una dirección clara.' },
-      { title: 'El cuerpo no responde', desc: 'No porque no funcione… sino porque no está listo para recibir la terapia.' },
-    ],
-    truthLabel: 'La realidad incómoda',
-    truthText: 'Vas de médico en médico… de tratamiento en tratamiento… sin un criterio que conecte todo.',
-    truthKey: 'El problema no es lo que haces…',
-    truthKey2: 'es que estás actuando sin entender tu biología.',
-    truthClose: 'Y mientras no entiendas eso… vas a seguir intentando… sin ver resultados.',
-  },
-  data: {
-    label: 'Los números no mienten',
-    title: 'La realidad del sistema médico actual',
-    points: [
-      'Más del 50% de los adultos mayores de 45 años viven con al menos una enfermedad crónica',
-      '6 de cada 10 personas tienen más de una condición que les provoca malestar',
-      'Hasta el 70% de los tratamientos convencionales no logran los resultados esperados',
-      'El sistema médico convencional está fragmentado: cada especialista ve una parte',
-      'La mayoría de los tratamientos se enfocan en síntomas, no en las causas',
-      'Muchos médicos trabajan con información y protocolos desactualizados',
-      'El tiempo promedio de consulta es insuficiente para entender un caso completo',
-      'La industria prioriza estandarización y volumen, no personalización biológica',
-      'No se evalúa si el cuerpo está listo antes de intervenir',
-      'No se mide la capacidad real de respuesta del organismo antes de actuar',
-    ],
-  },
-  solution: {
-    badge: 'Nuestra solución exclusiva',
-    title: 'Somos los creadores de la',
-    titleAccent: 'Evaluación de Viabilidad Regenerativa™',
-    question: 'Un enfoque diseñado para responder una sola pregunta:',
-    bigQ: '¿Tu cuerpo realmente puede mejorar… o no?',
-    pillars: [
-      'Evaluación honesta y transparente de tu estado de salud',
-      'Interpretación de biomarcadores con criterio clínico',
-      'Orientación Regenerativa antes de sugerirte cualquier tratamiento',
-    ],
-    notice: 'No es para todos. Abrimos acceso sin costo solo a las primeras 100 personas para identificar los casos que realmente pueden beneficiarse. Solo aceptamos el 20% de los casos que nos llegan.',
-    discoverTitle: 'En esta evaluación descubrirás:',
+    title1: 'Tu cuerpo debe ser capaz de sanar.',
+    titleAccent: 'La medicina del futuro es la precisión.',
+    sub: 'No se trata del tratamiento, sino de tu capacidad para aprovecharlo.',
+    desc: 'Somos la primera Health Decision Platform enfocada en Medicina Regenerativa de precisión. Analizamos el 100% de tu biometría para encontrar qué bloquea tu recuperación.',
     bullets: [
-      'Si tu cuerpo puede responder a un tratamiento regenerativo',
-      'Qué está bloqueando tu recuperación actual',
-      'Si vale la pena que inicies tratamiento regenerativo ahora',
-      'O qué necesitas hacer primero para preparar tu cuerpo',
+      'Evaluamos tu capacidad de autoreparación.',
+      'Explicamos la gravedad real de tus biomarcadores.',
+      'Diseñamos tu ruta crítica de regeneración.',
     ],
-    ctaCopy: 'No iniciamos tratamiento con todos los que nos contactan. Solo trabajamos con quienes realmente podemos ayudar a mejorar.',
-    cta: 'Quiero saber si mi cuerpo puede mejorar',
+    cta: 'Agendar mi Evaluación Médica',
+    disclaimer: 'Solo aceptamos el 20% de las aplicaciones.',
   },
-  proof: {
-    label: 'Resultados reales',
-    title: 'Cuando se decide bien…',
-    titleAccent: 'los resultados dejan de ser suerte',
-    cases: [
-      {
-        tag: 'Fatiga crónica — Mujer, 42 años',
-        context: 'Había probado múltiples terapias sin éxito durante más de 7 años.',
-        finding: 'Se detectó inflamación sistémica elevada y disfunción metabólica. Se priorizó preparación biológica antes de intervenir.',
-        results: ['Recuperación progresiva de energía en 3 semanas', 'Mejora total en biomarcadores inflamatorios'],
-      },
-      {
-        tag: 'Dolor articular — Hombre, 55 años',
-        context: 'Buscaba terapia regenerativa inmediata para su condición.',
-        finding: 'Nuestra evaluación mostró que no era candidato en ese momento. Se trabajó primero en optimizar el terreno biológico.',
-        results: ['Reducción significativa del dolor sin intervención inicial', 'Posterior aplicación con mejor respuesta biológica'],
-      },
-      {
-        tag: 'Caso rechazado — Paciente con alta expectativa',
-        context: 'Evaluación indicó baja probabilidad de respuesta al tratamiento.',
-        finding: 'No se recomendó ninguna intervención.',
-        results: ['Se evitó inversión innecesaria de tiempo y dinero', 'Se redirigió hacia el enfoque correcto'],
-      },
+  about: {
+    label: 'Quiénes somos',
+    heading: 'Somos la primera <em>Health Decision Platform</em> enfocada en Medicina Regenerativa.',
+    body1: 'Durante más de 15 años, hemos analizado <strong>+100,000 casos clínicos</strong> y aprendido una verdad incómoda:',
+    truth: 'No todos los cuerpos están listos para Regenerarse.',
+    body2: 'Y esto es algo que el 90% de los doctores que no tienen nuestra misma experiencia, ignoran por completo.',
+    bulletsLabel: 'Lo que hacemos por ti',
+    bullets: [
+      'Evaluamos si todavía tu cuerpo puede repararse o ya es demasiado tarde.',
+      'Te explicamos a detalle el nivel de gravedad que dicen tus estudios de laboratorio.',
+      'Unimos las piezas y te explicamos los resultados para que puedas entender tu cuerpo con precisión.',
+      'Identificamos por qué no estás mejorando a pesar de seguir las indicaciones del médico.',
+      'Te guiamos en las siguientes decisiones que te acerquen más rápido a sentirte bien, libre del dolor y la preocupación.',
     ],
-    diff: 'Esto es lo que nos diferencia: No aplicamos tratamientos a todos. Tomamos decisiones clínicas basadas en probabilidad real de respuesta.',
+    cta: 'Descubre hoy si tu cuerpo está listo',
   },
-  method: {
-    label: 'Nuestra metodología',
-    title: 'Método',
-    titleAccent: 'DECIDE™',
-    sub: 'Un proceso clínico diseñado para tomar las decisiones correctas antes de iniciar cualquier intervención.',
+  expectations: {
+    title: 'Qué esperar tras un Programa PowerHouse',
+    subtitle: 'Mejoras medibles y basadas en ciencia en cuestión de días.',
+    results: [
+      { id: 1, val: '30%', label: 'Reducción en marcadores de inflamación clave.' },
+      { id: 2, val: '35%', label: 'Mejora en la calidad del sueño profundo.' },
+      { id: 3, val: '40%', label: 'Aumento en energía y rendimiento cognitivo.' },
+      { id: 4, val: '70%', label: 'Pacientes mantienen hábitos saludables tras 3 meses.' },
+    ],
+    quoteTitle: '10 AÑOS MÁS JOVEN.',
+    quoteText: 'Así es como nuestros pacientes describen a menudo su vitalidad y enfoque tras el tratamiento.',
+  },
+  shaKpi: {
+    quote: 'La medicina reactiva ha fallado.',
+    quoteAccent: 'Es hora de la precisión biológica.',
+    stats: [
+      { val: '50%', text: 'De adultos +45 años viven con patologías crónicas no resueltas.' },
+      { val: '60%', text: 'De la población sufre de múltiples focos de malestar persistente.' },
+      { val: '70%', text: 'De casos clínicos no encuentran solución en la medicina reactiva.' },
+      { val: '20%', text: 'Es nuestra tasa de aceptación para asegurar viabilidad real.' }
+    ],
+    footer: 'Datos analizados sobre una base de +100,000 casos clínicos globales.',
+  },
+  science: {
+    title: 'Lo que hace a',
+    titleAccent: 'PowerHouse',
+    titleEnd: 'único',
+    desc: 'PowerHouse integra todo lo probado para optimizar la salud y el rendimiento en un método único y fluido, impulsado por la ciencia y perfeccionado durante años. A través de programas hiper-personalizados, diagnósticos avanzados y atención experta, nuestros pacientes logran una transformación tangible y duradera en tiempo récord.',
+    stats: [
+      'Especialistas y expertos médicos, respaldados por años de investigación pionera.',
+      'Tratamientos basados en evidencia biotecnológica avanzada.',
+      'Especialidades médicas y regenerativas integradas en un solo lugar.',
+      'Pacientes que han transformado su salud con nuestro enfoque biológico.',
+      'Reconocimientos internacionales a la innovación en medicina regenerativa.',
+    ]
+  },
+  team: {
+    label: 'Criterio Clínico —',
+    title: 'Expertos en Decisiones de Salud',
+    doctors: [
+      {
+        id: '01',
+        name: 'Dra. Mariel Silva',
+        role: 'Director de Servicios Médicos',
+        location: 'PHB España',
+        desc: 'Experta en medicina regenerativa avanzada. Se especializa en determinar la viabilidad real de reparación sistémica antes de cualquier intervención.'
+      },
+      {
+        id: '02',
+        name: 'Dr. Jair Olivares',
+        role: 'Líder de Investigación Biotecnológica',
+        location: 'PHB México',
+        desc: 'Líder en investigación de biomarcadores. Su trabajo es identificar por qué un organismo no está respondiendo a pesar de seguir las indicaciones médicas.'
+      },
+      {
+        id: '03',
+        name: 'Dr. Vicente Mera',
+        role: 'Especialista en Medicina Interna y Longevidad',
+        location: 'PHB España',
+        desc: 'Reconocido por su capacidad de unir las piezas biológicas y explicar a detalle el nivel de gravedad real que dicen tus estudios de laboratorio.'
+      },
+      {
+        id: '04',
+        name: 'Dra. Andrea Márquez',
+        role: 'Jefa de Medicina Regenerativa',
+        location: 'PHB México',
+        desc: 'Especialista en encaminar decisiones clínicas. Ayuda a los pacientes a entender si vale la pena o no iniciar un tratamiento avanzado según su estado actual.'
+      },
+      {
+        id: '05',
+        name: 'Dr. Stefan Kraus',
+        role: 'Experto en Optimización Celular',
+        location: 'PHB Alemania',
+        desc: 'Analiza la capacidad real de respuesta del organismo. Su enfoque evita intervenciones innecesarias enfocándose solo en casos con probabilidad real de éxito.'
+      }
+    ]
+  },
+  programs: {
+    title: 'MÉTODO DECIDE™',
+    subtitle: 'Así logramos resultados reales:',
+    subtitleAccent: 'Primero entendemos. Luego medimos. Después preparamos. Y solo entonces... Iniciamos tratamiento.',
     steps: [
-      { num: '01', name: 'Detectar', desc: 'Entendemos qué está pasando en tu cuerpo con precisión clínica' },
-      { num: '02', name: 'Evaluar', desc: 'Analizamos tu estado real, no solo los síntomas superficiales' },
-      { num: '03', name: 'Aclarar', desc: 'Definimos qué se puede mejorar… y qué no, con total transparencia' },
-      { num: '04', name: 'Identificar', desc: 'Determinamos si eres candidato real o no para el tratamiento' },
-      { num: '05', name: 'Diseñar', desc: 'Creamos una ruta personalizada, paso a paso, para tu biología' },
-      { num: '06', name: 'Encaminar', desc: 'Te acompañamos durante todo el proceso con criterio clínico' },
-    ],
-    flow: ['Primero entendemos', 'Luego medimos', 'Después preparamos', 'Solo entonces iniciamos'],
+      {
+        letter: 'D', tag: '01', title: 'Detectar',
+        desc: 'Entendemos qué está pasando en tu cuerpo, analizando a un nivel microscópico la base celular.',
+        features: ['Evaluación integral', 'Síntomas ocultos']
+      },
+      {
+        letter: 'E', tag: '02', title: 'Evaluar',
+        desc: 'Analizamos tu estado real, no solo los síntomas. Medimos la edad biológica de tus órganos.',
+        features: ['Lectura de biomarcadores', 'Nivel de inflamación']
+      },
+      {
+        letter: 'C', tag: '03', title: 'Clarificar',
+        desc: 'Definimos qué se puede mejorar... y qué no. Sin falsas promesas, solo medicina guiada por datos.',
+        features: ['Transparencia total', 'Expectativas reales']
+      },
+      {
+        letter: 'I', tag: '04', title: 'Identificar',
+        desc: 'Determinamos si eres candidato o no para tratamientos, maximizando siempre tu probabilidad de respuesta.',
+        features: ['Selección rigurosa', 'Probabilidad de éxito']
+      },
+      {
+        letter: 'D', tag: '05', title: 'Diseñar',
+        desc: 'Creamos una ruta clara, paso a paso, priorizando la preparación biológica antes que la intervención.',
+        features: ['Protocolo personalizado', 'Tiempos exactos']
+      },
+      {
+        letter: 'E', tag: '06', title: 'Encaminar',
+        desc: 'Te acompañamos durante todo el proceso clínico, ajustando variables para resultados duraderos.',
+        features: ['Soporte continuo', 'Ajustes adaptativos']
+      }
+    ]
   },
   close: {
+    lineTitle: 'El cierre',
     title: 'Puedes seguir intentando…',
     titleAccent: 'o puedes empezar a entender.',
-    waste: [
-      'Miles de dólares invertidos en terapias sin resultados',
-      'La mayoría prueba múltiples opciones antes de encontrar una que funcione',
-      'Cada día sin claridad es desgaste físico y emocional acumulado',
+    body: 'Miles de dólares se invierten cada año en terapias sin resultados. La mayoría prueba múltiples opciones antes de encontrar una que funcione.',
+    pains: [
+      'Dinero invertido en terapias que no funcionan.',
+      'Decisiones basadas en prueba y error.',
+      'Desgaste físico y emocional acumulado.',
     ],
+    measurement: 'Lo que no se mide…',
+    measurementAccent: 'no se puede regenerar.',
     modelTitle: 'Modelo de admisión selectivo',
-    modelText: 'No todos los pacientes son aceptados. Seleccionamos aproximadamente solo el 20%. Esto nos permite trabajar solo con casos viables, maximizar resultados y evitar intervenciones innecesarias.',
-    modelSub: 'Lo que no se mide… no se puede regenerar.',
+    modelText: 'No todos los pacientes son aceptados. Seleccionamos aproximadamente solo el 20%.',
+    badge: 'VIABILIDAD REGENERATIVA',
+    cardDesc: 'Selecciona el horario para tu <strong>Consulta Informativa de Evaluación de Viabilidad Regenerativa™.</strong>',
+    benefits: [
+      'Trabajar solo con casos viables.',
+      'Maximizar resultados.',
+      'Evitar intervenciones innecesarias.',
+    ],
     cta: 'Agendar Evaluación de Viabilidad Regenerativa™',
+    ctaSecondary: 'Hablar con un asesor ahora',
     microcopy: 'Somos una plataforma que prioriza criterio clínico sobre volumen. Solo aceptamos pacientes cuando existe una probabilidad real de respuesta.',
   },
   footer: {
+    tagline: 'La primera Health Decision Platform enfocada en Medicina Regenerativa.',
+    contact: 'Contacto',
     rights: 'Todos los derechos reservados.',
     privacy: 'Política de Privacidad',
     legal: 'Aviso Legal',
+    disclaimer: 'Esta plataforma no reemplaza la consulta médica. La Evaluación de Viabilidad Regenerativa™ es un servicio de orientación clínica previo a cualquier tratamiento.',
   },
   exitWarning: {
     title: '¿Seguro que quieres salir?',
@@ -161,6 +213,54 @@ export const es = {
       'Una persona acaba de reservar su consulta',
       'Nuevo registro en los últimos minutos',
     ],
+  },
+  proof: {
+    label: 'PRUEBA SOCIAL —',
+    title: 'Cuando se decide bien… los resultados dejan de ser suerte',
+    cases: [
+      {
+        id: '01',
+        outcome: 'ÉXITO TOTAL',
+        category: 'Caso de Éxito',
+        title: 'PATOLOGÍA: FATIGA CRÓNICA',
+        subtitle: 'Mujer 42 años | Evolución 7 años',
+        context: 'Había probado múltiples terapias sin éxito durante años. Su cuerpo no respondía a tratamientos regenerativos.',
+        analysis: 'Evaluación de Viabilidad detectó inflamación sistémica elevada y disfunción metabólica severa.',
+        strategy: 'Protocolo de Preparación Biológica™ obligatorio antes de cualquier intervención.',
+        result: 'Recuperación progresiva de energía en 21 días y normalización de biomarcadores.',
+        isRejected: false,
+      },
+      {
+        id: '02',
+        outcome: 'ÉXITO TOTAL',
+        category: 'Caso de Éxito',
+        title: 'PATOLOGÍA: DOLOR ARTICULAR',
+        subtitle: 'Hombre 55 años | Candidato a Cirugía',
+        context: 'Paciente buscaba terapia celular inmediata tras múltiples fallas en medicina convencional.',
+        analysis: 'Se identificó que el ambiente celular era hostil para la regeneración en ese momento.',
+        strategy: 'Recalibración del terreno celular para asegurar la tasa de éxito del tratamiento.',
+        result: 'Reducción de dolor sin cirugía inicial y éxito total en la aplicación posterior.',
+        isRejected: false,
+      },
+      {
+        id: '03',
+        outcome: 'REDIRECCIÓN',
+        category: 'Criterio de Selección',
+        title: 'CRITERIO: PACIENTE RECHAZADO',
+        subtitle: 'Ética Clínica sobre Volumen',
+        context: 'Paciente con alta expectativa de mejoría pero con un estado biológico irreversible.',
+        analysis: 'Evaluación Técnica indicó una probabilidad de respuesta menor al 10%.',
+        strategy: 'No se recomendó tratamiento. Se evitó inversión innecesaria en falsas esperanzas.',
+        result: 'Se redirigió al paciente a cuidados paliativos más adecuados para su caso real.',
+        isRejected: true,
+      },
+    ],
+    final: {
+      title: 'No todos los cuerpos están listos para regenerarse.',
+      desc: 'E iniciar un tratamiento sin saber esto es perder tu tiempo, dinero y salud. Nosotros nos aseguramos primero.',
+      badge: 'MÉTODO DECIDE™',
+    },
+    footerHint: 'SCROLL PARA EXPLORAR',
   },
   testimonials: {
     label: 'Testimonios reales',

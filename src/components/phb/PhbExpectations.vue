@@ -2,36 +2,19 @@
 import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLocale } from '@/composables/useLocale'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const { t } = useLocale()
 const sectionRef = ref<HTMLElement | null>(null)
 
-const results = [
-  { 
-    id: 1, 
-    value: '30%', 
-    label: 'Reducción en marcadores de inflamación clave.',
-    icon: 'M2 12h20M12 2v20' // Simplified proxy for geometric icon
-  },
-  { 
-    id: 2, 
-    value: '35%', 
-    label: 'Mejora en la calidad del sueño profundo.',
-    icon: 'M12 3v1m0 16v1m9-9h-1M4 12H3'
-  },
-  { 
-    id: 3, 
-    value: '40%', 
-    label: 'Aumento en energía y rendimiento cognitivo.',
-    icon: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z'
-  },
-  { 
-    id: 4, 
-    value: '70%', 
-    label: 'Pacientes mantienen hábitos saludables tras 3 meses.',
-    icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'
-  }
+// Map icons to the translated results from the locale file
+const icons = [
+  'M2 12h20M12 2v20',
+  'M12 3v1m0 16v1m9-9h-1M4 12H3',
+  'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+  'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'
 ]
 
 onMounted(() => {
@@ -89,24 +72,24 @@ onMounted(() => {
       <div class="phb-expect__header">
         <div class="phb-expect__title-wrap">
           <div class="phb-expect__line"></div>
-          <h2 class="phb-expect__title">Qué esperar tras un<br>Programa PowerHouse</h2>
+          <h2 class="phb-expect__title" v-html="t.expectations.title.replace('PowerHouse', 'PowerHouse<br>')"></h2>
         </div>
-        <p class="phb-expect__subtitle">Mejoras medibles y basadas en ciencia en cuestión de días.</p>
+        <p class="phb-expect__subtitle">{{ t.expectations.subtitle }}</p>
       </div>
 
       <!-- Results Grid -->
       <div class="phb-expect__grid">
         <div 
-          v-for="item in results" 
+          v-for="(item, index) in t.expectations.results" 
           :key="item.id" 
           class="phb-expect__item"
         >
           <div class="phb-expect__icon-box">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path :d="item.icon" stroke-linecap="round" stroke-linejoin="round"/>
+              <path :d="icons[index]" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div class="phb-expect__val">{{ item.value }}</div>
+          <div class="phb-expect__val">{{ item.val }}</div>
           <p class="phb-expect__label">{{ item.label }}</p>
         </div>
       </div>
@@ -114,8 +97,8 @@ onMounted(() => {
       <!-- Footer / Quote Area -->
       <div class="phb-expect__footer">
         <div class="phb-expect__quote">
-          <h3 class="phb-expect__quote-title">10 AÑOS MÁS JOVEN.</h3>
-          <p class="phb-expect__quote-text">Así es como nuestros pacientes describen a menudo su vitalidad y enfoque tras el tratamiento.</p>
+          <h3 class="phb-expect__quote-title">{{ t.expectations.quoteTitle }}</h3>
+          <p class="phb-expect__quote-text">{{ t.expectations.quoteText }}</p>
         </div>
 
         <!-- Floating Media (Optional/Placeholder per Plan) -->

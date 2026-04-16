@@ -1,92 +1,43 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLocale } from '@/composables/useLocale'
 import Phb3dCard from './Phb3dCard.vue'
 
-const programs = [
-  {
-    letter: 'D',
-    tag: '01',
-    title: 'Detectar',
-    desc: 'Entendemos qué está pasando en tu cuerpo, analizando a un nivel microscópico la base celular.',
-    features: ['Evaluación integral', 'Síntomas ocultos']
-  },
-  {
-    letter: 'E',
-    tag: '02',
-    title: 'Evaluar',
-    desc: 'Analizamos tu estado real, no solo los síntomas. Medimos la edad biológica de tus órganos.',
-    features: ['Lectura de biomarcadores', 'Nivel de inflamación']
-  },
-  {
-    letter: 'C',
-    tag: '03',
-    title: 'Clarificar',
-    desc: 'Definimos qué se puede mejorar... y qué no. Sin falsas promesas, solo medicina guiada por datos.',
-    features: ['Transparencia total', 'Expectativas reales']
-  },
-  {
-    letter: 'I',
-    tag: '04',
-    title: 'Identificar',
-    desc: 'Determinamos si eres candidato o no para tratamientos, maximizando siempre tu probabilidad de respuesta.',
-    features: ['Selección rigurosa', 'Probabilidad de éxito']
-  },
-  {
-    letter: 'D',
-    tag: '05',
-    title: 'Diseñar',
-    desc: 'Creamos una ruta clara, paso a paso, priorizando la preparación biológica antes que la intervención.',
-    features: ['Protocolo personalizado', 'Tiempos exactos']
-  },
-  {
-    letter: 'E',
-    tag: '06',
-    title: 'Encaminar',
-    desc: 'Te acompañamos durante todo el proceso clínico, ajustando variables para resultados duraderos.',
-    features: ['Soporte continuo', 'Ajustes adaptativos']
-  }
-]
+const { t } = useLocale()
+const container = ref<HTMLElement | null>(null)
 
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
-  
-  // Title reveal animation
-  const titleChars = document.querySelectorAll('.phb-programs__title span')
-  gsap.from(titleChars, {
-    y: 100,
-    opacity: 0,
-    rotationX: -90,
-    stagger: 0.02,
-    duration: 1,
-    ease: 'expo.out',
-    scrollTrigger: {
-      trigger: '.phb-programs__header',
-      start: 'top 80%'
-    }
-  })
 
-  // Grid items reveal
-  gsap.fromTo('.phb-anim-wrap',
-    { 
-      y: 60, 
+  const ctx = gsap.context(() => {
+    // Reveal Header
+    gsap.from('.phb-programs__header', {
+      scrollTrigger: {
+        trigger: '.phb-programs__header',
+        start: 'top 85%',
+      },
+      y: 30,
       opacity: 0,
-      scale: 0.95
-    },
-    {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      duration: 1.2,
-      stagger: 0.1,
-      ease: 'power4.out',
+      duration: 1,
+      ease: 'power3.out'
+    })
+
+    // Grid items reveal
+    gsap.from('.phb-anim-wrap', {
       scrollTrigger: {
         trigger: '.phb-programs__grid',
         start: 'top 85%'
-      }
-    }
-  )
+      },
+      y: 60,
+      opacity: 0,
+      scale: 0.95,
+      duration: 1.2,
+      stagger: 0.1,
+      ease: 'power4.out',
+    })
+  }, container.value as HTMLElement)
 })
 </script>
 
@@ -95,17 +46,14 @@ onMounted(() => {
     <div class="phb-programs__container">
       <div class="phb-programs__header">
         <h2 class="phb-programs__title">
-          <span v-for="(char, i) in 'MÉTODO DECIDE™'" :key="i" class="inline-block">{{ char === ' ' ? '\u00A0' : char }}</span>
+          {{ t.programs.title }}
         </h2>
-        <p class="phb-programs__subtitle">
-          Así logramos resultados reales:<br>
-          <span class="phb-programs__subtitle-accent">Primero entendemos. Luego medimos. Después preparamos. Y solo entonces... Iniciamos tratamiento.</span>
-        </p>
+        <p class="phb-programs__subtitle" v-html="t.programs.subtitle"></p>
       </div>
 
       <div class="phb-programs__grid">
         <div 
-          v-for="(program, index) in programs" 
+          v-for="(program, index) in t.programs.steps" 
           :key="index"
           class="phb-anim-wrap flex w-full"
         >

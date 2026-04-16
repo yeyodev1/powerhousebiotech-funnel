@@ -7,14 +7,14 @@
       </a>
 
       <nav class="phb-nav__links">
-        <a href="#solucion" class="phb-nav__link">Evaluación</a>
-        <a href="#metodo" class="phb-nav__link">Método</a>
-        <a href="#casos" class="phb-nav__link">Casos</a>
+        <a href="#solucion" class="phb-nav__link">{{ t.nav.menu.science }}</a>
+        <a href="#metodo" class="phb-nav__link">{{ t.nav.menu.method }}</a>
+        <a href="#casos" class="phb-nav__link">{{ t.nav.menu.cases }}</a>
       </nav>
 
       <div class="phb-nav__actions">
         <!-- Language Switcher -->
-        <button @click="toggleLocale" class="phb-nav__lang" aria-label="Cambiar idioma">
+        <button @click="toggleLocale" class="phb-nav__lang" :aria-label="locale === 'es' ? 'Change language' : 'Cambiar idioma'">
           <i class="fa-solid fa-language"></i>
           <span>{{ locale === 'es' ? 'ES' : 'EN' }}</span>
         </button>

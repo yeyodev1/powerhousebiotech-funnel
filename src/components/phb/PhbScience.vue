@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue'
+import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLocale } from '@/composables/useLocale'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -13,73 +14,80 @@ interface Stat {
   suffix: string
   prefix: string
 }
-
-const stats = reactive<Stat[]>([
-  { id: 1, label: 'Especialistas y expertos médicos, respaldados por años de investigación pionera.', targetValue: 50, currentValue: 0, suffix: '', prefix: '+' },
-  { id: 2, label: 'Tratamientos basados en evidencia biotecnológica avanzada.', targetValue: 1000, currentValue: 0, suffix: '', prefix: '+' },
-  { id: 3, label: 'Especialidades médicas y regenerativas integradas en un solo lugar.', targetValue: 50, currentValue: 0, suffix: '', prefix: '+' },
-  { id: 4, label: 'Pacientes que han transformado su salud con nuestro enfoque biológico.', targetValue: 100000, currentValue: 0, suffix: '', prefix: '+' },
-  { id: 5, label: 'Reconocimientos internacionales a la innovación en medicina regenerativa.', targetValue: 100, currentValue: 0, suffix: '', prefix: '+' }
-])
-
+const { t } = useLocale()
 const sectionRef = ref<HTMLElement | null>(null)
-
-const formatNumber = (val: number) => {
-  return Math.floor(val).toLocaleString('en-US')
-}
 
 onMounted(() => {
   if (!sectionRef.value) return
 
-  ScrollTrigger.create({
-    trigger: sectionRef.value,
-    start: 'top 75%',
-    onEnter: () => {
-      stats.forEach((stat) => {
-        gsap.to(stat, {
-          currentValue: stat.targetValue,
-          duration: 1.2,
-          ease: 'power3.out',
-          snap: { currentValue: 1 }
-        })
-      })
-    },
-    once: true
-  })
+  const ctx = gsap.context(() => {
+    // Reveal header
+    gsap.from('.phb-science__header', {
+      scrollTrigger: {
+        trigger: '.phb-science__header',
+        start: 'top 85%',
+      },
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out'
+    })
+
+    // Reveal Stats
+    gsap.from('.phb-science__stat-item', {
+      scrollTrigger: {
+        trigger: '.phb-science__stats',
+        start: 'top 80%',
+      },
+      x: -20,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'power2.out'
+    })
+  }, sectionRef.value)
 })
 </script>
 
 <template>
-  <section class="phb-science" ref="sectionRef">
+  <section class="phb-science" ref="sectionRef" id="ciencia">
     <div class="phb-science__container">
       
-      <!-- Top Section -->
-      <div class="phb-science__header">
-        <div class="phb-science__title-wrap">
-          <div class="phb-science__line"></div>
-          <h2 class="phb-science__title">Lo que hace a <br><em>PowerHouse</em> único</h2>
-        </div>
-        
-        <div class="phb-science__desc">
-          <p>
-            PowerHouse integra todo lo probado para optimizar la salud y el rendimiento en un método único y fluido, impulsado por la ciencia y perfeccionado durante años. A través de programas hiper-personalizados, diagnósticos avanzados y atención experta, nuestros pacientes logran una transformación tangible y duradera en tiempo récord.
-          </p>
-        </div>
-      </div>
+      <header class="phb-science__header">
+        <div class="phb-science__badge">Biotechnology & Precision</div>
+        <h2 class="phb-science__title">
+          {{ t.science.title }} <span>{{ t.science.titleAccent }}</span> {{ t.science.titleEnd }}
+        </h2>
+        <p class="phb-science__desc">
+          {{ t.science.desc }}
+        </p>
+      </header>
 
-      <!-- Stats Grid -->
       <div class="phb-science__grid">
-        <div 
-          v-for="stat in stats" 
-          :key="stat.id" 
-          class="phb-science-stat"
-        >
-          <div class="phb-science-stat__number">
-            {{ stat.prefix }}{{ formatNumber(stat.currentValue) }}{{ stat.suffix }}
+        <!-- Left: Image/Visual -->
+        <div class="phb-science__visual">
+          <div class="phb-science__image-wrap">
+            <img src="https://images.pexels.com/photos/3735709/pexels-photo-3735709.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Biotech Lab" />
+            <div class="phb-science__image-overlay"></div>
           </div>
-          <p class="phb-science-stat__label">
-            {{ stat.label }}
-          </p>
+          <!-- Floating Feature -->
+          <div class="phb-science__floating-card">
+            <i class="fa-solid fa-microscope"></i>
+            <div>
+              <strong>100% Data-Driven</strong>
+              <span>Análisis de biomarcadores</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Stats/Benefits -->
+        <div class="phb-science__stats">
+          <div v-for="(stat, index) in t.science.stats" :key="index" class="phb-science__stat-item">
+            <div class="phb-science__stat-icon">
+              <i class="fa-solid fa-check"></i>
+            </div>
+            <p class="phb-science__stat-text">{{ stat }}</p>
+          </div>
         </div>
       </div>
 
