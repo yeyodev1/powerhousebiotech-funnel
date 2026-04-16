@@ -346,9 +346,11 @@ onMounted(() => {
   left: 5%;
   font-size: 28vw;
   font-weight: 900;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent);
+  // Use a stroked style mixed with a subtle gradient for a high-end look
+  background: linear-gradient(to bottom, rgba(33, 188, 250, 0.15), transparent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(33, 188, 250, 0.1);
   line-height: 1;
   pointer-events: none;
   z-index: 0;

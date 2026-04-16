@@ -289,7 +289,7 @@ onMounted(() => {
     }
     
     .phb-method-card__letter {
-      opacity: 0.08;
+      opacity: 0.15;
       transform: translateZ(20px) scale(1.1) !important;
     }
   }
@@ -317,8 +317,11 @@ onMounted(() => {
     font-size: 15rem;
     font-weight: 900;
     line-height: 1;
-    color: var(--phb-white);
-    opacity: 0.03;
+    color: var(--phb-cyan);
+    opacity: 0.08;
+    // Premium stroked look
+    -webkit-text-stroke: 1px rgba(33, 188, 251, 0.2);
+    -webkit-text-fill-color: transparent;
     pointer-events: none;
     user-select: none;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
