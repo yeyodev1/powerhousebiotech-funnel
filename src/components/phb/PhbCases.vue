@@ -517,13 +517,14 @@ onMounted(() => {
   }
 
   &__r-label {
-    font-size: 0.7rem;
-    font-weight: 700;
+    font-size: 0.72rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    opacity: 0.5;
+    letter-spacing: 0.15em;
+    color: var(--phb-cyan, #21bcfa); // Brighter brand color for visibility
+    opacity: 0.9;
     display: block;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.4rem;
   }
 
   &__r-text {

@@ -286,18 +286,23 @@ onMounted(() => {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 25vw;
-      font-weight: 900;
+      font-size: 38vw; // Larger
+      font-weight: 950;
       line-height: 1;
       pointer-events: none;
       z-index: 0;
-      color: var(--phb-cyan, #21bcfa);
-      opacity: 0.1;
-      -webkit-text-stroke: 1px rgba(33, 188, 250, 0.2);
+      
+      // High visibility: Bold Cyan Gradient
+      background: linear-gradient(135deg, rgba(33, 188, 251, 0.35) 0%, rgba(33, 188, 251, 0.05) 50%, transparent 100%);
+      -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 1.5px rgba(33, 188, 251, 0.4);
+      
+      opacity: 0.8; // High opacity but using transparent gradient parts
+      filter: drop-shadow(0 0 25px rgba(33, 188, 251, 0.25));
 
       @media (min-width: 1024px) {
-        font-size: 35vw;
+        font-size: 50vw;
         top: 20%;
         left: 0;
         transform: translate(-30%, -30%);
