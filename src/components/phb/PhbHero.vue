@@ -38,28 +38,27 @@ onMounted(() => {
     <div class="phb-hero__content">
       <div class="phb-hero__text-column">
         <h1 class="phb-hero__title">
-          Puedes recibir el mejor tratamiento del mundo... 
-          <span class="phb-hero__title-highlight">y aún así tu cuerpo seguir igual de enfermo.</span>
+          Tu cuerpo debe ser capaz de sanar.
+          <span class="phb-hero__title-highlight">La medicina del futuro es la precisión.</span>
         </h1>
         
         <div class="phb-hero__subtitle">
-          <p>Y es que no se trata del tratamiento, Se trata de la incapacidad de tu cuerpo de aprovecharlo.</p>
-          <p>Somos la primera Health Decision Platform enfocada en Medicina Regenerativa. Durante más de 15 años, hemos analizado +100,000 casos clínicos y aprendido una verdad incómoda:</p>
-          <p><strong>No todos los cuerpos están listos para Regenerarse.</strong> Y esto es algo que el 90% de los doctores que no tienen nuestra misma experiencia, ignoran por completo.</p>
+          <p>No se trata del tratamiento, sino de tu capacidad para aprovecharlo.</p>
+          <p>Somos la primera <strong>Health Decision Platform</strong> enfocada en Medicina Regenerativa de precisión. Analizamos el 100% de tu biometría para encontrar qué bloquea tu recuperación.</p>
         </div>
 
         <ul class="phb-hero__bullets">
           <li>
             <i class="fa-solid fa-check"></i>
-            Evaluamos si todavía tu cuerpo puede repararse o ya es demasiado tarde.
+            Evaluamos tu capacidad de autoreparación.
           </li>
           <li>
             <i class="fa-solid fa-check"></i>
-            Te explicamos a detalle el nivel de gravedad que dicen tus estudios de laboratorio.
+            Explicamos la gravedad real de tus biomarcadores.
           </li>
           <li>
             <i class="fa-solid fa-check"></i>
-            Unimos las piezas y te explicamos por qué estás así y qué hacer al respecto.
+            Diseñamos tu ruta crítica de regeneración.
           </li>
         </ul>
         

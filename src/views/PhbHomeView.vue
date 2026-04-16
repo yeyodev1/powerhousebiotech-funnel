@@ -6,6 +6,7 @@
     <ShaKpiSection />
     <PhbScience />
     <PhbPrograms />
+    <PhbExpectations />
     <!-- End new sections -->
     <PhbCta />
     <PhbFooter />
@@ -25,6 +26,7 @@ import PhbHero from '@/components/phb/PhbHero.vue'
 import ShaKpiSection from '@/components/sha/ShaKpiSection.vue'
 import PhbScience from '@/components/phb/PhbScience.vue'
 import PhbPrograms from '@/components/phb/PhbPrograms.vue'
+import PhbExpectations from '@/components/phb/PhbExpectations.vue'
 import PhbCta from '@/components/phb/PhbCta.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
 

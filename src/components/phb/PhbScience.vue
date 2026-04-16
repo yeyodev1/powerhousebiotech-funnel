@@ -1,118 +1,88 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, ref, reactive } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const team = [
-  {
-    name: 'Dra. Elena Navarro',
-    role: 'Directora Médica & Especialista en Longevidad',
-    image: 'https://images.pexels.com/photos/5214958/pexels-photo-5214958.jpeg?auto=compress&cs=tinysrgb&w=800',
-    desc: 'Más de 15 años de experiencia clínica en medicina funcional y terapias celulares.'
-  },
-  {
-    name: 'Dr. Marcus Fenix',
-    role: 'Jefe de Biotecnología y Genética',
-    image: 'https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=800',
-    desc: 'Enfocado en el análisis de perfiles genéticos para personalizar regímenes de reparación celular.'
-  },
-  {
-    name: 'Isabella Cortes',
-    role: 'Investigadora Principal en Nutrición Celular',
-    image: 'https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=800',
-    desc: 'Lidera la formulación de protocolos para la desinflamación y reseteo metabólico profundo.'
-  }
-]
+gsap.registerPlugin(ScrollTrigger)
 
-const containerRef = ref<HTMLElement | null>(null)
-let ctx: gsap.Context
+interface Stat {
+  id: number
+  label: string
+  targetValue: number
+  currentValue: number
+  suffix: string
+  prefix: string
+}
+
+const stats = reactive<Stat[]>([
+  { id: 1, label: 'Especialistas y expertos médicos, respaldados por años de investigación pionera.', targetValue: 50, currentValue: 0, suffix: '', prefix: '+' },
+  { id: 2, label: 'Tratamientos basados en evidencia biotecnológica avanzada.', targetValue: 1000, currentValue: 0, suffix: '', prefix: '+' },
+  { id: 3, label: 'Especialidades médicas y regenerativas integradas en un solo lugar.', targetValue: 50, currentValue: 0, suffix: '', prefix: '+' },
+  { id: 4, label: 'Pacientes que han transformado su salud con nuestro enfoque biológico.', targetValue: 100000, currentValue: 0, suffix: '', prefix: '+' },
+  { id: 5, label: 'Reconocimientos internacionales a la innovación en medicina regenerativa.', targetValue: 100, currentValue: 0, suffix: '', prefix: '+' }
+])
+
+const sectionRef = ref<HTMLElement | null>(null)
+
+const formatNumber = (val: number) => {
+  return Math.floor(val).toLocaleString('en-US')
+}
 
 onMounted(() => {
-  gsap.registerPlugin(ScrollTrigger)
-  
-  if (!containerRef.value) return
+  if (!sectionRef.value) return
 
-  ctx = gsap.context(() => {
-    const cards = gsap.utils.toArray('.phb-science-card') as HTMLElement[]
-    
-    // We pin the container and make the cards stack on top of each other
-    ScrollTrigger.create({
-      trigger: '.phb-science__cards-wrapper',
-      start: 'top 15%',
-      end: `+=${cards.length * 50}%`,
-      pin: true,
-      pinSpacing: true,
-    })
-
-    cards.forEach((card, i) => {
-      if (i === 0) return // the first one is already there
-      
-      // Animate each subsequent card over the previous
-      gsap.fromTo(card,
-        { 
-          y: '100%', 
-          scale: 0.9, 
-          opacity: 0, 
-          boxShadow: '0 0px 0px rgba(0,0,0,0)' 
-        },
-        {
-          y: `${i * 20}px`, // Slight offset so they look stacked
-          scale: 1,
-          opacity: 1,
-          boxShadow: '0 -20px 40px rgba(0,0,0,0.5)',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.phb-science__cards-wrapper',
-            start: `top+=${i * 30}% 15%`,
-            end: `top+=${i * 30 + 30}% 15%`,
-            scrub: true,
-          }
-        }
-      )
-    })
-  }, containerRef.value)
-})
-
-onUnmounted(() => {
-  ctx?.revert()
+  ScrollTrigger.create({
+    trigger: sectionRef.value,
+    start: 'top 75%',
+    onEnter: () => {
+      stats.forEach((stat) => {
+        gsap.to(stat, {
+          currentValue: stat.targetValue,
+          duration: 1.2,
+          ease: 'power3.out',
+          snap: { currentValue: 1 }
+        })
+      })
+    },
+    once: true
+  })
 })
 </script>
 
 <template>
-  <section class="phb-science" ref="containerRef">
+  <section class="phb-science" ref="sectionRef">
     <div class="phb-science__container">
       
+      <!-- Top Section -->
       <div class="phb-science__header">
-        <h2 class="phb-science__title">
-          NO CONFÍES EN NOSOTROS.<br>
-          <span style="font-weight: 300;">CONFÍA EN LOS DATOS.</span>
-        </h2>
-        <p class="phb-science__subtitle">
-          Nuestro equipo médico no adivina. Utiliza la ciencia de vanguardia y análisis celular de precisión para entender qué bloquea tu recuperación y diseñar protocolos que tu cuerpo sí pueda aprovechar.
-        </p>
-      </div>
-
-      <!-- The wrapper that gets pinned -->
-      <div class="phb-science__cards-wrapper">
-        <div 
-          v-for="(member, index) in team" 
-          :key="index"
-          class="phb-science-card"
-          :style="{ zIndex: index }"
-        >
-          <div class="phb-science-card__image-container">
-            <img :src="member.image" :alt="member.name" class="phb-science-card__img" />
-            <div class="phb-science-card__overlay"></div>
-          </div>
-          
-          <div class="phb-science-card__content">
-            <h3 class="phb-science-card__name">{{ member.name }}</h3>
-            <p class="phb-science-card__role">{{ member.role }}</p>
-            <p class="phb-science-card__desc">{{ member.desc }}</p>
-          </div>
+        <div class="phb-science__title-wrap">
+          <div class="phb-science__line"></div>
+          <h2 class="phb-science__title">Lo que hace a <br><em>PowerHouse</em> único</h2>
+        </div>
+        
+        <div class="phb-science__desc">
+          <p>
+            PowerHouse integra todo lo probado para optimizar la salud y el rendimiento en un método único y fluido, impulsado por la ciencia y perfeccionado durante años. A través de programas hiper-personalizados, diagnósticos avanzados y atención experta, nuestros pacientes logran una transformación tangible y duradera en tiempo récord.
+          </p>
         </div>
       </div>
-      
+
+      <!-- Stats Grid -->
+      <div class="phb-science__grid">
+        <div 
+          v-for="stat in stats" 
+          :key="stat.id" 
+          class="phb-science-stat"
+        >
+          <div class="phb-science-stat__number">
+            {{ stat.prefix }}{{ formatNumber(stat.currentValue) }}{{ stat.suffix }}
+          </div>
+          <p class="phb-science-stat__label">
+            {{ stat.label }}
+          </p>
+        </div>
+      </div>
+
     </div>
   </section>
 </template>
@@ -121,120 +91,100 @@ onUnmounted(() => {
 @use '@/styles/colorVariables.module.scss' as colors;
 
 .phb-science {
-  background-color: var(--phb-bg, #0d0f28);
-  color: var(--phb-text-1, #ffffff);
+  background-color: #f0eae6; // SHA-inspired warm beige
   padding: 8rem 2rem;
-  display: flex;
-  justify-content: center;
-  position: relative;
+  color: #0d0f28;
 
   &__container {
-    max-width: 1200px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-
-    @media (min-width: 1024px) {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 6rem;
-    }
+    max-width: 1300px;
+    margin: 0 auto;
   }
 
   &__header {
-    flex: 1;
-    position: sticky;
-    top: 20%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 8rem;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: 1fr 1.2fr;
+      align-items: start;
+    }
+  }
+
+  &__title-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  &__line {
+    width: 60px;
+    height: 1.5px;
+    background-color: #0d0f28;
+    margin-top: 1.2rem;
+    flex-shrink: 0;
   }
 
   &__title {
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    line-height: 1.1;
-    margin: 0 0 1.5rem 0;
-    font-weight: 600;
-  }
-
-  &__subtitle {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--phb-text-2, rgba(255, 255, 255, 0.7));
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 300;
-  }
+    line-height: 1.1;
+    margin: 0;
 
-  &__cards-wrapper {
-    flex: 1;
-    position: relative;
-    height: 500px; // matches card height roughly
-    width: 100%;
-    max-width: 500px;
-  }
-}
-
-.phb-science-card {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 4/5;
-  border-radius: 24px;
-  overflow: hidden;
-  background-color: #1a1c3a;
-  display: flex;
-  flex-direction: column;
-  transform-origin: top center;
-
-  &__image-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    flex: 1;
-  }
-
-  &__img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(13, 15, 40, 0.95) 0%, rgba(13, 15, 40, 0.2) 60%, transparent 100%);
-  }
-
-  &__content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 2.5rem;
-    z-index: 2;
-  }
-
-  &__name {
-    font-size: 1.75rem;
-    font-weight: 400;
-    margin: 0 0 0.5rem 0;
-    color: var(--phb-white);
-  }
-
-  &__role {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--phb-cyan);
-    margin: 0 0 1rem 0;
-    font-weight: 600;
+    em {
+      font-style: italic;
+      font-weight: 500;
+    }
   }
 
   &__desc {
-    font-size: 0.95rem;
+    p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      font-weight: 300;
+      color: rgba(13, 15, 40, 0.7);
+      margin: 0;
+      max-width: 650px;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    column-gap: 4rem;
+    row-gap: 6rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+.phb-science-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &__number {
+    font-size: clamp(3.5rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: #4a4d66; // Subtler dark
+  }
+
+  &__label {
+    font-size: 1.05rem;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+    color: rgba(13, 15, 40, 0.6);
     margin: 0;
+    max-width: 320px;
   }
 }
 </style>
