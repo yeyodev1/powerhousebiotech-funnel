@@ -3,10 +3,9 @@
     <PhbNav />
     <PhbHero />
     <!-- New SHA-inspired sections -->
-    <PhbExpect />
+    <ShaKpiSection />
     <PhbScience />
     <PhbPrograms />
-    <PhbTestimonial />
     <!-- End new sections -->
     <PhbCta />
     <PhbFooter />
@@ -23,10 +22,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import PhbNav from '@/components/phb/PhbNav.vue'
 import PhbHero from '@/components/phb/PhbHero.vue'
-import PhbExpect from '@/components/phb/PhbExpect.vue'
+import ShaKpiSection from '@/components/sha/ShaKpiSection.vue'
 import PhbScience from '@/components/phb/PhbScience.vue'
 import PhbPrograms from '@/components/phb/PhbPrograms.vue'
-import PhbTestimonial from '@/components/phb/PhbTestimonial.vue'
 import PhbCta from '@/components/phb/PhbCta.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
 

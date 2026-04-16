@@ -1,218 +1,227 @@
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import gsap from 'gsap'
+
+onMounted(() => {
+  const tl = gsap.timeline()
+  
+  tl.fromTo('.phb-hero__title', 
+    { y: 30, opacity: 0 },
+    { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2 }
+  )
+  .fromTo('.phb-hero__subtitle',
+    { y: 20, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' },
+    '-=0.6'
+  )
+  .fromTo('.phb-hero__bullets li',
+    { x: -20, opacity: 0 },
+    { x: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power2.out' },
+    '-=0.4'
+  )
+  .fromTo('.phb-hero__cta-wrapper',
+    { y: 20, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' },
+    '-=0.2'
+  )
+})
+</script>
+
 <template>
   <section class="phb-hero">
-    <!-- Background Image -->
-    <div class="phb-hero__bg">
-      <img
-        src="/hero-bg.png"
-        alt="PowerHouse Biotech Background"
-        aria-hidden="true"
-      />
-      <!-- Soft dark gradient to make text readable on the left -->
-      <div class="phb-hero__overlay"></div>
+    <!-- DNA Background image -->
+    <div class="phb-hero__bg-container">
+      <img src="/hero-bg.png" alt="DNA Strand" class="phb-hero__bg-img" />
+      <div class="phb-hero__bg-overlay"></div>
     </div>
 
-    <div class="phb-container">
-      <div class="phb-hero__inner">
-
-        <!-- Left: copy -->
-        <div class="phb-hero__content">
-          <div class="phb-hero__logo" data-aos="fade-up">
-            <!-- Using text as placeholder, the actual nav has the logo usually -->
-          </div>
-          
-          <h1 class="phb-hero__heading" data-aos="fade-up" data-aos-delay="100">
-            Puedes tener<br />
-            el mejor tratamiento...<br />
-            <span class="phb-hero__heading-highlight">y aun así no mejorar.</span>
-          </h1>
-          
-          <div class="phb-hero__ctas" data-aos="fade-up" data-aos-delay="220">
-            <a href="#cta" class="phb-hero__btn-glass">
-              <i class="fa-solid fa-arrow-right"></i>
-              Quiero evaluar mi biologia
-            </a>
-          </div>
-
-          <ul class="phb-hero__checklist" data-aos="fade-up" data-aos-delay="340">
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Evaluación basada en biomarcadores
-            </li>
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Interpretación clínica avanzada
-            </li>
-            <li>
-              <i class="fa-solid fa-check"></i>
-              Decisión antes de intervenir
-            </li>
-          </ul>
+    <div class="phb-hero__content">
+      <div class="phb-hero__text-column">
+        <h1 class="phb-hero__title">
+          Puedes recibir el mejor tratamiento del mundo... 
+          <span class="phb-hero__title-highlight">y aún así tu cuerpo seguir igual de enfermo.</span>
+        </h1>
+        
+        <div class="phb-hero__subtitle">
+          <p>Y es que no se trata del tratamiento, Se trata de la incapacidad de tu cuerpo de aprovecharlo.</p>
+          <p>Somos la primera Health Decision Platform enfocada en Medicina Regenerativa. Durante más de 15 años, hemos analizado +100,000 casos clínicos y aprendido una verdad incómoda:</p>
+          <p><strong>No todos los cuerpos están listos para Regenerarse.</strong> Y esto es algo que el 90% de los doctores que no tienen nuestra misma experiencia, ignoran por completo.</p>
         </div>
 
+        <ul class="phb-hero__bullets">
+          <li>
+            <i class="fa-solid fa-check"></i>
+            Evaluamos si todavía tu cuerpo puede repararse o ya es demasiado tarde.
+          </li>
+          <li>
+            <i class="fa-solid fa-check"></i>
+            Te explicamos a detalle el nivel de gravedad que dicen tus estudios de laboratorio.
+          </li>
+          <li>
+            <i class="fa-solid fa-check"></i>
+            Unimos las piezas y te explicamos por qué estás así y qué hacer al respecto.
+          </li>
+        </ul>
+        
+        <div class="phb-hero__cta-wrapper">
+          <button class="phb-hero__cta-btn">Agendar mi Evaluación Médica</button>
+          <p class="phb-hero__cta-sub">Solo aceptamos el 20% de las aplicaciones.</p>
+        </div>
       </div>
     </div>
-
-    <!-- Fade out softly to the new dark sections below -->
-    <div class="phb-hero__bottom-fade"></div>
   </section>
 </template>
 
-<script setup lang="ts">
-// static hero
-</script>
-
 <style lang="scss" scoped>
+@use '@/styles/colorVariables.module.scss' as colors;
+
 .phb-hero {
   position: relative;
   min-height: 100vh;
-  background: #0d0f28; // fallback dark background
   display: flex;
   align-items: center;
   overflow: hidden;
-  font-family: var(--phb-font);
-}
+  color: var(--phb-text-1, #ffffff);
+  padding: 8rem 2rem 4rem 2rem;
 
-.phb-hero__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+  &__bg-container {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
 
-  img {
+  &__bg-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center right;
-  }
-}
-
-.phb-hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(13, 15, 40, 0.95) 0%,
-    rgba(13, 15, 40, 0.8) 40%,
-    rgba(13, 15, 40, 0.2) 70%,
-    rgba(13, 15, 40, 0) 100%
-  );
-}
-
-.phb-container {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 clamp(20px, 5vw, 80px);
-}
-
-.phb-hero__inner {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 120px 0 100px;
-}
-
-.phb-hero__content {
-  max-width: 650px;
-}
-
-.phb-hero__heading {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--phb-white);
-  margin-bottom: 40px;
-  
-  &-highlight {
-    color: var(--phb-cyan);
-    font-weight: 400;
-  }
-}
-
-.phb-hero__ctas {
-  margin-bottom: 30px;
-}
-
-.phb-hero__btn-glass {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 36px;
-  background: rgba(33, 188, 251, 0.1);
-  color: var(--phb-white);
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 500;
-  border-radius: 50px; /* pill shape */
-  border: 1px solid rgba(33, 188, 251, 0.4);
-  box-shadow: 0 0 20px rgba(33, 188, 251, 0.2);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-
-  i {
-    font-size: 14px;
-    transition: transform 0.3s ease;
+    object-position: right center;
   }
 
-  &:hover {
-    background: rgba(33, 188, 251, 0.25);
-    border-color: rgba(33, 188, 251, 0.7);
-    box-shadow: 0 0 30px rgba(33, 188, 251, 0.4);
-    
-    i {
-      transform: translateX(4px);
-    }
-  }
-}
-
-.phb-hero__checklist {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.95rem;
-    font-weight: 300;
-
-    i {
-      color: var(--phb-white);
-      font-size: 0.8rem;
-    }
-  }
-}
-
-.phb-hero__bottom-fade {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 120px;
-  background: linear-gradient(to bottom, transparent, var(--phb-bg, #0d0f28));
-  z-index: 2;
-  pointer-events: none;
-}
-
-@media (max-width: 900px) {
-  .phb-hero__overlay {
+  &__bg-overlay {
+    position: absolute;
+    inset: 0;
     background: linear-gradient(
-      180deg,
-      rgba(13, 15, 40, 0.85) 0%,
-      rgba(13, 15, 40, 0.95) 100%
+      to right,
+      rgba(13, 15, 40, 0.95) 0%,
+      rgba(13, 15, 40, 0.8) 40%,
+      rgba(13, 15, 40, 0.3) 100%
     );
   }
-  
-  .phb-hero__heading {
-    br {
-      display: none;
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  &__text-column {
+    max-width: 700px;
+  }
+
+  &__title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    color: var(--phb-white);
+
+    &-highlight {
+      font-weight: 600;
+      color: var(--phb-cyan);
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2.5rem;
+    
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 3rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      font-size: 1.05rem;
+      color: var(--phb-white);
+
+      i {
+        color: var(--phb-cyan);
+        margin-top: 0.25rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__cta-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__cta-btn {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--phb-white);
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+
+    &:hover {
+      background: var(--phb-white);
+      color: var(--phb-bg, #0d0f28);
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px -10px rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &__cta-sub {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .phb-hero {
+    &__bg-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(13, 15, 40, 0.95) 0%,
+        rgba(13, 15, 40, 0.85) 60%,
+        rgba(13, 15, 40, 0.6) 100%
+      );
+    }
+    
+    &__cta-wrapper {
+      width: 100%;
+    }
+    
+    &__cta-btn {
+      width: 100%;
     }
   }
 }

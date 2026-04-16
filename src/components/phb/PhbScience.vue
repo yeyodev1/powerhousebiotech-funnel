@@ -1,109 +1,114 @@
 <script setup lang="ts">
-import { onMounted, ref, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const team = [
   {
-    name: 'Dr. Guillermo Rodríguez',
-    role: 'Medical Services Director',
-    location: 'PHB México',
-    image: 'https://images.unsplash.com/photo-1612349317150-e410f624c427?auto=format&fit=crop&q=80&w=800'
+    name: 'Dra. Elena Navarro',
+    role: 'Directora Médica & Especialista en Longevidad',
+    image: 'https://images.pexels.com/photos/5214958/pexels-photo-5214958.jpeg?auto=compress&cs=tinysrgb&w=800',
+    desc: 'Más de 15 años de experiencia clínica en medicina funcional y terapias celulares.'
   },
   {
-    name: 'Dra. Victoria Salas',
-    role: 'Internal & Longevity Specialist',
-    location: 'PHB Colombia',
-    image: 'https://images.unsplash.com/photo-1594824436998-d8f99fac46a5?auto=format&fit=crop&q=80&w=800'
+    name: 'Dr. Marcus Fenix',
+    role: 'Jefe de Biotecnología y Genética',
+    image: 'https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=800',
+    desc: 'Enfocado en el análisis de perfiles genéticos para personalizar regímenes de reparación celular.'
   },
   {
-    name: 'Dr. Augusto Ferrara',
-    role: 'Head of Regenerative Therapies',
-    location: 'PHB España',
-    image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=800'
+    name: 'Isabella Cortes',
+    role: 'Investigadora Principal en Nutrición Celular',
+    image: 'https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=800',
+    desc: 'Lidera la formulación de protocolos para la desinflamación y reseteo metabólico profundo.'
   }
 ]
 
-const galleryRef = ref<HTMLElement | null>(null)
+const containerRef = ref<HTMLElement | null>(null)
 let ctx: gsap.Context
 
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
+  
+  if (!containerRef.value) return
 
   ctx = gsap.context(() => {
-    const cards = gsap.utils.toArray('.phb-science__card')
+    const cards = gsap.utils.toArray('.phb-science-card') as HTMLElement[]
     
-    if (cards.length > 0) {
-      // Pin the gallery section and stack cards on top of each other
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: galleryRef.value,
-          start: 'top 10%',
-          end: `+=${cards.length * 80}%`,
-          pin: true,
-          scrub: 1,
-        }
-      })
+    // We pin the container and make the cards stack on top of each other
+    ScrollTrigger.create({
+      trigger: '.phb-science__cards-wrapper',
+      start: 'top 15%',
+      end: `+=${cards.length * 50}%`,
+      pin: true,
+      pinSpacing: true,
+    })
 
-      // The first card stays, others stack on top from the right or bottom
-      cards.forEach((card, i) => {
-        if (i === 0) return
-        
-        // Start below viewport
-        gsap.set(card as Element, { yPercent: 100 })
-        
-        tl.to(card as Element, {
-          yPercent: 0,
+    cards.forEach((card, i) => {
+      if (i === 0) return // the first one is already there
+      
+      // Animate each subsequent card over the previous
+      gsap.fromTo(card,
+        { 
+          y: '100%', 
+          scale: 0.9, 
+          opacity: 0, 
+          boxShadow: '0 0px 0px rgba(0,0,0,0)' 
+        },
+        {
+          y: `${i * 20}px`, // Slight offset so they look stacked
+          scale: 1,
+          opacity: 1,
+          boxShadow: '0 -20px 40px rgba(0,0,0,0.5)',
           ease: 'none',
-        })
-      })
-    }
-  }, galleryRef.value!)
+          scrollTrigger: {
+            trigger: '.phb-science__cards-wrapper',
+            start: `top+=${i * 30}% 15%`,
+            end: `top+=${i * 30 + 30}% 15%`,
+            scrub: true,
+          }
+        }
+      )
+    })
+  }, containerRef.value)
 })
 
 onUnmounted(() => {
-  if (ctx) ctx.revert()
+  ctx?.revert()
 })
 </script>
 
 <template>
-  <section class="phb-science" ref="galleryRef">
+  <section class="phb-science" ref="containerRef">
     <div class="phb-science__container">
       
-      <!-- Text Info Content -->
-      <div class="phb-science__info">
-        <div class="phb-science__header">
-          <div class="phb-science__line"></div>
-          <h2 class="phb-science__title">
-            The Science at the Heart of PowerHouse
-          </h2>
-        </div>
-        
-        <h3 class="phb-science__subtitle">MEET OUR TEAM</h3>
-        <p class="phb-science__description">
-          Our medical team brings together world-class experts in longevity,
-          preventive medicine and performance, united by a shared, science-based
-          approach. We are pleased to introduce the heads of each unit—leading
-          specialists who guide every area of the PowerHouse Method.
+      <div class="phb-science__header">
+        <h2 class="phb-science__title">
+          NO CONFÍES EN NOSOTROS.<br>
+          <span style="font-weight: 300;">CONFÍA EN LOS DATOS.</span>
+        </h2>
+        <p class="phb-science__subtitle">
+          Nuestro equipo médico no adivina. Utiliza la ciencia de vanguardia y análisis celular de precisión para entender qué bloquea tu recuperación y diseñar protocolos que tu cuerpo sí pueda aprovechar.
         </p>
       </div>
 
-      <!-- Overlapping Gallery -->
-      <div class="phb-science__gallery-wrapper">
+      <!-- The wrapper that gets pinned -->
+      <div class="phb-science__cards-wrapper">
         <div 
           v-for="(member, index) in team" 
           :key="index"
-          class="phb-science__card"
+          class="phb-science-card"
           :style="{ zIndex: index }"
         >
-          <div class="phb-science__card-image">
-            <img :src="member.image" :alt="member.name" loading="lazy" />
-            <div class="phb-science__card-overlay"></div>
+          <div class="phb-science-card__image-container">
+            <img :src="member.image" :alt="member.name" class="phb-science-card__img" />
+            <div class="phb-science-card__overlay"></div>
           </div>
-          <div class="phb-science__card-content">
-            <h4 class="phb-science__card-name">{{ member.name }}</h4>
-            <p class="phb-science__card-role">{{ member.role }}</p>
-            <p class="phb-science__card-location">{{ member.location }}</p>
+          
+          <div class="phb-science-card__content">
+            <h3 class="phb-science-card__name">{{ member.name }}</h3>
+            <p class="phb-science-card__role">{{ member.role }}</p>
+            <p class="phb-science-card__desc">{{ member.desc }}</p>
           </div>
         </div>
       </div>
@@ -116,155 +121,120 @@ onUnmounted(() => {
 @use '@/styles/colorVariables.module.scss' as colors;
 
 .phb-science {
-  background-color: var(--phb-bg-alt, #f9f9f9); /* Use light bg if standard for this section, else dark */
-  color: var(--phb-text-1, #171846); /* Dark text for light background */
-  padding: 6rem 2rem;
+  background-color: var(--phb-bg, #0d0f28);
+  color: var(--phb-text-1, #ffffff);
+  padding: 8rem 2rem;
   display: flex;
   justify-content: center;
   position: relative;
-  overflow: hidden;
-
-  /* If brand needs this to be light or white: */
-  background: #ffffff;
-  color: #191423;
 
   &__container {
-    max-width: 1400px;
+    max-width: 1200px;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 4rem;
-  }
 
-  &__info {
-    max-width: 800px;
-  }
-
-  &__header {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  &__line {
-    width: 60px;
-    height: 1px;
-    background-color: #191423;
-  }
-
-  &__title {
-    font-size: 2.5rem;
-    font-weight: 300;
-    line-height: 1.2;
-    margin: 0;
-  }
-
-  &__subtitle {
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: #666;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-  }
-
-  &__description {
-    font-size: 1.125rem;
-    font-weight: 300;
-    line-height: 1.6;
-    color: #555;
-    font-style: italic;
-    margin: 0;
-  }
-
-  &__gallery-wrapper {
-    position: relative;
-    width: 100%;
-    height: 600px; /* fixed height for stacking effect */
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  &__card {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #e2e2e2;
-    will-change: transform;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-  }
-
-  &__card-image {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
+    @media (min-width: 1024px) {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 6rem;
     }
   }
 
-  &__card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+  &__header {
+    flex: 1;
+    position: sticky;
+    top: 20%;
   }
 
-  &__card-content {
+  &__title {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1;
+    margin: 0 0 1.5rem 0;
+    font-weight: 600;
+  }
+
+  &__subtitle {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--phb-text-2, rgba(255, 255, 255, 0.7));
+    font-weight: 300;
+  }
+
+  &__cards-wrapper {
+    flex: 1;
+    position: relative;
+    height: 500px; // matches card height roughly
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+.phb-science-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: 24px;
+  overflow: hidden;
+  background-color: #1a1c3a;
+  display: flex;
+  flex-direction: column;
+  transform-origin: top center;
+
+  &__image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+  }
+
+  &__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13, 15, 40, 0.95) 0%, rgba(13, 15, 40, 0.2) 60%, transparent 100%);
+  }
+
+  &__content {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 3rem 2rem;
-    color: #ffffff;
-    z-index: 10;
+    padding: 2.5rem;
+    z-index: 2;
   }
 
-  &__card-name {
-    font-size: 2rem;
-    font-weight: 300;
+  &__name {
+    font-size: 1.75rem;
+    font-weight: 400;
     margin: 0 0 0.5rem 0;
+    color: var(--phb-white);
   }
 
-  &__card-role {
-    font-size: 0.875rem;
-    font-weight: 500;
+  &__role {
+    font-size: 0.9rem;
+    text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin: 0 0 0.25rem 0;
-    opacity: 0.9;
+    color: var(--phb-cyan);
+    margin: 0 0 1rem 0;
+    font-weight: 600;
   }
 
-  &__card-location {
-    font-size: 0.75rem;
-    font-weight: 300;
-    opacity: 0.7;
+  &__desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.8);
     margin: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .phb-science {
-    padding: 4rem 1.5rem;
-
-    &__title {
-      font-size: 2rem;
-    }
-    
-    &__line {
-      width: 40px;
-    }
-
-    &__gallery-wrapper {
-      height: 450px;
-    }
   }
 }
 </style>

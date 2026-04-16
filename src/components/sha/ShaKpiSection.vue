@@ -1,156 +1,222 @@
-<template>
-  <section class="kpi-section" id="kpi-section">
-    <div class="kpi-section__zone-2">
-      <div class="sha-container">
-        <div class="line-title line-title--animated line-title--light" ref="lineTitle1">
-          What To Expect From a SHA Program
-        </div>
-        <div class="gap16"></div>
-        <p class="kpi-section__subtitle">
-          Measurable, science-based improvements within days.
-        </p>
-        <div class="gap80"></div>
-        <div class="kpi-grid" data-aos="fade-in" data-aos-delay="200">
-          <div class="kpi-item">
-            <div class="kpi-item__number">30%</div>
-            <p class="kpi-item__desc">Reduction in key inflammation markers.</p>
-          </div>
-          <div class="kpi-item">
-            <div class="kpi-item__number">35%</div>
-            <p class="kpi-item__desc">Improvement in sleep quality.</p>
-          </div>
-          <div class="kpi-item">
-            <div class="kpi-item__number">40%</div>
-            <p class="kpi-item__desc">Boost in energy and cognitive performance.</p>
-          </div>
-          <div class="kpi-item">
-            <div class="kpi-item__number">70%</div>
-            <p class="kpi-item__desc">Guests sustain healthy lifestyle habits three months after leaving SHA.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import PhbEncryptedText from '../phb/PhbEncryptedText.vue'
 
-    <div class="kpi-section__zone-4">
-      <div class="sha-container">
-        <div class="hero-sources" data-aos="fade-in" data-aos-delay="400">
-          <p class="title-m">
-            <span class="title-m--regular">10 YEARS YOUNGER.</span><br>
-            That's how guests often describe their vitality and focus.
-          </p>
+const stats = [
+  { val: '50%', text: 'De los adultos mayores de 45 años viven con al menos una enfermedad crónica.' },
+  { val: '60%', text: 'De las personas tienen más de una condición que provoca malestar (6 de cada 10).' },
+  { val: '70%', text: 'De los tratamientos convencionales no logran los resultados esperados.' },
+  { val: '20%', text: 'Es el porcentaje de casos viables que aceptamos para asegurar resultados.' }
+]
+
+onMounted(() => {
+  gsap.registerPlugin(ScrollTrigger)
+
+  gsap.fromTo('.sha-kpi-stat', 
+    { opacity: 0, y: 20 },
+    {
+      opacity: 1, 
+      y: 0, 
+      duration: 0.8, 
+      stagger: 0.15,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.sha-kpi-right',
+        start: 'top 80%'
+      }
+    }
+  )
+})
+</script>
+
+<template>
+  <section class="sha-kpi">
+    <div class="sha-kpi__container">
+      
+      <!-- Left side: The Quote / Reality styling -->
+      <div class="sha-kpi__left">
+        <h2 class="sha-kpi__quote">
+          "<span style="font-style: italic; font-weight: 300;">La realidad incómoda:</span><br/>
+          Vas de médico en médico, de tratamiento en tratamiento... sin un criterio que conecte todo."
+        </h2>
+        
+        <div class="sha-kpi__sub">
+          <span class="sha-kpi__sub-label">El Problema Real —</span>
+          El problema no es lo que haces. Es que estás actuando sin entender tu biología profunda. Vas a ciegas.
         </div>
-        <div class="gap60"></div>
+
+        <button class="sha-kpi__btn">
+          Descubrir Nuestro Método
+        </button>
       </div>
+
+      <!-- Right side: The Stats grid and an overlay image to mimic the SHA section -->
+      <div class="sha-kpi__right">
+        <div class="sha-kpi__image-bg">
+          <div class="sha-kpi__image-overlay"></div>
+          <!-- Background image for the right side matching the aesthetic -->
+          <img src="https://images.pexels.com/photos/8376277/pexels-photo-8376277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Regenerative treatment" />
+        </div>
+
+        <!-- Floating Stats on top of the image (or alongside) -->
+        <div class="sha-kpi__stats-grid">
+          <div v-for="(stat, index) in stats" :key="index" class="sha-kpi-stat">
+            <h3 class="sha-kpi-stat__val">
+              <PhbEncryptedText 
+                :text="stat.val"
+                charset="0123456789%"
+                :revealDelayMs="120"
+                :flipDelayMs="30"
+                revealedClass="font-weight-400"
+                encryptedClass="opacity-50"
+              />
+            </h3>
+            <p class="sha-kpi-stat__text">{{ stat.text }}</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 </template>
 
-<script setup lang="ts">
-</script>
-
 <style lang="scss" scoped>
-.kpi-section {
-  background: var(--sha-dark);
-  color: var(--sha-white);
-  font-family: var(--sha-font);
-}
+@use '@/styles/colorVariables.module.scss' as colors;
 
-.sha-container {
-  width: 100%;
-  max-width: var(--sha-container);
-  margin: 0 auto;
-  padding: 0 var(--sha-pad-x);
-}
+.sha-kpi {
+  background-color: var(--phb-bg, #0d0f28);
+  color: var(--phb-text-1, #ffffff);
+  padding: 8rem 0; /* Let left side touch edges inside flex */
+  overflow: hidden;
 
-.kpi-section__zone-2 {
-  padding: 160px 0 60px;
-}
-
-.kpi-section__subtitle {
-  font-size: clamp(0.9rem, 1.2vw, 1rem);
-  color: rgba(255, 255, 255, 0.55);
-  margin-top: 12px;
-  font-weight: var(--sha-fw-light);
-}
-
-.gap16 { height: 16px; }
-.gap80 { height: 80px; }
-.gap60 { height: 60px; }
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px 100px;
-  margin-top: 60px;
-  max-width: 700px;
-}
-
-.kpi-item {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.kpi-item__number {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: var(--sha-fw-light);
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-
-.kpi-item__desc {
-  font-size: 13px;
-  font-weight: var(--sha-fw-light);
-  color: rgba(255, 255, 255, 0.6);
-  max-width: 200px;
-  line-height: 1.4;
-}
-
-.kpi-section__zone-4 {
-  padding: 60px 0 160px;
-}
-
-.hero-sources { max-width: 700px; }
-
-.title-m {
-  font-size: clamp(0.85rem, 1.1vw, 1rem);
-  font-weight: var(--sha-fw-light);
-  color: rgba(255, 255, 255, 0.45);
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-}
-
-.title-m--regular {
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: var(--sha-fw-regular);
-}
-
-/* line-title */
-.line-title {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 12px;
-  font-weight: var(--sha-fw-regular);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--sha-text-muted);
-
-  &::before {
-    content: '';
-    display: block;
-    width: 0;
-    height: 1px;
-    background: currentColor;
-    transition: width 0.8s ease;
-    flex-shrink: 0;
+  &__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    
+    @media (min-width: 1024px) {
+      flex-direction: row;
+      align-items: stretch;
+      min-height: 80vh;
+    }
   }
 
-  &.in-view::before { width: 40px; }
-  &.line-title--light { color: rgba(255, 255, 255, 0.5); }
-}
+  &__left {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-@media (max-width: 1024px) {
-  .kpi-grid { grid-template-columns: 1fr 1fr; }
+    @media (min-width: 1024px) {
+      padding: 4rem 6rem;
+      max-width: 55%;
+    }
+  }
+
+  &__quote {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.25;
+    color: var(--phb-white);
+    margin: 0 0 3rem 0;
+    max-width: 600px;
+  }
+
+  &__sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 3rem;
+    max-width: 480px;
+
+    &-label {
+      font-weight: 600;
+      color: var(--phb-white);
+    }
+  }
+
+  &__btn {
+    align-self: flex-start;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: var(--phb-white);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--phb-white);
+      color: var(--phb-bg);
+    }
+  }
+
+  &__right {
+    flex: 1;
+    position: relative;
+    padding: 4rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (min-width: 1024px) {
+      padding: 0;
+    }
+  }
+
+  &__image-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #0d0f28 0%, rgba(13, 15, 40, 0.6) 100%);
+    z-index: 1;
+
+    @media (max-width: 1024px) {
+      background: linear-gradient(to top, #0d0f28 0%, rgba(13, 15, 40, 0.6) 100%);
+    }
+  }
+
+  &__stats-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 500px;
+    padding: 2rem;
+  }
+
+  .sha-kpi-stat {
+    &__val {
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 300;
+      margin: 0 0 0.5rem 0;
+      color: var(--phb-cyan);
+    }
+
+    &__text {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.8);
+      margin: 0;
+    }
+  }
 }
 </style>
