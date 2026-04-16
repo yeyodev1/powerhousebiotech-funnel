@@ -75,8 +75,8 @@ const bullets = [
 
 <style lang="scss" scoped>
 .phb-about {
-  background: var(--phb-white);
-  color: var(--phb-text);
+  background: #05060f; // Matching the deep dark tone of the rest of the landing
+  color: #ffffff;
   padding: clamp(80px, 10vw, 140px) 0;
   font-family: var(--phb-font);
 }
@@ -103,7 +103,7 @@ const bullets = [
   font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--phb-muted);
+  color: rgba(255, 255, 255, 0.4);
   margin-bottom: 24px;
 }
 
@@ -111,7 +111,7 @@ const bullets = [
   display: block;
   width: 32px;
   height: 1px;
-  background: var(--phb-blue);
+  background: var(--phb-cyan, #21bcfa);
   flex-shrink: 0;
 }
 
@@ -124,33 +124,38 @@ const bullets = [
   em {
     font-style: italic;
     font-weight: 700;
-    color: var(--phb-blue);
+    color: var(--phb-cyan, #21bcfa);
   }
 }
 
 .phb-about__body {
-  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
-  color: var(--phb-muted);
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.6);
   line-height: 1.7;
-  margin-top: 20px;
+  margin-top: 24px;
 
   strong {
-    color: var(--phb-text);
+    color: #ffffff;
     font-weight: 600;
   }
 
-  &--small { font-size: 14px; }
+  &--small { 
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.4);
+  }
 }
 
 .phb-about__truth {
-  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-  font-weight: 600;
-  color: var(--phb-bg);
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  font-weight: 300;
+  color: #ffffff;
   line-height: 1.3;
-  margin-top: 20px;
-  padding: 20px 24px;
-  border-left: 3px solid var(--phb-blue);
-  background: var(--phb-surface);
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 24px 30px;
+  border-left: 2px solid var(--phb-cyan, #21bcfa);
+  background: rgba(33, 188, 250, 0.05);
+  border-radius: 0 12px 12px 0;
 }
 
 .phb-about__bullets-label {
@@ -158,7 +163,7 @@ const bullets = [
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--phb-blue);
+  color: var(--phb-cyan, #21bcfa);
   margin-bottom: 20px;
 }
 
@@ -174,7 +179,7 @@ const bullets = [
     gap: 14px;
     align-items: flex-start;
     font-size: 14px;
-    color: var(--phb-text);
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.6;
   }
 }
@@ -184,7 +189,7 @@ const bullets = [
   height: 20px;
   flex-shrink: 0;
   margin-top: 1px;
-  color: var(--phb-blue);
+  color: var(--phb-cyan, #21bcfa);
 
   svg { width: 100%; height: 100%; }
 }
@@ -198,10 +203,10 @@ const bullets = [
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--phb-blue);
+  color: var(--phb-cyan, #21bcfa);
   text-decoration: none;
   padding: 12px 0;
-  border-bottom: 1px solid var(--phb-blue);
+  border-bottom: 1px solid rgba(33, 188, 251, 0.3);
   transition: gap 0.2s, opacity 0.2s;
 
   &:hover { gap: 16px; }

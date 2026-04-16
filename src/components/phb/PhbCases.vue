@@ -533,35 +533,57 @@ onMounted(() => {
   
   /* Final Slide */
   &--final {
-    max-width: 600px;
+    width: 100vw;
+    max-width: none;
     display: flex;
+    justify-content: center;
     align-items: center;
+    padding-right: 8vw; // Compensate for left padding of row
   }
 }
 
 .phb-case-final {
+  max-width: 800px;
+  text-align: center;
+
   &__h2 {
-    font-size: 3.5rem;
-    font-weight: 200;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 300;
     line-height: 1.1;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    color: #ffffff;
+    
+    background: linear-gradient(to bottom, #ffffff, var(--phb-cyan, #21bcfa));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
   &__p {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
     line-height: 1.6;
-    opacity: 0.5;
-    margin-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   &__badge {
     display: inline-block;
-    padding: 1rem 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--phb-cyan, #21bcfa);
     border-radius: 100px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--phb-cyan, #21bcfa);
+    background: rgba(33, 188, 250, 0.05);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--phb-cyan, #21bcfa);
+      color: #05060f;
+    }
   }
 }
 
