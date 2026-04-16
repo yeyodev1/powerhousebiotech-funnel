@@ -11,7 +11,7 @@ const team = [
     name: 'Dra. Mariel Silva',
     role: 'Medical Services Director',
     location: 'PHB Spain',
-    desc: 'Experta en medicina regenerativa avanzada con más de 15 años liderando protocolos de optimización biológica en Europa.',
+    desc: 'Experta en medicina regenerativa avanzada. Se especializa en determinar la viabilidad real de reparación sistémica antes de cualquier intervención.',
     image: 'https://images.pexels.com/photos/5214958/pexels-photo-5214958.jpeg?auto=compress&cs=tinysrgb&w=1200'
   },
   {
@@ -19,7 +19,7 @@ const team = [
     name: 'Dr. Jair Olivares',
     role: 'Biotech Research Lead',
     location: 'PHB Mexico',
-    desc: 'Especialista en genómica y biomarcadores, enfocado en la personalización de tratamientos de precisión para el antienvejecimiento.',
+    desc: 'Líder en investigación de biomarcadores. Su trabajo es identificar por qué un organismo no está respondiendo a pesar de seguir las indicaciones médicas.',
     image: 'https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=1200'
   },
   {
@@ -27,7 +27,7 @@ const team = [
     name: 'Dr. Vicente Mera',
     role: 'Internal & Longevity Specialist',
     location: 'PHB Spain',
-    desc: 'Reconocido internacionalmente por su enfoque holístico y científico en la medicina preventiva y la longevidad celular.',
+    desc: 'Reconocido por su capacidad de unir las piezas biológicas y explicar a detalle el nivel de gravedad real que dicen tus estudios de laboratorio.',
     image: 'https://images.pexels.com/photos/6129112/pexels-photo-6129112.jpeg?auto=compress&cs=tinysrgb&w=1200'
   },
   {
@@ -35,7 +35,7 @@ const team = [
     name: 'Dra. Andrea Márquez',
     role: 'Head of Regenerative Medicine',
     location: 'PHB Mexico',
-    desc: 'Lidera la unidad de medicina regenerativa integrando tecnologías de vanguardia para la reparación tisular y sistémica.',
+    desc: 'Especialista en encaminar decisiones clínicas. Ayuda a los pacientes a entender si vale la pena o no iniciar un tratamiento avanzado según su estado actual.',
     image: 'https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=1200'
   },
   {
@@ -43,7 +43,7 @@ const team = [
     name: 'Dr. Stefan Kraus',
     role: 'Cellular Optimization Expert',
     location: 'PHB Germany',
-    desc: 'Experto en biofísica celular aplicado al rendimiento humano, supervisando los estándares de seguridad biológica globales.',
+    desc: 'Analiza la capacidad real de respuesta del organismo. Su enfoque evita intervenciones innecesarias enfocándose solo en casos con probabilidad real de éxito.',
     image: 'https://images.pexels.com/photos/5327656/pexels-photo-5327656.jpeg?auto=compress&cs=tinysrgb&w=1200'
   }
 ]
@@ -130,11 +130,11 @@ onMounted(() => {
       <!-- Static Header -->
       <div class="phb-team__header">
         <div class="phb-team__header-content">
-          <div class="phb-team__label">Precision Team —</div>
-          <h2 class="phb-team__main-title">The Science at the Heart of SHA</h2>
+          <div class="phb-team__label">Criterio Clínico —</div>
+          <h2 class="phb-team__main-title">Expertos en Decisiones de Salud</h2>
           <p class="phb-team__main-desc">
-            Nuestros especialistas de élite son la base de la medicina del futuro. 
-            Cada unidad es liderada por expertos con visión científica global.
+            Somos la primera <b>Health Decision Platform</b> enfocada en Medicina Regenerativa. 
+            Nuestros especialistas no solo aplican tratamientos; analizan tu biología profunda para determinar si tu cuerpo realmente puede mejorar.
           </p>
         </div>
       </div>
