@@ -260,11 +260,11 @@ onMounted(() => {
 
     &__inner {
       display: flex;
-      flex-direction: column-reverse;
-      gap: 1.5rem;
+      flex-direction: column; 
+      gap: 2rem;
       width: 100%;
       height: 100%;
-      padding-top: 10vh; // Give space from header
+      padding-top: 10vh; // Space from header
 
       @media (min-width: 1024px) {
         flex-direction: row;
@@ -277,15 +277,17 @@ onMounted(() => {
     &__text {
       flex: 1;
       position: relative;
-      text-align: center;
+      text-align: left;
+      z-index: 5;
 
       @media (min-width: 1024px) {
         text-align: left;
       }
     }
 
-    &__id {
-      display: none;
+    &__info {
+      position: relative;
+      z-index: 2;
     }
 
     &__bg-id {
@@ -293,16 +295,16 @@ onMounted(() => {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 38vw;
+      font-size: 50vw;
       font-weight: 950;
       line-height: 1;
       pointer-events: none;
       z-index: 0;
       
-      background: linear-gradient(135deg, rgba(33, 188, 251, 0.35) 0%, rgba(33, 188, 251, 0.05) 50%, transparent 100%);
+      background: linear-gradient(135deg, rgba(33, 188, 251, 0.4) 0%, rgba(33, 188, 251, 0.05) 50%, transparent 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1.5px rgba(33, 188, 251, 0.4);
+      -webkit-text-stroke: 1.5px rgba(33, 188, 251, 0.5);
       
       opacity: 0.8;
       filter: drop-shadow(0 0 25px rgba(33, 188, 251, 0.25));
@@ -315,23 +317,18 @@ onMounted(() => {
       }
     }
 
-    &__info {
-      position: relative;
-      z-index: 1;
-    }
-
     &__name {
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 400;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 300;
       margin-bottom: 0.5rem;
       color: #fff;
     }
 
     &__role {
       display: block;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
       color: rgba(255, 255, 255, 0.6);
       margin-bottom: 0.25rem;
     }
@@ -350,23 +347,21 @@ onMounted(() => {
       font-weight: 300;
       color: rgba(255, 255, 255, 0.7);
       max-width: 480px;
-
-      @media (max-width: 1024px) {
-        margin: 0 auto;
-      }
     }
 
     &__image-wrap {
       flex: 1.5;
       position: relative;
-      height: 45vh;
-      border-radius: 30px;
+      width: 100%;
+      height: 40vh;
+      border-radius: 40px;
       overflow: hidden;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      z-index: 1;
 
       @media (min-width: 1024px) {
-        height: 60vh;
         flex: 1.2;
+        height: 60vh;
       }
     }
 
@@ -374,13 +369,13 @@ onMounted(() => {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 15%;
+      object-position: center 15%; 
     }
 
     &__image-gradient {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(5, 6, 15, 0.9) 0%, transparent 50%);
+      background: linear-gradient(to top, rgba(5, 6, 15, 0.9) 0%, transparent 40%);
     }
   }
 

@@ -12,6 +12,7 @@ const bgRef = ref<HTMLElement | null>(null)
 const cases = [
   {
     id: '01',
+    outcome: 'ÉXITO TOTAL',
     category: 'Caso de Éxito',
     title: 'PATOLOGÍA: FATIGA CRÓNICA',
     subtitle: 'Mujer 42 años | Evolución 7 años',
@@ -25,6 +26,7 @@ const cases = [
   },
   {
     id: '02',
+    outcome: 'ÉXITO TOTAL',
     category: 'Caso de Éxito',
     title: 'PATOLOGÍA: DOLOR ARTICULAR',
     subtitle: 'Hombre 55 años | Candidato a Cirugía',
@@ -38,6 +40,7 @@ const cases = [
   },
   {
     id: '03',
+    outcome: 'REDIRECCIÓN',
     category: 'Criterio de Selección',
     title: 'CRITERIO: PACIENTE RECHAZADO',
     subtitle: 'Ética Clínica sobre Volumen',
@@ -176,11 +179,14 @@ onMounted(() => {
             
             <div class="phb-case-card__body">
               <div class="phb-case-card__left">
-                 <div class="phb-case-card__image-container">
+                  <div class="phb-case-card__image-container">
                     <img :src="item.image" :alt="item.title" class="phb-case-card__image" />
                     <div class="phb-case-card__img-overlay"></div>
+                    <div class="phb-case-card__outcome-header">
+                       <span class="phb-case-card__outcome-label">{{ item.outcome }}</span>
+                    </div>
                     <div class="phb-case-card__badge">{{ item.category }}</div>
-                 </div>
+                  </div>
               </div>
 
               <div class="phb-case-card__right">
@@ -424,7 +430,7 @@ onMounted(() => {
 
   &__badge {
     position: absolute;
-    top: 2rem;
+    bottom: 2rem;
     left: 2rem;
     padding: 0.6rem 1.2rem;
     background: rgba(255, 255, 255, 0.1);
@@ -436,6 +442,37 @@ onMounted(() => {
     text-transform: uppercase;
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 5;
+  }
+
+  &__outcome-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: 4;
+  }
+
+  &__outcome-label {
+    font-size: 8vw;
+    font-weight: 950;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.3;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.5);
+    -webkit-text-fill-color: transparent;
+    transform: rotate(-10deg);
+    white-space: nowrap;
+
+    @media (min-width: 1024px) {
+      font-size: 5vw;
+    }
   }
 
   &__right {
