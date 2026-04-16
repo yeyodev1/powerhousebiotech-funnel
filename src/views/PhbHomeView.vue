@@ -6,6 +6,7 @@
     <!-- New SHA-inspired sections -->
     <ShaKpiSection />
     <PhbScience />
+    <PhbTeam />
     <PhbPrograms />
     <!-- End new sections -->
     <PhbCta />
@@ -25,6 +26,7 @@ import PhbNav from '@/components/phb/PhbNav.vue'
 import PhbHero from '@/components/phb/PhbHero.vue'
 import ShaKpiSection from '@/components/sha/ShaKpiSection.vue'
 import PhbScience from '@/components/phb/PhbScience.vue'
+import PhbTeam from '@/components/phb/PhbTeam.vue'
 import PhbPrograms from '@/components/phb/PhbPrograms.vue'
 import PhbExpectations from '@/components/phb/PhbExpectations.vue'
 import PhbCta from '@/components/phb/PhbCta.vue'
