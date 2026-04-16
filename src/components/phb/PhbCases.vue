@@ -344,17 +344,25 @@ onMounted(() => {
   position: absolute;
   top: -5%;
   left: 5%;
-  font-size: 28vw;
-  font-weight: 900;
-  // Use a stroked style mixed with a subtle gradient for a high-end look
-  background: linear-gradient(to bottom, rgba(33, 188, 250, 0.15), transparent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px rgba(33, 188, 250, 0.1);
+  font-size: 38vw; 
+  font-weight: 950;
   line-height: 1;
   pointer-events: none;
   z-index: 0;
   font-family: 'Inter', sans-serif;
+
+  // Matching the vibrant "llamativo" style from Team section
+  background: linear-gradient(135deg, rgba(33, 188, 251, 0.35) 0%, rgba(33, 188, 251, 0.05) 50%, transparent 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px rgba(33, 188, 251, 0.4);
+  
+  opacity: 0.8; 
+  filter: drop-shadow(0 0 25px rgba(33, 188, 251, 0.25));
+
+  @media (min-width: 1024px) {
+    font-size: 50vw;
+  }
 }
 
 /* Cards Area */

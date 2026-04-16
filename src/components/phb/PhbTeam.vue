@@ -261,24 +261,31 @@ onMounted(() => {
     &__inner {
       display: flex;
       flex-direction: column-reverse;
-      gap: 2rem;
+      gap: 1.5rem;
       width: 100%;
       height: 100%;
+      padding-top: 10vh; // Give space from header
 
       @media (min-width: 1024px) {
         flex-direction: row;
         align-items: center;
         gap: 6rem;
+        padding-top: 0;
       }
     }
 
     &__text {
       flex: 1;
       position: relative;
+      text-align: center;
+
+      @media (min-width: 1024px) {
+        text-align: left;
+      }
     }
 
     &__id {
-      display: none; // Hide original small ID
+      display: none;
     }
 
     &__bg-id {
@@ -286,19 +293,18 @@ onMounted(() => {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 38vw; // Larger
+      font-size: 38vw;
       font-weight: 950;
       line-height: 1;
       pointer-events: none;
       z-index: 0;
       
-      // High visibility: Bold Cyan Gradient
       background: linear-gradient(135deg, rgba(33, 188, 251, 0.35) 0%, rgba(33, 188, 251, 0.05) 50%, transparent 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       -webkit-text-stroke: 1.5px rgba(33, 188, 251, 0.4);
       
-      opacity: 0.8; // High opacity but using transparent gradient parts
+      opacity: 0.8;
       filter: drop-shadow(0 0 25px rgba(33, 188, 251, 0.25));
 
       @media (min-width: 1024px) {
@@ -344,18 +350,23 @@ onMounted(() => {
       font-weight: 300;
       color: rgba(255, 255, 255, 0.7);
       max-width: 480px;
+
+      @media (max-width: 1024px) {
+        margin: 0 auto;
+      }
     }
 
     &__image-wrap {
-      flex: 1.2;
+      flex: 1.5;
       position: relative;
-      height: 50vh;
-      border-radius: 20px;
+      height: 45vh;
+      border-radius: 30px;
       overflow: hidden;
       box-shadow: 0 30px 60px rgba(0,0,0,0.5);
 
       @media (min-width: 1024px) {
         height: 60vh;
+        flex: 1.2;
       }
     }
 
@@ -363,13 +374,13 @@ onMounted(() => {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: center 15%;
     }
 
     &__image-gradient {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(5, 6, 15, 0.8) 0%, transparent 40%);
+      background: linear-gradient(to top, rgba(5, 6, 15, 0.9) 0%, transparent 50%);
     }
   }
 
