@@ -1,80 +1,107 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import PhbEncryptedText from '../phb/PhbEncryptedText.vue'
 
+gsap.registerPlugin(ScrollTrigger)
+
 const stats = [
-  { val: '50%', text: 'De los adultos mayores de 45 años viven con al menos una enfermedad crónica.' },
-  { val: '60%', text: 'De las personas tienen más de una condición que provoca malestar (6 de cada 10).' },
-  { val: '70%', text: 'De los tratamientos convencionales no logran los resultados esperados.' },
-  { val: '20%', text: 'Es el porcentaje de casos viables que aceptamos para asegurar resultados.' }
+  { val: '50%', label: 'CRONICIDAD', text: 'De adultos +45 años viven con patologías crónicas no resueltas.' },
+  { val: '60%', text: 'De la población sufre de múltiples focos de malestar persistente.' },
+  { val: '70%', text: 'De casos clínicos no encuentran solución en la medicina reactiva.' },
+  { val: '20%', label: 'ADMISIÓN', text: 'Es nuestra tasa de aceptación para asegurar viabilidad real.' }
 ]
 
-onMounted(() => {
-  gsap.registerPlugin(ScrollTrigger)
+const sectionRef = ref<HTMLElement | null>(null)
+const bgRef = ref<HTMLElement | null>(null)
 
-  gsap.fromTo('.sha-kpi-stat', 
-    { opacity: 0, y: 20 },
-    {
-      opacity: 1, 
-      y: 0, 
-      duration: 0.8, 
-      stagger: 0.15,
-      ease: 'power2.out',
+onMounted(() => {
+  if (!sectionRef.value || !bgRef.value) return
+
+  const ctx = gsap.context(() => {
+    // Background Parallax
+    gsap.to(bgRef.value, {
       scrollTrigger: {
-        trigger: '.sha-kpi-right',
-        start: 'top 80%'
-      }
-    }
-  )
+        trigger: sectionRef.value,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      },
+      y: '20%',
+      ease: 'none'
+    })
+
+    // Glass box entrance
+    gsap.from('.sha-kpi__glass', {
+      scrollTrigger: {
+        trigger: '.sha-kpi__glass',
+        start: 'top 85%',
+      },
+      scale: 0.95,
+      opacity: 0,
+      duration: 1.2,
+      ease: 'power3.out'
+    })
+
+    // Stats staggered entrance
+    gsap.from('.sha-kpi-stat', {
+      scrollTrigger: {
+        trigger: '.sha-kpi__stats-grid',
+        start: 'top 80%',
+      },
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.2,
+      ease: 'power2.out'
+    })
+  }, sectionRef.value)
 })
 </script>
 
 <template>
-  <section class="sha-kpi">
+  <section class="sha-kpi" ref="sectionRef">
+    <!-- Full-width background with Parallax -->
+    <div class="sha-kpi__bg-wrap">
+      <img 
+        ref="bgRef"
+        src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=1600" 
+        alt="Biotech Lab Background" 
+        class="sha-kpi__bg-img"
+      />
+      <div class="sha-kpi__bg-overlay"></div>
+    </div>
+
     <div class="sha-kpi__container">
       
-      <!-- Left side: The Quote / Reality styling -->
-      <div class="sha-kpi__left">
-        <h2 class="sha-kpi__quote">
-          "<span style="font-style: italic; font-weight: 300;">La realidad incómoda:</span><br/>
-          Vas de médico en médico, de tratamiento en tratamiento... sin un criterio que conecte todo."
-        </h2>
-        
-        <div class="sha-kpi__sub">
-          <span class="sha-kpi__sub-label">El Problema Real —</span>
-          El problema no es lo que haces. Es que estás actuando sin entender tu biología profunda. Vas a ciegas.
-        </div>
+      <div class="sha-kpi__glass">
+        <div class="sha-kpi__content">
+          <header class="sha-kpi__header">
+            <h2 class="sha-kpi__quote">
+              La medicina reactiva ha fallado. <span>Es hora de la precisión biológica.</span>
+            </h2>
+          </header>
 
-        <button class="sha-kpi__btn">
-          Descubrir Nuestro Método
-        </button>
-      </div>
-
-      <!-- Right side: The Stats grid and an overlay image to mimic the SHA section -->
-      <div class="sha-kpi__right">
-        <div class="sha-kpi__image-bg">
-          <div class="sha-kpi__image-overlay"></div>
-          <!-- Background image for the right side matching the aesthetic -->
-          <img src="https://images.pexels.com/photos/8376277/pexels-photo-8376277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Regenerative treatment" />
-        </div>
-
-        <!-- Floating Stats on top of the image (or alongside) -->
-        <div class="sha-kpi__stats-grid">
-          <div v-for="(stat, index) in stats" :key="index" class="sha-kpi-stat">
-            <h3 class="sha-kpi-stat__val">
-              <PhbEncryptedText 
-                :text="stat.val"
-                charset="0123456789%"
-                :revealDelayMs="120"
-                :flipDelayMs="30"
-                revealedClass="font-weight-400"
-                encryptedClass="opacity-50"
-              />
-            </h3>
-            <p class="sha-kpi-stat__text">{{ stat.text }}</p>
+          <div class="sha-kpi__stats-grid">
+            <div v-for="(stat, index) in stats" :key="index" class="sha-kpi-stat">
+              <div class="sha-kpi-stat__wrap">
+                <h3 class="sha-kpi-stat__val">
+                  <PhbEncryptedText 
+                    :text="stat.val"
+                    charset="0123456789%"
+                    :revealDelayMs="120"
+                    :flipDelayMs="30"
+                  />
+                </h3>
+                <p class="sha-kpi-stat__text">{{ stat.text }}</p>
+              </div>
+            </div>
           </div>
+
+          <footer class="sha-kpi__footer">
+            <p>Datos analizados sobre una base de +100,000 casos clínicos globales.</p>
+          </footer>
         </div>
       </div>
 
@@ -83,139 +110,117 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@use '@/styles/colorVariables.module.scss' as colors;
-
 .sha-kpi {
-  background-color: var(--phb-bg, #0d0f28);
-  color: var(--phb-text-1, #ffffff);
-  padding: 8rem 0; /* Let left side touch edges inside flex */
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10rem 2rem;
   overflow: hidden;
+  background-color: #0d0f28;
 
-  &__container {
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    
-    @media (min-width: 1024px) {
-      flex-direction: row;
-      align-items: stretch;
-      min-height: 80vh;
-    }
-  }
-
-  &__left {
-    padding: 2rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    @media (min-width: 1024px) {
-      padding: 4rem 6rem;
-      max-width: 55%;
-    }
-  }
-
-  &__quote {
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 300;
-    line-height: 1.25;
-    color: var(--phb-white);
-    margin: 0 0 3rem 0;
-    max-width: 600px;
-  }
-
-  &__sub {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 3rem;
-    max-width: 480px;
-
-    &-label {
-      font-weight: 600;
-      color: var(--phb-white);
-    }
-  }
-
-  &__btn {
-    align-self: flex-start;
-    padding: 1rem 2rem;
-    border: 1px solid rgba(255,255,255,0.3);
-    background: transparent;
-    color: var(--phb-white);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background: var(--phb-white);
-      color: var(--phb-bg);
-    }
-  }
-
-  &__right {
-    flex: 1;
-    position: relative;
-    padding: 4rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    @media (min-width: 1024px) {
-      padding: 0;
-    }
-  }
-
-  &__image-bg {
+  &__bg-wrap {
     position: absolute;
     inset: 0;
     z-index: 0;
+    overflow: hidden;
+  }
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+  &__bg-img {
+    width: 100%;
+    height: 120%; // Extra height for parallax
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.4;
+  }
+
+  &__bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(13, 15, 40, 0.4) 0%, #0d0f28 100%);
+  }
+
+  &__container {
+    width: 100%;
+    max-width: 1100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 4rem;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+
+    @media (max-width: 768px) {
+      padding: 2.5rem;
+      border-radius: 24px;
     }
   }
 
-  &__image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, #0d0f28 0%, rgba(13, 15, 40, 0.6) 100%);
-    z-index: 1;
+  &__header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
 
-    @media (max-width: 1024px) {
-      background: linear-gradient(to top, #0d0f28 0%, rgba(13, 15, 40, 0.6) 100%);
+  &__quote {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: #ffffff;
+
+    span {
+      display: block;
+      color: var(--phb-cyan, #21bcfa);
+      font-weight: 500;
+      margin-top: 0.5rem;
     }
   }
 
   &__stats-grid {
-    position: relative;
-    z-index: 2;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    max-width: 500px;
-    padding: 2rem;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 4rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 5rem;
+    }
   }
 
   .sha-kpi-stat {
     &__val {
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-size: clamp(3rem, 6vw, 4.5rem);
       font-weight: 300;
-      margin: 0 0 0.5rem 0;
-      color: var(--phb-cyan);
+      color: #ffffff;
+      margin-bottom: 1rem;
+      line-height: 1;
     }
 
     &__text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 300;
+      max-width: 400px;
+    }
+  }
+
+  &__footer {
+    margin-top: 6rem;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+
+    p {
       font-size: 0.85rem;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.8);
-      margin: 0;
+      color: rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
   }
 }
