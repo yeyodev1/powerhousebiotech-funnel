@@ -151,6 +151,8 @@ onMounted(() => {
             <!-- Left: ID & Text -->
             <div class="phb-team-slide__text">
               <span class="phb-team-slide__id">{{ doctor.id }}</span>
+              <!-- Background Number (Bakano Style) -->
+              <div class="phb-team-slide__bg-id">{{ doctor.id }}</div>
               <div class="phb-team-slide__info">
                 <h3 class="phb-team-slide__name">{{ doctor.name }}</h3>
                 <span class="phb-team-slide__role">{{ doctor.role }}</span>
@@ -276,19 +278,29 @@ onMounted(() => {
     }
 
     &__id {
+      display: none; // Hide original small ID
+    }
+
+    &__bg-id {
       position: absolute;
-      top: -1rem;
-      left: -1rem;
-      font-size: 6rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 25vw;
       font-weight: 900;
-      color: rgba(255, 255, 255, 0.03);
       line-height: 1;
       pointer-events: none;
-      
+      z-index: 0;
+      color: var(--phb-cyan, #21bcfa);
+      opacity: 0.1;
+      -webkit-text-stroke: 1px rgba(33, 188, 250, 0.2);
+      -webkit-text-fill-color: transparent;
+
       @media (min-width: 1024px) {
-        font-size: 12rem;
-        top: -4rem;
-        left: -3rem;
+        font-size: 35vw;
+        top: 20%;
+        left: 0;
+        transform: translate(-30%, -30%);
       }
     }
 

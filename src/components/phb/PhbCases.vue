@@ -468,6 +468,11 @@ onMounted(() => {
     @media (min-width: 768px) {
       grid-template-columns: 1fr 1fr;
     }
+
+    @media (max-width: 480px) {
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
   }
 
   &__s-label {
@@ -491,10 +496,15 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 1.75rem;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 20px;
     border-left: 3px solid var(--accent, #21bcfa);
+
+    @media (max-width: 480px) {
+      padding: 1rem;
+      gap: 1rem;
+    }
   }
 
   &__indicator {

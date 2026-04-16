@@ -317,11 +317,12 @@ onMounted(() => {
     font-size: 15rem;
     font-weight: 900;
     line-height: 1;
-    color: var(--phb-cyan);
-    opacity: 0.08;
-    // Premium stroked look
-    -webkit-text-stroke: 1px rgba(33, 188, 251, 0.2);
+    // Using a more vibrant cyan gradient to separate from the deep navy
+    background: linear-gradient(135deg, rgba(33, 188, 251, 0.15) 0%, transparent 100%);
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px rgba(33, 188, 251, 0.25);
+    opacity: 0.12;
     pointer-events: none;
     user-select: none;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
