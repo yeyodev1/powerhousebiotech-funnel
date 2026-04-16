@@ -13,12 +13,12 @@ const cases = [
   {
     id: '01',
     category: 'Caso de Éxito',
-    title: 'Fatiga Crónica —',
-    subtitle: 'Mujer 42 años',
-    context: '7 años de fatiga extrema sin respuesta médica convencional.',
-    analysis: 'Inflamación sistémica y desregulación mitocondrial.',
-    strategy: 'Optimización biológica inmediata antes de la intervención.',
-    result: 'Recuperación total de vitalidad en 22 días.',
+    title: 'PATOLOGÍA: FATIGA CRÓNICA',
+    subtitle: 'Mujer 42 años | Evolución 7 años',
+    context: 'Había probado múltiples terapias sin éxito durante años. Su cuerpo no respondía a tratamientos regenerativos.',
+    analysis: 'Evaluación de Viabilidad detectó inflamación sistémica elevada y disfunción metabólica severa.',
+    strategy: 'Protocolo de Preparación Biológica™ obligatorio antes de cualquier intervención.',
+    result: 'Recuperación progresiva de energía en 21 días y normalización de biomarcadores.',
     image: 'https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1200',
     accent: '#21bcfa',
     isRejected: false
@@ -26,25 +26,25 @@ const cases = [
   {
     id: '02',
     category: 'Caso de Éxito',
-    title: 'Dolor Articular —',
-    subtitle: 'Hombre 55 años',
-    context: 'Desgaste severo con expectativa de cirugía inmediata.',
-    analysis: 'Ambiente celular no apto para aplicaciones regenerativas.',
-    strategy: 'Protocolo de limpieza y preparación de terreno biológico.',
-    result: 'Reducción de dolor del 90% sin cirugía inicial.',
+    title: 'PATOLOGÍA: DOLOR ARTICULAR',
+    subtitle: 'Hombre 55 años | Candidato a Cirugía',
+    context: 'Paciente buscaba terapia celular inmediata tras múltiples fallas en medicina convencional.',
+    analysis: 'Se identificó que el ambiente celular era hostil para la regeneración en ese momento.',
+    strategy: 'Recalibración del terreno celular para asegurar la tasa de éxito del tratamiento.',
+    result: 'Reducción de dolor sin cirugía inicial y éxito total en la aplicación posterior.',
     image: 'https://images.pexels.com/photos/8442436/pexels-photo-8442436.jpeg?auto=compress&cs=tinysrgb&w=1200',
     accent: '#1278f3',
     isRejected: false
   },
   {
     id: '03',
-    category: 'Honestidad Clínica',
-    title: 'Caso Rechazado',
-    subtitle: 'Decisión Ética',
-    context: 'Paciente solicitó tratamiento inmediato con alta expectativa.',
-    analysis: 'La evaluación detectó nula probabilidad de respuesta biológica.',
-    strategy: 'Transparencia absoluta: No se recomendó el tratamiento.',
-    result: 'Cuidado del patrimonio y salud del paciente.',
+    category: 'Criterio de Selección',
+    title: 'CRITERIO: PACIENTE RECHAZADO',
+    subtitle: 'Ética Clínica sobre Volumen',
+    context: 'Paciente con alta expectativa de mejoría pero con un estado biológico irreversible.',
+    analysis: 'Evaluación Técnica indicó una probabilidad de respuesta menor al 10%.',
+    strategy: 'No se recomendó tratamiento. Se evitó inversión innecesaria en falsas esperanzas.',
+    result: 'Se redirigió al paciente a cuidados paliativos más adecuados para su caso real.',
     image: 'https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=1200',
     accent: '#adb5bd',
     isRejected: true
@@ -189,15 +189,15 @@ onMounted(() => {
                     
                     <div class="phb-case-card__details">
                       <div class="phb-case-card__stat">
-                        <span class="phb-case-card__s-label">Problema</span>
+                        <span class="phb-case-card__s-label">Situación Crítica</span>
                         <p class="phb-case-card__s-value">{{ item.context }}</p>
                       </div>
                       <div class="phb-case-card__stat">
-                        <span class="phb-case-card__s-label">Decisión PHB™</span>
+                        <span class="phb-case-card__s-label">Evaluación DECIDE™</span>
                         <p class="phb-case-card__s-value">{{ item.analysis }}</p>
                       </div>
                       <div class="phb-case-card__stat">
-                        <span class="phb-case-card__s-label">Acción Tomada</span>
+                        <span class="phb-case-card__s-label">Protocolo Aplicado</span>
                         <p class="phb-case-card__s-value">{{ item.strategy }}</p>
                       </div>
                     </div>
@@ -205,7 +205,7 @@ onMounted(() => {
                     <div class="phb-case-card__result" :style="{ '--accent': item.accent }">
                         <div class="phb-case-card__indicator"></div>
                         <div class="phb-case-card__r-content">
-                           <span class="phb-case-card__r-label">Resultado Final</span>
+                           <span class="phb-case-card__r-label">Respuesta Regenerativa</span>
                            <p class="phb-case-card__r-text">{{ item.result }}</p>
                         </div>
                     </div>
@@ -283,10 +283,12 @@ onMounted(() => {
   }
 
   &__title {
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 200;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 400;
     line-height: 1.1;
-    color: #fff;
+    color: var(--phb-cyan, #21bcfa);
+    text-shadow: 0 0 30px rgba(33, 188, 250, 0.3);
+    display: inline-block;
   }
 
   &__scroll-row {
@@ -340,14 +342,17 @@ onMounted(() => {
 /* Parallax Numbers */
 .phb-case-bg-num {
   position: absolute;
-  top: -10%;
-  left: 10%;
-  font-size: 25vw;
+  top: -5%;
+  left: 5%;
+  font-size: 28vw;
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.03);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   line-height: 1;
   pointer-events: none;
   z-index: 0;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Cards Area */
@@ -433,13 +438,22 @@ onMounted(() => {
     font-weight: 300;
     margin-bottom: 2.5rem;
     line-height: 1.1;
+    color: #fff;
     
+    // Highlight the prefix (PATOLOGÍA / CRITERIO)
+    &::first-line {
+      color: var(--phb-cyan, #21bcfa);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
     span {
       display: block;
       font-size: 1.1rem;
       opacity: 0.4;
       font-weight: 400;
       margin-top: 0.5rem;
+      -webkit-text-fill-color: #fff; // Reset from first-line if needed
     }
   }
 
