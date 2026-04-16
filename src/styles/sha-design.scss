@@ -1,0 +1,41 @@
+/* =============================================================
+   SHA WELLNESS DESIGN SYSTEM — global variables & utilities
+   ============================================================= */
+
+:root {
+  --sha-dark:       #090a11;
+  --sha-dark-2:     #0f1020;
+  --sha-light:      #f2f0f5;
+  --sha-mauve:      #cfc0c0;
+  --sha-beige:      #e8e2de;
+  --sha-white:      #ffffff;
+  --sha-text-dark:  #1a1823;
+  --sha-text-muted: #8888a0;
+  --sha-font:       'Inter', sans-serif;
+  --sha-fw-light:   300;
+  --sha-fw-regular: 400;
+  --sha-fw-bold:    700;
+  --sha-container:  1280px;
+  --sha-pad-x:      clamp(24px, 5vw, 80px);
+}
+
+/* PHB brand (light/white design system) */
+:root {
+  --phb-bg:       #171846;
+  --phb-blue:     #1278f3;
+  --phb-cyan:     #21bcfb;
+  --phb-white:    #ffffff;
+  --phb-surface:  #f8f9fa;
+  --phb-surface2: #f0f4ff;
+  --phb-text:     #171846;
+  --phb-muted:    #6c757d;
+  --phb-border:   rgba(18, 120, 243, 0.12);
+  --phb-font:     'Inter', sans-serif;
+}
+
+/* Lenis smooth scroll */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }

@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory, type RouteMeta } from 'vue-router'
-import LandingView from '../views/LandingView.vue'
+import PhbHomeView from '../views/PhbHomeView.vue'
 import QualifyView from '../views/QualifyView.vue'
 import BookingView from '../views/BookingView.vue'
 import ConfirmedView from '../views/ConfirmedView.vue'
 import NotQualifiedView from '../views/NotQualifiedView.vue'
 import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import LegalNoticeView from '../views/LegalNoticeView.vue'
+import ShaHomeView from '../views/ShaHomeView.vue'
 
 import 'vue-router'
 
@@ -28,8 +29,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'landing',
-      component: LandingView,
+      name: 'home',
+      component: PhbHomeView,
       meta: {
         title: 'PowerHouse Biotech | Evaluación de Viabilidad Regenerativa™',
         description: 'Somos la primera Health Decision Platform enfocada en Medicina Regenerativa. Descubre hoy si tu cuerpo está listo para repararse.',
@@ -105,6 +106,19 @@ const router = createRouter({
       } satisfies RouteMeta,
     },
     {
+      path: '/sha',
+      name: 'sha-home',
+      component: ShaHomeView,
+      meta: {
+        title: 'SHA — Masters of Longevity',
+        description: 'Science-based programs for measurable health transformation.',
+        canonical: `${BASE}/sha`,
+        ogTitle: 'SHA — Masters of Longevity',
+        ogDescription: 'Defining the Next Frontier of Health Optimization.',
+        ogUrl: `${BASE}/sha`,
+      } satisfies RouteMeta,
+    },
+    {
       path: '/aviso-legal',
       name: 'legal-notice',
       component: LegalNoticeView,
@@ -123,10 +137,10 @@ const router = createRouter({
 // ── Guards de navegación ───────────────────────────────────────────────────────
 router.beforeEach((to) => {
   if (to.name === 'qualify' && !localStorage.getItem('phb_contact')) {
-    return { name: 'landing' }
+    return { name: 'home' }
   }
   if ((to.name === 'booking' || to.name === 'confirmed') && !localStorage.getItem('phb_qualified_at')) {
-    if (!localStorage.getItem('phb_contact')) return { name: 'landing' }
+    if (!localStorage.getItem('phb_contact')) return { name: 'home' }
     return { name: 'qualify' }
   }
 })
