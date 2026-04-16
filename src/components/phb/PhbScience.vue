@@ -91,9 +91,9 @@ onMounted(() => {
 @use '@/styles/colorVariables.module.scss' as colors;
 
 .phb-science {
-  background-color: #f0eae6; // SHA-inspired warm beige
+  background-color: var(--phb-bg, #171846);
   padding: 8rem 2rem;
-  color: #0d0f28;
+  color: var(--phb-text-1, #ffffff);
 
   &__container {
     max-width: 1300px;
@@ -121,7 +121,7 @@ onMounted(() => {
   &__line {
     width: 60px;
     height: 1.5px;
-    background-color: #0d0f28;
+    background-color: var(--phb-cyan, #21bcfb);
     margin-top: 1.2rem;
     flex-shrink: 0;
   }
@@ -131,10 +131,12 @@ onMounted(() => {
     font-weight: 300;
     line-height: 1.1;
     margin: 0;
+    color: var(--phb-white, #ffffff);
 
     em {
       font-style: italic;
       font-weight: 500;
+      color: var(--phb-cyan, #21bcfb);
     }
   }
 
@@ -143,7 +145,7 @@ onMounted(() => {
       font-size: 1.15rem;
       line-height: 1.6;
       font-weight: 300;
-      color: rgba(13, 15, 40, 0.7);
+      color: var(--phb-text-2, rgba(255, 255, 255, 0.7));
       margin: 0;
       max-width: 650px;
     }
@@ -175,14 +177,14 @@ onMounted(() => {
     font-weight: 300;
     line-height: 0.9;
     letter-spacing: -0.02em;
-    color: #4a4d66; // Subtler dark
+    color: var(--phb-cyan, #21bcfb); 
   }
 
   &__label {
     font-size: 1.05rem;
     line-height: 1.5;
     font-weight: 300;
-    color: rgba(13, 15, 40, 0.6);
+    color: var(--phb-text-2, rgba(255, 255, 255, 0.6));
     margin: 0;
     max-width: 320px;
   }

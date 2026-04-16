@@ -19,17 +19,17 @@
   --sha-pad-x:      clamp(24px, 5vw, 80px);
 }
 
-/* PHB brand (light/white design system) */
+/* PHB brand (Dark medical design system) */
 :root {
-  --phb-bg:       #171846;
-  --phb-blue:     #1278f3;
-  --phb-cyan:     #21bcfb;
+  --phb-bg:       #171846; // Navy (60%)
+  --phb-blue:     #1278f3; // Blue (30%)
+  --phb-cyan:     #21bcfb; // Cyan (10%)
   --phb-white:    #ffffff;
-  --phb-surface:  #f8f9fa;
-  --phb-surface2: #f0f4ff;
-  --phb-text:     #171846;
-  --phb-muted:    #6c757d;
-  --phb-border:   rgba(18, 120, 243, 0.12);
+  --phb-surface:  #1e2260;
+  --phb-surface2: #232770;
+  --phb-text:     #ffffff;
+  --phb-muted:    rgba(255, 255, 255, 0.6);
+  --phb-border:   rgba(33, 188, 251, 0.12);
   --phb-font:     'Inter', sans-serif;
 }
 

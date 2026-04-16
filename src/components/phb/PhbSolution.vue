@@ -242,19 +242,25 @@ const discovers = [
   display: block;
   width: 100%;
   padding: 16px 24px;
-  background: var(--phb-blue);
+  background: var(--phb-blue, #1278f3);
   color: var(--phb-white);
   text-align: center;
   text-decoration: none;
   font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   font-family: var(--phb-font);
-  transition: background 0.2s;
+  border-radius: 100px;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   margin-bottom: 16px;
+  box-shadow: 0 4px 15px rgba(18, 120, 243, 0.15);
 
-  &:hover { background: #0d65d9; }
+  &:hover {
+    background: var(--phb-cyan, #21bcfb);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(33, 188, 251, 0.25);
+  }
 }
 
 .phb-solution__cta-note {

@@ -1,8 +1,8 @@
 // ─── PowerHouse Biotech — Dark mode brand color system ───────────────────────
 // Based on Brand Guidelines: 60-30-10 rule
 // 60% → #171846 (dark navy) — backgrounds, main elements
-// 30% → #21bcfb (cyan) — icons, secondary elements
-// 10% → #1278f3 (blue) — CTAs, details
+// 30% → #1278f3 (blue) — icons, secondary elements
+// 10% → #21bcfb (cyan) — CTAs, details
 // Accent → #18e7f0 (light cyan)
 
 // ── Page surfaces ─────────────────────────────────────────────────────────────
@@ -12,12 +12,12 @@ $PHB-SURFACE:    #1e2260;   // card / modal surface
 $PHB-SURFACE-2:  #232770;   // subtle inner surface
 
 // ── Brand colors ──────────────────────────────────────────────────────────────
-$PHB-BLUE:         #1278f3;   // brand blue — CTAs (10%)
+$PHB-BLUE:         #1278f3;   // brand blue — secondary / icons (30%)
 $PHB-BLUE-LIGHT:   #3a92ff;   // lighter blue for hovers
-$PHB-CYAN:         #21bcfb;   // brand cyan — icons, secondary (30%)
+$PHB-CYAN:         #21bcfb;   // brand cyan — CTAs (10%)
 $PHB-ACCENT:       #18e7f0;   // light cyan accent
 $PHB-TEAL:         #18e7f0;   // success / confirmed (maps to accent)
-$PHB-PRIMARY:      $PHB-BLUE;
+$PHB-PRIMARY:      $PHB-CYAN; // CTAs should be primary
 
 // Legacy compat: old $PHB-PURPLE references now map to $PHB-BLUE
 $PHB-PURPLE:       $PHB-BLUE;
@@ -38,7 +38,7 @@ $PHB-SHADOW-MD: 0 6px 32px rgba(0, 0, 0, 0.35);
 // ── Legacy compat (used in Bakano components) ─────────────────────────────────
 $BAKANO-PINK:   #e6285c;
 $BAKANO-DARK:   #191423;
-$BAKANO-PURPLE: #85529c;
+$BAKANO-CYAN:   $PHB-CYAN;
 $BAKANO-GREEN:  #3bb77e;
 
 $white:      #FFFFFF;

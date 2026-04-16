@@ -224,19 +224,24 @@ const benefits = [
   display: block;
   width: 100%;
   padding: 18px 24px;
-  background: var(--phb-blue);
+  background: var(--phb-blue, #1278f3);
   color: var(--phb-white);
   text-align: center;
   text-decoration: none;
   font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   font-family: var(--phb-font);
-  border-radius: 8px;
-  transition: background 0.2s, transform 0.2s;
+  border-radius: 100px;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 4px 15px rgba(18, 120, 243, 0.2);
 
-  &:hover { background: #0d65d9; transform: translateY(-2px); }
+  &:hover {
+    background: var(--phb-cyan, #21bcfb); 
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(33, 188, 251, 0.3);
+  }
 }
 
 .phb-cta__btn-secondary {
@@ -249,16 +254,17 @@ const benefits = [
   text-decoration: none;
   font-size: 13px;
   font-weight: 400;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-family: var(--phb-font);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  transition: all 0.2s;
+  border-radius: 100px;
+  transition: all 0.3s ease;
 
   &:hover {
-    color: var(--phb-white);
-    border-color: rgba(255, 255, 255, 0.5);
+    color: var(--phb-cyan, #21bcfb);
+    border-color: var(--phb-cyan, #21bcfb);
+    background: rgba(33, 188, 251, 0.05);
   }
 }
 

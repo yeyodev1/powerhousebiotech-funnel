@@ -75,8 +75,8 @@ const bullets = [
 
 <style lang="scss" scoped>
 .phb-about {
-  background: #05060f; // Matching the deep dark tone of the rest of the landing
-  color: #ffffff;
+  background: var(--phb-bg, #171846); 
+  color: var(--phb-white, #ffffff);
   padding: clamp(80px, 10vw, 140px) 0;
   font-family: var(--phb-font);
 }

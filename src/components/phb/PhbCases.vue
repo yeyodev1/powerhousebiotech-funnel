@@ -72,9 +72,9 @@ onMounted(() => {
         onUpdate: (self) => {
           // Change background color based on progress (Case 03 transition)
           if (self.progress > 0.7) {
-            gsap.to(bgRef.value, { backgroundColor: '#111218', duration: 0.5 }) // Neutral Clinical Gray
+            gsap.to(bgRef.value, { backgroundColor: '#1e2260', duration: 0.5 }) // Phb Surface
           } else {
-            gsap.to(bgRef.value, { backgroundColor: '#05060f', duration: 0.5 }) // Deep Navy
+            gsap.to(bgRef.value, { backgroundColor: '#171846', duration: 0.5 }) // Phb Navy
           }
         }
       }
@@ -258,7 +258,7 @@ onMounted(() => {
   &__bg {
     position: absolute;
     inset: 0;
-    background-color: #05060f;
+    background-color: var(--phb-bg, #171846);
     transition: background-color 0.8s ease;
     z-index: 0;
   }
