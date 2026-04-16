@@ -10,20 +10,27 @@ const props = defineProps({
 
 const containerRef = ref<HTMLElement | null>(null)
 const isHovered = ref(false)
-const rotateX = ref(0)
-const rotateY = ref(0)
+const mouseX = ref(0)
+const mouseY = ref(0)
 
 const handleMouseMove = (e: MouseEvent) => {
   if (!containerRef.value) return
   const { left, top, width, height } = containerRef.value.getBoundingClientRect()
   
-  // Calculate relative position based on center
-  const x = (e.clientX - left - width / 2) / 25
-  const y = (e.clientY - top - height / 2) / 25
+  // Raw pixel position relative to card
+  const relX = e.clientX - left
+  const relY = e.clientY - top
+
+  // Percentages for CSS (0-100)
+  mouseX.value = (relX / width) * 100
+  mouseY.value = (relY / height) * 100
+
+  // Calculate rotation relative to center
+  const xRotation = (relX - width / 2) / 25
+  const yRotation = (relY - height / 2) / 25
   
-  // Update rotations. Note the inversion for realistic tilt
-  rotateX.value = -y
-  rotateY.value = x
+  rotateX.value = -yRotation
+  rotateY.value = xRotation
 }
 
 const handleMouseEnter = () => {
@@ -67,8 +74,12 @@ const cardStyle = computed<import('vue').CSSProperties>(() => {
       ref="containerRef"
       :style="cardStyle"
     >
-      <!-- We expose isHovered via slot props so animated children know when to translateZ -->
-      <slot :isHovered="isHovered" />
+      <!-- We expose isHovered and mouse coordinates via slot props -->
+      <slot 
+        :isHovered="isHovered" 
+        :mouseX="mouseX" 
+        :mouseY="mouseY" 
+      />
     </div>
   </div>
 </template>
