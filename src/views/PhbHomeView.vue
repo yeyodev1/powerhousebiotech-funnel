@@ -2,12 +2,12 @@
   <div class="phb-home">
     <PhbNav />
     <PhbHero />
-    <PhbAbout />
-    <PhbProblem />
-    <PhbData />
-    <PhbSolution />
-    <PhbCases />
-    <PhbMethod />
+    <!-- New SHA-inspired sections -->
+    <PhbExpect />
+    <PhbScience />
+    <PhbPrograms />
+    <PhbTestimonial />
+    <!-- End new sections -->
     <PhbCta />
     <PhbFooter />
   </div>
@@ -18,20 +18,22 @@ import { onMounted, onUnmounted } from 'vue'
 import Lenis from 'lenis'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import PhbNav from '@/components/phb/PhbNav.vue'
 import PhbHero from '@/components/phb/PhbHero.vue'
-import PhbAbout from '@/components/phb/PhbAbout.vue'
-import PhbProblem from '@/components/phb/PhbProblem.vue'
-import PhbData from '@/components/phb/PhbData.vue'
-import PhbSolution from '@/components/phb/PhbSolution.vue'
-import PhbCases from '@/components/phb/PhbCases.vue'
-import PhbMethod from '@/components/phb/PhbMethod.vue'
+import PhbExpect from '@/components/phb/PhbExpect.vue'
+import PhbScience from '@/components/phb/PhbScience.vue'
+import PhbPrograms from '@/components/phb/PhbPrograms.vue'
+import PhbTestimonial from '@/components/phb/PhbTestimonial.vue'
 import PhbCta from '@/components/phb/PhbCta.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
 
+gsap.registerPlugin(ScrollTrigger)
+
 let lenis: Lenis | null = null
-let rafId: number | null = null
+let lenisTicker: ((time: number) => void) | null = null
 
 onMounted(() => {
   lenis = new Lenis({
@@ -40,11 +42,10 @@ onMounted(() => {
     smoothWheel: true,
   })
 
-  function raf(time: number) {
-    lenis!.raf(time)
-    rafId = requestAnimationFrame(raf)
-  }
-  rafId = requestAnimationFrame(raf)
+  lenisTicker = (time: number) => lenis!.raf(time * 1000)
+  gsap.ticker.add(lenisTicker)
+  gsap.ticker.lagSmoothing(0)
+  lenis.on('scroll', ScrollTrigger.update)
 
   AOS.init({
     duration: 700,
@@ -52,11 +53,17 @@ onMounted(() => {
     once: true,
     offset: 60,
   })
+
+  // Re-trigger scroll animations after Vue mounts DOM
+  setTimeout(() => {
+    ScrollTrigger.refresh()
+  }, 500)
 })
 
 onUnmounted(() => {
   lenis?.destroy()
-  if (rafId !== null) cancelAnimationFrame(rafId)
+  if (lenisTicker) gsap.ticker.remove(lenisTicker)
+  ScrollTrigger.getAll().forEach(t => t.kill())
 })
 </script>
 

@@ -223,6 +223,8 @@ const bullets = [
 }
 
 .phb-about__img-card {
+  border-radius: 12px;
+  overflow: hidden;
   overflow: hidden;
   background: var(--phb-surface);
 

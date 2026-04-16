@@ -158,6 +158,7 @@ const steps = [
   gap: 20px;
   align-items: flex-start;
   border-bottom: 2px solid transparent;
+  border-radius: 12px;
   transition: border-color 0.2s, background 0.2s;
 
   &:hover {

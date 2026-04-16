@@ -178,6 +178,7 @@ const benefits = [
   display: flex;
   flex-direction: column;
   gap: 20px;
+  border-radius: 16px;
 }
 
 .phb-cta__card-badge {
@@ -190,6 +191,7 @@ const benefits = [
   border: 1px solid rgba(33, 188, 251, 0.3);
   padding: 5px 12px;
   width: fit-content;
+  border-radius: 6px;
 }
 
 .phb-cta__card-desc {
@@ -231,9 +233,10 @@ const benefits = [
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-family: var(--phb-font);
-  transition: background 0.2s;
+  border-radius: 8px;
+  transition: background 0.2s, transform 0.2s;
 
-  &:hover { background: #0d65d9; }
+  &:hover { background: #0d65d9; transform: translateY(-2px); }
 }
 
 .phb-cta__btn-secondary {
@@ -250,6 +253,7 @@ const benefits = [
   text-transform: uppercase;
   font-family: var(--phb-font);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
   transition: all 0.2s;
 
   &:hover {

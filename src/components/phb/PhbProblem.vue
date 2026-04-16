@@ -26,7 +26,7 @@
           data-aos="fade-up"
           :data-aos-delay="i * 100"
         >
-          <div class="phb-problem__card-icon" v-html="card.icon"></div>
+          <div class="phb-problem__card-icon"><i :class="card.icon"></i></div>
           <h3 class="phb-problem__card-title">{{ card.title }}</h3>
           <p class="phb-problem__card-body">{{ card.body }}</p>
         </div>
@@ -60,29 +60,17 @@
 <script setup lang="ts">
 const cards = [
   {
-    icon: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
-      <rect x="8" y="8" width="32" height="36" rx="2"/>
-      <path d="M16 20h16M16 28h10"/>
-      <circle cx="35" cy="37" r="7" fill="white" stroke="currentColor" stroke-width="1.2"/>
-      <path d="M32 37h6M35 34v6" stroke="currentColor" stroke-width="1.2"/>
-    </svg>`,
+    icon: 'fa-solid fa-flask',
     title: 'Estudios sin claridad',
     body: 'Te entregan resultados… pero no te explican qué significan juntos. Cada resultado va solo, sin que nadie conecte el panorama completo.',
   },
   {
-    icon: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
-      <circle cx="24" cy="24" r="16"/>
-      <path d="M24 16v8l5 5"/>
-      <path d="M14 36l-4 4M34 36l4 4"/>
-    </svg>`,
+    icon: 'fa-solid fa-compass',
     title: 'Acciones sin dirección',
     body: 'Pruebas tratamientos, suplementos o terapias… sin una estrategia clara. Cada intento es aislado, sin una hoja de ruta basada en tu biología.',
   },
   {
-    icon: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
-      <path d="M24 8C15.2 8 8 15.2 8 24s7.2 16 16 16 16-7.2 16-16S32.8 8 24 8z"/>
-      <path d="M24 18v10M24 32v2"/>
-    </svg>`,
+    icon: 'fa-solid fa-triangle-exclamation',
     title: 'El cuerpo no responde',
     body: 'No porque no funcione… sino porque no está listo. Iniciar un tratamiento sin verificar la capacidad de respuesta es desperdiciar tiempo y dinero.',
   },
@@ -152,19 +140,28 @@ const cards = [
   background: var(--phb-white);
   padding: 40px 32px;
   border-top: 2px solid transparent;
-  transition: border-color 0.2s;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
 
-  &:hover { border-color: var(--phb-blue); }
+  &:hover {
+    border-color: var(--phb-blue);
+    transform: translateY(-4px);
+  }
 }
 
 .phb-problem__card-icon {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   color: var(--phb-blue);
-  opacity: 0.8;
   margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(18, 120, 243, 0.08);
+  border-radius: 12px;
 
-  svg { width: 100%; height: 100%; }
+  i { font-size: 22px; }
 }
 
 .phb-problem__card-title {

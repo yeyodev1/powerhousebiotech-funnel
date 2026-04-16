@@ -157,6 +157,8 @@ const cases = [
   display: flex;
   flex-direction: column;
   gap: 0;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .phb-cases__card-top {

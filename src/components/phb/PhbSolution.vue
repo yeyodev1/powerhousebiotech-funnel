@@ -199,6 +199,8 @@ const discovers = [
 }
 
 .phb-solution__discover-card {
+  border-radius: 14px;
+  overflow: hidden;
   background: var(--phb-surface);
   padding: 36px 32px;
   border-top: 3px solid var(--phb-blue);

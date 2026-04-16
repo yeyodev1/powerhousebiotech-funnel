@@ -108,6 +108,7 @@ const stats = [
 }
 
 .phb-data__item {
+  border-radius: 12px;
   background: var(--phb-bg);
   padding: 40px 32px;
   border-bottom: 2px solid transparent;
