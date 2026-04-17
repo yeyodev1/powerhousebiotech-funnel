@@ -248,7 +248,7 @@ onUnmounted(() => {
 // ── Variables ─────────────────────────────────────────────────────────────────
 $header-h: 56px;
 $bp: 768px;
-$dark-bg: #0b0815;
+$dark-bg: #283645; // Match new $PHB-BG
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HEADER
@@ -258,17 +258,15 @@ $dark-bg: #0b0815;
   inset: 0 0 auto 0;
   z-index: 900;
   height: $header-h;
-  // Transparente sobre el hero (que usa margin-top: -56px)
   background: transparent;
   transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 
-  // Cuando el usuario ha hecho scroll
   &--scrolled {
-    background: rgba($dark-bg, 0.88);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 1px 40px rgba(0, 0, 0, 0.3);
+    background: rgba($dark-bg, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(33, 188, 251, 0.2); // Use PHB-CYAN
+    box-shadow: 0 1px 40px rgba(0, 0, 0, 0.4);
   }
 }
 

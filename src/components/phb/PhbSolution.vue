@@ -84,8 +84,10 @@ const discovers = [
 
 <style lang="scss" scoped>
 .phb-solution {
-  background: var(--phb-white);
-  color: var(--phb-text);
+  background-color: var(--phb-bg);
+  background-image: var(--phb-mesh);
+  background-attachment: fixed;
+  color: var(--phb-white);
   padding: clamp(80px, 10vw, 140px) 0;
   font-family: var(--phb-font);
 }
@@ -164,7 +166,7 @@ const discovers = [
 .phb-solution__offer {
   font-size: 15px;
   font-weight: 500;
-  color: var(--phb-text);
+  color: var(--phb-white);
   line-height: 1.6;
   margin-bottom: 28px;
 }

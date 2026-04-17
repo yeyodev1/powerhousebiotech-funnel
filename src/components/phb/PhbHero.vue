@@ -95,10 +95,10 @@ onMounted(() => {
   &__bg-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right,
-        rgba(13, 15, 40, 0.95) 0%,
-        rgba(13, 15, 40, 0.8) 40%,
-        rgba(13, 15, 40, 0.3) 100%);
+    backdrop-filter: blur(2px);
+    background: radial-gradient(at 0% 0%, rgba(23, 24, 70, 0.9) 0%, transparent 70%),
+                radial-gradient(at 100% 0%, rgba(33, 188, 251, 0.4) 0%, transparent 60%),
+                radial-gradient(at 50% 50%, rgba(24, 231, 240, 0.1) 0%, transparent 50%);
   }
 
   &__content {

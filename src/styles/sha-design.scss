@@ -21,16 +21,22 @@
 
 /* PHB brand (Dark medical design system) */
 :root {
-  --phb-bg:       #171846; // Navy (60%)
+  --phb-bg:       #283645; // New dark gray-blue (60%)
+  --phb-navy:     #171846; // Original dark navy
   --phb-blue:     #1278f3; // Blue (30%)
   --phb-cyan:     #21bcfb; // Cyan (10%)
+  --phb-accent:   #18e7f0; // Light cyan accent
   --phb-white:    #ffffff;
-  --phb-surface:  #1e2260;
-  --phb-surface2: #232770;
+  --phb-surface:  #2d3a4d; // Updated surface based on new BG
+  --phb-surface2: #334255;
   --phb-text:     #ffffff;
   --phb-muted:    rgba(255, 255, 255, 0.6);
   --phb-border:   rgba(33, 188, 251, 0.12);
   --phb-font:     'Inter', sans-serif;
+  --phb-mesh:     radial-gradient(at 0% 0%, #171846 0%, transparent 50%),
+                  radial-gradient(at 100% 0%, #21bcfb 0%, transparent 50%),
+                  radial-gradient(at 100% 100%, #1278f3 0%, transparent 50%),
+                  radial-gradient(at 0% 100%, #18e7f0 0%, transparent 50%);
 }
 
 /* Lenis smooth scroll */

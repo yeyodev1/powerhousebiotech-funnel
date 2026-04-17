@@ -6,10 +6,17 @@
 // Accent → #18e7f0 (light cyan)
 
 // ── Page surfaces ─────────────────────────────────────────────────────────────
-$PHB-BG:         #171846;   // dark navy page background (60%)
+$PHB-BG:         #283645;   // New dark gray-blue background
+$PHB-NAVY-DARK:  #171846;   // Original dark navy
 $PHB-BG-ALT:     #1a1d52;   // alternate section bg (slightly lighter)
 $PHB-SURFACE:    #1e2260;   // card / modal surface
 $PHB-SURFACE-2:  #232770;   // subtle inner surface
+
+// ── Mesh Gradient ─────────────────────────────────────────────────────────────
+$PHB-MESH-GRADIENT: radial-gradient(at 0% 0%, #171846 0%, transparent 50%),
+                    radial-gradient(at 100% 0%, #21bcfb 0%, transparent 50%),
+                    radial-gradient(at 100% 100%, #1278f3 0%, transparent 50%),
+                    radial-gradient(at 0% 100%, #18e7f0 0%, transparent 50%);
 
 // ── Brand colors ──────────────────────────────────────────────────────────────
 $PHB-BLUE:         #1278f3;   // brand blue — secondary / icons (30%)

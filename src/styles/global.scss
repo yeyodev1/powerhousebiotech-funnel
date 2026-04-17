@@ -8,9 +8,12 @@ html {
 html,
 body {
   background-color: $PHB-BG;
+  background-image: $PHB-MESH-GRADIENT;
+  background-attachment: fixed;
   margin: 0;
   font-family: $font-principal;
   box-sizing: border-box; // Reset inicial
+  color: $PHB-WHITE;
 }
 
 *, *::before, *::after {

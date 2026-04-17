@@ -51,7 +51,9 @@ const stats = [
 
 <style lang="scss" scoped>
 .phb-data {
-  background: var(--phb-bg);
+  background-color: var(--phb-bg);
+  background-image: var(--phb-mesh);
+  background-attachment: fixed;
   color: var(--phb-white);
   padding: clamp(80px, 10vw, 140px) 0;
   font-family: var(--phb-font);

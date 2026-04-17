@@ -62,7 +62,8 @@ const { t } = useLocale()
 
 <style lang="scss" scoped>
 .phb-about {
-  background: var(--phb-bg, #171846); 
+  background: $PHB-BG;
+  background-image: $PHB-MESH-GRADIENT;
   color: var(--phb-white, #ffffff);
   padding: clamp(80px, 10vw, 140px) 0;
   font-family: var(--phb-font);
