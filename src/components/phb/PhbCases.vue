@@ -101,7 +101,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="phb-cases" ref="sectionRef">
+  <section class="phb-cases" ref="sectionRef" id="casos">
     <div class="phb-cases__sticky">
       
       <!-- Top header -->

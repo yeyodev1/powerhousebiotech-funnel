@@ -248,6 +248,17 @@ export const en = {
       }
     ]
   },
+  discover: {
+    lineTitle: 'Assessment',
+    title: 'In this assessment you will discover:',
+    items: [
+      'If your body can respond',
+      'What is blocking your recovery',
+      'If it is worth starting a regenerative treatment',
+      'What you need to do first to prepare your body for advanced therapies'
+    ],
+    footer: 'We do not start treatment with all patients who contact us, we only work with those we are really sure we can help improve their health.'
+  },
   footer: {
     tagline: 'The first Health Decision Platform focused on Regenerative Medicine.',
     contact: 'Contact',

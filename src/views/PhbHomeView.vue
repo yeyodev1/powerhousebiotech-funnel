@@ -7,7 +7,7 @@ import 'aos/dist/aos.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import PhbNav from '@/components/phb/PhbNav.vue'
+import ShaHeader from '@/components/sha/ShaHeader.vue'
 import PhbHero from '@/components/phb/PhbHero.vue'
 import PhbAbout from '@/components/phb/PhbAbout.vue'
 import ShaKpiSection from '@/components/sha/ShaKpiSection.vue'
@@ -18,6 +18,7 @@ import PhbExpectations from '@/components/phb/PhbExpectations.vue'
 import PhbCta from '@/components/phb/PhbCta.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
 import PhbProblem from '@/components/phb/PhbProblem.vue'
+import ShaDiscover from '@/components/sha/ShaDiscover.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -58,13 +59,14 @@ onUnmounted(() => {
 
 <template>
   <div class="phb-home">
-    <PhbNav />
+    <ShaHeader />
     <PhbHero />
     <PhbAbout />
     <PhbProblem /> 
     <PhbExpectations />
     <!-- New SHA-inspired sections -->
     <ShaKpiSection />
+    <ShaDiscover />
     <PhbTeam />
     <PhbCases />
     <!-- End new sections -->

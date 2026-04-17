@@ -1,6 +1,6 @@
 export const es = {
   nav: {
-    cta: 'Agendar Evaluación Regenerativa',
+    cta: 'Solicita una cita',
     menu: {
       about: 'Quiénes somos',
       method: 'Método',
@@ -20,7 +20,7 @@ export const es = {
       'Explicamos la gravedad real de tus biomarcadores.',
       'Diseñamos tu ruta crítica de regeneración.',
     ],
-    cta: 'Inicia tu evaluación Regenerativa',
+    cta: 'Agenda una consulta orientativa',
     disclaimer: 'Solo aceptamos el 20% de las aplicaciones.',
   },
   about: {
@@ -133,33 +133,33 @@ export const es = {
     subtitle: 'Así logramos resultados reales:',
     subtitleAccent: 'Primero entendemos. Luego medimos. Después preparamos. Y solo entonces... Iniciamos tratamiento.',
     steps: [
-      { 
-        letter: 'D', tag: '01', title: 'Detectar', 
+      {
+        letter: 'D', tag: '01', title: 'Detectar',
         desc: 'Entendemos qué está pasando en tu cuerpo.',
         features: ['Evaluación integral', 'Síntomas ocultos']
       },
-      { 
-        letter: 'E', tag: '02', title: 'Evaluar', 
+      {
+        letter: 'E', tag: '02', title: 'Evaluar',
         desc: 'Analizamos tu estado real, no solo los síntomas.',
         features: ['Mapeo celular', 'Estado sistémico']
       },
-      { 
-        letter: 'C', tag: '03', title: 'Clarificar', 
+      {
+        letter: 'C', tag: '03', title: 'Clarificar',
         desc: 'Definimos qué se puede mejorar… y qué no.',
         features: ['Expectativas reales', 'Alcance médico']
       },
-      { 
-        letter: 'I', tag: '04', title: 'Identificar', 
+      {
+        letter: 'I', tag: '04', title: 'Identificar',
         desc: 'Determinamos si eres candidato o no.',
         features: ['Criterios de éxito', 'Probabilidad de mejora']
       },
-      { 
-        letter: 'D', tag: '05', title: 'Diseñar', 
+      {
+        letter: 'D', tag: '05', title: 'Diseñar',
         desc: 'Creamos una ruta clara, paso a paso.',
         features: ['Plan personalizado', 'Protocolo específico']
       },
-      { 
-        letter: 'E', tag: '06', title: 'Encaminar', 
+      {
+        letter: 'E', tag: '06', title: 'Encaminar',
         desc: 'Te acompañamos durante todo el proceso.',
         features: ['Soporte continuo', 'Ajustes en ruta']
       }
@@ -211,6 +211,17 @@ export const es = {
         body: 'No porque no funcione… sino porque no está listo.'
       }
     ]
+  },
+  discover: {
+    lineTitle: 'Evaluación',
+    title: 'En esta evaluación descubrirás:',
+    items: [
+      'Si tu cuerpo puede responder',
+      'Qué está bloqueando tu recuperación',
+      'Si vale la pena que inicies un tratamiento regenerativo',
+      'Qué necesitas hacer primero para preparar a tu cuerpo a recibir terapias avanzadas'
+    ],
+    footer: 'No iniciamos tratamiento con todos los pacientes que nos contactan, solo trabajamos con quienes realmente estamos seguros que podemos ayudarles a mejorar su salud.'
   },
   footer: {
     tagline: 'La primera Health Decision Platform enfocada en Medicina Regenerativa.',
