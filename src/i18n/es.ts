@@ -1,6 +1,6 @@
 export const es = {
   nav: {
-    cta: 'Agendar Evaluación',
+    cta: 'Agendar Evaluación Regenerativa',
     menu: {
       about: 'Quiénes somos',
       method: 'Método',
@@ -20,7 +20,7 @@ export const es = {
       'Explicamos la gravedad real de tus biomarcadores.',
       'Diseñamos tu ruta crítica de regeneración.',
     ],
-    cta: 'Agendar mi Evaluación Médica',
+    cta: 'Inicia tu evaluación Regenerativa',
     disclaimer: 'Solo aceptamos el 20% de las aplicaciones.',
   },
   about: {
