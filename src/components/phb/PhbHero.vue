@@ -7,26 +7,26 @@ const { t } = useLocale()
 
 onMounted(() => {
   const tl = gsap.timeline()
-  
-  tl.fromTo('.phb-hero__title', 
+
+  tl.fromTo('.phb-hero__title',
     { y: 30, opacity: 0 },
     { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2 }
   )
-  .fromTo('.phb-hero__subtitle',
-    { y: 20, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' },
-    '-=0.6'
-  )
-  .fromTo('.phb-hero__bullets li',
-    { x: -20, opacity: 0 },
-    { x: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power2.out' },
-    '-=0.4'
-  )
-  .fromTo('.phb-hero__cta-wrapper',
-    { y: 20, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' },
-    '-=0.2'
-  )
+    .fromTo('.phb-hero__subtitle',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' },
+      '-=0.6'
+    )
+    .fromTo('.phb-hero__bullets li',
+      { x: -20, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power2.out' },
+      '-=0.4'
+    )
+    .fromTo('.phb-hero__cta-wrapper',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' },
+      '-=0.2'
+    )
 })
 </script>
 
@@ -42,7 +42,8 @@ onMounted(() => {
       <div class="phb-hero__text-column">
         <h1 class="phb-hero__title">
           {{ t.hero.title1 }}
-          <span class="phb-hero__title-highlight">{{ t.hero.titleAccent }}</span>
+          <span class="phb-hero__title-highlight"> <br/>  
+            {{ t.hero.titleAccent }}</span>
         </h1>
         
         <div class="phb-hero__subtitle">
@@ -94,12 +95,10 @@ onMounted(() => {
   &__bg-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to right,
-      rgba(13, 15, 40, 0.95) 0%,
-      rgba(13, 15, 40, 0.8) 40%,
-      rgba(13, 15, 40, 0.3) 100%
-    );
+    background: linear-gradient(to right,
+        rgba(13, 15, 40, 0.95) 0%,
+        rgba(13, 15, 40, 0.8) 40%,
+        rgba(13, 15, 40, 0.3) 100%);
   }
 
   &__content {
@@ -113,6 +112,7 @@ onMounted(() => {
 
   &__text-column {
     max-width: 700px;
+    text-align: left;
   }
 
   &__title {
@@ -121,6 +121,7 @@ onMounted(() => {
     line-height: 1.1;
     margin-bottom: 2rem;
     color: var(--phb-white);
+    text-align: left;
 
     &-highlight {
       font-weight: 600;
@@ -133,7 +134,8 @@ onMounted(() => {
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 2.5rem;
-    
+    text-align: left;
+
     p {
       margin-bottom: 1rem;
     }
@@ -151,13 +153,16 @@ onMounted(() => {
       display: flex;
       align-items: flex-start;
       gap: 1rem;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
+      font-weight: 400;
       color: var(--phb-white);
 
       i {
         color: var(--phb-cyan);
-        margin-top: 0.25rem;
-        font-size: 1rem;
+        margin-top: 0.35rem;
+        font-size: 1.1rem;
+        -webkit-text-stroke: 0.5px var(--phb-cyan); // Simulates extra weight
+        display: inline-block;
       }
     }
   }
@@ -181,7 +186,7 @@ onMounted(() => {
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
 
     &:hover {
       background: var(--phb-white);
@@ -194,7 +199,7 @@ onMounted(() => {
   &__cta-sub {
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.5);
-    text-align: center;
+    text-align: left;
     margin: 0;
   }
 }
@@ -202,18 +207,16 @@ onMounted(() => {
 @media (max-width: 768px) {
   .phb-hero {
     &__bg-overlay {
-      background: linear-gradient(
-        to bottom,
-        rgba(13, 15, 40, 0.95) 0%,
-        rgba(13, 15, 40, 0.85) 60%,
-        rgba(13, 15, 40, 0.6) 100%
-      );
+      background: linear-gradient(to bottom,
+          rgba(13, 15, 40, 0.95) 0%,
+          rgba(13, 15, 40, 0.85) 60%,
+          rgba(13, 15, 40, 0.6) 100%);
     }
-    
+
     &__cta-wrapper {
       width: 100%;
     }
-    
+
     &__cta-btn {
       width: 100%;
     }

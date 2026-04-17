@@ -11,8 +11,8 @@ export const es = {
   },
   hero: {
     badge: 'Health Decision Platform · Medicina Regenerativa',
-    title1: 'Tu cuerpo debe ser capaz de sanar.',
-    titleAccent: 'La medicina del futuro es la precisión.',
+    title1: 'Puedes recibir el mejor tratamiento del mundo.',
+    titleAccent: 'Y tu cuerpo estar igual de enfermo',
     sub: 'No se trata del tratamiento, sino de tu capacidad para aprovecharlo.',
     desc: 'Somos la primera Health Decision Platform enfocada en Medicina Regenerativa de precisión. Analizamos el 100% de tu biometría para encontrar qué bloquea tu recuperación.',
     bullets: [
