@@ -133,35 +133,35 @@ export const es = {
     subtitle: 'Así logramos resultados reales:',
     subtitleAccent: 'Primero entendemos. Luego medimos. Después preparamos. Y solo entonces... Iniciamos tratamiento.',
     steps: [
-      {
-        letter: 'D', tag: '01', title: 'Detectar',
-        desc: 'Entendemos qué está pasando en tu cuerpo, analizando a un nivel microscópico la base celular.',
+      { 
+        letter: 'D', tag: '01', title: 'Detectar', 
+        desc: 'Entendemos qué está pasando en tu cuerpo.',
         features: ['Evaluación integral', 'Síntomas ocultos']
       },
-      {
-        letter: 'E', tag: '02', title: 'Evaluar',
-        desc: 'Analizamos tu estado real, no solo los síntomas. Medimos la edad biológica de tus órganos.',
-        features: ['Lectura de biomarcadores', 'Nivel de inflamación']
+      { 
+        letter: 'E', tag: '02', title: 'Evaluar', 
+        desc: 'Analizamos tu estado real, no solo los síntomas.',
+        features: ['Mapeo celular', 'Estado sistémico']
       },
-      {
-        letter: 'C', tag: '03', title: 'Clarificar',
-        desc: 'Definimos qué se puede mejorar... y qué no. Sin falsas promesas, solo medicina guiada por datos.',
-        features: ['Transparencia total', 'Expectativas reales']
+      { 
+        letter: 'C', tag: '03', title: 'Clarificar', 
+        desc: 'Definimos qué se puede mejorar… y qué no.',
+        features: ['Expectativas reales', 'Alcance médico']
       },
-      {
-        letter: 'I', tag: '04', title: 'Identificar',
-        desc: 'Determinamos si eres candidato o no para tratamientos, maximizando siempre tu probabilidad de respuesta.',
-        features: ['Selección rigurosa', 'Probabilidad de éxito']
+      { 
+        letter: 'I', tag: '04', title: 'Identificar', 
+        desc: 'Determinamos si eres candidato o no.',
+        features: ['Criterios de éxito', 'Probabilidad de mejora']
       },
-      {
-        letter: 'D', tag: '05', title: 'Diseñar',
-        desc: 'Creamos una ruta clara, paso a paso, priorizando la preparación biológica antes que la intervención.',
-        features: ['Protocolo personalizado', 'Tiempos exactos']
+      { 
+        letter: 'D', tag: '05', title: 'Diseñar', 
+        desc: 'Creamos una ruta clara, paso a paso.',
+        features: ['Plan personalizado', 'Protocolo específico']
       },
-      {
-        letter: 'E', tag: '06', title: 'Encaminar',
-        desc: 'Te acompañamos durante todo el proceso clínico, ajustando variables para resultados duraderos.',
-        features: ['Soporte continuo', 'Ajustes adaptativos']
+      { 
+        letter: 'E', tag: '06', title: 'Encaminar', 
+        desc: 'Te acompañamos durante todo el proceso.',
+        features: ['Soporte continuo', 'Ajustes en ruta']
       }
     ]
   },

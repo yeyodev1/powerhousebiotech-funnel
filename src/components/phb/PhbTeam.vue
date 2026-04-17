@@ -11,18 +11,19 @@ const containerRef = ref<HTMLElement | null>(null)
 const slideContainerRef = ref<HTMLElement | null>(null)
 
 // Define images separately since they are assets, not text
-const doctorImages = [
-  'https://images.pexels.com/photos/5214958/pexels-photo-5214958.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/6129112/pexels-photo-6129112.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/5327656/pexels-photo-5327656.jpeg?auto=compress&cs=tinysrgb&w=1200'
+const stepIcons = [
+  'fa-magnifying-glass-plus',
+  'fa-microscope',
+  'fa-lightbulb',
+  'fa-fingerprint',
+  'fa-compass-drafting',
+  'fa-route'
 ]
 
 onMounted(() => {
   if (!containerRef.value || !slideContainerRef.value) return
 
-  const slides = gsap.utils.toArray('.phb-team-slide')
+  const slides = gsap.utils.toArray('.phb-method-slide')
   const ctx = gsap.context(() => {
     
     // Main Pinning ScrollTrigger
@@ -30,16 +31,14 @@ onMounted(() => {
       scrollTrigger: {
         trigger: containerRef.value,
         pin: true,
-        scrub: 1, // Smooth scrolling transition
+        scrub: 1, 
         start: 'top top',
-        end: `+=${slides.length * 100}%`, // Extended scroll duration
-        // markers: true,
+        end: `+=${slides.length * 100}%`,
       }
     })
 
     // Animate each slide
     slides.forEach((slide: any, i: number) => {
-      // Entrance
       if (i > 0) {
         tl.from(slide, {
           yPercent: 100,
@@ -47,23 +46,15 @@ onMounted(() => {
           scale: 0.95,
           duration: 1,
           ease: 'power2.inOut'
-        }, i) // Start at 'i' seconds in timeline
+        }, i)
       }
 
-      // Progress bar animation
-      tl.to(`.phb-team__nav-progress-inner`, {
+      tl.to(`.phb-method__nav-progress-inner`, {
         scaleY: (i + 1) / slides.length,
         duration: 0.5,
         ease: 'none'
       }, i)
 
-      // Active ID change
-      tl.call(() => {
-        // This could update a reactive variable if needed, 
-        // but for now we'll rely on visual animation
-      }, [], i)
-
-      // Exit (except for the last slide)
       if (i < slides.length - 1) {
         tl.to(slide, {
           scale: 0.9,
@@ -71,12 +62,11 @@ onMounted(() => {
           yPercent: -20,
           duration: 1,
           ease: 'power2.inOut'
-        }, i + 0.8) // Overlap slightly with next entrance
+        }, i + 0.8)
       }
     })
 
-    // Header reveal
-    gsap.from('.phb-team__header-content', {
+    gsap.from('.phb-method__header-content', {
       scrollTrigger: {
         trigger: containerRef.value,
         start: 'top 80%',
@@ -92,57 +82,56 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="phb-team" ref="containerRef">
-    <div class="phb-team__wrapper">
+  <section class="phb-method" ref="containerRef">
+    <div class="phb-method__wrapper">
       
-      <!-- Immersive Header Overlay -->
-      <header class="phb-team__header">
-        <div class="phb-team__header-content">
-          <span class="phb-team__label">{{ t.team.label }}</span>
-          <h2 class="phb-team__main-title">{{ t.team.title }}</h2>
+      <header class="phb-method__header">
+        <div class="phb-method__header-content">
+          <span class="phb-method__label">{{ t.programs.title }}</span>
+          <h2 class="phb-method__main-title" v-html="t.programs.subtitle"></h2>
         </div>
       </header>
 
-      <!-- Slides Container -->
-      <div class="phb-team__slides" ref="slideContainerRef">
+      <div class="phb-method__slides" ref="slideContainerRef">
         <div 
-          v-for="(doctor, index) in t.team.doctors" 
-          :key="doctor.id"
-          class="phb-team-slide"
+          v-for="(step, index) in t.programs.steps" 
+          :key="step.tag"
+          class="phb-method-slide"
           :class="{ 'is-first': index === 0 }"
         >
-          <div class="phb-team-slide__inner">
-            <!-- Left: ID & Text -->
-            <div class="phb-team-slide__text">
-              <span class="phb-team-slide__id">{{ doctor.id }}</span>
-              <!-- Background Number (Bakano Style) -->
-              <div class="phb-team-slide__bg-id">{{ doctor.id }}</div>
-              <div class="phb-team-slide__info">
-                <h3 class="phb-team-slide__name">{{ doctor.name }}</h3>
-                <span class="phb-team-slide__role">{{ doctor.role }}</span>
-                <span class="phb-team-slide__location">{{ doctor.location }}</span>
-                <p class="phb-team-slide__desc">{{ doctor.desc }}</p>
+          <div class="phb-method-slide__inner">
+            <div class="phb-method-slide__text">
+              <span class="phb-method-slide__id">{{ step.tag }}</span>
+              <div class="phb-method-slide__bg-letter">{{ step.letter }}</div>
+              <div class="phb-method-slide__info">
+                <h3 class="phb-method-slide__name">{{ step.title }}</h3>
+                <p class="phb-method-slide__desc">{{ step.desc }}</p>
+                <div class="phb-method-slide__features">
+                  <div v-for="feat in step.features" :key="feat" class="phb-method-slide__feat">
+                    <span class="phb-method-slide__plus">+</span> {{ feat }}
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Right: Image -->
-            <div class="phb-team-slide__image-wrap">
-              <img :src="doctorImages[index]" :alt="doctor.name" class="phb-team-slide__image" />
-              <div class="phb-team-slide__image-gradient"></div>
+            <div class="phb-method-slide__icon-wrap">
+              <div class="phb-method-slide__icon-bg">
+                <i :class="['fa-solid', stepIcons[index]]"></i>
+              </div>
+              <div class="phb-method-slide__icon-glow"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Progress Indicators -->
-      <div class="phb-team__nav">
-        <div class="phb-team__nav-progress">
-          <div class="phb-team__nav-progress-inner"></div>
+      <div class="phb-method__nav">
+        <div class="phb-method__nav-progress">
+          <div class="phb-method__nav-progress-inner"></div>
         </div>
-        <div class="phb-team__nav-count">
+        <div class="phb-method__nav-count">
           <span>01</span>
-          <div class="phb-team__nav-line"></div>
-          <span>05</span>
+          <div class="phb-method__nav-line"></div>
+          <span>06</span>
         </div>
       </div>
 
@@ -151,9 +140,9 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-.phb-team {
+.phb-method {
   position: relative;
-  background-color: #05060f; // Deep Dark Mode
+  background-color: #05060f; 
   color: #fff;
   min-height: 100vh;
   width: 100%;
@@ -214,7 +203,7 @@ onMounted(() => {
     height: 100%;
   }
 
-  .phb-team-slide {
+  .phb-method-slide {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -229,7 +218,7 @@ onMounted(() => {
       gap: 2rem;
       width: 100%;
       height: 100%;
-      padding-top: 15vh; // Leave space for overlay header
+      padding-top: 15vh;
 
       @media (min-width: 1024px) {
         flex-direction: row;
@@ -244,10 +233,6 @@ onMounted(() => {
       position: relative;
       text-align: left;
       z-index: 5;
-
-      @media (min-width: 1024px) {
-        text-align: left;
-      }
     }
 
     &__info {
@@ -255,7 +240,7 @@ onMounted(() => {
       z-index: 2;
     }
 
-    &__bg-id {
+    &__bg-letter {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -269,82 +254,114 @@ onMounted(() => {
       background: linear-gradient(135deg, rgba(33, 188, 251, 0.4) 0%, rgba(33, 188, 251, 0.05) 50%, transparent 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1.5px rgba(33, 188, 251, 0.5);
+      -webkit-text-stroke: 1.5px rgba(33, 188, 251, 0.3);
       
-      opacity: 0.8;
-      filter: drop-shadow(0 0 25px rgba(33, 188, 251, 0.25));
+      opacity: 0.6;
+      filter: drop-shadow(0 0 25px rgba(33, 188, 251, 0.15));
 
       @media (min-width: 1024px) {
-        font-size: 50vw;
+        font-size: 40vw;
         top: 20%;
         left: 0;
-        transform: translate(-30%, -30%);
+        transform: translate(-20%, -30%);
       }
+    }
+
+    &__id {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--phb-cyan, #21bcfa);
+      opacity: 0.5;
+      display: block;
+      margin-bottom: 1rem;
     }
 
     &__name {
-      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 300;
-      margin-bottom: 0.5rem;
-      color: #fff;
-    }
-
-    &__role {
-      display: block;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 0.25rem;
-    }
-
-    &__location {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--phb-cyan, #21bcfa);
       margin-bottom: 2rem;
+      color: #fff;
+      letter-spacing: -0.02em;
     }
 
     &__desc {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       line-height: 1.6;
       font-weight: 300;
       color: rgba(255, 255, 255, 0.7);
-      max-width: 480px;
+      max-width: 520px;
+      margin-bottom: 2.5rem;
     }
 
-    &__image-wrap {
-      flex: 1.5;
+    &__features {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    &__feat {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &__plus {
+      color: var(--phb-cyan, #21bcfa);
+      font-weight: 700;
+    }
+
+    &__icon-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
-      width: 100%;
-      height: 40vh;
-      border-radius: 40px;
-      overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
       z-index: 1;
 
-      @media (min-width: 1024px) {
-        flex: 1.2;
-        height: 60vh;
+      @media (max-width: 1024px) {
+        flex: 0.5;
       }
     }
 
-    &__image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 15%; 
+    &__icon-bg {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05) 0%, transparent 100%);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+
+      i {
+        font-size: 6rem;
+        color: var(--phb-cyan, #21bcfa);
+        filter: drop-shadow(0 0 30px rgba(33, 188, 250, 0.4));
+      }
+
+      @media (max-width: 768px) {
+        width: 180px;
+        height: 180px;
+        border-radius: 40px;
+        i { font-size: 4rem; }
+      }
     }
 
-    &__image-gradient {
+    &__icon-glow {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(5, 6, 15, 0.9) 0%, transparent 40%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(33, 188, 251, 0.1) 0%, transparent 70%);
+      z-index: 0;
     }
   }
 
-  // Navigation Visuals
   &__nav {
     position: absolute;
     right: 2rem;
@@ -376,7 +393,7 @@ onMounted(() => {
       top: 0;
       left: 0;
       transform-origin: top;
-      transform: scaleY(0.2); // Initial
+      transform: scaleY(0.16); 
     }
   }
 
