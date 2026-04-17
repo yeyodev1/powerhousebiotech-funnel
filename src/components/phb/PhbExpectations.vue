@@ -94,21 +94,27 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Footer / Quote Area -->
-      <div class="phb-expect__footer">
-        <div class="phb-expect__quote">
-          <h3 class="phb-expect__quote-title">{{ t.expectations.quoteTitle }}</h3>
-          <p class="phb-expect__quote-text">{{ t.expectations.quoteText }}</p>
-        </div>
+      <!-- EVR Explanation Section -->
+      <div class="phb-expect__evr" data-aos="fade-up">
+        <div class="phb-expect__evr-content">
+          <h3 class="phb-expect__evr-title" v-html="t.expectations.evr.title"></h3>
+          <p class="phb-expect__evr-subtitle">{{ t.expectations.evr.subtitle }}</p>
+          
+          <div class="phb-expect__evr-question">
+            {{ t.expectations.evr.question }}
+          </div>
 
-        <!-- Floating Media (Optional/Placeholder per Plan) -->
-        <div class="phb-expect__media">
-          <div class="phb-expect__media-inner">
-            <img src="https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Meditation Balance" />
-            <div class="phb-expect__media-play">
-              <i class="fa-solid fa-play"></i>
+          <div class="phb-expect__evr-features">
+            <div class="phb-expect__evr-label">{{ t.expectations.evr.offerLabel }}</div>
+            <div class="phb-expect__evr-list">
+              <div v-for="(feature, idx) in t.expectations.evr.features" :key="idx" class="phb-expect__evr-feature">
+                <span class="phb-expect__evr-plus">+</span>
+                <span class="phb-expect__evr-text">{{ feature }}</span>
+              </div>
             </div>
           </div>
+
+          <p class="phb-expect__evr-footer">{{ t.expectations.evr.footer }}</p>
         </div>
       </div>
 
@@ -165,7 +171,7 @@ onMounted(() => {
 
   &__title {
     font-size: clamp(2rem, 4.5vw, 3rem);
-    font-weight: 300;
+    font-weight: 600;
     line-height: 1.1;
     margin: 0;
   }
@@ -182,7 +188,7 @@ onMounted(() => {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 4rem;
-    margin-bottom: 10rem;
+    margin-bottom: 4rem;
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
@@ -227,73 +233,97 @@ onMounted(() => {
     max-width: 250px;
   }
 
-  &__footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 4rem;
+  &__evr {
+    margin-top: 8rem;
+    padding: 4rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 40px;
+    backdrop-filter: blur(10px);
+    text-align: center;
 
-    @media (min-width: 1024px) {
-      flex-direction: row;
-      align-items: flex-end;
+    &-content {
+      max-width: 800px;
+      margin: 0 auto;
     }
-  }
 
-  &__quote {
-    max-width: 600px;
-    
     &-title {
-      font-size: clamp(2rem, 5vw, 4rem);
-      font-weight: 600;
-      line-height: 1;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    &-text {
-      font-size: 1.25rem;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
       font-weight: 300;
-      color: rgba(255, 255, 255, 0.6);
-      margin: 0;
-    }
-  }
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
 
-  &__media {
-    width: 100%;
-    max-width: 380px;
-    aspect-ratio: 16/10;
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-
-    &-inner {
-      width: 100%;
-      height: 100%;
-      position: relative;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      :deep(em) {
+        font-style: italic;
+        font-weight: 700;
+        color: var(--phb-cyan, #21bcfa);
       }
     }
 
-    &-play {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 50%;
+    &-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 2rem;
+    }
+
+    &-question {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 3.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    &-features {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 2.5rem;
+      border-radius: 24px;
+      margin-bottom: 2rem;
+    }
+
+    &-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 2rem;
+    }
+
+    &-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: center;
+        gap: 3rem;
+      }
+    }
+
+    &-feature {
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: #fff;
+      gap: 0.75rem;
+    }
+
+    &-plus {
+      color: var(--phb-cyan, #21bcfa);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    &-text {
       font-size: 1rem;
+      font-weight: 400;
+      color: #ffffff;
+    }
+
+    &-footer {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.5);
     }
   }
 }

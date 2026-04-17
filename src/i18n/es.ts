@@ -40,7 +40,7 @@ export const es = {
     cta: 'Descubre hoy si tu cuerpo está listo',
   },
   expectations: {
-    title: 'Qué esperar tras un Programa PowerHouse',
+    title: '<strong>Qué esperar tras un Programa PowerHouse</strong>',
     subtitle: 'Mejoras medibles y basadas en ciencia en cuestión de días.',
     results: [
       { id: 1, val: '30%', label: 'Reducción en marcadores de inflamación clave.' },
@@ -50,6 +50,18 @@ export const es = {
     ],
     quoteTitle: '10 AÑOS MÁS JOVEN.',
     quoteText: 'Así es como nuestros pacientes describen a menudo su vitalidad y enfoque tras el tratamiento.',
+    evr: {
+      title: 'Somos los creadores de la <em>Evaluación de Viabilidad Regenerativa™</em>',
+      subtitle: 'Un enfoque diseñado para responder una sola pregunta:',
+      question: '¿Tu cuerpo realmente puede mejorar… o no?',
+      offerLabel: 'Te ofrecemos exclusivamente:',
+      features: [
+        'Evaluación honesta y transparente de tu estado de Salud',
+        'Interpretación de biomarcadores',
+        'Orientación Regenerativa'
+      ],
+      footer: 'antes de sugerirte cualquier tratamiento.'
+    }
   },
   shaKpi: {
     quote: 'La medicina reactiva ha fallado.',

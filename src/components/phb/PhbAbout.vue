@@ -143,28 +143,35 @@ const { t } = useLocale()
 }
 
 .phb-about__bullets-label {
-  font-size: 11px;
-  font-weight: 500;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--phb-cyan, #21bcfa);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .phb-about__bullets {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   margin-bottom: 36px;
 
   li {
     display: flex;
     gap: 14px;
     align-items: flex-start;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.75);
     line-height: 1.6;
+
+    span:last-child {
+      display: block;
+      text-align: justify;
+      hyphens: auto;
+      flex: 1;
+    }
   }
 }
 
