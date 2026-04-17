@@ -6,9 +6,7 @@
     <PhbExpectations />
     <!-- New SHA-inspired sections -->
     <ShaKpiSection />
-    <PhbScience />
     <PhbTeam />
-    <PhbPrograms />
     <PhbCases />
     <!-- End new sections -->
     <PhbCta />
@@ -30,7 +28,6 @@ import PhbAbout from '@/components/phb/PhbAbout.vue'
 import ShaKpiSection from '@/components/sha/ShaKpiSection.vue'
 import PhbScience from '@/components/phb/PhbScience.vue'
 import PhbTeam from '@/components/phb/PhbTeam.vue'
-import PhbPrograms from '@/components/phb/PhbPrograms.vue'
 import PhbCases from '@/components/phb/PhbCases.vue'
 import PhbExpectations from '@/components/phb/PhbExpectations.vue'
 import PhbCta from '@/components/phb/PhbCta.vue'
@@ -81,9 +78,20 @@ onUnmounted(() => {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 
-  * { box-sizing: border-box; }
-  a { text-decoration: none; color: inherit; }
-  img, video { display: block; max-width: 100%; }
+  * {
+    box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
 }
 
 /* AOS overrides */

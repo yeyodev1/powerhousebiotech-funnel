@@ -2,213 +2,189 @@
 import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useLocale } from '@/composables/useLocale'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const { t, locale } = useLocale()
 const sectionRef = ref<HTMLElement | null>(null)
 const scrollContainerRef = ref<HTMLElement | null>(null)
-const bgRef = ref<HTMLElement | null>(null)
 
-// Define images and accent colors separately as they are part of the design system
-const caseImages = [
-  'https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/8442436/pexels-photo-8442436.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=1200'
+// Cases data: Focus on clinical proof + Star ratings
+const cases = [
+  {
+    id: '01',
+    category: 'Caso de Éxito',
+    title: 'Fatiga Crónica',
+    rating: 5,
+    context: 'Paciente con evolución de 7 años. Múltiples tratamientos fallidos previos. Sin respuesta biológica inicial.',
+    analysis: 'Evaluación EVR™ detectó inflamación sistémica crítica y disfunción mitocondrial de grado IV.',
+    strategy: 'Protocolo de Biorreprogramación™ celular intensivo para restaurar el terreno biológico.',
+    result: ['Energía vital recuperada en 21 días', 'Marcadores inflamatorios normalizados'],
+    isRejected: false
+  },
+  {
+    id: '02',
+    category: 'Caso de Éxito',
+    title: 'Dolor Articular',
+    rating: 5,
+    context: 'Paciente enfocado en medicina convencional sin éxito. Ambiente articular degenerativo.',
+    analysis: 'Se identificó toxicidad tisular que impedía cualquier proceso de regeneración natural.',
+    strategy: 'Recalibración metabólica profunda y optimización del microambiente celular.',
+    result: ['Eliminación total del dolor inflamatorio', 'Evitó intervención quirúrgica mayor'],
+    isRejected: false
+  },
+  {
+    id: '03',
+    category: 'Honestidad Clínica',
+    title: 'Paciente Rechazado',
+    rating: 5, // Representing high satisfaction with transparency
+    context: 'Paciente con estado biológico irreversible tras análisis clínico exhaustivo.',
+    analysis: 'La Evaluación de Viabilidad indicó una tasa de éxito inferior al umbral ético de PHB™.',
+    strategy: 'Decisión de NO tratar. Recomendación de cuidados paliativos y soporte médico tradicional.',
+    result: ['Cero inversión en falsas promesas', 'Claridad absoluta sobre su estado real'],
+    isRejected: true
+  }
 ]
-
-const caseAccents = ['#21bcfa', '#1278f3', '#adb5bd']
 
 onMounted(() => {
   if (!sectionRef.value || !scrollContainerRef.value) return
 
   const ctx = gsap.context(() => {
+    // Horizontal scroll calculation
     const horizontalLength = scrollContainerRef.value!.scrollWidth - window.innerWidth
 
-    // Main horizontal scroll animation
-    const mainTl = gsap.timeline({
+    gsap.to(scrollContainerRef.value, {
+      x: -horizontalLength,
+      ease: 'none',
       scrollTrigger: {
         trigger: sectionRef.value,
         pin: true,
         scrub: 1,
         start: 'top top',
-        end: () => `+=${horizontalLength}`,
+        end: () => `+=${horizontalLength + 1000}`,
         invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          // Change background color based on progress (Case 03 transition)
-          if (self.progress > 0.7) {
-            gsap.to(bgRef.value, { backgroundColor: '#1e2260', duration: 0.5 }) // Phb Surface
-          } else {
-            gsap.to(bgRef.value, { backgroundColor: '#171846', duration: 0.5 }) // Phb Navy
-          }
-        }
       }
     })
 
-    mainTl.to(scrollContainerRef.value, {
-      x: -horizontalLength,
-      ease: 'none'
-    })
-
-    // Parallax background numbers
-    const numbers = gsap.utils.toArray('.phb-case-bg-num')
-    numbers.forEach((num: any, i: number) => {
-      gsap.to(num, {
-        x: -200, // Moves differently than the card
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.value,
-          scrub: 1.5,
-          start: 'top top',
-          end: () => `+=${horizontalLength}`,
-        }
-      })
-    })
-
-    // Card internal reveals
-    const cards = gsap.utils.toArray('.phb-case-card')
-    cards.forEach((card: any) => {
-      // Split text logic simulated with lines
-      gsap.from(card.querySelectorAll('.phb-case-card__reveal'), {
-        y: 40,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: card,
-          containerAnimation: mainTl,
-          start: 'left 70%',
-          toggleActions: 'play none none reverse'
-        }
-      })
-
-      // Image scale parallax
-      gsap.fromTo(card.querySelector('.phb-case-card__image'), 
-        { scale: 1.2 },
-        { 
-          scale: 1, 
-          scrollTrigger: {
-            trigger: card,
-            containerAnimation: mainTl,
-            start: 'left right',
-            end: 'right left',
-            scrub: 0.5
-          }
-        }
-      )
-    })
-
-    // Progress line
-    gsap.to('.phb-cases__progress-fill', {
+    // Progress bar animation
+    gsap.to('.phb-cases__progress-bar', {
       scaleX: 1,
       ease: 'none',
       scrollTrigger: {
         trigger: sectionRef.value,
-        scrub: 0.3,
+        scrub: 1,
         start: 'top top',
-        end: () => `+=${horizontalLength}`,
+        end: () => `+=${horizontalLength + 1000}`,
       }
+    })
+
+    // Animation for card contents as they enter the view
+    const cards = gsap.utils.toArray('.phb-case-card')
+    cards.forEach((card: any) => {
+      gsap.from(card.querySelectorAll('.phb-case-card__content > *'), {
+        opacity: 0,
+        y: 30,
+        stagger: 0.1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'left center',
+          toggleActions: 'play none none reverse',
+          containerAnimation: gsap.getById('horizontalScroll') // Not strictly needed with trigger card but good practice
+        }
+      })
     })
 
   }, sectionRef.value)
 })
+
 </script>
 
 <template>
   <section class="phb-cases" ref="sectionRef">
-    <!-- Background layer for color transitions -->
-    <div class="phb-cases__bg" ref="bgRef"></div>
-
-    <div class="phb-cases__sticky-wrap">
+    <div class="phb-cases__sticky">
       
-      <!-- Fixed Header -->
-      <div class="phb-cases__header">
-        <span class="phb-cases__label phb-case-card__reveal">{{ t.proof.label }}</span>
-        <h2 class="phb-cases__title phb-case-card__reveal" v-html="t.proof.title.replace('…', '…<br>')"></h2>
+      <!-- Top header -->
+      <div class="phb-cases__header" data-aos="fade-right">
+        <div class="phb-cases__header-inner">
+          <span class="phb-cases__label">Evidencia Real —</span>
+          <h2 class="phb-cases__title">Cuando se decide bien… <br>los resultados dejan de ser suerte</h2>
+        </div>
       </div>
 
-      <!-- Horizontal Motion Area -->
-      <div class="phb-cases__scroll-row" ref="scrollContainerRef">
-        
+      <!-- Scroll container -->
+      <div class="phb-cases__scroll" ref="scrollContainerRef">
         <div 
-          v-for="(item, index) in t.proof.cases" 
+          v-for="item in cases" 
           :key="item.id" 
           class="phb-case-card"
           :class="{ 'is-rejected': item.isRejected }"
         >
-          <!-- Parallax Background Number -->
-          <div class="phb-case-bg-num">{{ item.id }}</div>
-
           <div class="phb-case-card__inner">
             
-            <div class="phb-case-card__body">
-              <div class="phb-case-card__left">
-                  <div class="phb-case-card__image-container">
-                    <img :src="caseImages[index]" :alt="item.title" class="phb-case-card__image" />
-                    <div class="phb-case-card__img-overlay"></div>
-                    <div class="phb-case-card__outcome-header">
-                       <span class="phb-case-card__outcome-label">{{ item.outcome }}</span>
-                    </div>
-                    <div class="phb-case-card__badge">{{ item.category }}</div>
-                  </div>
+            <!-- Atmosphere Layer -->
+            <div class="phb-case-card__mesh"></div>
+            <div class="phb-case-card__glow"></div>
+
+            <!-- Card Content -->
+            <div class="phb-case-card__content">
+              <div class="phb-case-card__top">
+                <div class="phb-case-card__rating">
+                  <i v-for="n in 5" :key="n" class="fa-solid fa-star"></i>
+                </div>
+                <span class="phb-case-card__tag">{{ item.category }}</span>
+              </div>
+              
+              <h3 class="phb-case-card__main-title">{{ item.title }}</h3>
+
+              <div class="phb-case-card__grid">
+                <div class="phb-case-card__col">
+                  <span class="phb-case-card__info-label">Contexto</span>
+                  <p>{{ item.context }}</p>
+                </div>
+                <div class="phb-case-card__col">
+                  <span class="phb-case-card__info-label">DECIDE™ Report</span>
+                  <p>{{ item.analysis }}</p>
+                </div>
               </div>
 
-              <div class="phb-case-card__right">
-                 <div class="phb-case-card__info phb-case-card__reveal">
-                    <h3 class="phb-case-card__case-title">{{ item.title }} <span>{{ item.subtitle }}</span></h3>
-                    
-                    <div class="phb-case-card__details">
-                      <div class="phb-case-card__stat">
-                        <span class="phb-case-card__s-label">{{ locale === 'es' ? 'Situación Crítica' : 'Critical Situation' }}</span>
-                        <p class="phb-case-card__s-value">{{ item.context }}</p>
-                      </div>
-                      <div class="phb-case-card__stat">
-                        <span class="phb-case-card__s-label">{{ locale === 'es' ? 'Evaluación DECIDE™' : 'DECIDE™ Evaluation' }}</span>
-                        <p class="phb-case-card__s-value">{{ item.analysis }}</p>
-                      </div>
-                      <div class="phb-case-card__stat">
-                        <span class="phb-case-card__s-label">{{ locale === 'es' ? 'Protocolo Aplicado' : 'Applied Protocol' }}</span>
-                        <p class="phb-case-card__s-value">{{ item.strategy }}</p>
-                      </div>
-                    </div>
-
-                    <div class="phb-case-card__result" :style="{ '--accent': caseAccents[index] }">
-                        <div class="phb-case-card__indicator"></div>
-                        <div class="phb-case-card__r-content">
-                           <span class="phb-case-card__r-label">{{ locale === 'es' ? 'Respuesta Regenerativa' : 'Regenerative Response' }}</span>
-                           <p class="phb-case-card__r-text">{{ item.result }}</p>
-                        </div>
-                    </div>
-                 </div>
+              <div class="phb-case-card__result" :class="{ 'is-rejected': item.isRejected }">
+                <span class="phb-case-card__info-label" v-if="!item.isRejected">Desenlace PHB™</span>
+                <span class="phb-case-card__info-label" v-else>Transparencia PHB™</span>
+                <ul class="phb-case-card__bullet-list">
+                  <li v-for="(res, idx) in item.result" :key="idx">
+                    <i class="fa-solid" :class="item.isRejected ? 'fa-xmark' : 'fa-check-circle'"></i>
+                    {{ res }}
+                  </li>
+                </ul>
               </div>
             </div>
-
           </div>
         </div>
 
-        <!-- Ending Slide -->
-        <div class="phb-case-card phb-case-card--final">
-            <div class="phb-case-card__reveal">
-              <h2 class="phb-case-final__h2">{{ t.proof.final.title }}</h2>
-              <p class="phb-case-final__p">{{ t.proof.final.desc }}</p>
-              <div class="phb-case-final__cta-wrap">
-                  <span class="phb-case-final__badge">{{ t.proof.final.badge }}</span>
+        <!-- Closing slide -->
+        <div class="phb-case-card phb-case-card--outro">
+           <div class="phb-case-card--outro__inner">
+              <h2 class="phb-case-card--outro__title">No buscamos pacientes… <br>buscamos resultados.</h2>
+              <p class="phb-case-card--outro__desc">
+                Si no podemos garantizar una mejoría medible, seremos los primeros en decírtelo.
+                Nuestra ética clínica está por encima de cualquier tratamiento.
+              </p>
+              <div class="phb-case-card--outro__action">
+                <span class="phb-case-card--outro__badge">SABER ES PODER</span>
               </div>
-            </div>
+           </div>
         </div>
-
       </div>
 
-      <!-- Bottom Progress UI -->
-      <div class="phb-cases__ui">
-         <div class="phb-cases__progress-wrap">
-            <div class="phb-cases__progress-fill"></div>
-         </div>
-         <div class="phb-cases__scroll-hint">
-            {{ t.proof.footerHint }} <i class="fa-solid fa-arrow-right-long"></i>
-         </div>
+      <!-- Footer progress -->
+      <div class="phb-cases__footer">
+        <div class="phb-cases__progress">
+          <div class="phb-cases__progress-bar"></div>
+        </div>
+        <div class="phb-cases__guide">
+          DESLIZA PARA VER LA VERDAD CLÍNICA <i class="fa-solid fa-arrow-right-long"></i>
+        </div>
       </div>
 
     </div>
@@ -218,401 +194,322 @@ onMounted(() => {
 <style lang="scss" scoped>
 .phb-cases {
   position: relative;
-  width: 100%;
+  background-color: #05060f;
+  color: #fff;
   overflow: hidden;
-  
-  &__bg {
-    position: absolute;
-    inset: 0;
-    background-color: var(--phb-bg, #171846);
-    transition: background-color 0.8s ease;
-    z-index: 0;
-  }
 
-  &__sticky-wrap {
+  &__sticky {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 6vh 0;
-    position: relative;
-    z-index: 1;
+    padding: 4rem 0;
   }
 
   &__header {
+    width: 100%;
     padding: 0 8vw;
-    margin-bottom: 2rem;
+    z-index: 10;
+    
+    &-inner {
+      max-width: 900px;
+    }
   }
 
   &__label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.3em;
     color: var(--phb-cyan, #21bcfa);
     text-transform: uppercase;
+    margin-bottom: 1.5rem;
     display: block;
-    margin-bottom: 1rem;
+    opacity: 0.8;
   }
 
   &__title {
-    font-size: clamp(2.5rem, 4vw, 3.5rem);
-    font-weight: 400;
-    line-height: 1.1;
-    color: var(--phb-cyan, #21bcfa);
-    text-shadow: 0 0 30px rgba(33, 188, 250, 0.3);
-    display: inline-block;
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
   }
 
-  &__scroll-row {
+  &__scroll {
+    display: flex;
+    padding-left: 8vw;
+    gap: 5rem;
+    align-items: center;
+    height: 60vh;
+    width: fit-content;
+    will-change: transform;
+  }
+
+  // Individual Cards
+  .phb-case-card {
+    flex-shrink: 0;
+    width: 85vw;
+    max-width: 900px;
+    height: 100%;
+    background: rgba(10, 11, 24, 0.4);
+    backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 48px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    @media (min-width: 1024px) {
+      width: 50vw;
+    }
+
+    &:hover {
+      border-color: rgba(33, 188, 251, 0.3);
+      background: rgba(10, 11, 24, 0.6);
+      transform: scale(1.02);
+
+      .phb-case-card__glow {
+        opacity: 0.15;
+      }
+    }
+
+    &.is-rejected {
+      background: rgba(20, 20, 30, 0.4);
+      border-color: rgba(255, 255, 255, 0.05);
+      
+      .phb-case-card__tag {
+        color: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      
+      .phb-case-card__mesh {
+        display: none;
+      }
+    }
+
+    &__mesh {
+      position: absolute;
+      inset: 0;
+      opacity: 0.4;
+      background: radial-gradient(at 20% 20%, rgba(23, 24, 70, 0.8) 0%, transparent 80%),
+                  radial-gradient(at 80% 15%, rgba(33, 188, 251, 0.15) 0%, transparent 65%),
+                  radial-gradient(at 85% 85%, rgba(18, 120, 243, 0.15) 0%, transparent 70%),
+                  radial-gradient(at 15% 85%, rgba(24, 231, 240, 0.12) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    &__glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, var(--phb-cyan, #21bcfa) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    &__inner {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    &__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    &__rating {
+      color: #FFD700;
+      font-size: 1rem;
+      display: flex;
+      gap: 0.4rem;
+      filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+    }
+
+    &__tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--phb-cyan, #21bcfa);
+      background: rgba(33, 188, 250, 0.1);
+      padding: 0.6rem 1.2rem;
+      border-radius: 100px;
+      border: 1px solid rgba(33, 188, 250, 0.15);
+    }
+
+    &__main-title {
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 300;
+      margin-bottom: 3.5rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      margin-bottom: auto;
+      
+      @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    &__info-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--phb-cyan, #21bcfa);
+      opacity: 0.6;
+      margin-bottom: 1.2rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.8);
+      margin: 0;
+    }
+
+    &__result {
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+      &.is-rejected {
+        .phb-case-card__info-label { color: rgba(255, 255, 255, 0.3); }
+        .phb-case-card__bullet-list li { color: rgba(255, 255, 255, 0.4); }
+        .fa-xmark { color: rgba(255, 255, 255, 0.2) !important; }
+      }
+    }
+
+    &__bullet-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      
+      li {
+        font-size: 1.1rem;
+        font-weight: 400;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        
+        i { 
+          font-size: 1.1rem; 
+          color: var(--phb-cyan, #21bcfa);
+          filter: drop-shadow(0 0 5px rgba(33, 188, 250, 0.3));
+        }
+      }
+    }
+  }
+
+  // Outro Slide
+  .phb-case-card--outro {
+    background: transparent;
+    border: none;
     display: flex;
     align-items: center;
-    padding-left: 8vw;
-    gap: 8vw;
-    width: fit-content;
-    height: 65vh;
+    backdrop-filter: none;
+    
+    &__inner {
+      max-width: 600px;
+    }
+
+    &__title {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 200;
+      margin-bottom: 2.5rem;
+      line-height: 1.0;
+      letter-spacing: -0.05em;
+    }
+
+    &__desc {
+      font-size: 1.3rem;
+      line-height: 1.6;
+      opacity: 0.5;
+      margin-bottom: 4rem;
+      font-weight: 300;
+    }
+
+    &__badge {
+      display: inline-block;
+      padding: 1.2rem 3rem;
+      border: 1px solid rgba(33, 188, 251, 0.4);
+      background: rgba(33, 188, 251, 0.05);
+      border-radius: 100px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--phb-cyan, #21bcfa);
+      letter-spacing: 0.2em;
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        background: var(--phb-cyan, #21bcfa);
+        color: #05060f;
+      }
+    }
   }
 
-  /* Progress UI */
-  &__ui {
+  &__footer {
     padding: 0 8vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  &__progress-wrap {
-    width: 200px;
+  &__progress {
+    width: 300px;
     height: 1px;
     background: rgba(255, 255, 255, 0.1);
     position: relative;
-  }
-
-  &__progress-fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--phb-cyan, #21bcfa);
-    transform-origin: left;
-    transform: scaleX(0);
-  }
-
-  &__scroll-hint {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    color: rgba(255, 255, 255, 0.4);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
     
-    i { font-size: 0.9rem; }
-  }
-}
-
-/* Parallax Numbers */
-.phb-case-bg-num {
-  position: absolute;
-  top: -5%;
-  left: 5%;
-  font-size: 38vw; 
-  font-weight: 950;
-  line-height: 1;
-  pointer-events: none;
-  z-index: 0;
-  font-family: 'Inter', sans-serif;
-
-  // Matching the vibrant "llamativo" style from Team section
-  background: linear-gradient(135deg, rgba(33, 188, 251, 0.35) 0%, rgba(33, 188, 251, 0.05) 50%, transparent 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.5px rgba(33, 188, 251, 0.4);
-  
-  opacity: 0.8; 
-  filter: drop-shadow(0 0 25px rgba(33, 188, 251, 0.25));
-
-  @media (min-width: 1024px) {
-    font-size: 50vw;
-  }
-}
-
-/* Cards Area */
-.phb-case-card {
-  flex-shrink: 0;
-  width: 85vw;
-  max-width: 1100px;
-  height: 100%;
-  position: relative;
-
-  @media (min-width: 1200px) {
-    width: 70vw;
-  }
-
-  &__inner {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  &__body {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    width: 100%;
-    
-    @media (min-width: 1024px) {
-      flex-direction: row;
-      align-items: center;
-      gap: 5vw;
+    &-bar {
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--phb-cyan, #21bcfa);
+      transform-origin: left;
+      transform: scaleX(0);
+      box-shadow: 0 0 15px rgba(33, 188, 250, 0.5);
     }
   }
 
-  &__left {
-    flex: 1;
-  }
-
-  &__image-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16/10;
-    border-radius: 40px; // Bakano style ultra-rounded
-    overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.4);
-  }
-
-  &__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &__img-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
-  }
-
-  &__badge {
-    position: absolute;
-    bottom: 2rem;
-    left: 2rem;
-    padding: 0.6rem 1.2rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 100px;
-    font-size: 0.7rem;
+  &__guide {
+    font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 5;
-  }
-
-  &__outcome-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-    z-index: 4;
-  }
-
-  &__outcome-label {
-    font-size: 8vw;
-    font-weight: 950;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    color: #fff;
-    opacity: 0.3;
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.5);
-    -webkit-text-fill-color: transparent;
-    transform: rotate(-10deg);
-    white-space: nowrap;
-
-    @media (min-width: 1024px) {
-      font-size: 5vw;
-    }
-  }
-
-  &__right {
-    flex: 1.2;
-    padding-right: 2rem;
-  }
-
-  &__case-title {
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
-    font-weight: 300;
-    margin-bottom: 2.5rem;
-    line-height: 1.1;
-    color: #fff;
-    
-    // Highlight the prefix (PATOLOGÍA / CRITERIO)
-    &::first-line {
-      color: var(--phb-cyan, #21bcfa);
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
-
-    span {
-      display: block;
-      font-size: 1.1rem;
-      opacity: 0.4;
-      font-weight: 400;
-      margin-top: 0.5rem;
-      -webkit-text-fill-color: #fff; // Reset from first-line if needed
-    }
-  }
-
-  &__details {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-bottom: 3.5rem;
-    
-    @media (min-width: 768px) {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    @media (max-width: 480px) {
-      gap: 1.25rem;
-      margin-bottom: 2rem;
-    }
-  }
-
-  &__s-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
     color: rgba(255, 255, 255, 0.4);
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-
-  &__s-value {
-    font-size: 1rem;
-    line-height: 1.5;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  &__result {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.25rem 1.75rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 20px;
-    border-left: 3px solid var(--accent, #21bcfa);
-
-    @media (max-width: 480px) {
-      padding: 1rem;
-      gap: 1rem;
-    }
-  }
-
-  &__indicator {
-    width: 12px;
-    height: 12px;
-    background: var(--accent, #21bcfa);
-    border-radius: 50%;
-    box-shadow: 0 0 15px var(--accent, #21bcfa);
-    flex-shrink: 0;
-  }
-
-  &__r-label {
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--phb-cyan, #21bcfa); // Brighter brand color for visibility
-    opacity: 0.9;
-    display: block;
-    margin-bottom: 0.4rem;
-  }
-
-  &__r-text {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: #fff;
-  }
-
-  /* Rejected Case Styling */
-  &.is-rejected {
-    .phb-case-card__image {
-      filter: grayscale(1) brightness(0.7);
-    }
-    .phb-case-card__result {
-       opacity: 0.7;
-       filter: grayscale(0.5);
-    }
-  }
-  
-  /* Final Slide */
-  &--final {
-    width: 100vw;
-    max-width: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-right: 8vw; // Compensate for left padding of row
-  }
-}
-
-.phb-case-final {
-  max-width: 800px;
-  text-align: center;
-
-  &__h2 {
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: 2rem;
-    color: #ffffff;
-    
-    background: linear-gradient(to bottom, #ffffff, var(--phb-cyan, #21bcfa));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  &__p {
-    font-size: clamp(1rem, 1.5vw, 1.3rem);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 4rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  &__badge {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    border: 1px solid var(--phb-cyan, #21bcfa);
-    border-radius: 100px;
-    font-size: 0.9rem;
-    font-weight: 700;
     letter-spacing: 0.2em;
-    color: var(--phb-cyan, #21bcfa);
-    background: rgba(33, 188, 250, 0.05);
-    transition: all 0.3s ease;
+    text-transform: uppercase;
 
-    &:hover {
-      background: var(--phb-cyan, #21bcfa);
-      color: #05060f;
+    i {
+      font-size: 1rem;
+      color: var(--phb-cyan, #21bcfa);
     }
   }
-}
-
-/* Animations Helper */
-.phb-case-card__reveal {
-  will-change: transform, opacity;
 }
 </style>
