@@ -1,18 +1,3 @@
-<template>
-  <div class="phb-home">
-    <PhbNav />
-    <PhbHero />
-    <PhbAbout />
-    <PhbExpectations />
-    <!-- New SHA-inspired sections -->
-    <ShaKpiSection />
-    <PhbTeam />
-    <PhbCases />
-    <!-- End new sections -->
-    <PhbCta />
-    <PhbFooter />
-  </div>
-</template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
@@ -32,6 +17,7 @@ import PhbCases from '@/components/phb/PhbCases.vue'
 import PhbExpectations from '@/components/phb/PhbExpectations.vue'
 import PhbCta from '@/components/phb/PhbCta.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
+import PhbProblem from '@/components/phb/PhbProblem.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -69,6 +55,23 @@ onUnmounted(() => {
   ScrollTrigger.getAll().forEach(t => t.kill())
 })
 </script>
+
+<template>
+  <div class="phb-home">
+    <PhbNav />
+    <PhbHero />
+    <PhbAbout />
+    <PhbProblem /> 
+    <PhbExpectations />
+    <!-- New SHA-inspired sections -->
+    <ShaKpiSection />
+    <PhbTeam />
+    <PhbCases />
+    <!-- End new sections -->
+    <PhbCta />
+    <PhbFooter />
+  </div>
+</template>
 
 <style lang="scss">
 .phb-home {

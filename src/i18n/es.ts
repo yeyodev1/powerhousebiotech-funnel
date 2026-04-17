@@ -190,6 +190,28 @@ export const es = {
     ctaSecondary: 'Hablar con un asesor ahora',
     microcopy: 'Somos una plataforma que prioriza criterio clínico sobre volumen. Solo aceptamos pacientes cuando existe una probabilidad real de respuesta.',
   },
+  problem: {
+    lineTitle: 'El Problema',
+    title: 'Tu cuerpo no falla por falta de tratamientos…',
+    sub: 'Falla porque nadie te ha explicado lo que realmente está pasando. Y porque el sistema médico está diseñado para tratar partes, no para entender el panorama completo.',
+    cards: [
+      {
+        icon: 'fa-solid fa-microscope',
+        title: 'Estudios sin claridad',
+        body: 'Te entregan resultados… pero no te explican qué significan juntos.'
+      },
+      {
+        icon: 'fa-solid fa-compass',
+        title: 'Acciones sin dirección',
+        body: 'Pruebas tratamientos, suplementos o terapias… sin una estrategia clara.'
+      },
+      {
+        icon: 'fa-solid fa-triangle-exclamation',
+        title: 'El cuerpo no responde',
+        body: 'No porque no funcione… sino porque no está listo.'
+      }
+    ]
+  },
   footer: {
     tagline: 'La primera Health Decision Platform enfocada en Medicina Regenerativa.',
     contact: 'Contacto',

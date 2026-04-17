@@ -226,6 +226,28 @@ export const en = {
     ctaSecondary: 'Talk to an advisor now',
     microcopy: 'We are a platform that prioritizes clinical criteria over volume. We only accept patients when there is a real probability of response.',
   },
+  problem: {
+    lineTitle: 'The Problem',
+    title: 'Your body does not fail for lack of treatments…',
+    sub: 'It fails because nobody has explained what is really happening. And because the medical system is designed to treat parts, not to understand the full picture.',
+    cards: [
+      {
+        icon: 'fa-solid fa-microscope',
+        title: 'Studies without clarity',
+        body: 'They hand you results… but they don\'t explain what they mean together.'
+      },
+      {
+        icon: 'fa-solid fa-compass',
+        title: 'Actions without direction',
+        body: 'You try treatments, supplements, or therapies… without a clear strategy.'
+      },
+      {
+        icon: 'fa-solid fa-triangle-exclamation',
+        title: 'Body does not respond',
+        body: 'Not because it doesn\'t work… but because it\'s not ready.'
+      }
+    ]
+  },
   footer: {
     tagline: 'The first Health Decision Platform focused on Regenerative Medicine.',
     contact: 'Contact',
