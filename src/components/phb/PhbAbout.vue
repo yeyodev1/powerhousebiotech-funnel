@@ -38,16 +38,11 @@
         </div>
       </div>
 
-      <!-- Image strip -->
-      <div class="phb-about__images" data-aos="fade-up" data-aos-delay="200">
-        <div class="phb-about__img-card">
-          <img src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Análisis de laboratorio" loading="lazy" />
-        </div>
-        <div class="phb-about__img-card phb-about__img-card--tall">
-          <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Consulta médica" loading="lazy" />
-        </div>
-        <div class="phb-about__img-card">
-          <img src="https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Especialista en regenerativa" loading="lazy" />
+      <!-- Ultra-Minimalist Platform Mockup -->
+      <div class="phb-about__mockup-wrapper" data-aos="zoom-in" data-aos-delay="200">
+        <div class="phb-about__mockup">
+          <img :src="platformImg" alt="PowerHouse Biotech Platform Preview" loading="lazy" />
+          <div class="phb-about__mockup-glow"></div>
         </div>
       </div>
 
@@ -57,6 +52,7 @@
 
 <script setup lang="ts">
 import { useLocale } from '@/composables/useLocale'
+import platformImg from '@/assets/stock/platform.png'
 const { t } = useLocale()
 </script>
 
@@ -202,37 +198,65 @@ const { t } = useLocale()
   &__arrow { width: 18px; height: 18px; flex-shrink: 0; }
 }
 
-.phb-about__images {
-  display: grid;
-  grid-template-columns: 1fr 1.3fr 1fr;
-  gap: 3px;
+/* Mockup Styles */
+.phb-about__mockup-wrapper {
   margin-top: clamp(60px, 8vw, 100px);
-  height: 380px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-    height: 280px;
-  }
+  perspective: 2000px;
+  display: flex;
+  justify-content: center;
 }
 
-.phb-about__img-card {
+.phb-about__mockup {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: #0f172a;
   border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(33, 188, 251, 0.03);
   overflow: hidden;
-  overflow: hidden;
-  background: var(--phb-surface);
+  animation: float 6s ease-in-out infinite;
+  transform-style: preserve-3d;
 
   img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s;
+    height: auto;
+    display: block;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
   }
 
-  &:hover img { transform: scale(1.04); }
+  &:hover img { opacity: 1; }
+}
 
-  &--tall {
-    @media (max-width: 768px) { display: none; }
+.phb-about__mockup-glow {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle at center, rgba(33, 188, 251, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotateX(1deg); }
+  50% { transform: translateY(-10px) rotateX(2deg); }
+  100% { transform: translateY(0px) rotateX(1deg); }
+}
+
+@media (max-width: 900px) {
+  .phb-about__grid { grid-template-columns: 1fr; }
+  .phb-about__mockup {
+    max-width: 100%;
+    animation: float-mobile 5s ease-in-out infinite;
   }
+}
+
+@keyframes float-mobile {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
 }
 
 @media (max-width: 900px) {
