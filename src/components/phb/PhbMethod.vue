@@ -82,8 +82,8 @@ const steps = [
 .phb-method__overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(at 0% 0%, rgba(33, 188, 251, 0.45) 0%, transparent 60%),
-              radial-gradient(at 100% 100%, rgba(23, 24, 70, 0.9) 0%, transparent 70%);
+  background: radial-gradient(at 15% 15%, rgba(33, 188, 251, 0.25) 0%, transparent 70%),
+              radial-gradient(at 85% 85%, rgba(23, 24, 70, 0.8) 0%, transparent 75%);
   background-color: rgba(40, 54, 69, 0.85); // Match $PHB-BG but slightly more transparent
   backdrop-filter: blur(2px);
 }

@@ -96,9 +96,9 @@ onMounted(() => {
     position: absolute;
     inset: 0;
     backdrop-filter: blur(2px);
-    background: radial-gradient(at 0% 0%, rgba(23, 24, 70, 0.9) 0%, transparent 70%),
-                radial-gradient(at 100% 0%, rgba(33, 188, 251, 0.4) 0%, transparent 60%),
-                radial-gradient(at 50% 50%, rgba(24, 231, 240, 0.1) 0%, transparent 50%);
+    background: radial-gradient(at 15% 15%, rgba(23, 24, 70, 0.85) 0%, transparent 75%),
+                radial-gradient(at 85% 15%, rgba(33, 188, 251, 0.2) 0%, transparent 65%),
+                radial-gradient(at 50% 50%, rgba(24, 231, 240, 0.08) 0%, transparent 60%);
   }
 
   &__content {

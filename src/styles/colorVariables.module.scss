@@ -13,10 +13,10 @@ $PHB-SURFACE:    #1e2260;   // card / modal surface
 $PHB-SURFACE-2:  #232770;   // subtle inner surface
 
 // ── Mesh Gradient ─────────────────────────────────────────────────────────────
-$PHB-MESH-GRADIENT: radial-gradient(at 0% 0%, #171846 0%, transparent 50%),
-                    radial-gradient(at 100% 0%, #21bcfb 0%, transparent 50%),
-                    radial-gradient(at 100% 100%, #1278f3 0%, transparent 50%),
-                    radial-gradient(at 0% 100%, #18e7f0 0%, transparent 50%);
+$PHB-MESH-GRADIENT: radial-gradient(at 20% 20%, rgba(23, 24, 70, 0.8) 0%, transparent 80%),
+                    radial-gradient(at 80% 15%, rgba(33, 188, 251, 0.15) 0%, transparent 65%),
+                    radial-gradient(at 85% 85%, rgba(18, 120, 243, 0.15) 0%, transparent 70%),
+                    radial-gradient(at 15% 85%, rgba(24, 231, 240, 0.12) 0%, transparent 70%);
 
 // ── Brand colors ──────────────────────────────────────────────────────────────
 $PHB-BLUE:         #1278f3;   // brand blue — secondary / icons (30%)
