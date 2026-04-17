@@ -50,6 +50,18 @@ export const en = {
     ],
     quoteTitle: '10 YEARS YOUNGER.',
     quoteText: 'This is how our patients often describe their vitality and focus after treatment.',
+    evr: {
+      title: 'We are the creators of the <em>Regenerative Viability Evaluation™</em>',
+      subtitle: 'An approach designed to answer a single question:',
+      question: 'Can your body really improve… or not?',
+      offerLabel: 'We exclusively offer you:',
+      features: [
+        'Honest and transparent evaluation of your health status',
+        'Biomarker interpretation',
+        'Regenerative guidance'
+      ],
+      footer: 'before suggesting any treatment.'
+    }
   },
   shaKpi: {
     quote: 'Reactive medicine has failed.',
