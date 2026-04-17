@@ -123,7 +123,7 @@ const { t } = useLocale()
     font-weight: 600;
   }
 
-  &--small { 
+  &--small {
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.4);
   }
@@ -157,6 +157,8 @@ const { t } = useLocale()
   flex-direction: column;
   gap: 20px;
   margin-bottom: 36px;
+  padding: 0;
+  padding-right: 36px;
 
   li {
     display: flex;
@@ -182,7 +184,10 @@ const { t } = useLocale()
   margin-top: 1px;
   color: var(--phb-cyan, #21bcfa);
 
-  svg { width: 100%; height: 100%; }
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .phb-btn {
@@ -200,9 +205,15 @@ const { t } = useLocale()
   border-bottom: 1px solid rgba(33, 188, 251, 0.3);
   transition: gap 0.2s, opacity 0.2s;
 
-  &:hover { gap: 16px; }
+  &:hover {
+    gap: 16px;
+  }
 
-  &__arrow { width: 18px; height: 18px; flex-shrink: 0; }
+  &__arrow {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
 }
 
 /* Mockup Styles */
@@ -220,7 +231,7 @@ const { t } = useLocale()
   background: #0f172a;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 
+  box-shadow:
     0 20px 50px rgba(0, 0, 0, 0.6),
     0 0 30px rgba(33, 188, 251, 0.03);
   overflow: hidden;
@@ -235,7 +246,9 @@ const { t } = useLocale()
     transition: opacity 0.3s ease;
   }
 
-  &:hover img { opacity: 1; }
+  &:hover img {
+    opacity: 1;
+  }
 }
 
 .phb-about__mockup-glow {
@@ -247,13 +260,24 @@ const { t } = useLocale()
 }
 
 @keyframes float {
-  0% { transform: translateY(0px) rotateX(1deg); }
-  50% { transform: translateY(-10px) rotateX(2deg); }
-  100% { transform: translateY(0px) rotateX(1deg); }
+  0% {
+    transform: translateY(0px) rotateX(1deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotateX(2deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotateX(1deg);
+  }
 }
 
 @media (max-width: 900px) {
-  .phb-about__grid { grid-template-columns: 1fr; }
+  .phb-about__grid {
+    grid-template-columns: 1fr;
+  }
+
   .phb-about__mockup {
     max-width: 100%;
     animation: float-mobile 5s ease-in-out infinite;
@@ -261,12 +285,22 @@ const { t } = useLocale()
 }
 
 @keyframes float-mobile {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @media (max-width: 900px) {
-  .phb-about__grid { grid-template-columns: 1fr; }
+  .phb-about__grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
