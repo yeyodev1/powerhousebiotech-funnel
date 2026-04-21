@@ -666,10 +666,6 @@ export const en = {
     },
     next: 'Next',
     result: 'See my result',
-    evaluating: {
-      title: 'Analyzing your profile...',
-      sub: 'We are evaluating if your case is a candidate for the Regenerative Viability Evaluation™',
-    },
   },
   booking: {
     badge: 'Profile qualified',
