@@ -136,9 +136,6 @@ const router = createRouter({
 
 // ── Guards de navegación ───────────────────────────────────────────────────────
 router.beforeEach((to) => {
-  if (to.name === 'qualify' && !localStorage.getItem('phb_contact')) {
-    return { name: 'home' }
-  }
   if ((to.name === 'booking' || to.name === 'confirmed') && !localStorage.getItem('phb_qualified_at')) {
     if (!localStorage.getItem('phb_contact')) return { name: 'home' }
     return { name: 'qualify' }

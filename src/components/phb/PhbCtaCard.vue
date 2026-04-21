@@ -18,12 +18,12 @@ const { t } = useLocale()
     </div>
 
     <div class="phb-cta-card__buttons">
-      <a href="#" class="phb-cta-card__btn-primary">
+      <router-link to="/cualificar" class="phb-cta-card__btn-primary">
         {{ t.close.cta }}
-      </a>
-      <a href="#" class="phb-cta-card__btn-secondary">
+      </router-link>
+      <router-link to="/cualificar" class="phb-cta-card__btn-secondary">
         {{ t.close.ctaSecondary }}
-      </a>
+      </router-link>
     </div>
 
     <p class="phb-cta-card__microcopy">

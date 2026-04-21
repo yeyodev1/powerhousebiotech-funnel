@@ -49,25 +49,26 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .phb-nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 900;
-  height: 68px;
+  z-index: 1000;
+  height: 80px;
   display: flex;
   align-items: center;
   padding: 0 clamp(20px, 5vw, 80px);
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 
   &.scrolled {
-    background: rgba(23, 24, 70, 0.85); // Navy transparent
-    backdrop-filter: blur(20px) saturate(180%);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    height: 60px;
+    background: rgba(10, 11, 40, 0.75); // Deeper navy
+    backdrop-filter: blur(40px) saturate(150%);
+    height: 64px;
+    border-bottom: 1px solid rgba(33, 188, 251, 0.15); // Subtle cyan glow border
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
   }
 }
 
 .phb-nav__inner {
   width: 100%;
-  max-width: 1440px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -77,106 +78,153 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .phb-nav__logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   text-decoration: none;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateX(4px);
+  }
 }
 
 .phb-nav__logo-mark {
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: var(--phb-cyan, #21bcfb);
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  background: linear-gradient(135deg, #fff 0%, var(--phb-cyan, #21bcfb) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(33, 188, 251, 0.3));
 }
 
 .phb-nav__logo-text {
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.25;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.3;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  opacity: 0.9;
+  letter-spacing: 0.15em;
+  opacity: 0.8;
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  padding-left: 14px;
 }
 
 .phb-nav__links {
   display: flex;
-  gap: 40px;
+  gap: 48px;
   align-items: center;
 
-  @media (max-width: 900px) { display: none; }
+  @media (max-width: 960px) { display: none; }
 }
 
 .phb-nav__link {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   color: #fff;
   text-decoration: none;
   text-transform: uppercase;
-  opacity: 0.6;
-  transition: all 0.3s ease;
+  opacity: 0.5;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--phb-cyan, #21bcfb);
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px var(--phb-cyan);
+  }
 
   &:hover {
     opacity: 1;
     color: var(--phb-cyan, #21bcfb);
-    transform: translateY(-1px);
+    letter-spacing: 0.15em;
+
+    &::after {
+      width: 100%;
+    }
   }
 }
 
 .phb-nav__actions {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
 }
 
 .phb-nav__lang {
-  background: transparent;
-  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
+  gap: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
   cursor: pointer;
-  padding: 8px;
-  opacity: 0.7;
+  padding: 6px 14px;
+  border-radius: 8px;
   transition: all 0.3s ease;
 
   i {
-    font-size: 16px;
+    font-size: 14px;
     color: var(--phb-cyan, #21bcfb);
+    transition: transform 0.3s ease;
   }
 
   &:hover {
-    opacity: 1;
-    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(33, 188, 251, 0.3);
+    
+    i {
+      transform: rotate(15deg);
+    }
   }
 }
 
 .phb-nav__cta {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #fff;
-  background: var(--phb-blue, #1278f3); // Blue (30%)
-  padding: 10px 24px;
+  background: linear-gradient(135deg, var(--phb-blue, #1278f3) 0%, #0a4da3 100%);
+  padding: 12px 28px;
   text-decoration: none;
-  border-radius: 100px; // Pill style
-  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-  box-shadow: 0 4px 15px rgba(18, 120, 243, 0.2);
+  border-radius: 4px; // Sharp professional look
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+  }
 
   &:hover {
-    background: var(--phb-cyan, #21bcfb); // Cyan (10%) on hover
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(33, 188, 251, 0.3);
+    box-shadow: 0 8px 30px rgba(18, 120, 243, 0.4);
+    
+    &::before {
+      left: 100%;
+    }
   }
 
   @media (max-width: 600px) {
     font-size: 10px;
-    padding: 8px 18px;
+    padding: 10px 20px;
   }
 }
 </style>

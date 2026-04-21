@@ -4,6 +4,8 @@ import { useRouter } from 'vue-router'
 import { useContactStore } from '@/stores/contact'
 import { useLocale } from '@/composables/useLocale'
 
+import PhbPreQualForm from '@/components/phb/PhbPreQualForm.vue'
+
 const router = useRouter()
 const contactStore = useContactStore()
 const { locale, t, toggleLocale } = useLocale()
@@ -12,54 +14,19 @@ onMounted(() => {
   if (!localStorage.getItem('phb_contact')) router.replace('/')
 })
 
-const contactName = computed(() => contactStore.contact.nombre.split(' ')[0] || '')
+const step = ref(1) // 1 = form, 2 = evaluating
+const submissionData = ref<any>(null)
 
-const step = ref(0) // 0 = intro, 1–3 = questions, 4 = evaluating
-const answers = ref<Record<number, string>>({})
-
-// Disqualification flags per question per option (index-based)
-const disqualifyFlags = [
-  [true, false, false, false],  // q1: < 3 months disqualifies
-  [false, false, true],          // q2: never started disqualifies
-  [false, false, false, true],   // q3: refuses labs disqualifies
-]
-
-const questions = computed(() =>
-  t.value.qualify.questions.map((q, qi) => ({
-    text: q.text,
-    options: q.options.map((o, oi) => ({
-      id: String.fromCharCode(97 + oi),
-      label: o.label,
-      disqualifies: disqualifyFlags[qi]?.[oi] ?? false,
-    })),
-  }))
-)
-
-const currentQuestion = computed(() => questions.value[step.value - 1])
-const progress = computed(() => (step.value / 3) * 100)
-
-function selectAnswer(optionId: string) {
-  answers.value[step.value] = optionId
-}
-
-function nextStep() {
-  if (step.value === 0) { step.value = 1; return }
-  if (step.value < 3) { step.value++; return }
+function onFormComplete(data: any) {
+  submissionData.value = data
   evaluate()
 }
 
-const canContinue = computed(() => {
-  if (step.value === 0) return true
-  return !!answers.value[step.value]
-})
-
 function evaluate() {
-  step.value = 4
-  const disqualified = questions.value.some((q, qi) => {
-    const answerId = answers.value[qi + 1]
-    const option = q.options.find(o => o.id === answerId)
-    return option?.disqualifies === true
-  })
+  step.value = 2
+  
+  // Logic based on answers (if any specific disqualification is needed)
+  const disqualified = checkDisqualification(submissionData.value)
 
   setTimeout(() => {
     if (disqualified) {
@@ -67,9 +34,18 @@ function evaluate() {
       router.push('/no-califica')
     } else {
       localStorage.setItem('phb_qualified_at', String(Date.now()))
-      router.push('/agendar')
+      // Instead of redirecting to /agendar, we show the success message
+      step.value = 3
     }
-  }, 2200)
+  }, 4000) // Increased slightly for a more "analytical" feel
+}
+
+function checkDisqualification(data: any) {
+  // Example: If they are not ready to invest or seek quick fix
+  if (data.financial === 'No estoy en posición de invertir actualmente' || data.financial === 'I am not in a position to invest currently') return true
+  if (data.situation === 'Busco una solución rápida' || data.situation === 'I am looking for a quick fix') return true
+  if (data.invest_clarity === 'No' || data.invest_clarity === 'No') return true
+  return false
 }
 </script>
 
@@ -77,88 +53,67 @@ function evaluate() {
   <div class="qualify">
 
     <nav class="qualify__nav">
-      <img
-        src="https://static.wixstatic.com/media/2361a8_1db8efe7c9d74e49be06a716224efb99~mv2.png"
-        alt="PowerHouse Biotech"
-        class="qualify__nav-logo"
-      />
-      <button class="lang-toggle" @click="toggleLocale" :aria-label="locale === 'es' ? 'Switch to English' : 'Cambiar a Español'">
-        {{ locale === 'es' ? 'EN' : 'ES' }}
-      </button>
+      <div class="qualify__nav-inner">
+        <router-link to="/" class="qualify__nav-logo-link">
+          <span class="qualify__logo-mark">PHB</span>
+          <span class="qualify__logo-text">Internal<br>System</span>
+        </router-link>
+        
+        <button class="lang-toggle" @click="toggleLocale" :aria-label="locale === 'es' ? 'Switch to English' : 'Cambiar a Español'">
+          <i class="fa-solid fa-language"></i>
+          <span>{{ locale === 'es' ? 'EN' : 'ES' }}</span>
+        </button>
+      </div>
     </nav>
 
     <div class="qualify__wrap">
 
-      <!-- Intro slide -->
+      <!-- Multi-step Form -->
       <Transition name="slide" mode="out-in">
-        <div v-if="step === 0" key="intro" class="qualify__card">
-          <div class="qualify__icon">
-            <i class="fa-solid fa-clipboard-list"></i>
-          </div>
-          <h1 class="qualify__title">
-            {{ t.qualify.intro.title }}<span v-if="contactName">, {{ contactName }}</span>
-          </h1>
-          <p class="qualify__sub">{{ t.qualify.intro.sub }}</p>
-          <p class="qualify__sub qualify__sub--muted">{{ t.qualify.intro.sub2 }}</p>
-          <button class="btn btn--primary btn--lg" @click="nextStep">
-            {{ t.qualify.intro.cta }}
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
+        <PhbPreQualForm v-if="step === 1" @complete="onFormComplete" />
       </Transition>
 
-      <!-- Questions -->
+      <!-- Step 2: Evaluating -->
       <Transition name="slide" mode="out-in">
-        <div v-if="step >= 1 && step <= 3" :key="`q${step}`" class="qualify__card">
-          <div class="qualify__progress">
-            <div class="qualify__progress-bar" :style="{ width: `${progress}%` }"></div>
-          </div>
-          <div class="qualify__step-label">
-            {{ t.qualify.stepOf ? `${step} ${t.qualify.stepOf} 3` : `Pregunta ${step} de 3` }}
-          </div>
-
-          <h2 class="qualify__question">{{ currentQuestion?.text }}</h2>
-
-          <div class="qualify__options">
-            <button
-              v-for="opt in currentQuestion?.options"
-              :key="opt.id"
-              class="qualify__option"
-              :class="{ 'is-selected': answers[step] === opt.id }"
-              @click="selectAnswer(opt.id)"
-            >
-              <span class="qualify__option-radio">
-                <i v-if="answers[step] === opt.id" class="fa-solid fa-circle-dot"></i>
-                <i v-else class="fa-regular fa-circle"></i>
-              </span>
-              {{ opt.label }}
-            </button>
-          </div>
-
-          <button
-            class="btn btn--primary btn--lg"
-            :disabled="!canContinue"
-            @click="nextStep"
-          >
-            {{ step < 3 ? t.qualify.next : t.qualify.result }}
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </Transition>
-
-      <!-- Evaluating -->
-      <Transition name="slide" mode="out-in">
-        <div v-if="step === 4" key="evaluating" class="qualify__card qualify__card--center">
+        <div v-if="step === 2" key="evaluating" class="qualify__card qualify__card--center">
           <div class="qualify__evaluating">
-            <div class="qualify__evaluating-icon">
-              <i class="fa-solid fa-dna fa-spin"></i>
+            <div class="qualify__visual">
+              <div class="qualify__dna-strand">
+                <div v-for="n in 12" :key="n" class="qualify__dna-dot"></div>
+              </div>
+              <div class="qualify__pulse"></div>
             </div>
+            
             <h2 class="qualify__title">{{ t.qualify.evaluating.title }}</h2>
             <p class="qualify__sub qualify__sub--muted">{{ t.qualify.evaluating.sub }}</p>
+            
             <div class="qualify__loader">
               <div class="qualify__loader-bar"></div>
             </div>
+            
+            <div class="qualify__status-log">
+              <div class="qualify__status-item">{{ locale === 'es' ? 'Analizando biomarcadores...' : 'Analyzing biomarkers...' }}</div>
+              <div class="qualify__status-item">{{ locale === 'es' ? 'Verificando viabilidad regenerativa...' : 'Verifying regenerative viability...' }}</div>
+              <div class="qualify__status-item">{{ locale === 'es' ? 'Cruzando datos clínicos...' : 'Cross-referencing clinical data...' }}</div>
+            </div>
           </div>
+        </div>
+
+        <!-- Step 3: Success! -->
+        <div v-else-if="step === 3" key="success" class="qualify__card qualify__card--center qualify__card--success">
+          <div class="qualify__success-header">
+            <div class="qualify__success-icon">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+          </div>
+          
+          <h2 class="qualify__title">{{ t.qualify.success.title }}</h2>
+          <p class="qualify__success-message">{{ t.qualify.success.message }}</p>
+          <p class="qualify__sub">{{ t.qualify.success.sub }}</p>
+          
+          <router-link to="/" class="btn btn--primary btn--lg qualify__back-btn">
+            {{ t.qualify.success.cta }}
+          </router-link>
         </div>
       </Transition>
 
@@ -176,19 +131,51 @@ function evaluate() {
   color: c.$PHB-TEXT-1;
 
   &__nav {
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid c.$PHB-BORDER;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    height: 64px;
+    background: rgba(10, 11, 40, 0.7); // Deeper navy
+    backdrop-filter: blur(30px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: c.$PHB-SURFACE;
-    box-shadow: c.$PHB-SHADOW-SM;
-    position: sticky;
-    top: 0;
-    z-index: 10;
   }
 
-  &__nav-logo { height: 42px; width: auto; }
+  &__nav-inner {
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__nav-logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  &__logo-mark {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: var(--phb-cyan, #21bcfa);
+  }
+
+  &__logo-text {
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding-left: 12px;
+  }
 
   &__wrap {
     display: flex;
@@ -323,46 +310,174 @@ function evaluate() {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
     width: 100%;
+  }
 
-    &-icon {
-      font-size: 3rem;
-      color: c.$PHB-PURPLE;
+  &__visual {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  &__dna-strand {
+    display: flex;
+    gap: 6px;
+    height: 40px;
+    align-items: center;
+  }
+
+  &__dna-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--phb-cyan, #21bcfa);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--phb-cyan, #21bcfa);
+    animation: dna-bounce 1s infinite ease-in-out;
+
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.1}s;
+      }
     }
+  }
+
+  @keyframes dna-bounce {
+    0%, 100% { transform: translateY(-10px); opacity: 0.3; }
+    50% { transform: translateY(10px); opacity: 1; }
+  }
+
+  &__pulse {
+    position: absolute;
+    inset: -10px;
+    border: 2px solid rgba(33, 188, 250, 0.2);
+    border-radius: 50%;
+    animation: visual-pulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes visual-pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  &__status-log {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  &__status-item {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    animation: fade-in-up 0.5s forwards;
+    opacity: 0;
+
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.8}s;
+      }
+    }
+  }
+
+  @keyframes fade-in-up {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
   }
 
   &__loader {
     width: 100%;
-    height: 4px;
-    background: c.$PHB-BG-ALT;
-    border-radius: 4px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 100px;
     overflow: hidden;
+    position: relative;
 
     &-bar {
-      height: 100%;
-      background: linear-gradient(90deg, c.$PHB-PURPLE, c.$PHB-CYAN);
-      border-radius: 4px;
-      animation: loadProgress 2s ease-in-out forwards;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, var(--phb-cyan, #21bcfa), #fff);
+      box-shadow: 0 0 15px var(--phb-cyan, #21bcfa);
+      animation: loader-progress 3s forwards cubic-bezier(0.65, 0, 0.35, 1);
     }
+  }
+
+  @keyframes loader-progress {
+    0% { width: 0; }
+    100% { width: 100%; }
+  }
+
+  &__card--success {
+    background: rgba(33, 188, 250, 0.02);
+    border-color: rgba(33, 188, 250, 0.2);
+    padding: 4rem 3rem;
+  }
+
+  &__success-header {
+    margin-bottom: 2rem;
+  }
+
+  &__success-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(33, 188, 250, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--phb-cyan, #21bcfa);
+    box-shadow: 0 0 40px rgba(33, 188, 250, 0.2);
+    margin: 0 auto;
+  }
+
+  &__success-message {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  &__back-btn {
+    margin-top: 3rem;
+    min-width: 240px;
   }
 }
 
 .lang-toggle {
-  position: absolute;
-  right: 1.5rem;
-  background: rgba(18, 120, 243, 0.07);
-  color: c.$PHB-PURPLE;
-  border: 1px solid rgba(18, 120, 243, 0.2);
-  border-radius: 6px;
-  padding: 0.3rem 0.7rem;
-  font-family: f.$font-accent;
-  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
   font-weight: 700;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  letter-spacing: 0.06em;
-  transition: all 0.2s;
-  &:hover { background: rgba(18, 120, 243, 0.12); }
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+
+  i {
+    font-size: 14px;
+    color: var(--phb-cyan, #21bcfa);
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(33, 188, 251, 0.3);
+  }
 }
 
 .btn {

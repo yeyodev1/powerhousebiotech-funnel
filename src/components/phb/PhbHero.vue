@@ -27,14 +27,36 @@ onMounted(() => {
       { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' },
       '-=0.2'
     )
+
+  // Scroll animation for DNA Video
+  gsap.to('.phb-hero__bg-video', {
+    scrollTrigger: {
+      trigger: '.phb-hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    },
+    opacity: 0.3,
+    scale: 1.2,
+    filter: 'blur(10px)'
+  })
 })
 </script>
 
 <template>
   <section class="phb-hero">
-    <!-- DNA Background image -->
+    <!-- DNA Background Video -->
     <div class="phb-hero__bg-container">
-      <img src="/hero-bg.png" alt="DNA Strand" class="phb-hero__bg-img" />
+      <video 
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        class="phb-hero__bg-video"
+        poster="/hero-bg.png"
+      >
+        <source src="https://icdlabs.in/immune-internal/wp-content/themes/immuneel/assets/videos/DNA.mp4" type="video/mp4" />
+      </video>
       <div class="phb-hero__bg-overlay"></div>
     </div>
 
@@ -59,7 +81,7 @@ onMounted(() => {
         </ul>
         
         <div class="phb-hero__cta-wrapper">
-          <button class="phb-hero__cta-btn">{{ t.hero.cta }}</button>
+          <router-link to="/cualificar" class="phb-hero__cta-btn">{{ t.hero.cta }}</router-link>
           <p class="phb-hero__cta-sub">{{ t.hero.disclaimer }}</p>
         </div>
       </div>
@@ -85,11 +107,12 @@ onMounted(() => {
     z-index: 0;
   }
 
-  &__bg-img {
+  &__bg-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: right center;
+    object-position: center;
+    opacity: 0.8;
   }
 
   &__bg-overlay {
