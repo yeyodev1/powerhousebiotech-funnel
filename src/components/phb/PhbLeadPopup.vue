@@ -212,12 +212,12 @@ onUnmounted(() => {
                 <option value="UY">🇺🇾 +598</option>
                 <option value="VE">🇻🇪 +58</option>
               </select>
-              <input 
-                v-model="formData.phone" 
-                type="tel" 
-                :placeholder="t.popup.phone" 
+              <input
+                v-model="formData.phone"
+                type="tel"
+                :placeholder="t.popup.phone"
                 @blur="validatePhone"
-                required 
+                required
               />
             </div>
             <span v-if="errors.phone" class="phb-popup__error">{{ errors.phone }}</span>
@@ -246,7 +246,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 1rem;
 
   &__overlay {
     position: absolute;
@@ -259,12 +259,16 @@ onUnmounted(() => {
   &__card {
     position: relative;
     width: 100%;
-    max-width: 500px;
+    max-width: 440px;
+    max-height: 90vh;
     background: #ffffff;
-    border-radius: 12px;
-    padding: 2.5rem;
-    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
+    border-radius: 28px;
+    padding: 1.5rem 1.5rem 2rem;
+    box-shadow: 0 50px 100px -20px rgba(0, 57, 173, 0.3);
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 
     &::before {
       content: '';
@@ -272,8 +276,20 @@ onUnmounted(() => {
       top: 0;
       left: 0;
       right: 0;
-      height: 4px;
+      height: 6px;
       background: linear-gradient(90deg, #0039ad, #21bcfa);
+      z-index: 10;
+    }
+
+    // Mesh background for a premium feel
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(at 0% 0%, rgba(33, 188, 250, 0.05) 0%, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(0, 57, 173, 0.03) 0%, transparent 50%);
+      pointer-events: none;
     }
   }
 
@@ -296,35 +312,39 @@ onUnmounted(() => {
 
   &__header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
   }
 
   &__icon {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #0039ad;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     animation: pulse 2s infinite ease-in-out;
   }
 
   &__title {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-size: clamp(1.25rem, 5vw, 1.6rem);
+    font-weight: 700;
     color: #0039ad;
     margin-bottom: 0.5rem;
-    line-height: 1.2;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   &__subtitle {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.5;
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.4;
+    max-width: 320px;
+    margin: 0 auto;
   }
 
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   &__row {
@@ -391,18 +411,19 @@ onUnmounted(() => {
 
   &__submit {
     margin-top: 0.5rem;
-    padding: 1rem;
+    padding: 0.9rem;
     background: #0039ad;
     color: #ffffff;
     border: none;
     border-radius: 6px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.75rem;
 
     &:hover:not(:disabled) {
       background: #002d8a;
@@ -411,7 +432,7 @@ onUnmounted(() => {
     }
 
     &:disabled {
-      opacity: 0.7;
+      opacity: 0.5;
       cursor: not-allowed;
     }
   }

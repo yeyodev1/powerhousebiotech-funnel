@@ -729,6 +729,8 @@ export const en = {
     email: 'Corporate / Personal Email',
     phone: 'Phone (WhatsApp)',
     submit: 'Send Information',
+    next: 'Continue',
+    back: 'Back',
     privacy: 'Your data is protected by clinical-grade protocols.',
     errorPhone: 'Invalid phone number',
   },

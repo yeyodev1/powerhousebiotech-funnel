@@ -728,6 +728,8 @@ export const es = {
     email: 'Email Corporativo / Personal',
     phone: 'Teléfono (WhatsApp)',
     submit: 'Enviar Información',
+    next: 'Continuar',
+    back: 'Atrás',
     privacy: 'Tus datos están protegidos por protocolos de grado clínico.',
     errorPhone: 'Número de teléfono inválido',
   },
