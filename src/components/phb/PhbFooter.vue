@@ -161,7 +161,7 @@ const currentYear = new Date().getFullYear()
   &__disclaimer {
     font-size: 0.9rem;
     line-height: 1.8;
-    color: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.35); // Improved visibility on dark background
     font-weight: 300;
     font-style: italic;
     max-width: 1100px;
@@ -197,7 +197,7 @@ const currentYear = new Date().getFullYear()
 
   &__credits {
     font-size: 0.75rem;
-    color: rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.25); // Improved visibility
     text-align: center;
     margin-top: 1rem;
 
