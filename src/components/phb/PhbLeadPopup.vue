@@ -155,12 +155,13 @@ onUnmounted(() => {
 <template>
   <Teleport to="body">
     <div v-if="isVisible" class="phb-popup">
-      <div class="phb-popup__overlay" @click="closePopup"></div>
-      
+      <div class="phb-popup__overlay"></div>
+
       <div class="phb-popup__card" ref="formRef">
-        <button class="phb-popup__close" @click="closePopup">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <div class="phb-popup__gate">
+          <i class="fa-solid fa-lock-open"></i>
+          <span>Regístrate gratis para seguir leyendo</span>
+        </div>
 
         <div class="phb-popup__header">
           <div class="phb-popup__icon">
@@ -254,6 +255,7 @@ onUnmounted(() => {
     background: rgba(0, 57, 173, 0.4);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    cursor: default;
   }
 
   &__card {
@@ -293,20 +295,24 @@ onUnmounted(() => {
     }
   }
 
-  &__close {
-    position: absolute;
-    top: 1.25rem;
-    right: 1.25rem;
-    background: none;
-    border: none;
-    font-size: 1.25rem;
-    color: #0039ad;
-    cursor: pointer;
-    opacity: 0.5;
-    transition: opacity 0.2s;
+  &__gate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: linear-gradient(90deg, #0039ad, #21bcfa);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
 
-    &:hover {
-      opacity: 1;
+    i {
+      font-size: 0.9rem;
+      opacity: 0.9;
     }
   }
 
