@@ -658,7 +658,7 @@ export const es = {
       body2: 'Primero evaluamos elegibilidad.',
       question: '¿Deseas avanzar a una evaluación estructurada?',
       options: [
-        { label: 'Sí, quiero claridad antes de intervenir' },
+        { label: 'Sí, quiero claridad antes de iniciar mi tratamiento' },
         { label: 'Necesito pensarlo' },
       ]
     },
