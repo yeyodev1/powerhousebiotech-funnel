@@ -162,6 +162,23 @@ onMounted(() => {
           </div>
         </div>
 
+        <!-- Highlight Statement -->
+        <div class="phb-case-card phb-case-card--statement">
+           <div class="phb-case-card__inner">
+             <div class="phb-case-card__mesh"></div>
+             <div class="phb-case-card__statement-content">
+               <div class="phb-case-card__icon">
+                 <i class="fa-solid fa-triangle-exclamation"></i>
+               </div>
+               <p class="phb-case-card__statement-text">
+                 <strong>Y esto es algo que el 90% de los doctores</strong> 
+                 que no tienen nuestra misma experiencia, 
+                 <span class="phb-highlight-cyan">ignoran por completo.</span>
+               </p>
+             </div>
+           </div>
+        </div>
+
         <!-- Closing slide -->
         <div class="phb-case-card phb-case-card--outro">
            <div class="phb-case-card--outro__inner">
@@ -462,6 +479,67 @@ onMounted(() => {
           filter: drop-shadow(0 0 5px rgba(33, 188, 250, 0.3));
         }
       }
+    }
+  }
+
+  // Statement Card Specifics
+  .phb-case-card--statement {
+    background: #171846;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    .phb-case-card__inner {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .phb-case-card__mesh {
+      opacity: 0.2;
+    }
+  }
+
+  .phb-case-card__statement-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .phb-case-card__icon {
+    font-size: 3rem;
+    color: var(--phb-cyan, #21bcfa);
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 20px rgba(33, 188, 250, 0.4));
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .phb-case-card__statement-text {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem) !important;
+    line-height: 1.3 !important;
+    color: #ffffff !important;
+    font-weight: 300 !important;
+
+    strong {
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .phb-highlight-cyan {
+      color: var(--phb-cyan, #21bcfa);
+      font-weight: 800;
+      display: block;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 1.4rem !important;
     }
   }
 
