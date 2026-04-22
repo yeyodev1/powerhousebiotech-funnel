@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import LanguageTransition from '@/components/globals/LanguageTransition.vue'
+import PhbLeadPopup from '@/components/phb/PhbLeadPopup.vue'
 </script>
 
 <template>
   <LanguageTransition />
+  <PhbLeadPopup />
   <RouterView />
 </template>
 
