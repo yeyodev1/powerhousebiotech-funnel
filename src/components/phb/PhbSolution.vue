@@ -48,9 +48,9 @@
             </ul>
 
             <div class="phb-solution__cta">
-              <a href="#cta" class="phb-solution__btn">
-                Quiero saber si mi cuerpo puede mejorar
-              </a>
+              <router-link to="/cualificar" class="phb-solution__btn">
+          DESCUBRE TU POTENCIAL <i class="fa-solid fa-chevron-right"></i>
+        </router-link>
               <p class="phb-solution__cta-note">
                 No iniciamos tratamiento con todos. Solo trabajamos con quienes
                 realmente estamos seguros que podemos ayudar.

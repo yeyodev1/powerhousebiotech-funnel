@@ -61,11 +61,11 @@ const currentYear = new Date().getFullYear()
 
 <style lang="scss" scoped>
 .phb-footer {
-  background-color: #05060f;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #1a1823;
   padding: 8rem 0 4rem;
   font-family: var(--phb-font, 'Inter', sans-serif);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 
   .phb-container {
     width: 100%;
@@ -96,14 +96,14 @@ const currentYear = new Date().getFullYear()
     font-weight: 950;
     line-height: 0.9;
     letter-spacing: 0.05em;
-    color: #fff;
+    color: #1a1823;
     margin-bottom: 2rem;
   }
 
   &__tagline {
     font-size: 1.15rem;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.5);
     font-weight: 300;
   }
 
@@ -138,13 +138,13 @@ const currentYear = new Date().getFullYear()
 
     a {
       font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.65);
+      color: rgba(0, 0, 0, 0.65);
       text-decoration: none;
       transition: all 0.3s ease;
       font-weight: 300;
 
       &:hover {
-        color: #fff;
+        color: #1a1823;
         padding-left: 5px;
       }
     }
@@ -155,13 +155,13 @@ const currentYear = new Date().getFullYear()
     flex-direction: column;
     gap: 2.5rem;
     padding-top: 4rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   &__disclaimer {
     font-size: 0.9rem;
     line-height: 1.8;
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(0, 0, 0, 0.3);
     font-weight: 300;
     font-style: italic;
     max-width: 1100px;
@@ -172,7 +172,7 @@ const currentYear = new Date().getFullYear()
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(0, 0, 0, 0.4);
     font-weight: 300;
 
     @media (max-width: 600px) {
@@ -186,7 +186,7 @@ const currentYear = new Date().getFullYear()
     display: flex;
     gap: 1.5rem;
     font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.4);
 
     i {
       cursor: pointer;
@@ -197,7 +197,7 @@ const currentYear = new Date().getFullYear()
 
   &__credits {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(0, 0, 0, 0.2);
     text-align: center;
     margin-top: 1rem;
 

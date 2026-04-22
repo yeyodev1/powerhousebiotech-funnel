@@ -34,15 +34,14 @@ const { t } = useLocale()
 
 <style lang="scss" scoped>
 .phb-cta-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #f8f9fa;
+  border: 1px solid rgba(0, 0, 0, 0.05);
   padding: 4rem 3.5rem;
   border-radius: 40px;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
 
   &__badge {
     display: inline-block;
@@ -60,7 +59,7 @@ const { t } = useLocale()
 
   &__desc {
     font-size: 1.35rem;
-    color: #fff;
+    color: #1a1823;
     line-height: 1.4;
     font-weight: 300;
 
@@ -80,7 +79,7 @@ const { t } = useLocale()
     display: flex;
     gap: 1.2rem;
     font-size: 1.15rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(0, 0, 0, 0.7);
     font-weight: 300;
   }
 
@@ -99,8 +98,8 @@ const { t } = useLocale()
     display: block;
     width: 100%;
     padding: 1.5rem 2rem;
-    background: #fff;
-    color: #05060f;
+    background: #1a1823;
+    color: #fff;
     text-align: center;
     text-decoration: none;
     font-size: 0.9rem;
@@ -124,14 +123,14 @@ const { t } = useLocale()
     width: 100%;
     padding: 1.4rem 2rem;
     background: transparent;
-    color: #fff;
+    color: #1a1823;
     text-align: center;
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 100px;
     transition: all 0.3s ease;
 
@@ -143,7 +142,7 @@ const { t } = useLocale()
 
   &__microcopy {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(0, 0, 0, 0.4);
     line-height: 1.5;
     text-align: center;
     font-weight: 300;

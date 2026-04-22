@@ -142,11 +142,27 @@ onMounted(() => {
 <style lang="scss" scoped>
 .phb-method {
   position: relative;
-  background-color: #05060f; 
-  color: #fff;
+  background-color: #ffffff;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(33, 188, 251, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(33, 188, 251, 0.05) 0%, transparent 40%);
+  color: #1a1823;
   min-height: 100vh;
   width: 100%;
   overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(33, 188, 251, 0.12) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 1;
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 90%);
+    mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 90%);
+  }
 
   &__wrapper {
     height: 100vh;
@@ -189,11 +205,17 @@ onMounted(() => {
   }
 
   &__main-title {
-    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-    font-weight: 300;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
     line-height: 1.1;
-    color: var(--phb-cyan, #21bcfa);
-    text-shadow: 0 0 30px rgba(33, 188, 250, 0.2);
+    color: #1a1823;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+
+    :deep(em) {
+      font-style: normal;
+      color: var(--phb-cyan, #21bcfa);
+    }
   }
 
   &__slides {
@@ -245,19 +267,17 @@ onMounted(() => {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 50vw;
+      font-size: 60vw;
       font-weight: 950;
       line-height: 1;
       pointer-events: none;
       z-index: 0;
       
-      background: linear-gradient(135deg, rgba(33, 188, 251, 0.4) 0%, rgba(33, 188, 251, 0.05) 50%, transparent 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1.5px rgba(33, 188, 251, 0.3);
+      color: rgba(33, 188, 251, 0.03);
+      -webkit-text-stroke: 1px rgba(33, 188, 251, 0.08);
       
-      opacity: 0.6;
-      filter: drop-shadow(0 0 25px rgba(33, 188, 251, 0.15));
+      opacity: 1;
+      filter: blur(2px);
 
       @media (min-width: 1024px) {
         font-size: 40vw;
@@ -268,19 +288,31 @@ onMounted(() => {
     }
 
     &__id {
-      font-size: 1.2rem;
-      font-weight: 700;
+      font-size: 1.1rem;
+      font-weight: 800;
       color: var(--phb-cyan, #21bcfa);
-      opacity: 0.5;
+      letter-spacing: 0.3em;
       display: block;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      
+      &::after {
+        content: '';
+        display: inline-block;
+        width: 40px;
+        height: 1px;
+        background: var(--phb-cyan, #21bcfa);
+        vertical-align: middle;
+        margin-left: 1.5rem;
+        opacity: 0.3;
+      }
     }
 
     &__name {
       font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 300;
       margin-bottom: 2rem;
-      color: #fff;
+      color: #1a1823;
       letter-spacing: -0.02em;
     }
 
@@ -288,7 +320,7 @@ onMounted(() => {
       font-size: 1.25rem;
       line-height: 1.6;
       font-weight: 300;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(0, 0, 0, 0.7);
       max-width: 520px;
       margin-bottom: 2.5rem;
     }
@@ -304,7 +336,7 @@ onMounted(() => {
       align-items: center;
       gap: 0.75rem;
       font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(0, 0, 0, 0.5);
     }
 
     &__plus {
@@ -326,18 +358,19 @@ onMounted(() => {
     }
 
     &__icon-bg {
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05) 0%, transparent 100%);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 60px;
+      width: clamp(200px, 25vw, 320px);
+      height: clamp(200px, 25vw, 320px);
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.03);
+      border-radius: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       z-index: 2;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+      box-shadow: 
+        0 40px 100px rgba(0,0,0,0.03),
+        inset 0 0 40px rgba(33, 188, 251, 0.02);
 
       i {
         font-size: 6rem;
@@ -381,7 +414,7 @@ onMounted(() => {
   &__nav-progress {
     width: 2px;
     height: 200px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.05);
     position: relative;
     border-radius: 2px;
 
@@ -404,12 +437,12 @@ onMounted(() => {
     gap: 1rem;
     font-size: 0.85rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(0, 0, 0, 0.3);
 
     &-line {
       width: 1px;
       height: 40px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.1);
     }
 
     span:first-child {

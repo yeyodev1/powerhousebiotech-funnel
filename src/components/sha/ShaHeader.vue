@@ -69,9 +69,9 @@ onUnmounted(() => {
           {{ locale === 'es' ? 'ES' : 'EN' }}
         </button>
         
-        <a href="#cta" class="cta-book" @click="handleNavClick($event, '#cta')">
+        <router-link to="/cualificar" class="cta-book">
           {{ t.nav.cta }}
-        </a>
+        </router-link>
 
         <!-- Mobile Menu Toggle -->
         <button class="hamburger" @click="toggleMenu" :class="{ active: isMenuOpen }" aria-label="Menu">
@@ -94,9 +94,9 @@ onUnmounted(() => {
             <button @click="toggleLocale" class="mobile-lang-switch">
               {{ locale === 'es' ? 'English Version' : 'Versión en Español' }}
             </button>
-            <a href="#cta" class="mobile-cta" @click="handleNavClick($event, '#cta')">
+            <router-link to="/cualificar" class="mobile-cta">
               {{ t.nav.cta }}
-            </a>
+            </router-link>
           </div>
         </div>
       </div>

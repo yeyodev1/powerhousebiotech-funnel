@@ -16,12 +16,8 @@ import PhbCtaCard from './PhbCtaCard.vue'
 
 <style lang="scss" scoped>
 .phb-cta {
-  background-color: #05060f;
-  background-image: radial-gradient(at 20% 20%, rgba(23, 24, 70, 0.8) 0%, transparent 80%),
-                    radial-gradient(at 80% 15%, rgba(33, 188, 251, 0.15) 0%, transparent 65%),
-                    radial-gradient(at 85% 85%, rgba(18, 120, 243, 0.15) 0%, transparent 70%),
-                    radial-gradient(at 15% 85%, rgba(24, 231, 240, 0.12) 0%, transparent 70%);
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #1a1823;
   padding: clamp(100px, 15vw, 200px) 0;
   font-family: var(--phb-font, 'Inter', sans-serif);
   position: relative;

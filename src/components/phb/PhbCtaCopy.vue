@@ -61,7 +61,7 @@ const { t } = useLocale()
     em {
       font-style: italic;
       font-weight: 200;
-      color: #fff;
+      color: #1a1823;
       opacity: 0.6;
       display: block;
     }
@@ -69,7 +69,7 @@ const { t } = useLocale()
 
   &__body {
     font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(0, 0, 0, 0.7);
     line-height: 1.6;
     margin-bottom: 48px;
     font-weight: 300;
@@ -88,7 +88,7 @@ const { t } = useLocale()
     gap: 1.5rem;
     align-items: flex-start;
     font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: #1a1823;
     line-height: 1.4;
   }
 
@@ -103,7 +103,7 @@ const { t } = useLocale()
     font-size: clamp(1.4rem, 2.2vw, 2rem);
     font-weight: 300;
     line-height: 1.3;
-    color: #fff;
+    color: #1a1823;
     letter-spacing: -0.03em;
 
     :deep(strong) {

@@ -165,13 +165,14 @@ onMounted(() => {
         <!-- Closing slide -->
         <div class="phb-case-card phb-case-card--outro">
            <div class="phb-case-card--outro__inner">
-              <!-- <h2 class="phb-case-card--outro__title">No buscamos pacientes… <br>buscamos resultados.</h2> -->
               <p class="phb-case-card--outro__desc">
                 Si no podemos garantizar una mejoría medible, seremos los primeros en decírtelo.
                 Nuestra ética clínica está por encima de cualquier tratamiento.
               </p>
               <div class="phb-case-card--outro__action">
-                <span class="phb-case-card--outro__badge">SABER ES PODER</span>
+                <router-link to="/cualificar" class="phb-case-card--outro__badge">
+                  DAR CLICK AQUÍ <i class="fa-solid fa-arrow-right"></i>
+                </router-link>
               </div>
            </div>
         </div>
@@ -194,8 +195,8 @@ onMounted(() => {
 <style lang="scss" scoped>
 .phb-cases {
   position: relative;
-  background-color: #05060f;
-  color: #fff;
+  background-color: #ffffff;
+  color: #1a1823;
   overflow: hidden;
 
   &__sticky {
@@ -204,6 +205,10 @@ onMounted(() => {
     flex-direction: column;
     justify-content: space-between;
     padding: 4rem 0;
+
+    @media (max-width: 768px) {
+      padding: 2rem 0;
+    }
   }
 
   &__header {
@@ -233,6 +238,7 @@ onMounted(() => {
     line-height: 1.0;
     letter-spacing: -0.04em;
     text-transform: uppercase;
+    color: #1a1823;
   }
 
   &__scroll {
@@ -240,9 +246,14 @@ onMounted(() => {
     padding-left: 8vw;
     gap: 5rem;
     align-items: center;
-    height: 60vh;
+    height: 65vh;
     width: fit-content;
     will-change: transform;
+
+    @media (max-width: 768px) {
+      height: 52vh;
+      gap: 1.5rem;
+    }
   }
 
   // Individual Cards
@@ -251,9 +262,9 @@ onMounted(() => {
     width: 85vw;
     max-width: 900px;
     height: 100%;
-    background: rgba(10, 11, 24, 0.4);
+    background: #f8f9fa;
     backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 48px;
     position: relative;
     overflow: hidden;
@@ -265,8 +276,8 @@ onMounted(() => {
 
     &:hover {
       border-color: rgba(33, 188, 251, 0.3);
-      background: rgba(10, 11, 24, 0.6);
-      transform: scale(1.02);
+      background: #ffffff;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.05);
 
       .phb-case-card__glow {
         opacity: 0.15;
@@ -274,12 +285,13 @@ onMounted(() => {
     }
 
     &.is-rejected {
-      background: rgba(20, 20, 30, 0.4);
-      border-color: rgba(255, 255, 255, 0.05);
+      background: #f1f3f5;
+      border-color: rgba(0, 0, 0, 0.05);
 
       .phb-case-card__tag {
-        color: rgba(255, 255, 255, 0.4);
-        background: rgba(255, 255, 255, 0.05);
+        color: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 0, 0, 0.1);
       }
 
       .phb-case-card__mesh {
@@ -315,16 +327,24 @@ onMounted(() => {
       height: 100%;
       display: flex;
       flex-direction: column;
-      padding: 4rem;
+      padding: clamp(1.5rem, 5vw, 4rem);
       position: relative;
       z-index: 1;
+
+      @media (max-width: 768px) {
+        padding: 1rem 1rem 0.5rem;
+      }
     }
 
     &__top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
+
+      @media (max-width: 768px) {
+        margin-bottom: 1rem;
+      }
     }
 
     &__rating {
@@ -348,21 +368,25 @@ onMounted(() => {
     }
 
     &__main-title {
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-size: clamp(2rem, 4vw, 3.5rem);
       font-weight: 300;
-      margin-bottom: 3.5rem;
-      color: #fff;
+      margin-bottom: 2rem;
+      color: #1a1823;
       letter-spacing: -0.02em;
+
+      @media (max-width: 768px) {
+        font-size: 1.35rem;
+        margin-bottom: 0.25rem;
+      }
     }
 
     &__grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 3rem;
-      margin-bottom: auto;
 
-      @media (min-width: 768px) {
-        grid-template-columns: 1fr 1fr;
+      @media (max-width: 768px) {
+        gap: 0.5rem;
       }
     }
 
@@ -375,32 +399,47 @@ onMounted(() => {
       color: var(--phb-cyan, #21bcfa);
       opacity: 0.6;
       margin-bottom: 1.2rem;
+
+      @media (max-width: 768px) {
+        margin-bottom: 0.2rem;
+        font-size: 0.6rem;
+      }
     }
 
     p {
       font-size: 1.05rem;
       line-height: 1.6;
       font-weight: 300;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(0, 0, 0, 0.7);
       margin: 0;
+
+      @media (max-width: 768px) {
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
     }
 
     &__result {
-      margin-top: 4rem;
-      padding-top: 3rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+      @media (max-width: 768px) {
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+      }
 
       &.is-rejected {
         .phb-case-card__info-label {
-          color: rgba(255, 255, 255, 0.3);
+          color: rgba(0, 0, 0, 0.3);
         }
 
         .phb-case-card__bullet-list li {
-          color: rgba(255, 255, 255, 0.4);
+          color: rgba(0, 0, 0, 0.5);
         }
 
         .fa-xmark {
-          color: rgba(255, 255, 255, 0.2) !important;
+          color: rgba(0, 0, 0, 0.2) !important;
         }
       }
     }
@@ -414,12 +453,18 @@ onMounted(() => {
       gap: 1rem;
 
       li {
-        font-size: 1.1rem;
-        font-weight: 400;
-        color: #fff;
+        font-size: 1.05rem;
+        color: rgba(0, 0, 0, 0.7);
         display: flex;
-        align-items: center;
-        gap: 1.2rem;
+        align-items: flex-start;
+        gap: 0.8rem;
+        margin-bottom: 0.6rem;
+
+        @media (max-width: 768px) {
+          font-size: 0.85rem;
+          margin-bottom: 0.3rem;
+          gap: 0.5rem;
+        }
 
         i {
           font-size: 1.1rem;
@@ -451,44 +496,66 @@ onMounted(() => {
     }
 
     &__desc {
-      font-size: 1.3rem;
-      line-height: 1.6;
-      opacity: 0.5;
-      margin-bottom: 4rem;
+      font-size: 1.4rem;
+      line-height: 1.8;
+      color: rgba(0, 0, 0, 0.6);
+      margin-bottom: 5rem;
       font-weight: 300;
+
+      @media (max-width: 768px) {
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+      }
     }
 
     &__badge {
-      display: inline-block;
-      padding: 1.2rem 3rem;
-      border: 1px solid rgba(33, 188, 251, 0.4);
-      background: rgba(33, 188, 251, 0.05);
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.4rem 3.5rem;
+      border: 1px solid rgba(33, 188, 251, 0.5);
+      background: rgba(33, 188, 251, 0.08);
       border-radius: 100px;
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--phb-cyan, #21bcfa);
       letter-spacing: 0.2em;
-      transition: all 0.3s ease;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
       cursor: pointer;
 
       &:hover {
         background: var(--phb-cyan, #21bcfa);
-        color: #05060f;
+        color: #fff;
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(33, 188, 251, 0.3);
       }
     }
   }
 
   &__footer {
-    padding: 0 8vw;
+    padding: 2.5rem 8vw;
+    background: #171846; // Dark Navy as requested
+    color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 10;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem 5vw 5rem;
+    }
   }
 
   &__progress {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.05);
     position: relative;
 
     &-bar {
@@ -505,14 +572,19 @@ onMounted(() => {
   }
 
   &__guide {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.6);
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      gap: 0.8rem;
+    }
 
     i {
       font-size: 1rem;

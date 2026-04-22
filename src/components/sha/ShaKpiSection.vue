@@ -177,17 +177,25 @@ onMounted(() => {
   }
 
   &__stats-grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 4rem;
 
     @media (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
-      row-gap: 5rem;
+      gap: 6rem clamp(4rem, 8vw, 10rem);
     }
   }
 
   .sha-kpi-stat {
+    text-align: center;
+    flex: 0 1 100%;
+    max-width: 500px;
+
+    @media (min-width: 768px) {
+      flex: 0 1 calc(50% - 5rem);
+    }
+
     &__val {
       font-size: clamp(3rem, 6vw, 4.5rem);
       font-weight: 300;
@@ -202,6 +210,7 @@ onMounted(() => {
       color: rgba(255, 255, 255, 0.6);
       font-weight: 300;
       max-width: 400px;
+      margin: 0 auto;
     }
   }
 

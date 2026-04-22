@@ -19,9 +19,9 @@
           <span>{{ locale === 'es' ? 'ES' : 'EN' }}</span>
         </button>
 
-        <a href="#cta" class="phb-nav__cta">
+        <router-link to="/cualificar" class="phb-nav__cta">
           {{ t.nav.cta }}
-        </a>
+        </router-link>
       </div>
     </div>
   </header>

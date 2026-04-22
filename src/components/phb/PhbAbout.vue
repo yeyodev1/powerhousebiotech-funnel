@@ -31,10 +31,10 @@
             </li>
           </ul>
 
-          <a href="#cta" class="phb-btn">
+          <router-link to="/cualificar" class="phb-btn">
             {{ t.about.cta }}
             <svg viewBox="0 0 20 20" fill="none" class="phb-btn__arrow"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
+          </router-link>
         </div>
       </div>
 

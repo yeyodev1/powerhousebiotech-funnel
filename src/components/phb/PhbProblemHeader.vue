@@ -56,7 +56,7 @@ const props = defineProps({
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.04em;
-    color: #fff;
+    color: #1a1823;
     margin-bottom: 2rem;
     text-transform: uppercase;
 
@@ -69,7 +69,7 @@ const props = defineProps({
 
   &__sub {
     font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(0, 0, 0, 0.7);
     line-height: 1.6;
     font-weight: 300;
   }

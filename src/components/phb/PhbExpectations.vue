@@ -124,11 +124,11 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .phb-expect {
-  background-color: #05060f; // Deep black/navy
+  background-color: #ffffff;
   padding: 10rem 2rem;
   position: relative;
   overflow: hidden;
-  color: #ffffff;
+  color: #1a1823;
 
   &__bg-text {
     position: absolute;
@@ -137,7 +137,7 @@ onMounted(() => {
     transform: translate(-50%, -50%);
     font-size: 25vw;
     font-weight: 900;
-    color: rgba(255, 255, 255, 0.02);
+    color: rgba(0, 0, 0, 0.03);
     z-index: 0;
     pointer-events: none;
     letter-spacing: 0.1em;
@@ -164,7 +164,7 @@ onMounted(() => {
   &__line {
     width: 60px;
     height: 1.5px;
-    background-color: #ffffff;
+    background-color: #1a1823;
     margin-top: 1.2rem;
     flex-shrink: 0;
   }
@@ -178,7 +178,7 @@ onMounted(() => {
 
   &__subtitle {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.5);
     font-weight: 300;
     margin-left: calc(60px + 2rem);
     max-width: 500px;
@@ -212,9 +212,9 @@ onMounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 12px;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(0, 0, 0, 0.3);
   }
 
   &__val {
@@ -227,7 +227,7 @@ onMounted(() => {
   &__label {
     font-size: 1rem;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(0, 0, 0, 0.7);
     font-weight: 300;
     margin: 0;
     max-width: 250px;
@@ -236,8 +236,8 @@ onMounted(() => {
   &__evr {
     margin-top: 8rem;
     padding: 4rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: #f8f9fa;
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 40px;
     backdrop-filter: blur(10px);
     text-align: center;
@@ -262,20 +262,20 @@ onMounted(() => {
 
     &-subtitle {
       font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(0, 0, 0, 0.5);
       margin-bottom: 2rem;
     }
 
     &-question {
       font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 600;
-      color: #ffffff;
+      color: #1a1823;
       margin-bottom: 3.5rem;
       letter-spacing: -0.02em;
     }
 
     &-features {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(0, 0, 0, 0.02);
       padding: 2.5rem;
       border-radius: 24px;
       margin-bottom: 2rem;
@@ -285,7 +285,7 @@ onMounted(() => {
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(0, 0, 0, 0.4);
       margin-bottom: 2rem;
     }
 
@@ -317,13 +317,13 @@ onMounted(() => {
     &-text {
       font-size: 1rem;
       font-weight: 400;
-      color: #ffffff;
+      color: #1a1823;
     }
 
     &-footer {
       font-size: 1.1rem;
       font-style: italic;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(0, 0, 0, 0.4);
     }
   }
 }
