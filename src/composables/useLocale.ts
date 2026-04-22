@@ -8,6 +8,8 @@ const locale = ref<Locale>(
   (localStorage.getItem('phb_locale') as Locale) || 'es'
 )
 
+const isTransitioning = ref(false)
+
 export function useLocale() {
   const t = computed(() => locale.value === 'es' ? es : en)
 
@@ -17,8 +19,18 @@ export function useLocale() {
   }
 
   function toggleLocale() {
-    setLocale(locale.value === 'es' ? 'en' : 'es')
+    isTransitioning.value = true
+    
+    // Smooth transition delay
+    setTimeout(() => {
+      setLocale(locale.value === 'es' ? 'en' : 'es')
+      
+      // Wait for language content to swap before fading out
+      setTimeout(() => {
+        isTransitioning.value = false
+      }, 300)
+    }, 600)
   }
 
-  return { locale, t, setLocale, toggleLocale }
+  return { locale, t, setLocale, toggleLocale, isTransitioning }
 }

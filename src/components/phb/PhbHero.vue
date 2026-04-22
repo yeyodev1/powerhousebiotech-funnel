@@ -36,9 +36,8 @@ onMounted(() => {
       end: 'bottom top',
       scrub: true
     },
-    opacity: 0.3,
-    scale: 1.2,
-    filter: 'blur(10px)'
+    opacity: 0.4,
+    scale: 1.1
   })
 })
 </script>
@@ -118,10 +117,8 @@ onMounted(() => {
   &__bg-overlay {
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(2px);
-    background: radial-gradient(at 15% 15%, rgba(23, 24, 70, 0.85) 0%, transparent 75%),
-      radial-gradient(at 85% 15%, rgba(33, 188, 251, 0.2) 0%, transparent 65%),
-      radial-gradient(at 50% 50%, rgba(24, 231, 240, 0.08) 0%, transparent 60%);
+    background: radial-gradient(at 20% 20%, rgba(13, 15, 40, 0.4) 0%, transparent 60%),
+      linear-gradient(to bottom, transparent 60%, rgba(13, 15, 40, 0.8) 100%);
   }
 
   &__content {
@@ -234,6 +231,10 @@ onMounted(() => {
           rgba(13, 15, 40, 0.95) 0%,
           rgba(13, 15, 40, 0.85) 60%,
           rgba(13, 15, 40, 0.6) 100%);
+    }
+
+    &__bg-video {
+      object-position: left bottom; // User requested video to be seen at bottom left on mobile
     }
 
     &__cta-wrapper {

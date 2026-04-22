@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import LanguageTransition from '@/components/globals/LanguageTransition.vue'
 </script>
 
 <template>
+  <LanguageTransition />
   <RouterView />
 </template>
 
