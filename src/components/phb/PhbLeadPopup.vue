@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { parsePhoneNumberFromString, type CountryCode } from 'libphonenumber-js'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const isVisible = ref(false)
 const hasBeenShown = ref(false)
@@ -24,7 +27,6 @@ const errors = ref({
 // Detect country based on locale and timezone
 const detectCountry = () => {
   try {
-    // 1. Try to get country from browser language (e.g., 'es-MX' -> 'MX')
     const locale = navigator.language || (navigator.languages && navigator.languages[0])
     if (locale && locale.includes('-')) {
       const region = locale.split('-')[1].toUpperCase()
@@ -34,7 +36,6 @@ const detectCountry = () => {
       }
     }
 
-    // 2. Fallback to Timezone mapping
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
     const tzMap: Record<string, CountryCode> = {
       'Europe/Madrid': 'ES',
@@ -51,14 +52,20 @@ const detectCountry = () => {
       'America/Asuncion': 'PY',
       'America/Montevideo': 'UY',
       'America/La_Paz': 'BO',
+      'America/Santo_Domingo': 'DO',
+      'America/Puerto_Rico': 'PR',
+      'America/El_Salvador': 'SV',
+      'America/Tegucigalpa': 'HN',
+      'America/Managua': 'NI',
+      'America/New_York': 'US',
+      'America/Chicago': 'US',
+      'America/Denver': 'US',
+      'America/Los_Angeles': 'US',
       'Europe/Paris': 'FR',
       'Europe/London': 'GB',
-      'Europe/Rome': 'IT',
-      'America/New_York': 'US',
-      'America/Los_Angeles': 'US'
+      'Europe/Rome': 'IT'
     }
 
-    // Check partial matches for timezone
     for (const [key, value] of Object.entries(tzMap)) {
       if (tz.includes(key)) {
         formData.value.countryCode = value
@@ -77,29 +84,29 @@ const validatePhone = () => {
     return false
   }
   errors.value.phone = ''
-  // Format the number automatically
   formData.value.phone = phoneNumber.formatInternational()
   return true
 }
 
-const handleScroll = () => {
-  if (hasBeenShown.value) return
-
-  const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
-  if (scrollPercent > 25) {
-    showPopup()
-  }
-}
-
 const showPopup = () => {
+  if (hasBeenShown.value) return
+  
   isVisible.value = true
   hasBeenShown.value = true
-  localStorage.setItem('phb_popup_shown', 'true')
+  // localStorage.setItem('phb_popup_shown', 'true') // Disabled for testing
   
-  gsap.fromTo('.phb-popup__card', 
-    { y: 100, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.3 }
-  )
+  setTimeout(() => {
+    gsap.fromTo('.phb-popup__card', 
+      { y: 100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }
+    )
+  }, 10)
+}
+
+const handleExitIntent = (e: MouseEvent) => {
+  if (e.clientY <= 10 && !hasBeenShown.value) {
+    showPopup()
+  }
 }
 
 const closePopup = () => {
@@ -116,28 +123,28 @@ const closePopup = () => {
 
 const handleSubmit = async () => {
   if (!validatePhone()) return
-  
   isLoading.value = true
-  // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 1500))
-  
-  console.log('Lead captured:', formData.value)
   isLoading.value = false
   closePopup()
 }
 
 onMounted(() => {
   detectCountry()
-  const wasShown = localStorage.getItem('phb_popup_shown')
-  if (wasShown === 'true') {
-    hasBeenShown.value = true
-  } else {
-    window.addEventListener('scroll', handleScroll)
-  }
+  
+  // Trigger by Scroll Percentage (15%)
+  ScrollTrigger.create({
+    trigger: 'body',
+    start: '15% top',
+    onEnter: () => showPopup()
+  })
+
+  // Trigger by Exit Intent
+  document.addEventListener('mouseleave', handleExitIntent)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
+  document.removeEventListener('mouseleave', handleExitIntent)
 })
 </script>
 
@@ -181,18 +188,30 @@ onUnmounted(() => {
             <div class="phb-popup__phone-input">
               <select v-model="formData.countryCode" class="phb-popup__country-select">
                 <option value="AR">🇦🇷 +54</option>
+                <option value="BO">🇧🇴 +591</option>
                 <option value="CL">🇨🇱 +56</option>
                 <option value="CO">🇨🇴 +57</option>
+                <option value="CR">🇨🇷 +506</option>
+                <option value="DO">🇩🇴 +1</option>
+                <option value="EC">🇪🇨 +593</option>
                 <option value="ES">🇪🇸 +34</option>
+                <option value="GT">🇬🇹 +502</option>
+                <option value="HN">🇭🇳 +504</option>
                 <option value="MX">🇲🇽 +52</option>
+                <option value="NI">🇳🇮 +505</option>
+                <option value="PA">🇵🇦 +507</option>
                 <option value="PE">🇵🇪 +51</option>
+                <option value="PR">🇵🇷 +1</option>
+                <option value="PY">🇵🇾 +595</option>
+                <option value="SV">🇸🇻 +503</option>
                 <option value="US">🇺🇸 +1</option>
+                <option value="UY">🇺🇾 +598</option>
                 <option value="VE">🇻🇪 +58</option>
               </select>
               <input 
                 v-model="formData.phone" 
                 type="tel" 
-                placeholder="600 000 000" 
+                placeholder="Número de teléfono" 
                 @blur="validatePhone"
                 required 
               />
