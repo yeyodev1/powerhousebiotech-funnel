@@ -36,7 +36,7 @@ onMounted(() => {
       end: 'bottom top',
       scrub: true
     },
-    opacity: 0.4,
+    opacity: 0.1, // Reduced opacity for light mode
     scale: 1.1
   })
 })
@@ -69,7 +69,6 @@ onMounted(() => {
         
         <div class="phb-hero__subtitle">
           <p>{{ t.hero.sub }}</p>
-          <!-- <p>{{ t.hero.desc }}</p> -->
         </div>
 
         <ul class="phb-hero__bullets">
@@ -97,8 +96,9 @@ onMounted(() => {
   display: flex;
   align-items: center;
   overflow: hidden;
-  color: var(--phb-text-1, #ffffff);
+  color: #0d0f28; // Dark text for light background
   padding: 8rem 2rem 4rem 2rem;
+  background-color: #fcfcfc; // Premium light background
 
   &__bg-container {
     position: absolute;
@@ -111,14 +111,15 @@ onMounted(() => {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    opacity: 0.8;
+    opacity: 0.15; // Subtle video in light mode
+    filter: grayscale(100%) brightness(1.2);
   }
 
   &__bg-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(at 20% 20%, rgba(13, 15, 40, 0.4) 0%, transparent 60%),
-      linear-gradient(to bottom, transparent 60%, rgba(13, 15, 40, 0.8) 100%);
+    background: radial-gradient(at 20% 20%, rgba(255, 255, 255, 0.8) 0%, transparent 60%),
+      linear-gradient(to bottom, transparent 60%, #fcfcfc 100%);
   }
 
   &__content {
@@ -140,19 +141,19 @@ onMounted(() => {
     font-weight: 300;
     line-height: 1.1;
     margin-bottom: 2rem;
-    color: var(--phb-white);
+    color: #0d0f28;
     text-align: left;
 
     &-highlight {
       font-weight: 600;
-      color: var(--phb-cyan);
+      color: #1278f3; // Brand blue
     }
   }
 
   &__subtitle {
     font-size: 1.125rem;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(13, 15, 40, 0.7);
     margin-bottom: 2.5rem;
     text-align: left;
 
@@ -175,13 +176,13 @@ onMounted(() => {
       gap: 1rem;
       font-size: 1.1rem;
       font-weight: 400;
-      color: var(--phb-white);
+      color: #0d0f28;
 
       i {
-        color: var(--phb-cyan);
+        color: #1278f3;
         margin-top: 0.35rem;
         font-size: 1.1rem;
-        -webkit-text-stroke: 0.5px var(--phb-cyan); // Simulates extra weight
+        -webkit-text-stroke: 0.5px #1278f3;
         display: inline-block;
       }
     }
@@ -190,14 +191,14 @@ onMounted(() => {
   &__cta-wrapper {
     display: inline-flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
+    align-items: center; // Centered relative to the button
   }
 
   &__cta-btn {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--phb-white);
+    background: #0d0f28; // Solid dark button for light mode
+    border: 1px solid #0d0f28;
+    color: #ffffff;
     padding: 1.2rem 2.5rem;
     font-size: 1.1rem;
     font-weight: 600;
@@ -206,21 +207,30 @@ onMounted(() => {
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px -10px rgba(13, 15, 40, 0.3);
+    width: 100%;
+    text-align: center;
 
     &:hover {
-      background: var(--phb-white);
-      color: var(--phb-bg, #0d0f28);
+      background: #1278f3;
+      border-color: #1278f3;
       transform: translateY(-2px);
-      box-shadow: 0 15px 40px -10px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 15px 40px -10px rgba(18, 120, 243, 0.3);
     }
   }
 
   &__cta-sub {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.5);
-    text-align: left;
+    font-size: 1.1rem; // Matches button size
+    color: rgba(13, 15, 40, 0.6);
+    text-align: center; // Centered
     margin: 0;
+    text-decoration: underline; // Underlined
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #1278f3;
+    }
   }
 }
 
@@ -228,13 +238,13 @@ onMounted(() => {
   .phb-hero {
     &__bg-overlay {
       background: linear-gradient(to bottom,
-          rgba(13, 15, 40, 0.95) 0%,
-          rgba(13, 15, 40, 0.85) 60%,
-          rgba(13, 15, 40, 0.6) 100%);
+          rgba(252, 252, 252, 0.95) 0%,
+          rgba(252, 252, 252, 0.85) 60%,
+          rgba(252, 252, 252, 0.6) 100%);
     }
 
     &__bg-video {
-      object-position: left bottom; // User requested video to be seen at bottom left on mobile
+      object-position: left bottom;
     }
 
     &__cta-wrapper {
@@ -247,3 +257,4 @@ onMounted(() => {
   }
 }
 </style>
+
