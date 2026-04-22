@@ -24,6 +24,7 @@ const { t } = useLocale()
     </div>
 
     <p class="phb-cta-copy__measurement" v-html="t.close.measurement"></p>
+    <p class="phb-cta-copy__measurement" v-html="t.close.measurementAccent"></p>
   </div>
 </template>
 
@@ -57,10 +58,10 @@ const { t } = useLocale()
     margin-bottom: 40px;
     text-transform: uppercase;
 
-    em { 
-      font-style: italic; 
-      font-weight: 200; 
-      color: #fff; 
+    em {
+      font-style: italic;
+      font-weight: 200;
+      color: #fff;
       opacity: 0.6;
       display: block;
     }
@@ -105,7 +106,10 @@ const { t } = useLocale()
     color: #fff;
     letter-spacing: -0.03em;
 
-    :deep(strong) { color: var(--phb-cyan, #21bcfa); font-weight: 800; }
+    :deep(strong) {
+      color: var(--phb-cyan, #21bcfa);
+      font-weight: 800;
+    }
   }
 }
 </style>

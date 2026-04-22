@@ -70,7 +70,7 @@ onMounted(() => {
         
         <div class="phb-hero__subtitle">
           <p>{{ t.hero.sub }}</p>
-          <p>{{ t.hero.desc }}</p>
+          <!-- <p>{{ t.hero.desc }}</p> -->
         </div>
 
         <ul class="phb-hero__bullets">
@@ -120,8 +120,8 @@ onMounted(() => {
     inset: 0;
     backdrop-filter: blur(2px);
     background: radial-gradient(at 15% 15%, rgba(23, 24, 70, 0.85) 0%, transparent 75%),
-                radial-gradient(at 85% 15%, rgba(33, 188, 251, 0.2) 0%, transparent 65%),
-                radial-gradient(at 50% 50%, rgba(24, 231, 240, 0.08) 0%, transparent 60%);
+      radial-gradient(at 85% 15%, rgba(33, 188, 251, 0.2) 0%, transparent 65%),
+      radial-gradient(at 50% 50%, rgba(24, 231, 240, 0.08) 0%, transparent 60%);
   }
 
   &__content {
@@ -220,7 +220,7 @@ onMounted(() => {
   }
 
   &__cta-sub {
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.5);
     text-align: left;
     margin: 0;

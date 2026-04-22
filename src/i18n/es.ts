@@ -11,13 +11,12 @@ export const es = {
   },
   hero: {
     badge: 'Health Decision Platform · Medicina Regenerativa',
-    title1: 'Puedes recibir el mejor tratamiento del mundo.',
+    title1: 'Puedes recibir el mejor tratamiento del mundo',
     titleAccent: 'Y tu cuerpo estar igual de enfermo',
     sub: 'No se trata del tratamiento, sino de tu capacidad para aprovecharlo.',
-    desc: 'Somos la primera Health Decision Platform enfocada en Medicina Regenerativa de precisión. Analizamos el 100% de tu biometría para encontrar qué bloquea tu recuperación.',
     bullets: [
       'Evaluamos tu capacidad de autoreparación.',
-      'Explicamos la gravedad real de tus biomarcadores.',
+      'Explicamos la gravedad real de tus análisis de laboratorio.',
       'Diseñamos tu ruta crítica de regeneración.',
     ],
     cta: 'Agenda una consulta orientativa',
@@ -43,9 +42,9 @@ export const es = {
     title: '<strong>Qué esperar tras un Programa PowerHouse</strong>',
     subtitle: 'Mejoras medibles y basadas en ciencia en cuestión de días.',
     results: [
-      { id: 1, val: '30%', label: 'Reducción en marcadores de inflamación clave.' },
-      { id: 2, val: '35%', label: 'Mejora en la calidad del sueño profundo.' },
-      { id: 3, val: '40%', label: 'Aumento en energía y rendimiento cognitivo.' },
+      { id: 1, val: '90%', label: 'Reducción en marcadores de inflamación clave.' },
+      { id: 2, val: '85%', label: 'Mejora en la calidad del sueño profundo.' },
+      { id: 3, val: '95%', label: 'Aumento en energía y rendimiento cognitivo.' },
       { id: 4, val: '70%', label: 'Pacientes mantienen hábitos saludables tras 3 meses.' },
     ],
     quoteTitle: '10 AÑOS MÁS JOVEN.',
@@ -65,12 +64,11 @@ export const es = {
   },
   shaKpi: {
     quote: 'La medicina reactiva ha fallado.',
-    quoteAccent: 'Es hora de la precisión biológica.',
+    quoteAccent: 'Es hora de la precisión regenerativa.',
     stats: [
-      { val: '50%', text: 'De adultos +45 años viven con patologías crónicas no resueltas.' },
-      { val: '60%', text: 'De la población sufre de múltiples focos de malestar persistente.' },
-      { val: '70%', text: 'De casos clínicos no encuentran solución en la medicina reactiva.' },
-      { val: '20%', text: 'Es nuestra tasa de aceptación para asegurar viabilidad real.' }
+      { val: '80%', text: 'De adultos +45 años viven con patologías crónicas no resueltas.' },
+      { val: '80%', text: 'De la población sufre de múltiples focos de malestar persistente.' },
+      { val: '90%', text: 'De casos clínicos no encuentran solución en la medicina reactiva.' }
     ],
     footer: 'Datos analizados sobre una base de +100,000 casos clínicos globales.',
   },
@@ -166,7 +164,7 @@ export const es = {
     ]
   },
   close: {
-    lineTitle: 'El cierre',
+    lineTitle: '',
     title: 'Puedes seguir intentando…',
     titleAccent: 'o puedes empezar a entender.',
     body: 'Miles de dólares se invierten cada año en terapias sin resultados. La mayoría prueba múltiples opciones antes de encontrar una que funcione.',

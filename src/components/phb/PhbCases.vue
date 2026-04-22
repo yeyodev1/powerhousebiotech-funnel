@@ -165,7 +165,7 @@ onMounted(() => {
         <!-- Closing slide -->
         <div class="phb-case-card phb-case-card--outro">
            <div class="phb-case-card--outro__inner">
-              <h2 class="phb-case-card--outro__title">No buscamos pacientes… <br>buscamos resultados.</h2>
+              <!-- <h2 class="phb-case-card--outro__title">No buscamos pacientes… <br>buscamos resultados.</h2> -->
               <p class="phb-case-card--outro__desc">
                 Si no podemos garantizar una mejoría medible, seremos los primeros en decírtelo.
                 Nuestra ética clínica está por encima de cualquier tratamiento.
@@ -210,7 +210,7 @@ onMounted(() => {
     width: 100%;
     padding: 0 8vw;
     z-index: 10;
-    
+
     &-inner {
       max-width: 900px;
     }
@@ -258,7 +258,7 @@ onMounted(() => {
     position: relative;
     overflow: hidden;
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    
+
     @media (min-width: 1024px) {
       width: 50vw;
     }
@@ -276,12 +276,12 @@ onMounted(() => {
     &.is-rejected {
       background: rgba(20, 20, 30, 0.4);
       border-color: rgba(255, 255, 255, 0.05);
-      
+
       .phb-case-card__tag {
         color: rgba(255, 255, 255, 0.4);
         background: rgba(255, 255, 255, 0.05);
       }
-      
+
       .phb-case-card__mesh {
         display: none;
       }
@@ -292,9 +292,9 @@ onMounted(() => {
       inset: 0;
       opacity: 0.4;
       background: radial-gradient(at 20% 20%, rgba(23, 24, 70, 0.8) 0%, transparent 80%),
-                  radial-gradient(at 80% 15%, rgba(33, 188, 251, 0.15) 0%, transparent 65%),
-                  radial-gradient(at 85% 85%, rgba(18, 120, 243, 0.15) 0%, transparent 70%),
-                  radial-gradient(at 15% 85%, rgba(24, 231, 240, 0.12) 0%, transparent 70%);
+        radial-gradient(at 80% 15%, rgba(33, 188, 251, 0.15) 0%, transparent 65%),
+        radial-gradient(at 85% 85%, rgba(18, 120, 243, 0.15) 0%, transparent 70%),
+        radial-gradient(at 15% 85%, rgba(24, 231, 240, 0.12) 0%, transparent 70%);
       z-index: 0;
     }
 
@@ -360,7 +360,7 @@ onMounted(() => {
       grid-template-columns: 1fr;
       gap: 3rem;
       margin-bottom: auto;
-      
+
       @media (min-width: 768px) {
         grid-template-columns: 1fr 1fr;
       }
@@ -391,9 +391,17 @@ onMounted(() => {
       border-top: 1px solid rgba(255, 255, 255, 0.08);
 
       &.is-rejected {
-        .phb-case-card__info-label { color: rgba(255, 255, 255, 0.3); }
-        .phb-case-card__bullet-list li { color: rgba(255, 255, 255, 0.4); }
-        .fa-xmark { color: rgba(255, 255, 255, 0.2) !important; }
+        .phb-case-card__info-label {
+          color: rgba(255, 255, 255, 0.3);
+        }
+
+        .phb-case-card__bullet-list li {
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        .fa-xmark {
+          color: rgba(255, 255, 255, 0.2) !important;
+        }
       }
     }
 
@@ -404,7 +412,7 @@ onMounted(() => {
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      
+
       li {
         font-size: 1.1rem;
         font-weight: 400;
@@ -412,9 +420,9 @@ onMounted(() => {
         display: flex;
         align-items: center;
         gap: 1.2rem;
-        
-        i { 
-          font-size: 1.1rem; 
+
+        i {
+          font-size: 1.1rem;
           color: var(--phb-cyan, #21bcfa);
           filter: drop-shadow(0 0 5px rgba(33, 188, 250, 0.3));
         }
@@ -429,7 +437,7 @@ onMounted(() => {
     display: flex;
     align-items: center;
     backdrop-filter: none;
-    
+
     &__inner {
       max-width: 600px;
     }
@@ -482,7 +490,7 @@ onMounted(() => {
     height: 1px;
     background: rgba(255, 255, 255, 0.1);
     position: relative;
-    
+
     &-bar {
       position: absolute;
       top: -1px;
