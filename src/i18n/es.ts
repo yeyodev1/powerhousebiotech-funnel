@@ -720,6 +720,17 @@ export const es = {
     successBtn: 'Volver al inicio',
     footer: { rights: 'Todos los derechos reservados.', privacy: 'Política de Privacidad', legal: 'Aviso Legal' },
   },
+  popup: {
+    title: '¿Listo para el siguiente nivel?',
+    subtitle: 'Déjanos tus datos y un especialista en medicina de precisión se pondrá en contacto contigo.',
+    firstName: 'Nombre',
+    lastName: 'Apellido',
+    email: 'Email Corporativo / Personal',
+    phone: 'Teléfono (WhatsApp)',
+    submit: 'Enviar Información',
+    privacy: 'Tus datos están protegidos por protocolos de grado clínico.',
+    errorPhone: 'Número de teléfono inválido',
+  },
 }
 
 export type PhbTranslation = typeof es

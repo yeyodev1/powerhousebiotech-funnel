@@ -67,10 +67,9 @@ export const en = {
     quote: 'Reactive medicine has failed.',
     quoteAccent: 'It is time for biological precision.',
     stats: [
-      { val: '50%', text: 'Of adults 45+ live with unresolved chronic pathologies.' },
-      { val: '60%', text: 'Of the population suffers from multiple persistent areas of discomfort.' },
-      { val: '70%', text: 'Of clinical cases find no solution in reactive medicine.' },
-      { val: '20%', text: 'Is our acceptance rate to ensure real viability.' }
+      { val: '80%', text: 'Of adults 45+ live with unresolved chronic pathologies.' },
+      { val: '80%', text: 'Of the population suffers from multiple persistent areas of discomfort.' },
+      { val: '90%', text: 'Of clinical cases find no solution in reactive medicine.' }
     ],
     footer: 'Data analyzed over a base of +100,000 global clinical cases.',
   },
@@ -655,12 +654,12 @@ export const en = {
       }
     ],
     confirmation: {
-      title: 'Final Confirmation',
+      title: '🔒 Final Confirmation',
       body1: 'Power House Biotech does not sell treatments or promise universal results.',
       body2: 'We first evaluate eligibility.',
       question: 'Do you wish to proceed to a structured evaluation?',
       options: [
-        { label: 'Yes, I want clarity before intervening' },
+        { label: 'Yes, I want clarity before starting my treatment' },
         { label: 'I need to think about it' },
       ]
     },
@@ -721,5 +720,16 @@ export const en = {
     successSub: 'Our clinical team will analyze it within 48–72 hours. We\'ll contact you at the email and WhatsApp you provided.',
     successBtn: 'Back to home',
     footer: { rights: 'All rights reserved.', privacy: 'Privacy Policy', legal: 'Legal Notice' },
+  },
+  popup: {
+    title: 'Ready for the next level?',
+    subtitle: 'Leave us your details and a precision medicine specialist will get in touch with you.',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    email: 'Corporate / Personal Email',
+    phone: 'Phone (WhatsApp)',
+    submit: 'Send Information',
+    privacy: 'Your data is protected by clinical-grade protocols.',
+    errorPhone: 'Invalid phone number',
   },
 }

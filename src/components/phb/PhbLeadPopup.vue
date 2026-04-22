@@ -6,6 +6,10 @@ import { parsePhoneNumberFromString, type CountryCode } from 'libphonenumber-js'
 
 gsap.registerPlugin(ScrollTrigger)
 
+import { useLocale } from '@/composables/useLocale'
+
+const { t } = useLocale()
+
 const isVisible = ref(false)
 const hasBeenShown = ref(false)
 const isLoading = ref(false)
@@ -52,7 +56,7 @@ const detectCountry = () => {
       'America/Asuncion': 'PY',
       'America/Montevideo': 'UY',
       'America/La_Paz': 'BO',
-      'America/Santo_Domingo': 'DO',
+      'America/Santo_Dominigo': 'DO',
       'America/Puerto_Rico': 'PR',
       'America/El_Salvador': 'SV',
       'America/Tegucigalpa': 'HN',
@@ -80,7 +84,7 @@ const detectCountry = () => {
 const validatePhone = () => {
   const phoneNumber = parsePhoneNumberFromString(formData.value.phone, formData.value.countryCode)
   if (!phoneNumber || !phoneNumber.isValid()) {
-    errors.value.phone = 'Número de teléfono inválido'
+    errors.value.phone = t.value.popup.errorPhone
     return false
   }
   errors.value.phone = ''
@@ -162,29 +166,29 @@ onUnmounted(() => {
           <div class="phb-popup__icon">
             <i class="fa-solid fa-dna"></i>
           </div>
-          <h2 class="phb-popup__title">¿Listo para el siguiente nivel?</h2>
-          <p class="phb-popup__subtitle">Déjanos tus datos y un especialista en medicina de precisión se pondrá en contacto contigo.</p>
+          <h2 class="phb-popup__title">{{ t.popup.title }}</h2>
+          <p class="phb-popup__subtitle">{{ t.popup.subtitle }}</p>
         </div>
 
         <form @submit.prevent="handleSubmit" class="phb-popup__form">
           <div class="phb-popup__row">
             <div class="phb-popup__field">
-              <label>Nombre</label>
+              <label>{{ t.popup.firstName }}</label>
               <input v-model="formData.firstName" type="text" placeholder="Ej. Juan" required />
             </div>
             <div class="phb-popup__field">
-              <label>Apellido</label>
+              <label>{{ t.popup.lastName }}</label>
               <input v-model="formData.lastName" type="text" placeholder="Ej. Pérez" required />
             </div>
           </div>
 
           <div class="phb-popup__field">
-            <label>Email Corporativo / Personal</label>
+            <label>{{ t.popup.email }}</label>
             <input v-model="formData.email" type="email" placeholder="juan.perez@ejemplo.com" required />
           </div>
 
           <div class="phb-popup__field">
-            <label>Teléfono (WhatsApp)</label>
+            <label>{{ t.popup.phone }}</label>
             <div class="phb-popup__phone-input">
               <select v-model="formData.countryCode" class="phb-popup__country-select">
                 <option value="AR">🇦🇷 +54</option>
@@ -211,7 +215,7 @@ onUnmounted(() => {
               <input 
                 v-model="formData.phone" 
                 type="tel" 
-                placeholder="Número de teléfono" 
+                :placeholder="t.popup.phone" 
                 @blur="validatePhone"
                 required 
               />
@@ -220,13 +224,13 @@ onUnmounted(() => {
           </div>
 
           <button type="submit" class="phb-popup__submit" :disabled="isLoading">
-            <span v-if="!isLoading">Enviar Información</span>
+            <span v-if="!isLoading">{{ t.popup.submit }}</span>
             <span v-else class="phb-popup__loader"></span>
           </button>
 
           <p class="phb-popup__privacy">
             <i class="fa-solid fa-lock"></i>
-            Tus datos están protegidos por protocolos de grado clínico.
+            {{ t.popup.privacy }}
           </p>
         </form>
       </div>
