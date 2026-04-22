@@ -64,7 +64,10 @@ const { t } = useLocale()
     line-height: 1.4;
     font-weight: 300;
 
-    :deep(strong) { font-weight: 700; color: var(--phb-cyan, #21bcfa); }
+    :deep(strong) {
+      font-weight: 700;
+      color: var(--phb-cyan, #21bcfa);
+    }
   }
 
   &__benefits {
