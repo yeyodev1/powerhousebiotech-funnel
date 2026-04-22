@@ -142,10 +142,10 @@ onMounted(() => {
 <style lang="scss" scoped>
 .phb-method {
   position: relative;
-  background-color: #ffffff;
+  background-color: #f8fbff; // Premium clinical off-white/blue
   background-image: 
-    radial-gradient(circle at 20% 20%, rgba(33, 188, 251, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(33, 188, 251, 0.05) 0%, transparent 40%);
+    radial-gradient(circle at 0% 0%, rgba(33, 188, 251, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(33, 188, 251, 0.05) 0%, transparent 50%);
   color: #1a1823;
   min-height: 100vh;
   width: 100%;
@@ -273,11 +273,11 @@ onMounted(() => {
       pointer-events: none;
       z-index: 0;
       
-      color: rgba(33, 188, 251, 0.03);
-      -webkit-text-stroke: 1px rgba(33, 188, 251, 0.08);
+      color: rgba(33, 188, 251, 0.05);
+      -webkit-text-stroke: 1px rgba(33, 188, 251, 0.15);
       
       opacity: 1;
-      filter: blur(2px);
+      filter: none;
 
       @media (min-width: 1024px) {
         font-size: 40vw;
@@ -290,21 +290,24 @@ onMounted(() => {
     &__id {
       font-size: 1.1rem;
       font-weight: 800;
-      color: var(--phb-cyan, #21bcfa);
-      letter-spacing: 0.3em;
-      display: block;
-      margin-bottom: 1.5rem;
+      color: #1a1823; // Darker for contrast
+      background: rgba(33, 188, 251, 0.1);
+      padding: 0.4rem 1.2rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 2rem;
       text-transform: uppercase;
+      letter-spacing: 0.2em;
       
       &::after {
         content: '';
         display: inline-block;
         width: 40px;
-        height: 1px;
+        height: 2px;
         background: var(--phb-cyan, #21bcfa);
         vertical-align: middle;
         margin-left: 1.5rem;
-        opacity: 0.3;
+        opacity: 0.8; // More visible line
       }
     }
 

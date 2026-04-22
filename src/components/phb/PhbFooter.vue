@@ -61,11 +61,11 @@ const currentYear = new Date().getFullYear()
 
 <style lang="scss" scoped>
 .phb-footer {
-  background-color: #ffffff;
-  color: #1a1823;
+  background-color: #171846; // Premium dark navy
+  color: #ffffff;
   padding: 8rem 0 4rem;
   font-family: var(--phb-font, 'Inter', sans-serif);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 
   .phb-container {
     width: 100%;
@@ -96,14 +96,14 @@ const currentYear = new Date().getFullYear()
     font-weight: 950;
     line-height: 0.9;
     letter-spacing: 0.05em;
-    color: #1a1823;
+    color: #ffffff;
     margin-bottom: 2rem;
   }
 
   &__tagline {
     font-size: 1.15rem;
     line-height: 1.5;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     font-weight: 300;
   }
 
@@ -138,13 +138,13 @@ const currentYear = new Date().getFullYear()
 
     a {
       font-size: 1.1rem;
-      color: rgba(0, 0, 0, 0.65);
+      color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
       transition: all 0.3s ease;
       font-weight: 300;
 
       &:hover {
-        color: #1a1823;
+        color: #ffffff;
         padding-left: 5px;
       }
     }
@@ -155,7 +155,7 @@ const currentYear = new Date().getFullYear()
     flex-direction: column;
     gap: 2.5rem;
     padding-top: 4rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   &__disclaimer {
@@ -172,7 +172,7 @@ const currentYear = new Date().getFullYear()
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
-    color: rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.5);
     font-weight: 300;
 
     @media (max-width: 600px) {
@@ -186,7 +186,7 @@ const currentYear = new Date().getFullYear()
     display: flex;
     gap: 1.5rem;
     font-size: 1.3rem;
-    color: rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.5);
 
     i {
       cursor: pointer;

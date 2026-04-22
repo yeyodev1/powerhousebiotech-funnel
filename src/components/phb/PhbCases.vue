@@ -178,16 +178,6 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Footer progress -->
-      <div class="phb-cases__footer">
-        <div class="phb-cases__progress">
-          <div class="phb-cases__progress-bar"></div>
-        </div>
-        <div class="phb-cases__guide">
-          DESLIZA PARA VER LA VERDAD CLÍNICA <i class="fa-solid fa-arrow-right-long"></i>
-        </div>
-      </div>
-
     </div>
   </section>
 </template>
@@ -277,7 +267,7 @@ onMounted(() => {
     &:hover {
       border-color: rgba(33, 188, 251, 0.3);
       background: #ffffff;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.05);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
 
       .phb-case-card__glow {
         opacity: 0.15;
