@@ -158,11 +158,14 @@ onUnmounted(() => {
       <div class="phb-popup__overlay"></div>
 
       <div class="phb-popup__card" ref="formRef">
-        <div class="phb-popup__gate">
-          <i class="fa-solid fa-lock-open"></i>
-          <span>Regístrate gratis para seguir leyendo</span>
+        <div class="phb-popup__banner">
+          <i class="fa-solid fa-lock"></i>
+          <span>REGÍSTRATE GRATIS PARA SEGUIR LEYENDO</span>
         </div>
 
+        <button class="phb-popup__close" @click="closePopup">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
         <div class="phb-popup__header">
           <div class="phb-popup__icon">
             <i class="fa-solid fa-dna"></i>
@@ -185,7 +188,7 @@ onUnmounted(() => {
 
           <div class="phb-popup__field">
             <label>{{ t.popup.email }}</label>
-            <input v-model="formData.email" type="email" placeholder="juan.perez@ejemplo.com" required />
+            <input v-model="formData.email" type="email" placeholder="tu@empresa.com" required />
           </div>
 
           <div class="phb-popup__field">
@@ -213,15 +216,14 @@ onUnmounted(() => {
                 <option value="UY">🇺🇾 +598</option>
                 <option value="VE">🇻🇪 +58</option>
               </select>
-              <input
-                v-model="formData.phone"
-                type="tel"
-                :placeholder="t.popup.phone"
+              <input 
+                v-model="formData.phone" 
+                type="tel" 
+                :placeholder="t.popup.phone" 
                 @blur="validatePhone"
-                required
+                required 
               />
             </div>
-            <span v-if="errors.phone" class="phb-popup__error">{{ errors.phone }}</span>
           </div>
 
           <button type="submit" class="phb-popup__submit" :disabled="isLoading">
@@ -230,7 +232,7 @@ onUnmounted(() => {
           </button>
 
           <p class="phb-popup__privacy">
-            <i class="fa-solid fa-lock"></i>
+            <i class="fa-solid fa-shield-halved"></i>
             {{ t.popup.privacy }}
           </p>
         </form>
@@ -265,7 +267,7 @@ onUnmounted(() => {
     max-height: 90vh;
     background: #ffffff;
     border-radius: 28px;
-    padding: 1.5rem 1.5rem 2rem;
+    padding: 2rem;
     box-shadow: 0 50px 100px -20px rgba(0, 57, 173, 0.3);
     overflow-y: auto;
     overflow-x: hidden;
@@ -295,24 +297,41 @@ onUnmounted(() => {
     }
   }
 
-  &__gate {
+  &__banner {
+    background: linear-gradient(90deg, #004ecc, #21bcfa);
+    padding: 1rem;
+    margin: -2rem -2rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    background: linear-gradient(90deg, #0039ad, #21bcfa);
+    gap: 0.8rem;
     color: #ffffff;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 0.55rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 12px rgba(0, 57, 173, 0.2);
 
     i {
       font-size: 0.9rem;
-      opacity: 0.9;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 2.75rem;
+    right: 1.5rem;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.25rem;
+    cursor: pointer;
+    z-index: 20;
+    padding: 0.5rem;
+    transition: all 0.2s;
+
+    &:hover {
+      color: #0039ad;
+      transform: rotate(90deg);
     }
   }
 
@@ -320,6 +339,26 @@ onUnmounted(() => {
     text-align: center;
     margin-bottom: 1.5rem;
     flex-shrink: 0;
+  }
+
+  &__progress {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+
+    &-dot {
+      width: 30px;
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+
+      &.is-active {
+        background: #0039ad;
+        width: 50px;
+      }
+    }
   }
 
   &__icon {
@@ -338,50 +377,45 @@ onUnmounted(() => {
     line-height: 1.1;
     letter-spacing: -0.02em;
   }
-
-  &__subtitle {
-    font-size: 0.9rem;
-    color: #475569;
-    line-height: 1.4;
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.75rem;
+    margin-top: 1rem;
   }
 
   &__row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
 
     @media (max-width: 480px) {
       grid-template-columns: 1fr;
+      gap: 1.75rem;
     }
   }
 
   &__field {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.6rem;
 
     label {
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 800;
       color: #0039ad;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
     input {
-      padding: 0.8rem 1rem;
+      padding: 1rem 1.2rem;
       border: 1px solid #e2e8f0;
-      border-radius: 6px;
+      border-radius: 12px;
       font-size: 1rem;
       transition: all 0.2s;
+      width: 100%;
+      box-sizing: border-box;
 
       &:focus {
         outline: none;
@@ -393,7 +427,7 @@ onUnmounted(() => {
 
   &__phone-input {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
 
     input {
       flex: 1;
@@ -401,66 +435,68 @@ onUnmounted(() => {
   }
 
   &__country-select {
-    padding: 0.8rem 0.5rem;
+    padding: 1rem 0.75rem;
     border: 1px solid #e2e8f0;
-    border-radius: 6px;
+    border-radius: 12px;
     background: #f8fafc;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     cursor: pointer;
-  }
-
-  &__error {
-    font-size: 0.75rem;
-    color: #ef4444;
-    font-weight: 500;
+    font-family: inherit;
   }
 
   &__submit {
-    margin-top: 0.5rem;
-    padding: 0.9rem;
+    margin-top: 1.5rem;
+    padding: 1.2rem;
     background: #0039ad;
     color: #ffffff;
     border: none;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 700;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 800;
     cursor: pointer;
     transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.8rem;
+    width: 100%;
 
     &:hover:not(:disabled) {
       background: #002d8a;
       transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0, 57, 173, 0.2);
+      box-shadow: 0 12px 24px rgba(0, 57, 173, 0.3);
     }
 
     &:disabled {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
     }
   }
 
   &__loader {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ffffff;
+    width: 22px;
+    height: 22px;
+    border: 3px solid #ffffff;
     border-bottom-color: transparent;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: spin 0.8s linear infinite;
   }
 
   &__privacy {
     text-align: center;
     font-size: 0.75rem;
-    color: #94a3b8;
+    color: #64748b;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+    font-weight: 500;
+
+    i {
+      color: #10b981;
+      font-size: 0.9rem;
+    }
   }
 }
 
