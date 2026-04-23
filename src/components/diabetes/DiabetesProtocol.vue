@@ -1,19 +1,22 @@
 <script setup lang="ts">
-const routes = [
+const therapies = [
   {
-    id: "iv",
-    title: "Vía intravenosa (IV)",
-    desc: "Busca una acción sistémica más amplia, orientada a apoyar procesos de modulación biológica, inflamación y recuperación general."
+    title: "Vía Intravenosa (IV)",
+    subtitle: "SISTÉMICA",
+    desc: "Busca una acción sistémica profunda, orientada a modular la inflamación y potenciar la recuperación general.",
+    icon: "M12 2v20M2 12h20"
   },
   {
-    id: "nebulized",
-    title: "Vía nebulizada",
-    desc: "Pensada como una ruta complementaria de absorción y soporte, dentro de una estrategia integral de intervención."
+    title: "Vía Nebulizada",
+    subtitle: "ABSORCIÓN RÁPIDA",
+    desc: "Ruta complementaria de alta biodisponibilidad para un soporte metabólico directo.",
+    icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
   },
   {
-    id: "oral",
-    title: "Vía oral",
-    desc: "Orientada a dar continuidad al proceso y sostener parte del trabajo biológico desde un formato práctico y constante."
+    title: "Vía Oral",
+    subtitle: "CONTINUIDAD",
+    desc: "Mantenimiento y soporte biológico constante para sostener los resultados en el tiempo.",
+    icon: "M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
   }
 ];
 </script>
@@ -21,44 +24,45 @@ const routes = [
 <template>
   <section class="diabetes-protocol">
     <div class="container">
-      <div class="protocol-header" data-aos="fade-up">
-        <h2 class="title">El Protocolo</h2>
-        <p class="subtitle">Cuando el paciente es el correcto, la medicina regenerativa cambia el escenario.</p>
-      </div>
-
-      <div class="routes-grid">
-        <div 
-          v-for="route in routes" 
-          :key="route.id" 
-          class="route-card" 
-          data-aos="fade-up"
-        >
-          <div class="route-icon">
-            <!-- Dynamic icon based on id -->
-            <div v-if="route.id === 'iv'" class="icon-blob iv"></div>
-            <div v-if="route.id === 'nebulized'" class="icon-blob neb"></div>
-            <div v-if="route.id === 'oral'" class="icon-blob oral"></div>
+      <div class="protocol-grid">
+        <div class="protocol-left" data-aos="fade-right">
+          <div class="phb-line-title">
+            <span class="phb-line-title__line"></span>
+            EL PROTOCOLO INTEGRAL
           </div>
-          <h3 class="route-title">{{ route.title }}</h3>
-          <p class="route-desc">{{ route.desc }}</p>
-        </div>
-      </div>
+          <h2 class="title">Abordaje en 3 Vías de Acceso</h2>
+          <p class="description">
+            No creemos en soluciones de una sola vía. La complejidad de la diabetes requiere un abordaje multifactorial y preciso.
+          </p>
 
-      <div class="priming-section" data-aos="zoom-in">
-        <div class="priming-card">
-          <div class="priming-content">
-            <h3 class="priming-title">Priming Biológico</h3>
-            <p class="priming-p">Antes de intervenir, preparamos el terreno.</p>
-            <div class="priming-box">
-              <p>Porque un cuerpo inflamado, saturado, metabólicamente alterado y biológicamente agotado no responde igual.</p>
-              <p>El <strong>Priming Biológico</strong> busca optimizar las condiciones del paciente para que su organismo tenga una mejor capacidad de respuesta, adaptación y aprovechamiento del protocolo.</p>
+          <div class="priming-box" data-aos="fade-up" data-aos-delay="200">
+            <div class="priming-header">
+              <div class="priming-dot"></div>
+              <h3>Fase 0: Priming Biológico</h3>
             </div>
-            <div class="priming-footer">
-              <span>Primero preparamos.</span>
-              <span class="sep">→</span>
-              <span>Luego intervenimos.</span>
-              <span class="sep">→</span>
-              <span>Después medimos.</span>
+            <p>
+              Antes de cualquier intervención, preparamos tu terreno metabólico. Sin un terreno receptivo, cualquier tratamiento es desperdiciado.
+            </p>
+          </div>
+        </div>
+
+        <div class="protocol-right">
+          <div 
+            v-for="(therapy, index) in therapies" 
+            :key="therapy.title" 
+            class="therapy-card" 
+            data-aos="fade-left" 
+            :data-aos-delay="index * 200"
+          >
+            <div class="therapy-info">
+              <span class="therapy-sub">{{ therapy.subtitle }}</span>
+              <h3 class="therapy-title">{{ therapy.title }}</h3>
+              <p class="therapy-desc">{{ therapy.desc }}</p>
+            </div>
+            <div class="therapy-icon">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path :d="therapy.icon"></path>
+              </svg>
             </div>
           </div>
         </div>
@@ -69,146 +73,133 @@ const routes = [
 
 <style lang="scss" scoped>
 .diabetes-protocol {
-  background: var(--sha-dark-2);
+  background: #ffffff;
+  color: #05060f;
+  position: relative;
   padding: 120px 0;
 
-  .protocol-header {
-    text-align: center;
-    margin-bottom: 80px;
-
-    .title {
-      font-size: clamp(32px, 5vw, 56px);
-      font-weight: 700;
-      color: var(--phb-white);
-      margin-bottom: 16px;
-    }
-
-    .subtitle {
-      font-size: 20px;
-      color: var(--phb-muted);
-      max-width: 700px;
-      margin: 0 auto;
-    }
-  }
-
-  .routes-grid {
+  .protocol-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    margin-bottom: 100px;
-  }
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: flex-start;
 
-  .route-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 48px 32px;
-    border-radius: 32px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .route-icon {
-      margin-bottom: 32px;
-      .icon-blob {
-        width: 64px;
-        height: 64px;
-        border-radius: 20px;
-        filter: blur(20px);
-        opacity: 0.6;
-      }
-      .iv { background: var(--phb-blue); }
-      .neb { background: var(--phb-accent); }
-      .oral { background: var(--phb-cyan); }
-    }
-
-    .route-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--phb-white);
-      margin-bottom: 20px;
-    }
-
-    .route-desc {
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--phb-muted);
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 60px;
     }
   }
 
-  .priming-section {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .priming-card {
-    background: linear-gradient(135deg, rgba(33, 188, 251, 0.1) 0%, rgba(18, 120, 243, 0.1) 100%);
-    border: 1px solid var(--phb-border);
-    padding: 60px;
-    border-radius: 40px;
-    text-align: center;
-  }
-
-  .priming-title {
-    font-size: 32px;
+  .title {
+    font-size: clamp(32px, 5vw, 64px);
     font-weight: 800;
-    color: var(--phb-accent);
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    margin-bottom: 32px;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
   }
 
-  .priming-p {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--phb-white);
-    margin-bottom: 32px;
+  .description {
+    font-size: 20px;
+    line-height: 1.6;
+    color: rgba(5, 6, 15, 0.6);
+    margin-bottom: 48px;
+    font-weight: 300;
   }
 
   .priming-box {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 32px;
-    border-radius: 20px;
-    margin-bottom: 40px;
-    text-align: left;
+    background: #05060f;
+    color: #ffffff;
+    padding: 40px;
+    border-radius: 32px;
+    
+    .priming-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
 
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-      color: var(--phb-muted);
-      margin-bottom: 16px;
-      &:last-child { margin-bottom: 0; }
+      .priming-dot {
+        width: 12px;
+        height: 12px;
+        background: var(--phb-cyan, #21bcfa);
+        border-radius: 50%;
+        box-shadow: 0 0 15px rgba(33, 188, 251, 0.6);
+      }
+
+      h3 {
+        font-size: 18px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
     }
 
-    strong { color: var(--phb-white); }
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 300;
+    }
   }
 
-  .priming-footer {
+  .protocol-right {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--phb-white);
-
-    .sep { color: var(--phb-accent); }
-  }
-}
-
-@media (max-width: 992px) {
-  .routes-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .priming-card {
-    padding: 40px 24px;
-  }
-
-  .priming-footer {
     flex-direction: column;
-    gap: 8px;
-    .sep { display: none; }
+    gap: 32px;
+  }
+
+  .therapy-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 24px;
+    transition: all 0.4s ease;
+
+    &:hover {
+      background: #f1f3f5;
+      transform: translateX(-15px);
+      
+      .therapy-icon {
+        background: #05060f;
+        color: #ffffff;
+      }
+    }
+
+    .therapy-sub {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--phb-blue, #1278f3);
+      letter-spacing: 0.2em;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .therapy-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .therapy-desc {
+      font-size: 15px;
+      line-height: 1.5;
+      color: rgba(5, 6, 15, 0.5);
+      font-weight: 300;
+      max-width: 400px;
+    }
+
+    .therapy-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(5, 6, 15, 0.05);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+    }
   }
 }
 </style>

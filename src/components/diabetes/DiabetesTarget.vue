@@ -18,25 +18,44 @@ const notItems = [
   <section class="diabetes-target">
     <div class="container">
       <div class="target-grid">
+        <!-- Left Side: For Who -->
         <div class="target-left" data-aos="fade-right">
+          <div class="phb-line-title">
+            <span class="phb-line-title__line"></span>
+            PERFIL DEL PACIENTE
+          </div>
           <h2 class="section-title">Este proceso es para personas que:</h2>
+          
           <ul class="check-list">
             <li v-for="(item, index) in items" :key="index" data-aos="fade-up" :data-aos-delay="index * 100">
-              <span class="icon">✔</span>
+              <div class="icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
               <p>{{ item }}</p>
             </li>
           </ul>
         </div>
 
+        <!-- Right Side: Not For Who -->
         <div class="target-right" data-aos="fade-left">
-          <div class="negative-card">
-            <h3 class="card-title">Este NO es un proceso para todos</h3>
+          <div class="negative-glass">
+            <div class="negative-header">
+              <div class="alert-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              </div>
+              <h3 class="card-title">Este NO es un proceso para todos</h3>
+            </div>
+            
             <ul class="cross-list">
               <li v-for="(item, index) in notItems" :key="index" data-aos="fade-up" :data-aos-delay="index * 100">
-                <span class="icon">✕</span>
+                <span class="cross-icon">✕</span>
                 <p>{{ item }}</p>
               </li>
             </ul>
+
+            <div class="negative-footer">
+              <p>Buscamos pacientes comprometidos con su salud, no solo con sus síntomas.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -46,21 +65,28 @@ const notItems = [
 
 <style lang="scss" scoped>
 .diabetes-target {
-  background: rgba(255, 255, 255, 0.02);
+  background: transparent;
+  position: relative;
 
   .target-grid {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 80px;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
     align-items: center;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
   }
 
   .section-title {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 700;
-    margin-bottom: 48px;
-    line-height: 1.2;
-    color: var(--phb-white);
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+    margin-bottom: 56px;
+    line-height: 1.1;
+    color: #ffffff;
+    letter-spacing: -0.02em;
   }
 
   .check-list {
@@ -68,60 +94,76 @@ const notItems = [
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 1.5rem;
 
     li {
       display: flex;
       gap: 20px;
-      align-items: flex-start;
+      align-items: center;
+      padding: 1.25rem 1.75rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      transition: all 0.4s ease;
 
-      .icon {
+      &:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(33, 188, 251, 0.3);
+        transform: translateX(12px);
+      }
+
+      .icon-wrapper {
         flex-shrink: 0;
         width: 32px;
         height: 32px;
-        background: rgba(33, 188, 251, 0.15);
-        color: var(--phb-accent);
+        background: rgba(33, 188, 251, 0.1);
+        color: var(--phb-cyan, #21bcfa);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
-        font-weight: 700;
-        border: 1px solid var(--phb-border);
       }
 
       p {
-        font-size: 18px;
+        font-size: 1.1rem;
         line-height: 1.4;
-        color: var(--phb-white);
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 300;
       }
     }
   }
 
-  .negative-card {
-    background: rgba(15, 16, 32, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 48px;
-    border-radius: 32px;
+  .negative-glass {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: clamp(40px, 8vw, 80px);
+    border-radius: 48px;
     position: relative;
-    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: #ff4d4d;
-      opacity: 0.5;
-    }
+    .negative-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 40px;
 
-    .card-title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 32px;
-      color: #ff4d4d;
+      .alert-icon {
+        color: #ff4d4d;
+        background: rgba(255, 77, 77, 0.1);
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+      }
+
+      .card-title {
+        font-size: 28px;
+        font-weight: 800;
+        color: #ffffff;
+      }
     }
   }
 
@@ -131,44 +173,37 @@ const notItems = [
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-bottom: 40px;
 
     li {
       display: flex;
       gap: 16px;
       align-items: flex-start;
 
-      .icon {
+      .cross-icon {
         flex-shrink: 0;
         color: #ff4d4d;
-        font-weight: 700;
+        font-weight: 900;
         font-size: 18px;
-        margin-top: 2px;
       }
 
       p {
-        font-size: 16px;
+        font-size: 1.1rem;
         line-height: 1.5;
-        color: var(--phb-muted);
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 300;
       }
     }
   }
-}
 
-@media (max-width: 992px) {
-  .target-grid {
-    grid-template-columns: 1fr;
-    gap: 60px;
-  }
-}
-
-@media (max-width: 768px) {
-  .diabetes-target {
-    .section-title {
-      text-align: center;
-    }
-    
-    .negative-card {
-      padding: 32px;
+  .negative-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 32px;
+    p {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-style: italic;
+      line-height: 1.6;
     }
   }
 }

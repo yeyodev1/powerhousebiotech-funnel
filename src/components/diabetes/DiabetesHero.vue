@@ -7,13 +7,35 @@ const heroSubtitle = ref<HTMLElement | null>(null);
 const heroCtas = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 1.2 } });
+  const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.4 } });
   
-  tl.from('.hero-badge', { opacity: 0, y: 20, duration: 0.8 }, 0.2)
-    .from(heroTitle.value, { opacity: 0, y: 30 }, '-=0.6')
-    .from(heroSubtitle.value, { opacity: 0, y: 20 }, '-=0.8')
-    .from(heroCtas.value, { opacity: 0, y: 20 }, '-=0.8')
-    .from('.hero-visual', { opacity: 0, scale: 0.95, duration: 2 }, 0);
+  tl.from('.hero-badge', { opacity: 0, y: 30, duration: 1 }, 0.4)
+    .from(heroTitle.value, { opacity: 0, y: 50, stagger: 0.2 }, '-=0.8')
+    .from(heroSubtitle.value, { opacity: 0, y: 30 }, '-=1')
+    .from('.hero-box', { opacity: 0, x: -30, duration: 1.2 }, '-=0.8')
+    .from(heroCtas.value, { opacity: 0, y: 30 }, '-=1')
+    .from('.hero-visual-video', { opacity: 0, duration: 2.5 }, 0);
+
+  // Floating background text animation
+  gsap.to('.hero-bg-text', {
+    y: -30,
+    duration: 6,
+    repeat: -1,
+    yoyo: true,
+    ease: 'sine.inOut'
+  });
+
+  // Parallax effect for video
+  gsap.to('.hero-visual-video', {
+    scrollTrigger: {
+      trigger: '.diabetes-hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    },
+    y: 100,
+    scale: 1.1
+  });
 });
 
 const handleEvalClick = () => {
@@ -27,12 +49,25 @@ const handleWhatsappClick = () => {
 
 <template>
   <section class="diabetes-hero">
-    <div class="hero-visual"></div>
+    <!-- DNA Background Video -->
+    <div class="hero-visual-container">
+      <video 
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        class="hero-visual-video"
+      >
+        <source src="https://icdlabs.in/immune-internal/wp-content/themes/immuneel/assets/videos/DNA.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-visual-overlay"></div>
+      <div class="hero-bg-text">diabetes</div>
+    </div>
     
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge" data-aos="fade-down">
-          <span>LANDING PREMIUM — DIABETES</span>
+        <div class="hero-badge">
+          <span>LANDING PREMIUM — REGENERATIVE MEDICINE</span>
         </div>
         
         <h1 ref="heroTitle" class="hero-title">
@@ -45,7 +80,7 @@ const handleWhatsappClick = () => {
           Pero muy pocos entienden cómo <strong>resolver de raíz</strong> lo que realmente la está causando.
         </p>
 
-        <div class="hero-box" data-aos="fade-up">
+        <div class="hero-box">
           <p>
             Si llevas años “controlando” tu condición, pero tu energía, tu metabolismo y tu cuerpo no responden como deberían, el problema no eres tú.
           </p>
@@ -54,7 +89,7 @@ const handleWhatsappClick = () => {
           </p>
         </div>
 
-        <p class="hero-disclaimer" data-aos="fade-in">
+        <p class="hero-disclaimer" data-aos="fade-in" data-aos-delay="1200">
           Este no es un enfoque para todos. Es para quienes ya entendieron que seguir haciendo más de lo mismo solo prolonga el deterioro y extiende el dolor.
         </p>
 
@@ -82,138 +117,173 @@ const handleWhatsappClick = () => {
   align-items: center;
   padding-top: 100px;
   overflow: hidden;
-  background: radial-gradient(circle at 70% 30%, rgba(18, 120, 243, 0.15), transparent 50%);
+  position: relative;
+  background-color: #05060f;
 
-  .hero-visual {
+  .hero-visual-container {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 60%;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-visual-video {
+    width: 100%;
     height: 100%;
-    background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=2000');
-    background-size: cover;
-    background-position: center;
-    mask-image: linear-gradient(to left, black 40%, transparent 100%);
-    opacity: 0.4;
-    z-index: -1;
+    object-fit: cover;
+    opacity: 0.6;
+    transform-origin: center;
+  }
+
+  .hero-visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(5, 6, 15, 0.4) 50%, #05060f 100%);
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    bottom: -5%;
+    right: 5%;
+    font-size: clamp(10rem, 20vw, 30rem);
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.03);
+    text-transform: lowercase;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    letter-spacing: -0.05em;
   }
 
   .hero-content {
-    max-width: 800px;
-    z-index: 1;
+    max-width: 900px;
+    position: relative;
+    z-index: 2;
   }
 
   .hero-badge {
     display: inline-block;
-    padding: 6px 16px;
-    background: rgba(33, 188, 251, 0.1);
-    border: 1px solid var(--phb-border);
+    padding: 8px 20px;
+    background: rgba(33, 188, 251, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(33, 188, 251, 0.2);
     border-radius: 100px;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
 
     span {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      color: var(--phb-accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: var(--phb-cyan, #21bcfa);
       text-transform: uppercase;
     }
   }
 
   .hero-title {
-    font-size: clamp(40px, 6vw, 72px);
-    line-height: 1.1;
-    font-weight: 700;
-    margin-bottom: 24px;
-    color: var(--phb-white);
+    font-size: clamp(44px, 7vw, 84px);
+    line-height: 1.05;
+    font-weight: 800;
+    margin-bottom: 28px;
+    color: #ffffff;
+    letter-spacing: -0.04em;
 
     span {
       display: block;
-      background: linear-gradient(135deg, var(--phb-cyan), var(--phb-blue));
+      background: linear-gradient(135deg, #21bcfa 0%, #1278f3 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
   }
 
   .hero-description {
-    font-size: clamp(18px, 2.5vw, 22px);
-    line-height: 1.5;
-    color: var(--phb-muted);
-    margin-bottom: 40px;
+    font-size: clamp(20px, 2.8vw, 24px);
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 48px;
+    font-weight: 300;
 
     strong {
-      color: var(--phb-white);
-      font-weight: 600;
+      color: #ffffff;
+      font-weight: 700;
     }
   }
 
   .hero-box {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 32px;
-    border-radius: 20px;
-    margin-bottom: 32px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: clamp(30px, 5vw, 40px);
+    border-radius: 32px;
+    margin-bottom: 40px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 
     p {
-      font-size: 18px;
+      font-size: 20px;
       line-height: 1.6;
-      margin-bottom: 16px;
-      color: var(--phb-muted);
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 300;
 
       &:last-child { margin-bottom: 0; }
     }
 
     .highlight {
-      color: var(--phb-accent);
-      font-weight: 500;
+      color: var(--phb-cyan, #21bcfa);
+      font-weight: 600;
     }
   }
 
   .hero-disclaimer {
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.4);
-    margin-bottom: 48px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 56px;
     font-style: italic;
+    max-width: 600px;
+    line-height: 1.6;
   }
 
   .hero-actions {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     flex-wrap: wrap;
   }
 
   .btn {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px 32px;
-    border-radius: 100px;
+    gap: 14px;
+    padding: 18px 40px;
+    border-radius: 12px; // Medical sharp look
     font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    font-weight: 700;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 
     &-primary {
-      background: var(--phb-blue);
-      color: white;
+      background: #ffffff;
+      color: #05060f;
       border: none;
-      box-shadow: 0 10px 20px rgba(18, 120, 243, 0.2);
+      box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
 
       &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 15px 30px rgba(18, 120, 243, 0.3);
+        background: var(--phb-blue, #1278f3);
+        color: #ffffff;
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px rgba(18, 120, 243, 0.4);
       }
     }
 
     &-outline {
-      background: transparent;
-      color: white;
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
 
       &:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #ffffff;
+        transform: translateY(-8px);
       }
     }
 
@@ -225,23 +295,21 @@ const handleWhatsappClick = () => {
 
 @media (max-width: 768px) {
   .diabetes-hero {
-    padding-top: 80px;
-    text-align: center;
-    align-items: flex-start;
+    padding-top: 120px;
+    text-align: left;
 
-    .hero-visual {
-      width: 100%;
-      height: 50%;
-      top: 0;
-      mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    .hero-bg-text {
+      font-size: 10rem;
+      bottom: 5%;
+      right: -10%;
     }
 
     .hero-content {
-      margin-top: 20%;
+      width: 100%;
     }
 
     .hero-actions {
-      justify-content: center;
+      flex-direction: column;
     }
 
     .btn {

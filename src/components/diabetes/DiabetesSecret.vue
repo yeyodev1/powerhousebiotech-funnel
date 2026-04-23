@@ -1,46 +1,37 @@
 <script setup lang="ts">
-const evaluationPoints = [
-  "El estado metabólico real",
-  "La inflamación de fondo",
-  "La capacidad regenerativa del paciente",
-  "Su nivel de deterioro biológico"
-];
+// Logic can be added here if needed
 </script>
 
 <template>
   <section class="diabetes-secret">
     <div class="container">
-      <div class="secret-card" data-aos="zoom-in">
-        <div class="secret-content">
-          <header class="secret-header" data-aos="fade-up">
-            <span class="eyebrow">EL SECRETO CLÍNICO</span>
-            <h2 class="title">Lo que casi nadie te dice</h2>
-          </header>
-
-          <p class="intro-p" data-aos="fade-up">
-            La medicina regenerativa ha abierto nuevas posibilidades. <br />
-            <strong>Pero hay algo que casi nadie te dice:</strong>
+      <div class="secret-card" data-aos="zoom-in-up">
+        <div class="phb-line-title">
+          <span class="phb-line-title__line"></span>
+          EL SECRETO CLÍNICO
+        </div>
+        
+        <h2 class="secret-title">El mayor error no es la diabetes...</h2>
+        
+        <div class="secret-reveal">
+          <p class="reveal-text">
+            Es seguir dándole tiempo para avanzar en silencio mientras destruye tu salud poco a poco.
           </p>
+        </div>
 
-          <div class="warning-box" data-aos="fade-up">
-            <p>No todos los pacientes están en condiciones de beneficiarse igual.</p>
+        <div class="secret-grid">
+          <div class="secret-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="secret-num">01</div>
+            <p>La medicina convencional se enfoca en el <strong>qué</strong> (glucosa alta).</p>
           </div>
-
-          <p class="secondary-p" data-aos="fade-up">
-            Aplicar terapias avanzadas sin evaluar antes los siguientes factores es costoso, frustrante y muchas veces ineficiente:
-          </p>
-
-          <ul class="eval-list">
-            <li v-for="(point, index) in evaluationPoints" :key="index" data-aos="fade-left" :data-aos-delay="index * 100">
-              <span class="num">0{{ index + 1 }}</span>
-              <p>{{ point }}</p>
-            </li>
-          </ul>
-
-          <footer class="secret-footer" data-aos="fade-up">
-            <p>Por eso nuestro enfoque no empieza con el tratamiento.</p>
-            <div class="decision-highlight">Empieza con la decisión correcta.</div>
-          </footer>
+          <div class="secret-item" data-aos="fade-up" data-aos-delay="400">
+            <div class="secret-num">02</div>
+            <p>Nosotros nos enfocamos en el <strong>por qué</strong> (fallo en la señalización celular).</p>
+          </div>
+          <div class="secret-item" data-aos="fade-up" data-aos-delay="600">
+            <div class="secret-num">03</div>
+            <p>Corregir el terreno biológico es la única forma de <strong>recuperar el equilibrio</strong>.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -49,146 +40,115 @@ const evaluationPoints = [
 
 <style lang="scss" scoped>
 .diabetes-secret {
-  background: linear-gradient(180deg, var(--sha-dark) 0%, var(--phb-bg) 100%);
-  
+  background: transparent;
+  padding: 100px 0;
+
+  .phb-line-title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    color: var(--phb-cyan, #21bcfa);
+
+    &__line {
+      width: 40px;
+      height: 2px;
+      background: var(--phb-cyan, #21bcfa);
+    }
+  }
+
   .secret-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(40px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 40px;
-    padding: 80px;
+    padding: clamp(40px, 8vw, 100px);
+    border-radius: 64px;
+    text-align: center;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
 
     &::after {
       content: '';
       position: absolute;
       top: -50%;
-      right: -50%;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(18, 120, 243, 0.1) 0%, transparent 70%);
-      z-index: 0;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(33, 188, 251, 0.08) 0%, transparent 70%);
+      pointer-events: none;
     }
   }
 
-  .secret-content {
-    position: relative;
-    z-index: 1;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .eyebrow {
-    color: var(--phb-accent);
-    font-weight: 700;
-    letter-spacing: 0.3em;
-    font-size: 14px;
-    margin-bottom: 24px;
-    display: block;
-  }
-
-  .title {
+  .secret-title {
     font-size: clamp(32px, 5vw, 56px);
-    font-weight: 700;
+    font-weight: 800;
+    line-height: 1.1;
     margin-bottom: 40px;
-    color: var(--phb-white);
+    color: #ffffff;
+    letter-spacing: -0.04em;
   }
 
-  .intro-p {
-    font-size: 24px;
-    line-height: 1.4;
-    margin-bottom: 40px;
-    color: var(--phb-muted);
-
-    strong {
-      color: var(--phb-white);
-    }
-  }
-
-  .warning-box {
-    display: inline-block;
-    padding: 16px 40px;
-    background: rgba(255, 77, 77, 0.1);
-    border: 1px solid rgba(255, 77, 77, 0.3);
-    border-radius: 100px;
-    margin-bottom: 40px;
-
-    p {
-      color: #ff4d4d;
-      font-size: 20px;
-      font-weight: 700;
-    }
-  }
-
-  .secondary-p {
-    font-size: 18px;
-    color: var(--phb-muted);
-    margin-bottom: 48px;
-  }
-
-  .eval-list {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+  .secret-reveal {
+    background: linear-gradient(90deg, rgba(33, 188, 251, 0.1), rgba(18, 120, 243, 0.1));
+    padding: 32px;
+    border-radius: 24px;
     margin-bottom: 64px;
-    text-align: left;
+    border: 1px solid rgba(33, 188, 251, 0.2);
 
-    li {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 24px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+    .reveal-text {
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.4;
+      color: #ffffff;
 
-      .num {
-        font-size: 24px;
-        font-weight: 800;
-        color: var(--phb-accent);
-        opacity: 0.5;
-      }
-
-      p {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--phb-white);
+      strong {
+        color: var(--phb-cyan, #21bcfa);
+        font-weight: 700;
       }
     }
   }
 
-  .secret-footer {
-    p {
-      font-size: 20px;
-      color: var(--phb-muted);
-      margin-bottom: 16px;
-    }
+  .secret-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
 
-    .decision-highlight {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--phb-white);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .diabetes-secret {
-    .secret-card {
-      padding: 40px 24px;
-    }
-
-    .eval-list {
+    @media (max-width: 992px) {
       grid-template-columns: 1fr;
     }
+  }
 
-    .decision-highlight {
-      font-size: 24px;
+  .secret-item {
+    text-align: left;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 32px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+
+    .secret-num {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--phb-cyan, #21bcfa);
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 300;
+
+      strong {
+        color: #ffffff;
+        font-weight: 700;
+      }
     }
   }
 }

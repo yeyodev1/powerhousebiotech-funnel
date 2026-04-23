@@ -1,34 +1,54 @@
 <script setup lang="ts">
-const items = [
-  "Criterio clínico",
-  "Experiencia real",
-  "Selección correcta del paciente",
-  "Protocolo integral",
-  "Estrategia diseñada para intervenir desde la raíz"
+const diffs = [
+  {
+    title: "Enfoque en la Causa Raíz",
+    desc: "No silenciamos síntomas. Resolvemos el desequilibrio biológico que los genera."
+  },
+  {
+    title: "Protocolo Personalizado",
+    desc: "Cada cuerpo es único. Tu tratamiento se basa en tu propio terreno biológico."
+  },
+  {
+    title: "Tecnología de Vanguardia",
+    desc: "Utilizamos las terapias regenerativas más avanzadas con respaldo clínico."
+  },
+  {
+    title: "Acompañamiento Experto",
+    desc: "Un equipo de especialistas monitorea cada paso de tu recuperación."
+  }
 ];
 </script>
 
 <template>
-  <section class="diabetes-differentiator">
+  <section class="diabetes-diff">
     <div class="container">
-      <div class="diff-card" data-aos="flip-up">
-        <div class="diff-header" data-aos="fade-up">
-          <span class="eyebrow">EL DIFERENCIAL</span>
-          <h2 class="title">Muchos hablan de células madre. Muy pocos saben cuándo, cómo y en quién pueden funcionar.</h2>
+      <div class="diff-grid">
+        <div class="diff-left" data-aos="fade-right">
+          <div class="phb-line-title">
+            <span class="phb-line-title__line"></span>
+            POR QUÉ POWERHOUSE
+          </div>
+          <h2 class="title">La diferencia está en el criterio clínico.</h2>
+          <p class="description">
+            En un mundo saturado de "soluciones rápidas", nosotros apostamos por la precisión, la ciencia y la honestidad biológica.
+          </p>
         </div>
 
-        <div class="diff-content">
-          <p class="intro" data-aos="fade-up">La diferencia no está solo en tener acceso a terapias avanzadas. La diferencia está en tener:</p>
-          
-          <div class="diff-items">
-            <div v-for="(item, index) in items" :key="index" class="diff-item" data-aos="fade-left" :data-aos-delay="index * 100">
-              <span class="dot"></span>
-              <p>{{ item }}</p>
+        <div class="diff-right">
+          <div 
+            v-for="(item, index) in diffs" 
+            :key="item.title" 
+            class="diff-item" 
+            data-aos="fade-up" 
+            :data-aos-delay="index * 100"
+          >
+            <div class="diff-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
-          </div>
-
-          <div class="final-statement" data-aos="zoom-in">
-            <p>Eso es lo que hacemos.</p>
+            <div class="diff-info">
+              <h3 class="item-title">{{ item.title }}</h3>
+              <p class="item-desc">{{ item.desc }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -37,97 +57,106 @@ const items = [
 </template>
 
 <style lang="scss" scoped>
-.diabetes-differentiator {
-  background: var(--phb-bg);
-  padding: 100px 0;
+.diabetes-diff {
+  background: #ffffff;
+  color: #05060f;
+  padding: 120px 0;
 
-  .diff-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 80px;
-    border-radius: 40px;
-    text-align: center;
+  .diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
   }
 
-  .eyebrow {
-    color: var(--phb-accent);
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    font-size: 14px;
-    margin-bottom: 24px;
-    display: block;
-  }
-
-  .title {
-    font-size: clamp(28px, 3.5vw, 44px);
-    font-weight: 700;
-    line-height: 1.3;
-    color: var(--phb-white);
-    max-width: 800px;
-    margin: 0 auto 48px;
-  }
-
-  .intro {
-    font-size: 20px;
-    color: var(--phb-muted);
-    margin-bottom: 40px;
-  }
-
-  .diff-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 60px;
-  }
-
-  .diff-item {
+  .phb-line-title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
     display: flex;
     align-items: center;
     gap: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px 24px;
-    border-radius: 100px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 24px;
+    color: #05060f;
 
-    .dot {
-      width: 8px;
-      height: 8px;
-      background: var(--phb-accent);
-      border-radius: 50%;
-    }
-
-    p {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--phb-white);
+    &__line {
+      width: 40px;
+      height: 2px;
+      background: #05060f;
     }
   }
 
-  .final-statement {
-    p {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--phb-white);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .diff-card {
-    padding: 40px 24px;
+  .title {
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 800;
+    margin-bottom: 32px;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
   }
 
-  .diff-items {
+  .description {
+    font-size: 20px;
+    line-height: 1.6;
+    color: rgba(5, 6, 15, 0.6);
+    font-weight: 300;
+  }
+
+  .diff-right {
+    display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 40px;
   }
 
   .diff-item {
-    width: 100%;
-    justify-content: center;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 32px;
+    background: #f8f9fa;
+    border-radius: 24px;
+    transition: all 0.4s ease;
+
+    &:hover {
+      background: #f1f3f5;
+      transform: translateX(15px);
+      
+      .diff-icon {
+        background: #05060f;
+        color: #ffffff;
+      }
+    }
+
+    .diff-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: rgba(5, 6, 15, 0.05);
+      color: #05060f;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+    }
+
+    .item-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .item-desc {
+      font-size: 16px;
+      line-height: 1.5;
+      color: rgba(5, 6, 15, 0.5);
+      font-weight: 300;
+    }
   }
 }
 </style>

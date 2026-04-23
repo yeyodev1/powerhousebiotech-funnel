@@ -9,32 +9,40 @@ const stats = [
 <template>
   <section class="diabetes-positioning">
     <div class="container">
-      <div class="pos-grid">
-        <div class="pos-content" data-aos="fade-right">
-          <header class="pos-header">
-            <span class="eyebrow">NUESTRA IDENTIDAD</span>
-            <h2 class="title">Somos una plataforma de decisión en medicina regenerativa.</h2>
-            <p class="tagline">No una clínica más.</p>
-          </header>
-
-          <div class="pos-body">
-            <p>Nuestro trabajo no es convencerte. Nuestro trabajo es darte claridad. El problema no es la falta de opciones. Es la falta de criterio para elegirlas.</p>
+      <div class="positioning-content">
+        <div class="text-side" data-aos="fade-right">
+          <div class="phb-line-title">
+            <span class="phb-line-title__line"></span>
+            AUTORIDAD Y EXPERIENCIA
           </div>
+          <h2 class="title">No experimentamos con tu salud.</h2>
+          <p class="description">
+            Hemos perfeccionado un protocolo que combina la ciencia de vanguardia con la experiencia de miles de casos reales. 
+            No se trata de teoría, se trata de <strong>evidencia biológica</strong>.
+          </p>
 
-          <div class="stats-grid">
-            <div v-for="stat in stats" :key="stat.label" class="stat-item" data-aos="fade-up">
-              <span class="stat-value">{{ stat.value }}</span>
-              <span class="stat-label">{{ stat.label }}</span>
+          <div class="badge-row">
+            <div class="cert-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span>Protocolo Certificado</span>
+            </div>
+            <div class="cert-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+              <span>Base Científica</span>
             </div>
           </div>
         </div>
 
-        <div class="pos-statement" data-aos="fade-left">
-          <div class="statement-card">
-            <div class="quote-icon">"</div>
-            <p class="statement-text">
-              No gana el paciente que prueba más cosas, <strong>Gana el paciente que entiende qué necesita</strong>, cuándo lo necesita y su cuerpo sigue siendo capaz de regenerarse.
-            </p>
+        <div class="stats-side">
+          <div 
+            v-for="(stat, index) in stats" 
+            :key="stat.label" 
+            class="stat-box" 
+            data-aos="fade-left" 
+            :data-aos-delay="index * 200"
+          >
+            <div class="stat-value">{{ stat.value }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
           </div>
         </div>
       </div>
@@ -44,127 +52,118 @@ const stats = [
 
 <style lang="scss" scoped>
 .diabetes-positioning {
-  background: var(--phb-navy);
-  padding: 120px 0;
+  background: #ffffff;
+  color: #05060f;
   position: relative;
   overflow: hidden;
+  padding: 120px 0;
 
-  .pos-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: #f8f9fa;
+    z-index: 0;
+    
+    @media (max-width: 1024px) {
+      width: 100%;
+      height: 50%;
+      bottom: 0;
+      top: auto;
+    }
   }
 
-  .eyebrow {
-    color: var(--phb-accent);
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    font-size: 14px;
-    margin-bottom: 24px;
-    display: block;
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .positioning-content {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 80px;
+    align-items: center;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
   }
 
   .title {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 16px;
-    color: var(--phb-white);
-  }
-
-  .tagline {
-    font-size: 24px;
-    color: var(--phb-accent);
-    font-weight: 600;
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 800;
     margin-bottom: 32px;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
   }
 
-  .pos-body {
-    font-size: 18px;
+  .description {
+    font-size: 22px;
     line-height: 1.6;
-    color: var(--phb-muted);
+    color: rgba(5, 6, 15, 0.6);
     margin-bottom: 48px;
-    max-width: 500px;
+    font-weight: 300;
+
+    strong {
+      color: #05060f;
+      font-weight: 700;
+    }
   }
 
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  .badge-row {
+    display: flex;
     gap: 24px;
+    flex-wrap: wrap;
   }
 
-  .stat-item {
+  .cert-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    background: #f0f4f8;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--phb-blue, #1278f3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    svg {
+      color: var(--phb-blue, #1278f3);
+    }
+  }
+
+  .stats-side {
     display: flex;
     flex-direction: column;
+    gap: 40px;
+  }
+
+  .stat-box {
+    text-align: left;
+    padding-left: 40px;
+    border-left: 4px solid #05060f;
 
     .stat-value {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--phb-white);
-      margin-bottom: 4px;
+      font-size: clamp(48px, 6vw, 84px);
+      font-weight: 900;
+      line-height: 1;
+      color: #05060f;
+      margin-bottom: 8px;
+      letter-spacing: -0.04em;
     }
 
     .stat-label {
       font-size: 14px;
-      color: var(--phb-accent);
-      font-weight: 500;
+      color: rgba(5, 6, 15, 0.4);
+      font-weight: 800;
       text-transform: uppercase;
-    }
-  }
-
-  .statement-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 60px;
-    border-radius: 40px;
-    position: relative;
-    backdrop-filter: blur(20px);
-
-    .quote-icon {
-      position: absolute;
-      top: 40px;
-      left: 40px;
-      font-size: 80px;
-      line-height: 1;
-      font-family: serif;
-      color: var(--phb-accent);
-      opacity: 0.2;
-    }
-
-    .statement-text {
-      font-size: 28px;
-      line-height: 1.4;
-      color: var(--phb-white);
-      position: relative;
-      z-index: 1;
-
-      strong {
-        color: var(--phb-accent);
-        font-weight: 700;
-      }
-    }
-  }
-}
-
-@media (max-width: 992px) {
-  .pos-grid {
-    grid-template-columns: 1fr;
-    gap: 60px;
-  }
-}
-
-@media (max-width: 768px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .statement-card {
-    padding: 40px;
-    
-    .statement-text {
-      font-size: 22px;
+      letter-spacing: 0.2em;
     }
   }
 }

@@ -30,9 +30,10 @@ let lenisTicker: ((time: number) => void) | null = null
 onMounted(() => {
   // Initialize Lenis for smooth scroll
   lenis = new Lenis({
-    duration: 1.2,
+    duration: 1.4,
     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
+    touchMultiplier: 1.5,
   })
 
   lenisTicker = (time: number) => lenis!.raf(time * 1000)
@@ -42,16 +43,16 @@ onMounted(() => {
 
   // Initialize AOS
   AOS.init({
-    duration: 800,
-    easing: 'ease-out-cubic',
-    once: true,
-    offset: 50,
+    duration: 1000,
+    easing: 'ease-out-expo',
+    once: false, // Changed to false to allow repeated animations on scroll
+    offset: 100,
   })
 
   // Refresh ScrollTrigger after components mount
   setTimeout(() => {
     ScrollTrigger.refresh()
-  }, 1000)
+  }, 1200)
 })
 
 onUnmounted(() => {
@@ -63,6 +64,9 @@ onUnmounted(() => {
 
 <template>
   <div class="diabetes-view">
+    <!-- Global Mesh Background -->
+    <div class="diabetes-view__mesh"></div>
+    
     <ShaHeader />
     
     <main>
@@ -84,36 +88,69 @@ onUnmounted(() => {
 
 <style lang="scss">
 .diabetes-view {
-  background: var(--phb-bg);
-  background-image: var(--phb-mesh);
-  background-attachment: fixed;
-  color: var(--phb-text);
-  font-family: var(--phb-font);
+  background-color: #05060f;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+
+  &__mesh {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(at 10% 10%, rgba(23, 24, 70, 0.9) 0%, transparent 60%),
+                      radial-gradient(at 90% 10%, rgba(33, 188, 251, 0.1) 0%, transparent 50%),
+                      radial-gradient(at 90% 90%, rgba(18, 120, 243, 0.12) 0%, transparent 60%),
+                      radial-gradient(at 10% 90%, rgba(24, 231, 240, 0.1) 0%, transparent 50%);
+    background-attachment: fixed;
+    z-index: 0;
+    pointer-events: none;
+  }
 
   main {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     width: 100%;
   }
 
-  /* Global section spacing */
+  /* Section Base Styles */
   section {
     position: relative;
-    padding: clamp(60px, 10vw, 120px) 0;
+    padding: clamp(80px, 12vw, 160px) 0;
     width: 100%;
   }
 
   .container {
-    max-width: var(--sha-container);
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 0 var(--sha-pad-x);
+    padding: 0 clamp(20px, 5vw, 60px);
+  }
+
+  /* Utility Classes */
+  .phb-line-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--phb-cyan, #21bcfa);
+    margin-bottom: 24px;
+
+    &__line {
+      display: block;
+      width: 32px;
+      height: 1.5px;
+      background: var(--phb-cyan, #21bcfa);
+    }
   }
 
   /* AOS Customizations */
   [data-aos] {
-    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   }
 }
 </style>

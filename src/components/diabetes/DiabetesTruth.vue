@@ -18,7 +18,10 @@ const factors = [
   <section class="diabetes-truth">
     <div class="container">
       <div class="truth-header" data-aos="fade-up">
-        <span class="eyebrow">LA VERDAD INCÓMODA</span>
+        <div class="phb-line-title">
+          <span class="phb-line-title__line"></span>
+          LA REALIDAD BIOLÓGICA
+        </div>
         <h2 class="title">La diabetes no es solo un número alto.</h2>
         <p class="subtitle">Es el resultado de un sistema que lleva tiempo deteriorándose:</p>
       </div>
@@ -31,28 +34,35 @@ const factors = [
           data-aos="zoom-in" 
           :data-aos-delay="factor.delay"
         >
+          <div class="factor-dot"></div>
           {{ factor.title }}
         </div>
       </div>
 
       <div class="truth-content">
-        <div class="truth-text" data-aos="fade-right">
-          <p class="main-p">
-            Y eso no se revierte con control superficial. Tu fatiga, tu dificultad para bajar de peso, tu dependencia creciente de medicación, tus altibajos de energía y la sensación de que tu cuerpo ya no responde como antes, no son casualidad.
-          </p>
-          <div class="highlight-box">
-            <p>La diabetes no solo altera tus análisis de laboratorios, sino que también altera tu libertad, tu tranquilidad y la dinámica de tu familia, ¿a poco no?</p>
+        <div class="truth-left" data-aos="fade-right">
+          <div class="truth-card">
+            <p class="main-p">
+              Y eso no se revierte con control superficial. Tu fatiga, tu dificultad para bajar de peso, tu dependencia creciente de medicación, tus altibajos de energía y la sensación de que tu cuerpo ya no responde como antes, no son casualidad.
+            </p>
+            <div class="highlight-quote">
+              <p>La diabetes no solo altera tus análisis de laboratorios, sino que también altera <strong>tu libertad</strong>, tu tranquilidad y la dinámica de tu familia.</p>
+            </div>
           </div>
         </div>
 
-        <div class="truth-signals" data-aos="fade-left">
-          <h3 class="signals-title">Son señales de que:</h3>
-          <ul class="signals-list">
-            <li v-for="(signal, index) in signals" :key="index" data-aos="fade-up" :data-aos-delay="index * 100">
-              <span class="bullet"></span>
-              <p>{{ signal }}</p>
-            </li>
-          </ul>
+        <div class="truth-right" data-aos="fade-left">
+          <div class="signals-box">
+            <h3 class="signals-title">Son señales críticas de que:</h3>
+            <ul class="signals-list">
+              <li v-for="(signal, index) in signals" :key="index" data-aos="fade-up" :data-aos-delay="index * 100">
+                <div class="signal-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </div>
+                <p>{{ signal }}</p>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -61,33 +71,38 @@ const factors = [
 
 <style lang="scss" scoped>
 .diabetes-truth {
-  background: var(--sha-dark);
-  color: var(--sha-white);
-  padding: 100px 0;
+  background: #05060f;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 77, 77, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
   .truth-header {
     text-align: center;
-    max-width: 800px;
-    margin: 0 auto 60px;
-
-    .eyebrow {
-      color: #ff4d4d;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      font-size: 14px;
-      margin-bottom: 24px;
-      display: block;
-    }
+    margin-bottom: 64px;
 
     .title {
-      font-size: clamp(32px, 5vw, 56px);
-      font-weight: 700;
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 800;
       margin-bottom: 24px;
+      letter-spacing: -0.03em;
+      color: #ffffff;
     }
 
     .subtitle {
       font-size: 20px;
-      color: var(--phb-muted);
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 300;
     }
   }
 
@@ -96,52 +111,92 @@ const factors = [
     justify-content: center;
     flex-wrap: wrap;
     gap: 16px;
-    margin-bottom: 80px;
+    margin-bottom: 100px;
   }
 
   .factor-tag {
-    padding: 12px 24px;
-    background: rgba(255, 77, 77, 0.1);
-    border: 1px solid rgba(255, 77, 77, 0.2);
+    padding: 14px 28px;
+    background: rgba(255, 77, 77, 0.05);
+    border: 1px solid rgba(255, 77, 77, 0.15);
     border-radius: 100px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     color: #ff4d4d;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.4s ease;
+
+    &:hover {
+      background: rgba(255, 77, 77, 0.1);
+      border-color: #ff4d4d;
+      transform: translateY(-5px);
+    }
+
+    .factor-dot {
+      width: 8px;
+      height: 8px;
+      background: #ff4d4d;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ff4d4d;
+    }
   }
 
   .truth-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
+    gap: 100px;
+    align-items: flex-start;
 
-  .main-p {
-    font-size: 20px;
-    line-height: 1.6;
-    color: var(--phb-muted);
-    margin-bottom: 40px;
-  }
-
-  .highlight-box {
-    padding: 32px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
-    border-left: 4px solid var(--phb-accent);
-    border-radius: 0 16px 16px 0;
-
-    p {
-      font-size: 22px;
-      font-weight: 600;
-      line-height: 1.4;
-      color: var(--phb-white);
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 60px;
     }
   }
 
-  .signals-title {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 32px;
-    color: var(--phb-accent);
+  .truth-card {
+    .main-p {
+      font-size: 22px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 48px;
+      font-weight: 300;
+    }
+
+    .highlight-quote {
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 4px solid #ff4d4d;
+      border-radius: 0 24px 24px 0;
+
+      p {
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.4;
+        color: #ffffff;
+
+        strong {
+          color: #ff4d4d;
+        }
+      }
+    }
+  }
+
+  .signals-box {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: clamp(30px, 6vw, 60px);
+    border-radius: 40px;
+
+    .signals-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 40px;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
   }
 
   .signals-list {
@@ -149,33 +204,32 @@ const factors = [
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 
     li {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       align-items: center;
 
-      .bullet {
-        width: 8px;
-        height: 8px;
-        background: var(--phb-accent);
+      .signal-icon {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 77, 77, 0.1);
+        color: #ff4d4d;
         border-radius: 50%;
-        box-shadow: 0 0 10px var(--phb-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       p {
-        font-size: 18px;
-        color: var(--phb-white);
+        font-size: 1.15rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 300;
+        line-height: 1.4;
       }
     }
-  }
-}
-
-@media (max-width: 992px) {
-  .truth-content {
-    grid-template-columns: 1fr;
-    gap: 60px;
   }
 }
 </style>
