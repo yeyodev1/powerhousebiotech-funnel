@@ -131,6 +131,19 @@ const router = createRouter({
         ogUrl: `${BASE}/aviso-legal`,
       } satisfies RouteMeta,
     },
+    {
+      path: '/diabetes-regenerativa',
+      name: 'diabetes-regenerativa',
+      component: () => import('../views/DiabetesView.vue'),
+      meta: {
+        title: 'Diabetes y Medicina Regenerativa | PowerHouse Biotech',
+        description: 'Medicina Regenerativa con criterio, experiencia y protocolo integral para el manejo de la diabetes.',
+        canonical: `${BASE}/diabetes-regenerativa`,
+        ogTitle: 'Diabetes: Resuelve de raíz con Medicina Regenerativa',
+        ogDescription: 'Descubre el protocolo integral de medicina regenerativa para diabetes. Más de 15,000 pacientes atendidos.',
+        ogUrl: `${BASE}/diabetes-regenerativa`,
+      } satisfies RouteMeta,
+    },
   ],
 })
 
