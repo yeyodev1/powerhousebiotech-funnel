@@ -40,7 +40,7 @@ export const en = {
     cta: 'Discover today if your body is ready',
   },
   expectations: {
-    title: 'What to Expect After a PowerHouse Program',
+    title: 'What to Expect After a <em>PowerHouse Program</em>',
     subtitle: 'Measurable, science-based improvements in a matter of days.',
     results: [
       { id: 1, val: '30%', label: 'Reduction in key inflammation markers.' },

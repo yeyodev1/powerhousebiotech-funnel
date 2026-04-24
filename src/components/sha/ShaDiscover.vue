@@ -23,8 +23,8 @@ const { t } = useLocale()
           <!-- Left Side: Narrative -->
           <div class="sha-discover__info">
             <div class="phb-line-title">
-              <span class="phb-line-title__line"></span>
-              {{ t.discover.lineTitle }}
+              <!-- <span class="phb-line-title__line"></span> -->
+              <!-- {{ t.discover.lineTitle }} -->
             </div>
             <h2 class="sha-discover__title">
               {{ t.discover.title }}
@@ -81,9 +81,9 @@ const { t } = useLocale()
     position: absolute;
     inset: 0;
     background-image: radial-gradient(at 20% 20%, rgba(23, 24, 70, 0.8) 0%, transparent 80%),
-                      radial-gradient(at 80% 15%, rgba(33, 188, 251, 0.15) 0%, transparent 65%),
-                      radial-gradient(at 85% 85%, rgba(18, 120, 243, 0.15) 0%, transparent 70%),
-                      radial-gradient(at 15% 85%, rgba(24, 231, 240, 0.12) 0%, transparent 70%);
+      radial-gradient(at 80% 15%, rgba(33, 188, 251, 0.15) 0%, transparent 65%),
+      radial-gradient(at 85% 85%, rgba(18, 120, 243, 0.15) 0%, transparent 70%),
+      radial-gradient(at 15% 85%, rgba(24, 231, 240, 0.12) 0%, transparent 70%);
     background-attachment: fixed;
     z-index: 1;
   }
@@ -189,7 +189,10 @@ const { t } = useLocale()
 
   &__footer-desktop {
     margin-top: 3rem;
-    @media (max-width: 1024px) { display: none; }
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
   }
 
   &__divider {
@@ -210,6 +213,7 @@ const { t } = useLocale()
 
   &__footer-mobile {
     display: none;
+
     @media (max-width: 1024px) {
       display: block;
       margin-top: 2rem;

@@ -21,7 +21,7 @@ import PhbCtaCard from './PhbCtaCard.vue'
   padding: clamp(100px, 15vw, 200px) 0;
   font-family: var(--phb-font, 'Inter', sans-serif);
   position: relative;
-  overflow: hidden;
+  z-index: 1;
 }
 
 .phb-container {

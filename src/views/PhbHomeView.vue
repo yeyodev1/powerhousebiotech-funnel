@@ -14,6 +14,7 @@ import ShaKpiSection from '@/components/sha/ShaKpiSection.vue'
 import PhbScience from '@/components/phb/PhbScience.vue'
 import PhbTeam from '@/components/phb/PhbTeam.vue'
 import PhbCases from '@/components/phb/PhbCases.vue'
+import PhbCtaTransition from '@/components/phb/PhbCtaTransition.vue'
 import PhbExpectations from '@/components/phb/PhbExpectations.vue'
 import PhbCta from '@/components/phb/PhbCta.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
@@ -70,6 +71,7 @@ onUnmounted(() => {
     <PhbTeam />
     <PhbCases />
     <!-- End new sections -->
+    <PhbCtaTransition />
     <PhbCta />
     <PhbFooter />
   </div>

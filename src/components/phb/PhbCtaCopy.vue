@@ -6,7 +6,7 @@ const { t } = useLocale()
 <template>
   <div class="phb-cta-copy" data-aos="fade-up">
     <div class="phb-line-title">
-      <span class="phb-line-title__line"></span>
+      <!-- <span class="phb-line-title__line"></span> -->
       {{ t.close.lineTitle }}
     </div>
     <h2 class="phb-cta-copy__heading">

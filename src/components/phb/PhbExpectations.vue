@@ -64,14 +64,14 @@ onMounted(() => {
 <template>
   <section class="phb-expect" ref="sectionRef">
     <!-- Subtle Background Text -->
-    <div class="phb-expect__bg-text">RESULTS</div>
+    <!-- <div class="phb-expect__bg-text">RESULTS</div> -->
 
     <div class="phb-expect__container">
       
       <!-- Header -->
       <div class="phb-expect__header">
         <div class="phb-expect__title-wrap">
-          <div class="phb-expect__line"></div>
+          <!-- <div class="phb-expect__line"></div> -->
           <h2 class="phb-expect__title" v-html="t.expectations.title.replace('PowerHouse', 'PowerHouse<br>')"></h2>
         </div>
         <p class="phb-expect__subtitle">{{ t.expectations.subtitle }}</p>
@@ -125,7 +125,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .phb-expect {
   background-color: #ffffff;
-  padding: 10rem 2rem;
+  padding: clamp(80px, 10vw, 140px) 0;
   position: relative;
   overflow: hidden;
   color: #1a1823;
@@ -144,10 +144,11 @@ onMounted(() => {
   }
 
   &__container {
-    max-width: 1300px;
+    max-width: 1400px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
+    padding: 0 clamp(20px, 8vw, 120px);
   }
 
   &__header {
@@ -174,6 +175,12 @@ onMounted(() => {
     font-weight: 600;
     line-height: 1.1;
     margin: 0;
+
+    :deep(em) {
+      font-style: italic;
+      font-weight: 700;
+      color: var(--phb-cyan, #21bcfa);
+    }
   }
 
   &__subtitle {
@@ -236,11 +243,12 @@ onMounted(() => {
   &__evr {
     margin-top: 8rem;
     padding: 4rem;
-    background: #f8f9fa;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: $PHB-BG;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 40px;
     backdrop-filter: blur(10px);
     text-align: center;
+    color: #ffffff;
 
     &-content {
       max-width: 800px;
@@ -252,6 +260,7 @@ onMounted(() => {
       font-weight: 300;
       line-height: 1.2;
       margin-bottom: 1.5rem;
+      color: #ffffff;
 
       :deep(em) {
         font-style: italic;
@@ -262,20 +271,20 @@ onMounted(() => {
 
     &-subtitle {
       font-size: 1.1rem;
-      color: rgba(0, 0, 0, 0.5);
+      color: rgba(255, 255, 255, 0.6);
       margin-bottom: 2rem;
     }
 
     &-question {
       font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 600;
-      color: #1a1823;
+      color: #ffffff;
       margin-bottom: 3.5rem;
       letter-spacing: -0.02em;
     }
 
     &-features {
-      background: rgba(0, 0, 0, 0.02);
+      background: rgba(255, 255, 255, 0.05);
       padding: 2.5rem;
       border-radius: 24px;
       margin-bottom: 2rem;
@@ -285,7 +294,7 @@ onMounted(() => {
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: rgba(0, 0, 0, 0.4);
+      color: rgba(255, 255, 255, 0.4);
       margin-bottom: 2rem;
     }
 
@@ -317,13 +326,13 @@ onMounted(() => {
     &-text {
       font-size: 1rem;
       font-weight: 400;
-      color: #1a1823;
+      color: #ffffff;
     }
 
     &-footer {
       font-size: 1.1rem;
       font-style: italic;
-      color: rgba(0, 0, 0, 0.4);
+      color: rgba(255, 255, 255, 0.5);
     }
   }
 }

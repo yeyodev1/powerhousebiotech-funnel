@@ -268,11 +268,11 @@ onUnmounted(() => {
     display: flex;
     flex-direction: column;
     height: 100%;
+    gap: 48px;
     @media (min-width: 1025px) {
       position: relative;
       height: 600px; 
     }
-    gap: 48px;
   }
 
   .therapy-card {

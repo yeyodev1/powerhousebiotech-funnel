@@ -59,12 +59,16 @@ onMounted(() => {
   <section class="sha-kpi" ref="sectionRef">
     <!-- Full-width background with Parallax -->
     <div class="sha-kpi__bg-wrap">
-      <img 
+      <video 
         ref="bgRef"
-        src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=1600" 
-        alt="Biotech Lab Background" 
-        class="sha-kpi__bg-img"
-      />
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        class="sha-kpi__bg-video"
+      >
+        <source src="https://icdlabs.in/immune-internal/wp-content/themes/immuneel/assets/videos/DNA.mp4" type="video/mp4" />
+      </video>
       <div class="sha-kpi__bg-overlay"></div>
     </div>
 
@@ -122,7 +126,7 @@ onMounted(() => {
     overflow: hidden;
   }
 
-  &__bg-img {
+  &__bg-video {
     width: 100%;
     height: 120%; // Extra height for parallax
     object-fit: cover;

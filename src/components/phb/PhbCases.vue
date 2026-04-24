@@ -250,7 +250,7 @@ onMounted(() => {
   }
 
   &__title {
-    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-size: clamp(2.2rem, 4vw, 4.5rem);
     font-weight: 700;
     line-height: 1.0;
     letter-spacing: -0.04em;
@@ -279,13 +279,14 @@ onMounted(() => {
     width: 85vw;
     max-width: 900px;
     height: 100%;
-    background: #f8f9fa;
-    backdrop-filter: blur(40px);
+    background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 48px;
     position: relative;
     overflow: hidden;
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.05);
+    color: #1a1823;
 
     @media (min-width: 1024px) {
       width: 50vw;
@@ -294,7 +295,8 @@ onMounted(() => {
     &:hover {
       border-color: rgba(33, 188, 251, 0.3);
       background: #ffffff;
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.08);
+      transform: translateY(-5px);
 
       .phb-case-card__glow {
         opacity: 0.15;

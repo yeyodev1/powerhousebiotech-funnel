@@ -34,7 +34,7 @@ const { t } = useLocale()
 
 <style lang="scss" scoped>
 .phb-cta-card {
-  background: #f8f9fa;
+  background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.05);
   padding: 4rem 3.5rem;
   border-radius: 40px;
@@ -99,7 +99,7 @@ const { t } = useLocale()
     width: 100%;
     padding: 1.5rem 2rem;
     background: #1a1823;
-    color: #fff;
+    color: #ffffff;
     text-align: center;
     text-decoration: none;
     font-size: 0.9rem;

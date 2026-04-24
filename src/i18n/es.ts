@@ -39,7 +39,7 @@ export const es = {
     cta: 'Descubre hoy si tu cuerpo está listo',
   },
   expectations: {
-    title: '<strong>Qué esperar tras un Programa PowerHouse</strong>',
+    title: 'Qué esperar tras un <em>Programa PowerHouse</em>',
     subtitle: 'Mejoras medibles y basadas en ciencia en cuestión de días.',
     results: [
       { id: 1, val: '90%', label: 'Reducción en marcadores de inflamación clave.' },

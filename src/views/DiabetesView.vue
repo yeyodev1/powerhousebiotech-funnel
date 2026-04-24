@@ -44,7 +44,7 @@ onMounted(() => {
   // Initialize AOS
   AOS.init({
     duration: 1000,
-    easing: 'ease-out-expo',
+    easing: 'ease-out-quart',
     once: false, // Changed to false to allow repeated animations on scroll
     offset: 100,
   })
