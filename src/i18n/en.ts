@@ -239,7 +239,7 @@ export const en = {
   },
   problem: {
     lineTitle: 'The Problem',
-    title: 'Your body does not fail for lack of treatments…',
+    title: 'Your body does not fail <em>for lack of treatments…</em>',
     sub: 'It fails because nobody has explained what is really happening. And because the medical system is designed to treat parts, not to understand the full picture.',
     cards: [
       {

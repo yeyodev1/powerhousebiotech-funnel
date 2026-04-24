@@ -190,7 +190,7 @@ export const es = {
   },
   problem: {
     lineTitle: 'El Problema',
-    title: 'Tu cuerpo no falla por falta de tratamientos…',
+    title: 'Tu cuerpo no falla <em>por falta de tratamientos…</em>',
     sub: 'Falla porque nadie te ha explicado lo que realmente está pasando. Y porque el sistema médico está diseñado para tratar partes, no para entender el panorama completo.',
     cards: [
       {

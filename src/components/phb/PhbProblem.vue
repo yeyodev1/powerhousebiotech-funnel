@@ -33,7 +33,7 @@ const { t } = useLocale()
 .phb-problem {
   background-color: #ffffff;
   color: #1a1823;
-  padding: clamp(100px, 15vw, 200px) 0;
+  padding: 24px;
   font-family: var(--phb-font, 'Inter', sans-serif);
   position: relative;
   overflow: hidden;

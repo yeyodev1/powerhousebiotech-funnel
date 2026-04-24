@@ -37,8 +37,8 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .phb-problem-card {
-  background: #f8f9fa;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border: 1px solid var(--phb-cyan, #21bcfa);
   padding: 3.5rem 2.5rem;
   border-radius: 32px;
   transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -46,27 +46,30 @@ const props = defineProps({
   flex-direction: column;
   gap: 2rem;
   height: 100%;
+  transform: translateY(-12px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
 
   &:hover {
-    transform: translateY(-12px);
-    border-color: var(--phb-cyan, #21bcfa);
-    background: #ffffff;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
+    transform: translateY(0);
+    border-color: rgba(0, 0, 0, 0.05);
+    background: #f8f9fa;
+    box-shadow: none;
 
     .phb-problem-card__icon {
-      transform: scale(1.1) rotate(5deg);
-      color: var(--phb-cyan, #21bcfa);
+      transform: scale(1) rotate(0deg);
+      color: rgba(0, 0, 0, 0.6);
     }
   }
 
   &__icon {
     font-size: 2.2rem;
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--phb-cyan, #21bcfa);
     transition: all 0.4s ease;
     width: fit-content;
     height: 3rem;
     display: flex;
     align-items: center;
+    transform: scale(1.1) rotate(5deg);
   }
 
   &__content {

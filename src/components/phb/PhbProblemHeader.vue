@@ -18,8 +18,8 @@ const props = defineProps({
 <template>
   <div class="phb-problem-header" data-aos="fade-up">
     <div class="phb-line-title">
-      <span class="phb-line-title__line"></span>
-      {{ lineTitle }}
+      <!-- <span class="phb-line-title__line"></span>
+      {{ lineTitle }} -->
     </div>
     <h2 class="phb-problem-header__title" v-html="title"></h2>
     <p class="phb-problem-header__sub">{{ sub }}</p>

@@ -70,7 +70,7 @@ onMounted(() => {
         <source src="https://icdlabs.in/immune-internal/wp-content/themes/immuneel/assets/videos/DNA.mp4" type="video/mp4" />
       </video>
       <div class="phb-hero__bg-overlay"></div>
-      <div class="phb-hero__bg-text">biotech</div>
+      <!-- <div class="phb-hero__bg-text">biotech</div> -->
     </div>
 
     <div class="phb-hero__content">
@@ -83,7 +83,7 @@ onMounted(() => {
           <p>{{ t.hero.titleAccent }}</p>
         </div>
 
-        <div class="phb-hero__separator"></div>
+        <!-- <div class="phb-hero__separator"></div> -->
 
         <ul class="phb-hero__bullets">
           <li v-for="(bullet, index) in t.hero.bullets" :key="index">
@@ -171,7 +171,7 @@ onMounted(() => {
     font-size: clamp(2.5rem, 6vw, 4.2rem);
     font-weight: 300;
     line-height: 1.1;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     color: #ffffff;
     text-align: left;
     text-transform: capitalize;
@@ -184,6 +184,10 @@ onMounted(() => {
     color: #ffffff;
     margin-bottom: 2rem;
     text-align: left;
+
+    p {
+      margin: 0;
+    }
   }
 
   &__separator {
@@ -270,7 +274,7 @@ onMounted(() => {
 @media (max-width: 768px) {
   .phb-hero {
     padding-top: 10rem;
-    
+
     &__bg-overlay {
       background: linear-gradient(to bottom,
           rgba(0, 57, 173, 0.7) 0%,

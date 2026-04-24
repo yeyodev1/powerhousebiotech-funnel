@@ -6,8 +6,8 @@
         <!-- Left: main statement -->
         <div class="phb-about__left" data-aos="fade-up">
           <div class="phb-line-title">
-            <span class="phb-line-title__line"></span>
-            {{ t.about.label }}
+            <!-- <span class="phb-line-title__line"></span>
+            {{ t.about.label }} -->
           </div>
           <h2 class="phb-about__heading" v-html="t.about.heading"></h2>
           <p class="phb-about__body" v-html="t.about.body1"></p>
@@ -51,9 +51,14 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useLocale } from '@/composables/useLocale'
-import platformImg from '@/assets/stock/platform.png'
-const { t } = useLocale()
+import platformEs from '@/assets/stock/image-spanish.jpeg'
+import platformEn from '@/assets/stock/image-english.jpeg'
+
+const { locale, t } = useLocale()
+
+const platformImg = computed(() => locale.value === 'es' ? platformEs : platformEn)
 </script>
 
 <style lang="scss" scoped>
