@@ -51,37 +51,33 @@ onMounted(() => {
           const viewportWidth = window.innerWidth;
           const totalWidth = scrollWidth - viewportWidth;
 
+          // Removing the extra vertical room to avoid "dead space"
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: sectionRef.value,
               pin: true,
-              pinSpacing: true, // Explicitly set to true to push subsequent content down
-              scrub: 1.2,
+              pinSpacing: true,
+              scrub: 1,
               start: "top top",
-              end: () => `+=${totalWidth + 2000}`, // Ample vertical room
+              end: () => `+=${totalWidth}`, // Exact distance for horizontal move
               invalidateOnRefresh: true,
               anticipatePin: 1,
             }
           });
 
-          // Horizontal Move (finishes at 80% of the timeline)
+          // Horizontal Move
           tl.to(gridRef.value, {
             x: -totalWidth,
-            ease: "none",
-            duration: 0.8
+            ease: "none"
           });
 
           // Progress bar syncs with the move
           if (progressRef.value) {
             tl.to(progressRef.value, {
               scaleX: 1,
-              ease: "none",
-              duration: 0.8
+              ease: "none"
             }, 0);
           }
-
-          // Buffer at the end: stays pinned and looking at the last card for 20% of the scroll
-          tl.to({}, { duration: 0.2 });
         });
       });
       ScrollTrigger.refresh();
@@ -147,7 +143,7 @@ onUnmounted(() => {
     display: flex;
     gap: 80px;
     padding: 0 15vw; 
-    padding-right: 50vw; 
+    padding-right: 40vw; // Reduced from 50vw to tighten the end
     width: max-content;
 
     @media (max-width: 1024px) {
