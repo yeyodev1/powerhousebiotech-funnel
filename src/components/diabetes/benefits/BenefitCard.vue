@@ -16,9 +16,7 @@ const props = defineProps({
     <div class="card-visual">
       <img :src="benefit.image" :alt="benefit.title" />
       <div class="icon-floating">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path :d="benefit.icon"></path>
-        </svg>
+        <i :class="[benefit.icon, 'benefit-icon']"></i>
       </div>
     </div>
     

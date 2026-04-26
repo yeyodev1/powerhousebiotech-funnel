@@ -15,9 +15,7 @@ const props = defineProps({
   <div class="step-card">
     <div class="step-num">ETAPA 0{{ index + 1 }}</div>
     <div class="step-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path :d="step.icon"></path>
-      </svg>
+      <i :class="[step.icon, 'system-icon']"></i>
     </div>
     <h3 class="step-title">{{ step.title }}</h3>
     <p class="step-desc">{{ step.description }}</p>

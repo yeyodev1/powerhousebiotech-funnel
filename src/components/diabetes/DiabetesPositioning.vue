@@ -19,11 +19,11 @@ const stats = [
 
           <div class="badge-row">
             <div class="cert-badge">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <i class="fa-solid fa-shield-halved badge-icon"></i>
               <span>Protocolo Certificado</span>
             </div>
             <div class="cert-badge">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+              <i class="fa-solid fa-vial-circle-check badge-icon"></i>
               <span>Base Científica</span>
             </div>
           </div>
@@ -37,8 +37,11 @@ const stats = [
             data-aos="fade-left" 
             :data-aos-delay="index * 200"
           >
-            <div class="stat-value">{{ stat.value }}</div>
-            <div class="stat-label">{{ stat.label }}</div>
+            <div class="stat-inner">
+              <div class="stat-value">{{ stat.value }}</div>
+              <div class="stat-label">{{ stat.label }}</div>
+            </div>
+            <div class="stat-bar"></div>
           </div>
         </div>
       </div>
@@ -52,21 +55,21 @@ const stats = [
   color: #05060f;
   position: relative;
   overflow: hidden;
-  padding: 120px 0;
+  padding: clamp(80px, 12vw, 160px) 0;
 
   &::before {
     content: '';
     position: absolute;
     top: 0;
     right: 0;
-    width: 50%;
+    width: 45%;
     height: 100%;
-    background: #f8f9fa;
+    background: #fcfdfe;
     z-index: 0;
-    
+
     @media (max-width: 1024px) {
       width: 100%;
-      height: 50%;
+      height: 40%;
       bottom: 0;
       top: auto;
     }
@@ -79,87 +82,153 @@ const stats = [
 
   .positioning-content {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 80px;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(40px, 8vw, 120px);
     align-items: center;
 
     @media (max-width: 1024px) {
       grid-template-columns: 1fr;
-      gap: 60px;
+      gap: 64px;
     }
   }
 
+  .text-side {
+    max-width: 650px;
+  }
+
   .title {
-    font-size: clamp(32px, 5vw, 64px);
-    font-weight: 800;
+    font-size: clamp(38px, 6vw, 72px);
+    font-weight: 900;
     margin-bottom: 32px;
-    letter-spacing: -0.04em;
-    line-height: 1.1;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: #05060f;
   }
 
   .description {
-    font-size: 22px;
-    line-height: 1.6;
-    color: rgba(5, 6, 15, 0.6);
-    margin-bottom: 48px;
+    font-size: clamp(18px, 2.2vw, 24px);
+    line-height: 1.5;
+    color: rgba(5, 6, 15, 0.7);
+    margin-bottom: 56px;
     font-weight: 300;
 
     strong {
       color: #05060f;
       font-weight: 700;
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        background: rgba(33, 188, 251, 0.1);
+        z-index: -1;
+      }
     }
   }
 
   .badge-row {
     display: flex;
-    gap: 24px;
+    gap: 20px;
     flex-wrap: wrap;
   }
 
   .cert-badge {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 24px;
-    background: #f0f4f8;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 700;
+    gap: 14px;
+    padding: 14px 28px;
+    background: #f8fafc;
+    border: 1px solid rgba(18, 120, 243, 0.05);
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 800;
     color: var(--phb-blue, #1278f3);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 
-    svg {
-      color: var(--phb-blue, #1278f3);
+    &:hover {
+      transform: translateY(-4px);
+      background: #ffffff;
+      box-shadow: 0 12px 24px rgba(18, 120, 243, 0.08);
+      border-color: rgba(18, 120, 243, 0.2);
+    }
+
+    .badge-icon {
+      font-size: 18px;
     }
   }
 
   .stats-side {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: clamp(32px, 5vw, 56px);
   }
 
   .stat-box {
-    text-align: left;
-    padding-left: 40px;
-    border-left: 4px solid #05060f;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+    transition: transform 0.4s ease;
+
+    &:hover {
+      transform: translateX(10px);
+
+      .stat-bar {
+        height: 100%;
+        background: var(--phb-blue, #1278f3);
+      }
+    }
+
+    .stat-inner {
+      flex: 1;
+    }
 
     .stat-value {
-      font-size: clamp(48px, 6vw, 84px);
-      font-weight: 900;
-      line-height: 1;
+      font-size: clamp(56px, 8vw, 110px);
+      font-weight: 950;
+      line-height: 0.9;
       color: #05060f;
-      margin-bottom: 8px;
-      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+      letter-spacing: -0.06em;
+      font-variant-numeric: tabular-nums;
     }
 
     .stat-label {
-      font-size: 14px;
+      font-size: clamp(12px, 1.5vw, 14px);
       color: rgba(5, 6, 15, 0.4);
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.3em;
+    }
+
+    .stat-bar {
+      width: 4px;
+      height: 60%;
+      background: rgba(5, 6, 15, 0.05);
+      border-radius: 100px;
+      transition: all 0.4s ease;
+      position: absolute;
+      left: -24px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .stat-box {
+    padding-left: 32px;
+
+    .stat-bar {
+      left: 0;
     }
   }
 }

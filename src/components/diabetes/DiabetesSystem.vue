@@ -19,22 +19,22 @@ const steps = [
   {
     title: "Evaluación del Terreno Biológico",
     description: "No miramos solo laboratorios. Evaluamos inflamación, estrés oxidativo y capacidad regenerativa real.",
-    icon: "M12 2v20M2 12h20"
+    icon: "fa-solid fa-microscope"
   },
   {
     title: "Priming Metabólico",
     description: "Preparamos el cuerpo para que sea capaz de recibir y procesar las terapias avanzadas.",
-    icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z"
+    icon: "fa-solid fa-flask-vial"
   },
   {
     title: "Intervención de Precisión",
     description: "Aplicamos el protocolo integral (IV, Nebulizado, Oral) diseñado específicamente para tu caso.",
-    icon: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+    icon: "fa-solid fa-dna"
   },
   {
     title: "Seguimiento Biológico",
     description: "Monitoreamos la respuesta de tus células y ajustamos el protocolo en tiempo real.",
-    icon: "M22 12h-4l-3 9L9 3l-3 9H2"
+    icon: "fa-solid fa-chart-line"
   }
 ];
 

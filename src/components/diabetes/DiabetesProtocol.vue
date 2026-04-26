@@ -14,21 +14,21 @@ const therapies = [
     title: "Vía Intravenosa (IV)",
     subtitle: "SISTÉMICA",
     desc: "Busca una acción sistémica profunda, orientada a modular la inflamación y potenciar la recuperación general a través del torrente sanguíneo.",
-    icon: "M12 2v20M2 12h20",
+    icon: "fa-solid fa-syringe",
     color: "#1278f3"
   },
   {
     title: "Vía Nebulizada",
     subtitle: "ABSORCIÓN RÁPIDA",
     desc: "Ruta complementaria de alta biodisponibilidad para un soporte metabólico directo, ideal para optimizar la oxigenación celular.",
-    icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+    icon: "fa-solid fa-lungs",
     color: "#21bcfa"
   },
   {
     title: "Vía Oral",
     subtitle: "CONTINUIDAD",
     desc: "Mantenimiento y soporte biológico constante para sostener los resultados en el tiempo y estabilizar el terreno metabólico.",
-    icon: "M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42",
+    icon: "fa-solid fa-capsules",
     color: "#18e7f0"
   }
 ];
@@ -114,9 +114,7 @@ onUnmounted(() => {
             <div class="therapy-content">
               <div class="therapy-header">
                 <div class="icon-box" :style="{ color: therapy.color }">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path :d="therapy.icon"></path>
-                  </svg>
+                  <i :class="[therapy.icon, 'therapy-icon']"></i>
                 </div>
                 <div class="meta">
                   <span class="subtitle" :style="{ color: therapy.color }">{{ therapy.subtitle }}</span>

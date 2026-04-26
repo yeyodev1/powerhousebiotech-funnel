@@ -14,19 +14,19 @@ const diffs = [
     title: "Criterio Clínico Superior",
     subtitle: "Precisión diagnóstica",
     desc: "No silenciamos síntomas. Resolvemos el desequilibrio biológico que los genera a través de una lectura profunda de tu terreno celular.",
-    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+    icon: "fa-solid fa-microscope"
   },
   {
     title: "Protocolo 360° Real",
     subtitle: "Intervención Multimodal",
     desc: "Cada cuerpo es único. Tu tratamiento integra vías IV, nebulizadas y orales diseñadas exclusivamente para tu firma biológica.",
-    icon: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+    icon: "fa-solid fa-arrows-spin"
   },
   {
     title: "Tecnología de Vanguardia",
     subtitle: "Ciencia Regenerativa",
     desc: "Utilizamos las terapias celulares y exosomales más avanzadas, con respaldo clínico internacional y protocolos de seguridad Grado A.",
-    icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a2 2 0 00-1.96 1.414l-.722 2.166a2 2 0 00.155 1.573l1.196 2.05a2 2 0 001.62.946h.542a2 2 0 001.62-.946l1.196-2.05a2 2 0 00.155-1.573l-.722-2.166z"
+    icon: "fa-solid fa-dna"
   }
 ];
 
@@ -94,9 +94,7 @@ const setCardRef = (el: any) => {
             <div class="card-inner">
               <div class="card-header">
                 <div class="card-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path :d="item.icon"></path>
-                  </svg>
+                  <i :class="[item.icon, 'diff-icon']"></i>
                 </div>
                 <div class="card-meta">
                   <span class="card-subtitle">{{ item.subtitle }}</span>

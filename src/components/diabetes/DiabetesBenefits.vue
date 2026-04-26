@@ -24,19 +24,19 @@ const benefitsList = [
   {
     title: "Claridad y Energía",
     desc: "Recupera la vitalidad que el desorden metabólico te había robado. Despierta con la mente despejada y el cuerpo listo para el día.",
-    icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
+    icon: "fa-solid fa-bolt-lightning",
     image: image2
   },
   {
     title: "Estabilidad Biológica",
     desc: "Un sistema que funciona en equilibrio, sin picos ni caídas drásticas. Seguridad interna en cada proceso fisiológico.",
-    icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+    icon: "fa-solid fa-shield-heart",
     image: image3
   },
   {
     title: "Libertad de Acción",
     desc: "Deja de vivir en función de tu condición y empieza a vivir en función de tus metas. El control real vuelve a tus manos.",
-    icon: "M12 2v20M2 12h20",
+    icon: "fa-solid fa-mountain-sun",
     image: image4
   }
 ];
