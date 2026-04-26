@@ -70,10 +70,6 @@ const setCardRef = (el: any) => {
       <div class="diff-layout">
         <!-- Sticky Left Content -->
         <div class="diff-content" data-aos="fade-right">
-          <div class="phb-line-title">
-            <span class="phb-line-title__line"></span>
-            DIFERENCIADOR CLAVE
-          </div>
           <h2 class="title">La diferencia está en el <span>criterio biológico.</span></h2>
           <p class="description">
             En un mundo saturado de soluciones genéricas, nosotros apostamos por la precisión molecular y la honestidad clínica.
@@ -146,23 +142,6 @@ const setCardRef = (el: any) => {
     @media (max-width: 1024px) {
       position: relative;
       top: 0;
-    }
-
-    .phb-line-title {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.3em;
-      color: #05060f;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 32px;
-
-      &__line {
-        width: 32px;
-        height: 2px;
-        background: #05060f;
-      }
     }
 
     .title {

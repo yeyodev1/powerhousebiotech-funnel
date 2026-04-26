@@ -5,10 +5,6 @@
 <template>
   <div class="container header-container">
     <div class="system-header" data-aos="fade-up">
-      <div class="phb-line-title">
-        <span class="phb-line-title__line"></span>
-        EL SISTEMA POWERHOUSE
-      </div>
       <h2 class="title">Evaluación en 4 Dimensiones</h2>
       <p class="subtitle">Un protocolo diseñado para la máxima precisión biológica.</p>
     </div>
@@ -39,24 +35,6 @@
     max-width: 600px;
     margin: 0 auto;
   }
-
-  .phb-line-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--phb-cyan, #21bcfa);
-    margin-bottom: 24px;
-
-    &__line {
-      display: block;
-      width: 32px;
-      height: 1.5px;
-      background: var(--phb-cyan, #21bcfa);
     }
   }
 }

@@ -20,10 +20,6 @@ const notItems = [
       <div class="target-grid">
         <!-- Left Side: For Who -->
         <div class="target-left" data-aos="fade-right">
-          <div class="phb-line-title">
-            <span class="phb-line-title__line"></span>
-            PERFIL DEL PACIENTE
-          </div>
           <h2 class="section-title">Este proceso es para personas que:</h2>
           
           <ul class="check-list">

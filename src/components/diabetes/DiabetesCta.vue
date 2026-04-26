@@ -19,10 +19,6 @@ const handleWhatsappClick = () => {
 
     <div class="container">
       <div class="cta-card" data-aos="zoom-in">
-        <div class="phb-line-title">
-          <span class="phb-line-title__line"></span>
-          PASO FINAL
-        </div>
         
         <h2 class="cta-title">¿Estás listo para dejar de controlar y empezar a resolver?</h2>
         
@@ -86,25 +82,6 @@ const handleWhatsappClick = () => {
   @keyframes pulse {
     0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
     100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
-  }
-
-  .phb-line-title {
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 24px;
-    color: var(--phb-cyan, #21bcfa);
-
-    &__line {
-      width: 40px;
-      height: 2px;
-      background: var(--phb-cyan, #21bcfa);
-    }
   }
 
   .cta-card {

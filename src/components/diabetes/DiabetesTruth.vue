@@ -18,10 +18,6 @@ const factors = [
   <section class="diabetes-truth">
     <div class="container">
       <div class="truth-header" data-aos="fade-up">
-        <div class="phb-line-title">
-          <span class="phb-line-title__line"></span>
-          LA REALIDAD BIOLÓGICA
-        </div>
         <h2 class="title">La diabetes no es solo un número alto.</h2>
         <p class="subtitle">Es el resultado de un sistema que lleva tiempo deteriorándose:</p>
       </div>

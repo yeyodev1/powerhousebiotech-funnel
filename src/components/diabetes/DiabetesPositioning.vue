@@ -11,10 +11,6 @@ const stats = [
     <div class="container">
       <div class="positioning-content">
         <div class="text-side" data-aos="fade-right">
-          <div class="phb-line-title">
-            <span class="phb-line-title__line"></span>
-            AUTORIDAD Y EXPERIENCIA
-          </div>
           <h2 class="title">No experimentamos con tu salud.</h2>
           <p class="description">
             Hemos perfeccionado un protocolo que combina la ciencia de vanguardia con la experiencia de miles de casos reales. 

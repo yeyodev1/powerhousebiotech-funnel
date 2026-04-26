@@ -6,10 +6,6 @@
   <section class="diabetes-secret">
     <div class="container">
       <div class="secret-card" data-aos="zoom-in-up">
-        <div class="phb-line-title">
-          <span class="phb-line-title__line"></span>
-          EL SECRETO CLÍNICO
-        </div>
         
         <h2 class="secret-title">El mayor error no es la diabetes...</h2>
         
@@ -42,25 +38,6 @@
 .diabetes-secret {
   background: transparent;
   padding: 100px 0;
-
-  .phb-line-title {
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 24px;
-    color: var(--phb-cyan, #21bcfa);
-
-    &__line {
-      width: 40px;
-      height: 2px;
-      background: var(--phb-cyan, #21bcfa);
-    }
-  }
 
   .secret-card {
     background: rgba(255, 255, 255, 0.02);

@@ -9,8 +9,7 @@ const heroCtas = ref<HTMLElement | null>(null);
 onMounted(() => {
   const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.4 } });
 
-  tl.from('.hero-badge', { opacity: 0, y: 30, duration: 1 }, 0.4)
-    .from(heroTitle.value, { opacity: 0, y: 50, stagger: 0.2 }, '-=0.8')
+  tl.from(heroTitle.value, { opacity: 0, y: 50, stagger: 0.2 }, '-=0.8')
     .from(heroSubtitle.value, { opacity: 0, y: 30 }, '-=1')
     .from('.hero-box', { opacity: 0, x: -30, duration: 1.2 }, '-=0.8')
     .from(heroCtas.value, { opacity: 0, y: 30 }, '-=1')
@@ -66,9 +65,6 @@ const handleWhatsappClick = () => {
     
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge">
-          <span>LANDING PREMIUM — REGENERATIVE MEDICINE</span>
-        </div>
         
         <h1 ref="heroTitle" class="hero-title">
           Medicina Regenerativa con criterio, 
@@ -160,23 +156,6 @@ const handleWhatsappClick = () => {
     z-index: 2;
   }
 
-  .hero-badge {
-    display: inline-block;
-    padding: 8px 20px;
-    background: rgba(33, 188, 251, 0.08);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(33, 188, 251, 0.2);
-    border-radius: 100px;
-    margin-bottom: 32px;
-
-    span {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.2em;
-      color: var(--phb-cyan, #21bcfa);
-      text-transform: uppercase;
-    }
-  }
 
   .hero-title {
     font-size: clamp(44px, 7vw, 84px);

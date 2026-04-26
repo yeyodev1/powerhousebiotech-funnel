@@ -84,10 +84,6 @@ onUnmounted(() => {
         <!-- Sidebar -->
         <div ref="sidebarRef" class="protocol-sidebar">
           <div class="sidebar-content">
-            <div class="phb-line-title">
-              <span class="phb-line-title__line"></span>
-              EL PROTOCOLO INTEGRAL
-            </div>
             <h2 class="title">Abordaje en 3 Vías de Acceso</h2>
             <p class="description">
               No creemos en soluciones de una sola vía. La complejidad de la diabetes requiere un abordaje multifactorial, preciso y sostenido.
@@ -169,22 +165,6 @@ onUnmounted(() => {
       position: relative;
     }
 
-    .phb-line-title {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.3em;
-      color: #05060f;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 32px;
-
-      &__line {
-        width: 32px;
-        height: 2px;
-        background: #05060f;
-      }
-    }
 
     .title {
       font-size: clamp(32px, 5vw, 56px);
