@@ -8,7 +8,7 @@ const heroCtas = ref<HTMLElement | null>(null);
 
 onMounted(() => {
   const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.4 } });
-  
+
   tl.from('.hero-badge', { opacity: 0, y: 30, duration: 1 }, 0.4)
     .from(heroTitle.value, { opacity: 0, y: 50, stagger: 0.2 }, '-=0.8')
     .from(heroSubtitle.value, { opacity: 0, y: 30 }, '-=1')
@@ -61,7 +61,7 @@ const handleWhatsappClick = () => {
         <source src="https://icdlabs.in/immune-internal/wp-content/themes/immuneel/assets/videos/DNA.mp4" type="video/mp4" />
       </video>
       <div class="hero-visual-overlay"></div>
-      <div class="hero-bg-text">diabetes</div>
+      <!-- <div class="hero-bg-text">diabetes</div> -->
     </div>
     
     <div class="container">
@@ -223,7 +223,9 @@ const handleWhatsappClick = () => {
       color: rgba(255, 255, 255, 0.6);
       font-weight: 300;
 
-      &:last-child { margin-bottom: 0; }
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     .highlight {

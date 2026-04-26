@@ -58,9 +58,13 @@ const props = defineProps({
   }
 
   .card-visual {
-    height: 300px;
+    height: 220px;
     position: relative;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+      height: 180px;
+    }
 
     img {
       width: 100%;
@@ -86,32 +90,44 @@ const props = defineProps({
   }
 
   .card-body {
-    padding: 48px;
+    padding: 32px;
+
+    @media (max-width: 768px) {
+      padding: 24px;
+    }
 
     .benefit-number {
       display: block;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 900;
       color: var(--phb-cyan, #21bcfa);
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       letter-spacing: 0.2em;
       opacity: 0.6;
     }
 
     .benefit-title {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 800;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       line-height: 1.1;
       color: #ffffff;
+
+      @media (max-width: 768px) {
+        font-size: 24px;
+      }
     }
 
     .benefit-desc {
-      font-size: 17px;
-      line-height: 1.6;
+      font-size: 16px;
+      line-height: 1.5;
       color: rgba(255, 255, 255, 0.5);
       font-weight: 300;
-      margin-bottom: 40px;
+      margin-bottom: 24px;
+
+      @media (max-width: 768px) {
+        font-size: 15px;
+      }
     }
 
     .card-link {

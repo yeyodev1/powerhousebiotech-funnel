@@ -117,11 +117,16 @@ onUnmounted(() => {
   color: #ffffff;
   position: relative;
   overflow: hidden;
-  padding: 100px 0;
+  padding: 60px 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: 1024px) {
+    justify-content: flex-start;
+    padding: 40px 0;
+  }
   z-index: 10;
 
   .ambient-bg {

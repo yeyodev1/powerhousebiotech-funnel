@@ -31,16 +31,16 @@ const props = defineProps({
 .benefits-header-wrapper {
   position: relative;
   z-index: 10;
-  margin-bottom: 80px;
-  padding: 120px 0 60px;
+  margin-bottom: 40px;
+  padding: 60px 0 30px;
   overflow: hidden;
   border-radius: 60px;
-  margin: 0 40px 80px;
+  margin: 0 40px 40px;
 
   @media (max-width: 768px) {
-    margin: 0 20px 60px;
-    padding: 80px 0 40px;
-    border-radius: 40px;
+    margin: 0 20px 30px;
+    padding: 40px 0 20px;
+    border-radius: 30px;
   }
 }
 
