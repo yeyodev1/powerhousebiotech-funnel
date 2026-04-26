@@ -1,9 +1,20 @@
 <script setup lang="ts">
-// Presentational component
+const props = defineProps({
+  image: {
+    type: String,
+    required: false,
+    default: '',
+  },
+});
 </script>
 
 <template>
   <div class="benefits-header-wrapper">
+    <div v-if="image" class="header-bg">
+      <img :src="image" alt="Benefits Background" />
+      <div class="overlay"></div>
+    </div>
+    
     <div class="container">
       <div class="benefits-header" data-aos="fade-up">
         <div class="phb-line-title">
@@ -20,7 +31,41 @@
 .benefits-header-wrapper {
   position: relative;
   z-index: 10;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
+  padding: 120px 0 60px;
+  overflow: hidden;
+  border-radius: 60px;
+  margin: 0 40px 80px;
+
+  @media (max-width: 768px) {
+    margin: 0 20px 60px;
+    padding: 80px 0 40px;
+    border-radius: 40px;
+  }
+}
+
+.header-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6) saturate(1.2);
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      #05060f 0%,
+      rgba(5, 6, 15, 0.4) 50%,
+      #05060f 100%
+    );
+  }
 }
 
 .phb-line-title {
@@ -44,12 +89,16 @@
 
 .benefits-header {
   text-align: center;
+  position: relative;
+  z-index: 1;
+
   .title {
     font-size: clamp(32px, 6vw, 72px);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.04em;
     color: #ffffff;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 }
 </style>

@@ -3,6 +3,12 @@ import { onMounted, ref, onUnmounted, nextTick } from 'vue';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+// Assets
+import image1 from '@/assets/stock/diabetes/image-1.jpeg';
+import image2 from '@/assets/stock/diabetes/image-2.jpeg';
+import image3 from '@/assets/stock/diabetes/image-3.jpeg';
+import image4 from '@/assets/stock/diabetes/image-4.jpeg';
+
 // Sub-components
 import BenefitHeader from './benefits/BenefitHeader.vue';
 import BenefitCard from './benefits/BenefitCard.vue';
@@ -19,19 +25,19 @@ const benefitsList = [
     title: "Claridad y Energía",
     desc: "Recupera la vitalidad que el desorden metabólico te había robado. Despierta con la mente despejada y el cuerpo listo para el día.",
     icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
-    image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&q=80&w=800"
+    image: image2
   },
   {
     title: "Estabilidad Biológica",
     desc: "Un sistema que funciona en equilibrio, sin picos ni caídas drásticas. Seguridad interna en cada proceso fisiológico.",
     icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
-    image: "https://images.unsplash.com/photo-1505751172676-4e922123062c?auto=format&fit=crop&q=80&w=800"
+    image: image3
   },
   {
     title: "Libertad de Acción",
     desc: "Deja de vivir en función de tu condición y empieza a vivir en función de tus metas. El control real vuelve a tus manos.",
     icon: "M12 2v20M2 12h20",
-    image: "https://images.unsplash.com/photo-1444491741275-3747c53c99b4?auto=format&fit=crop&q=80&w=800"
+    image: image4
   }
 ];
 
@@ -87,7 +93,7 @@ onUnmounted(() => {
       <div class="glow glow-2"></div>
     </div>
 
-    <BenefitHeader />
+    <BenefitHeader :image="image1" />
 
     <div class="horizontal-overflow">
       <div ref="containerRef" class="benefits-horizontal-grid">
