@@ -25,7 +25,7 @@ const notItems = [
           <ul class="check-list">
             <li v-for="(item, index) in items" :key="index" data-aos="fade-up" :data-aos-delay="index * 100">
               <div class="icon-wrapper">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <i class="fa-solid fa-check"></i>
               </div>
               <p>{{ item }}</p>
             </li>
@@ -37,20 +37,22 @@ const notItems = [
           <div class="negative-glass">
             <div class="negative-header">
               <div class="alert-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <i class="fa-solid fa-triangle-exclamation"></i>
               </div>
               <h3 class="card-title">Este NO es un proceso para todos</h3>
             </div>
             
             <ul class="cross-list">
               <li v-for="(item, index) in notItems" :key="index" data-aos="fade-up" :data-aos-delay="index * 100">
-                <span class="cross-icon">✕</span>
+                <span class="cross-icon">
+                  <i class="fa-solid fa-xmark"></i>
+                </span>
                 <p>{{ item }}</p>
               </li>
             </ul>
 
             <div class="negative-footer">
-              <p>Buscamos pacientes comprometidos con su salud, no solo con sus síntomas.</p>
+              <p>Buscamos pacientes comprometidos con su salud, <br><span>no solo con sus síntomas.</span></p>
             </div>
           </div>
         </div>
@@ -63,11 +65,12 @@ const notItems = [
 .diabetes-target {
   background: transparent;
   position: relative;
+  padding: clamp(60px, 8vw, 120px) 0;
 
   .target-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 100px;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
     align-items: center;
 
     @media (max-width: 1024px) {
@@ -77,12 +80,12 @@ const notItems = [
   }
 
   .section-title {
-    font-size: clamp(32px, 5vw, 56px);
-    font-weight: 800;
-    margin-bottom: 56px;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 850;
+    margin-bottom: 48px;
     line-height: 1.1;
     color: #ffffff;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
   }
 
   .check-list {
@@ -90,22 +93,22 @@ const notItems = [
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
 
     li {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       align-items: center;
       padding: 1.25rem 1.75rem;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      transition: all 0.4s ease;
+      border-radius: 24px;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 
       &:hover {
-        background: rgba(255, 255, 255, 0.04);
-        border-color: rgba(33, 188, 251, 0.3);
-        transform: translateX(12px);
+        background: rgba(33, 188, 251, 0.05);
+        border-color: rgba(33, 188, 251, 0.2);
+        transform: translateX(10px);
       }
 
       .icon-wrapper {
@@ -118,47 +121,52 @@ const notItems = [
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 14px;
       }
 
       p {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         line-height: 1.4;
-        color: rgba(255, 255, 255, 0.9);
+        color: rgba(255, 255, 255, 0.8);
         font-weight: 300;
       }
     }
   }
 
   .negative-glass {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #0c1445;
+    border: 1px solid rgba(33, 188, 251, 0.1);
     padding: clamp(40px, 8vw, 80px);
-    border-radius: 48px;
+    border-radius: 56px;
     position: relative;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5),
+                inset 0 0 30px rgba(33, 188, 251, 0.03);
+    text-align: center;
 
     .negative-header {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 20px;
-      margin-bottom: 40px;
+      gap: 24px;
+      margin-bottom: 48px;
 
       .alert-icon {
         color: #ff4d4d;
         background: rgba(255, 77, 77, 0.1);
-        width: 56px;
-        height: 56px;
+        width: 64px;
+        height: 64px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 16px;
+        border-radius: 20px;
+        font-size: 24px;
       }
 
       .card-title {
-        font-size: 28px;
+        font-size: clamp(24px, 3vw, 32px);
         font-weight: 800;
         color: #ffffff;
+        letter-spacing: -0.02em;
       }
     }
   }
@@ -168,8 +176,11 @@ const notItems = [
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-bottom: 40px;
+    gap: 24px;
+    margin-bottom: 56px;
+    text-align: left;
+    max-width: 440px;
+    margin-inline: auto;
 
     li {
       display: flex;
@@ -179,14 +190,14 @@ const notItems = [
       .cross-icon {
         flex-shrink: 0;
         color: #ff4d4d;
-        font-weight: 900;
-        font-size: 18px;
+        font-size: 16px;
+        margin-top: 4px;
       }
 
       p {
         font-size: 1.1rem;
         line-height: 1.5;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.4);
         font-weight: 300;
       }
     }
@@ -194,12 +205,21 @@ const notItems = [
 
   .negative-footer {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 32px;
+    padding-top: 40px;
+    
     p {
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.3);
-      font-style: italic;
-      line-height: 1.6;
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.4;
+      font-weight: 300;
+
+      span {
+        display: block;
+        color: #ff4d4d;
+        font-weight: 800;
+        font-style: italic;
+        margin-top: 4px;
+      }
     }
   }
 }

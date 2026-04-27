@@ -91,11 +91,11 @@ const handleWhatsappClick = () => {
     max-width: 900px;
     margin: 0 auto;
     padding: clamp(40px, 8vw, 100px);
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 64px;
-    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6);
+    background: #0c1445;
+    border: 1px solid rgba(33, 188, 251, 0.1);
+    border-radius: 56px;
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6),
+                inset 0 0 40px rgba(33, 188, 251, 0.05);
   }
 
   .cta-title {

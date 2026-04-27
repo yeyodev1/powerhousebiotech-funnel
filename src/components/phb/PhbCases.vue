@@ -279,14 +279,15 @@ onMounted(() => {
     width: 85vw;
     max-width: 900px;
     height: 100%;
-    background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: #0c1445;
+    border: 1px solid rgba(33, 188, 251, 0.1);
     border-radius: 48px;
     position: relative;
     overflow: hidden;
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.05);
-    color: #1a1823;
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.4),
+                inset 0 0 40px rgba(33, 188, 251, 0.05);
+    color: #ffffff;
 
     @media (min-width: 1024px) {
       width: 50vw;
@@ -294,9 +295,8 @@ onMounted(() => {
 
     &:hover {
       border-color: rgba(33, 188, 251, 0.3);
-      background: #ffffff;
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.08);
       transform: translateY(-5px);
+      box-shadow: 0 60px 140px rgba(0, 0, 0, 0.5);
 
       .phb-case-card__glow {
         opacity: 0.15;
@@ -304,24 +304,20 @@ onMounted(() => {
     }
 
     &.is-rejected {
-      background: #f1f3f5;
-      border-color: rgba(0, 0, 0, 0.05);
+      background: #111435;
+      opacity: 0.8;
 
       .phb-case-card__tag {
-        color: rgba(0, 0, 0, 0.7);
-        background: rgba(0, 0, 0, 0.05);
-        border-color: rgba(0, 0, 0, 0.1);
-      }
-
-      .phb-case-card__mesh {
-        display: none;
+        color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
       }
     }
 
     &__mesh {
       position: absolute;
       inset: 0;
-      opacity: 0.4;
+      opacity: 0.25;
       background: radial-gradient(at 20% 20%, rgba(23, 24, 70, 0.8) 0%, transparent 80%),
         radial-gradient(at 80% 15%, rgba(33, 188, 251, 0.15) 0%, transparent 65%),
         radial-gradient(at 85% 85%, rgba(18, 120, 243, 0.15) 0%, transparent 70%),
@@ -351,7 +347,7 @@ onMounted(() => {
       z-index: 1;
 
       @media (max-width: 768px) {
-        padding: 1rem 1rem 0.5rem;
+        padding: 1.5rem 1.5rem 1rem;
       }
     }
 
@@ -375,12 +371,12 @@ onMounted(() => {
     }
 
     &__tag {
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-size: 0.7rem;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.15em;
       color: var(--phb-cyan, #21bcfa);
-      background: rgba(33, 188, 250, 0.1);
+      background: rgba(33, 188, 250, 0.08);
       padding: 0.6rem 1.2rem;
       border-radius: 100px;
       border: 1px solid rgba(33, 188, 250, 0.15);
@@ -390,12 +386,12 @@ onMounted(() => {
       font-size: clamp(2rem, 4vw, 3.5rem);
       font-weight: 300;
       margin-bottom: 2rem;
-      color: #1a1823;
+      color: #ffffff;
       letter-spacing: -0.02em;
 
       @media (max-width: 768px) {
-        font-size: 1.35rem;
-        margin-bottom: 0.25rem;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
       }
     }
 
@@ -405,23 +401,23 @@ onMounted(() => {
       gap: 3rem;
 
       @media (max-width: 768px) {
-        gap: 0.5rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
       }
     }
 
     &__info-label {
       display: block;
       font-size: 0.7rem;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       color: var(--phb-cyan, #21bcfa);
-      opacity: 0.6;
+      opacity: 0.8;
       margin-bottom: 1.2rem;
 
       @media (max-width: 768px) {
-        margin-bottom: 0.2rem;
-        font-size: 0.6rem;
+        margin-bottom: 0.4rem;
       }
     }
 
@@ -429,36 +425,31 @@ onMounted(() => {
       font-size: 1.05rem;
       line-height: 1.6;
       font-weight: 300;
-      color: rgba(0, 0, 0, 0.7);
+      color: rgba(255, 255, 255, 0.7);
       margin: 0;
 
       @media (max-width: 768px) {
-        font-size: 0.85rem;
-        line-height: 1.4;
+        font-size: 0.95rem;
       }
     }
 
     &__result {
       margin-top: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
 
       @media (max-width: 768px) {
-        margin-top: 0.5rem;
-        padding-top: 0.5rem;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
       }
 
       &.is-rejected {
         .phb-case-card__info-label {
-          color: rgba(0, 0, 0, 0.3);
+          color: rgba(255, 255, 255, 0.3);
         }
 
         .phb-case-card__bullet-list li {
-          color: rgba(0, 0, 0, 0.5);
-        }
-
-        .fa-xmark {
-          color: rgba(0, 0, 0, 0.2) !important;
+          color: rgba(255, 255, 255, 0.4);
         }
       }
     }
@@ -473,16 +464,14 @@ onMounted(() => {
 
       li {
         font-size: 1.05rem;
-        color: rgba(0, 0, 0, 0.7);
+        color: rgba(255, 255, 255, 0.8);
         display: flex;
         align-items: flex-start;
         gap: 0.8rem;
         margin-bottom: 0.6rem;
 
         @media (max-width: 768px) {
-          font-size: 0.85rem;
-          margin-bottom: 0.3rem;
-          gap: 0.5rem;
+          font-size: 0.95rem;
         }
 
         i {

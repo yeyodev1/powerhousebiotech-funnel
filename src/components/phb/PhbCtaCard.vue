@@ -34,14 +34,16 @@ const { t } = useLocale()
 
 <style lang="scss" scoped>
 .phb-cta-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: #0c1445;
+  border: 1px solid rgba(33, 188, 251, 0.1);
   padding: 4rem 3.5rem;
-  border-radius: 40px;
+  border-radius: 56px;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4),
+              inset 0 0 40px rgba(33, 188, 251, 0.05);
+  color: #ffffff;
 
   &__badge {
     display: inline-block;
@@ -59,7 +61,7 @@ const { t } = useLocale()
 
   &__desc {
     font-size: 1.35rem;
-    color: #1a1823;
+    color: #ffffff;
     line-height: 1.4;
     font-weight: 300;
 
@@ -79,7 +81,7 @@ const { t } = useLocale()
     display: flex;
     gap: 1.2rem;
     font-size: 1.15rem;
-    color: rgba(0, 0, 0, 0.7);
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 300;
   }
 
@@ -98,8 +100,8 @@ const { t } = useLocale()
     display: block;
     width: 100%;
     padding: 1.5rem 2rem;
-    background: #1a1823;
-    color: #ffffff;
+    background: #ffffff;
+    color: #0c1445;
     text-align: center;
     text-decoration: none;
     font-size: 0.9rem;
@@ -108,7 +110,7 @@ const { t } = useLocale()
     text-transform: uppercase;
     border-radius: 100px;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
 
     &:hover {
       background: var(--phb-cyan, #21bcfa);
@@ -123,14 +125,14 @@ const { t } = useLocale()
     width: 100%;
     padding: 1.4rem 2rem;
     background: transparent;
-    color: #1a1823;
+    color: #ffffff;
     text-align: center;
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 100px;
     transition: all 0.3s ease;
 
@@ -142,7 +144,7 @@ const { t } = useLocale()
 
   &__microcopy {
     font-size: 1rem;
-    color: rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.4);
     line-height: 1.5;
     text-align: center;
     font-weight: 300;

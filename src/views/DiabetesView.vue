@@ -18,6 +18,7 @@ import DiabetesSecret from '@/components/diabetes/DiabetesSecret.vue'
 import DiabetesPositioning from '@/components/diabetes/DiabetesPositioning.vue'
 import DiabetesSystem from '@/components/diabetes/DiabetesSystem.vue'
 import DiabetesProtocol from '@/components/diabetes/DiabetesProtocol.vue'
+import DiabetesCases from '@/components/diabetes/DiabetesCases.vue'
 import DiabetesBenefits from '@/components/diabetes/DiabetesBenefits.vue'
 import DiabetesDifferentiator from '@/components/diabetes/DiabetesDifferentiator.vue'
 import DiabetesCta from '@/components/diabetes/DiabetesCta.vue'
@@ -77,6 +78,7 @@ onUnmounted(() => {
       <DiabetesPositioning />
       <DiabetesSystem />
       <DiabetesProtocol />
+      <DiabetesCases />
       <DiabetesBenefits />
       <DiabetesDifferentiator />
       <DiabetesCta />

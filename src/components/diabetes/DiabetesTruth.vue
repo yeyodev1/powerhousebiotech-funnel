@@ -179,11 +179,12 @@ const factors = [
   }
 
   .signals-box {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: #0c1445;
+    border: 1px solid rgba(33, 188, 251, 0.1);
     padding: clamp(30px, 6vw, 60px);
     border-radius: 40px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4),
+                inset 0 0 40px rgba(33, 188, 251, 0.05);
 
     .signals-title {
       font-size: 24px;
