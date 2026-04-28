@@ -4,6 +4,7 @@ import { useLocale } from '@/composables/useLocale'
 // We avoid internal GSAP for initial states to ensure components are visible by default
 // and rely on the global AOS initialization in PhbHomeView.
 const { t } = useLocale()
+import PhbPrimaryBtn from '../phb/PhbPrimaryBtn.vue'
 </script>
 
 <template>
@@ -60,6 +61,10 @@ const { t } = useLocale()
             </p>
           </div>
 
+        </div>
+
+        <div class="sha-discover__cta-wrapper">
+          <PhbPrimaryBtn text="Quiero evaluar mi caso" theme="dark" />
         </div>
       </div>
     </div>
@@ -224,6 +229,19 @@ const { t } = useLocale()
       line-height: 1.6;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       padding-top: 1.5rem;
+    }
+  }
+
+  &__cta-wrapper {
+    margin-top: 3.5rem;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 3.5rem;
+
+    @media (max-width: 1024px) {
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
     }
   }
 }

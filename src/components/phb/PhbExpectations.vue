@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLocale } from '@/composables/useLocale'
+import PhbPrimaryBtn from './PhbPrimaryBtn.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -115,6 +116,10 @@ onMounted(() => {
           </div>
 
           <p class="phb-expect__evr-footer">{{ t.expectations.evr.footer }}</p>
+
+          <div class="phb-expect__cta-wrapper">
+            <PhbPrimaryBtn text="Quiero evaluar mi caso" theme="light" />
+          </div>
         </div>
       </div>
 
@@ -333,6 +338,12 @@ onMounted(() => {
       font-style: italic;
       color: rgba(255, 255, 255, 0.5);
     }
+  }
+
+  &__cta-wrapper {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

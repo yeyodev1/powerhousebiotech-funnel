@@ -31,10 +31,9 @@
             </li>
           </ul>
 
-          <router-link to="/cualificar" class="phb-btn">
-            {{ t.about.cta }}
-            <svg viewBox="0 0 20 20" fill="none" class="phb-btn__arrow"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </router-link>
+          <div class="phb-about__cta-wrapper">
+            <PhbPrimaryBtn :text="t.about.cta" theme="dark" />
+          </div>
         </div>
       </div>
 
@@ -55,6 +54,7 @@ import { computed } from 'vue'
 import { useLocale } from '@/composables/useLocale'
 import platformEs from '@/assets/stock/image-spanish.jpeg'
 import platformEn from '@/assets/stock/image-english.jpeg'
+import PhbPrimaryBtn from './PhbPrimaryBtn.vue'
 
 const { locale, t } = useLocale()
 
@@ -195,30 +195,8 @@ const platformImg = computed(() => locale.value === 'es' ? platformEs : platform
   }
 }
 
-.phb-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--phb-font);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--phb-cyan, #21bcfa);
-  text-decoration: none;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(33, 188, 251, 0.3);
-  transition: gap 0.2s, opacity 0.2s;
-
-  &:hover {
-    gap: 16px;
-  }
-
-  &__arrow {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-  }
+.phb-about__cta-wrapper {
+  margin-top: 1.5rem;
 }
 
 /* Mockup Styles */
