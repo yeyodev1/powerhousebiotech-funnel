@@ -42,28 +42,29 @@ const { t } = useLocale()
   flex-direction: column;
   gap: 2.5rem;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4),
-              inset 0 0 40px rgba(33, 188, 251, 0.05);
+    inset 0 0 40px rgba(33, 188, 251, 0.05);
   color: #ffffff;
 
   &__badge {
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     font-weight: 800;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--phb-cyan, #21bcfa);
     border: 1px solid rgba(33, 188, 251, 0.3);
-    padding: 0.6rem 1.5rem;
+    padding: 0.8rem 1.8rem;
     width: fit-content;
     border-radius: 100px;
     background: rgba(33, 188, 251, 0.05);
   }
 
   &__desc {
-    font-size: 1.35rem;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
     color: #ffffff;
-    line-height: 1.4;
+    line-height: 1.3;
     font-weight: 300;
+    text-align: center;
 
     :deep(strong) {
       font-weight: 700;
@@ -80,7 +81,7 @@ const { t } = useLocale()
   &__benefit {
     display: flex;
     gap: 1.2rem;
-    font-size: 1.15rem;
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
     color: rgba(255, 255, 255, 0.7);
     font-weight: 300;
   }
@@ -104,7 +105,7 @@ const { t } = useLocale()
     color: #0c1445;
     text-align: center;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     font-weight: 900;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -128,7 +129,7 @@ const { t } = useLocale()
     color: #ffffff;
     text-align: center;
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -143,7 +144,7 @@ const { t } = useLocale()
   }
 
   &__microcopy {
-    font-size: 1rem;
+    font-size: 1.15rem;
     color: rgba(255, 255, 255, 0.4);
     line-height: 1.5;
     text-align: center;
