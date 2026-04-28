@@ -201,12 +201,22 @@ onMounted(() => {
   }
 
   .hero-disclaimer {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.3);
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 56px;
     font-style: italic;
     max-width: 600px;
     line-height: 1.6;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-weight: 500;
+
+    &:hover {
+      color: #ffffff;
+      text-decoration-color: var(--phb-cyan, #21bcfa);
+    }
   }
 
   .hero-actions {
