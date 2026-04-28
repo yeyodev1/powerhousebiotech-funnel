@@ -1,11 +1,23 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import gsap from 'gsap'
 import { useLocale } from '@/composables/useLocale'
 
 const { t } = useLocale()
+const router = useRouter()
+const bgVideo = ref<HTMLVideoElement | null>(null)
+
+const goToQualify = () => {
+  router.push('/cualificar')
+}
 
 onMounted(() => {
+  // Force Safari to play video
+  if (bgVideo.value) {
+    bgVideo.value.play().catch(e => console.warn('Video autoplay:', e))
+  }
+
   const tl = gsap.timeline()
 
   tl.fromTo('.phb-hero__title',
@@ -61,10 +73,12 @@ onMounted(() => {
     <!-- DNA Background Video -->
     <div class="phb-hero__bg-container">
       <video 
+        ref="bgVideo"
         autoplay 
         muted 
         loop 
         playsinline 
+        webkit-playsinline
         class="phb-hero__bg-video"
       >
         <source src="https://icdlabs.in/immune-internal/wp-content/themes/immuneel/assets/videos/DNA.mp4" type="video/mp4" />
@@ -93,8 +107,8 @@ onMounted(() => {
         </ul>
         
         <div class="phb-hero__cta-wrapper">
-          <router-link to="/cualificar" class="phb-hero__cta-btn">{{ t.hero.cta }}</router-link>
-          <p class="phb-hero__cta-sub">{{ t.hero.disclaimer }}</p>
+          <button type="button" @click="goToQualify" class="phb-hero__cta-btn">{{ t.hero.cta }}</button>
+          <p @click="goToQualify" class="phb-hero__cta-sub">{{ t.hero.disclaimer }}</p>
         </div>
       </div>
     </div>
