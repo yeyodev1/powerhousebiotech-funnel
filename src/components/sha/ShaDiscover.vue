@@ -30,7 +30,7 @@ const { t } = useLocale()
               {{ t.discover.title }}
             </h2>
             <div class="sha-discover__footer-desktop">
-              <div class="sha-discover__divider"></div>
+              <!-- <div class="sha-discover__divider"></div> -->
               <p class="sha-discover__footer-text">
                 {{ t.discover.footer }}
               </p>
@@ -206,7 +206,7 @@ const { t } = useLocale()
     font-size: 0.95rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.4);
-    font-weight: 300;
+    font-weight: bold;
     font-style: italic;
     max-width: 400px;
   }
@@ -219,6 +219,7 @@ const { t } = useLocale()
       margin-top: 2rem;
       font-size: 0.9rem;
       color: rgba(255, 255, 255, 0.3);
+      font-weight: bold;
       font-style: italic;
       line-height: 1.6;
       border-top: 1px solid rgba(255, 255, 255, 0.05);

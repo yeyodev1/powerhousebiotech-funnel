@@ -182,7 +182,9 @@ const discovers = [
   color: var(--phb-text);
   line-height: 1.6;
 
-  strong { font-weight: 600; }
+  strong {
+    font-weight: 600;
+  }
 }
 
 .phb-solution__alert-icon {
@@ -270,6 +272,7 @@ const discovers = [
   color: var(--phb-muted);
   line-height: 1.5;
   text-align: center;
+  font-weight: bold;
 }
 
 .phb-solution__image {
@@ -283,10 +286,14 @@ const discovers = [
     transition: transform 0.5s;
   }
 
-  &:hover img { transform: scale(1.03); }
+  &:hover img {
+    transform: scale(1.03);
+  }
 }
 
 @media (max-width: 900px) {
-  .phb-solution__grid { grid-template-columns: 1fr; }
+  .phb-solution__grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

@@ -68,10 +68,10 @@ onUnmounted(() => {
     <!-- New SHA-inspired sections -->
     <ShaKpiSection />
     <ShaDiscover />
+    <PhbCtaTransition />
     <PhbTeam />
     <PhbCases />
     <!-- End new sections -->
-    <!-- <PhbCtaTransition /> -->
     <PhbCta />
     <PhbFooter />
   </div>

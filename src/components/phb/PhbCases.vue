@@ -550,10 +550,16 @@ onMounted(() => {
     border: none;
     display: flex;
     align-items: center;
+    justify-content: center;
     backdrop-filter: none;
 
     &__inner {
-      max-width: 600px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
     &__title {
@@ -565,14 +571,16 @@ onMounted(() => {
     }
 
     &__desc {
-      font-size: 1.4rem;
-      line-height: 1.8;
-      color: rgba(0, 0, 0, 0.6);
-      margin-bottom: 5rem;
-      font-weight: 300;
+      font-size: 1.6rem !important;
+      padding: 16px;
+      line-height: 1.3 !important;
+      color: #1a1823 !important;
+      margin-bottom: 4rem;
+      font-weight: normal !important;
+      letter-spacing: -0.02em;
 
       @media (max-width: 768px) {
-        font-size: 1.2rem;
+        font-size: 1.8rem !important;
         margin-bottom: 3rem;
       }
     }
