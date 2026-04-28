@@ -18,7 +18,7 @@
   height: 60vh;
   min-height: 400px;
   max-height: 700px;
-  background-color: #ffffff;
+  background-color: #05060f;
   overflow: hidden;
   z-index: 1;
 
@@ -41,10 +41,9 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      #ffffff 0%,
-      rgba(255, 255, 255, 0) 15%,
-      rgba(255, 255, 255, 0) 85%,
-      #ffffff 100%
+      transparent 0%,
+      transparent 75%,
+      #f8fbff 100%
     );
   }
 }
