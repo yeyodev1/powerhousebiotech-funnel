@@ -43,29 +43,43 @@ onMounted(() => {
         mm.add("(min-width: 1025px)", () => {
           if (!sectionRef.value) return;
 
-          const cards = gsap.utils.toArray('.therapy-card');
+          const cards = gsap.utils.toArray('.therapy-card') as HTMLElement[];
           
-          ScrollTrigger.create({
-            trigger: sectionRef.value,
-            start: "top top",
-            end: "+=2500", 
-            pin: true,
-            scrub: 1.5,
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: sectionRef.value,
+              start: "center center",
+              end: "+=2500", 
+              pin: true,
+              scrub: 1,
+            }
           });
 
-          cards.forEach((card: any, index: number) => {
-            gsap.from(card, {
-              y: 100,
-              opacity: 0,
-              scale: 0.95,
-              scrollTrigger: {
-                trigger: sectionRef.value,
-                start: () => `top+=${(index * 600)} top`,
-                end: () => `top+=${(index * 600) + 400} top`,
-                scrub: 1,
-              }
-            });
+          // Estado inicial: solo la primera tarjeta es visible
+          cards.forEach((card: HTMLElement, index: number) => {
+            if (index === 0) {
+              gsap.set(card, { y: 0, opacity: 1, scale: 1 });
+            } else {
+              gsap.set(card, { y: 150, opacity: 0, scale: 0.95 });
+            }
           });
+
+          // Pausa inicial para poder leer la tarjeta 1
+          tl.to({}, { duration: 0.2 });
+
+          // Tarjeta 1 desaparece hacia arriba, Tarjeta 2 aparece desde abajo
+          tl.to(cards[0], { y: -150, opacity: 0, scale: 0.95, duration: 1 }, "trans1")
+            .to(cards[1], { y: 0, opacity: 1, scale: 1, duration: 1 }, "trans1");
+
+          // Pausa para leer la tarjeta 2
+          tl.to({}, { duration: 0.5 });
+
+          // Tarjeta 2 desaparece hacia arriba, Tarjeta 3 aparece desde abajo
+          tl.to(cards[1], { y: -150, opacity: 0, scale: 0.95, duration: 1 }, "trans2")
+            .to(cards[2], { y: 0, opacity: 1, scale: 1, duration: 1 }, "trans2");
+
+          // Pausa final antes de soltar el pin para poder leer la tarjeta 3
+          tl.to({}, { duration: 0.5 });
         });
       });
       ScrollTrigger.refresh();
@@ -167,7 +181,6 @@ onUnmounted(() => {
       position: relative;
     }
 
-
     .title {
       font-size: clamp(32px, 5vw, 56px);
       font-weight: 800;
@@ -257,7 +270,7 @@ onUnmounted(() => {
     gap: 48px;
     @media (min-width: 1025px) {
       position: relative;
-      height: 600px; 
+      height: 600px;
     }
   }
 
@@ -267,12 +280,17 @@ onUnmounted(() => {
     padding: 64px;
     display: flex;
     gap: 40px;
-    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
     position: relative;
 
     @media (min-width: 1025px) {
       position: absolute;
-      inset: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      height: fit-content;
+      left: 0;
+      right: 0;
     }
 
     @media (max-width: 768px) {
