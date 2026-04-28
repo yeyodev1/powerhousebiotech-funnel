@@ -11,7 +11,7 @@ const contactStore = useContactStore()
 const { locale, t, toggleLocale } = useLocale()
 
 onMounted(() => {
-  if (!localStorage.getItem('phb_contact')) router.replace('/')
+  // if (!localStorage.getItem('phb_contact')) router.replace('/')
 })
 
 const step = ref(1) // 1 = form, 2 = evaluating
