@@ -184,11 +184,10 @@ onMounted(() => {
   }
 
   &__subtitle {
-    font-size: 1.1rem;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
     color: rgba(0, 0, 0, 0.5);
     font-weight: 300;
-    margin-left: calc(60px + 2rem);
-    max-width: 500px;
+    max-width: 700px;
   }
 
   &__grid {

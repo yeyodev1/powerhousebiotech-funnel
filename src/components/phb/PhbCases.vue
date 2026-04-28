@@ -116,7 +116,7 @@ onMounted(() => {
       <!-- Top header -->
       <div class="phb-cases__header" data-aos="fade-right">
         <div class="phb-cases__header-inner">
-          <span class="phb-cases__label">Evidencia Real —</span>
+          <!-- <span class="phb-cases__label">Evidencia Real —</span> -->
           <h2 class="phb-cases__title">Cuando se decide bien… <br>los resultados dejan de ser suerte</h2>
         </div>
       </div>
@@ -286,7 +286,7 @@ onMounted(() => {
     overflow: hidden;
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 40px 120px rgba(0, 0, 0, 0.4),
-                inset 0 0 40px rgba(33, 188, 251, 0.05);
+      inset 0 0 40px rgba(33, 188, 251, 0.05);
     color: #ffffff;
 
     @media (min-width: 1024px) {

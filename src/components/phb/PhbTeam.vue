@@ -87,8 +87,8 @@ onMounted(() => {
       
       <header class="phb-method__header">
         <div class="phb-method__header-content">
-          <span class="phb-method__label">{{ t.programs.title }}</span>
-          <h2 class="phb-method__main-title" v-html="t.programs.subtitle"></h2>
+          <span class="phb-method__label">{{ t.programs.subtitle }}</span>
+          <h2 class="phb-method__main-title" v-html="t.programs.title"></h2>
         </div>
       </header>
 
