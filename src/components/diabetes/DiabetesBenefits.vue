@@ -8,6 +8,7 @@ import image1 from '@/assets/stock/diabetes/image-1.jpeg';
 import image2 from '@/assets/stock/diabetes/image-2.jpeg';
 import image3 from '@/assets/stock/diabetes/image-3.jpeg';
 import image4 from '@/assets/stock/diabetes/image-4.jpeg';
+import image5 from '@/assets/stock/diabetes/image-5.jpeg';
 
 // Sub-components
 import BenefitHeader from './benefits/BenefitHeader.vue';
@@ -37,7 +38,7 @@ const benefitsList = [
     title: "Libertad de Acción",
     desc: "Deja de vivir en función de tu condición y empieza a vivir en función de tus metas. El control real vuelve a tus manos.",
     icon: "fa-solid fa-mountain-sun",
-    image: image4
+    image: image5
   }
 ];
 
@@ -127,6 +128,7 @@ onUnmounted(() => {
     justify-content: flex-start;
     padding: 40px 0;
   }
+
   z-index: 10;
 
   .ambient-bg {
@@ -161,20 +163,23 @@ onUnmounted(() => {
     position: relative;
     width: 100%;
     z-index: 5;
-    
+
     @media (max-width: 1024px) {
       overflow-x: auto;
       padding: 0 24px 60px;
       -ms-overflow-style: none;
       scrollbar-width: none;
-      &::-webkit-scrollbar { display: none; }
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 
   .benefits-horizontal-grid {
     display: flex;
-    gap: 80px; 
-    padding: 0 15vw; 
+    gap: 80px;
+    padding: 0 15vw;
     padding-right: 40vw; // Reduced padding
     width: max-content;
 

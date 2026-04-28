@@ -2,6 +2,7 @@
 import { onMounted, ref, onUnmounted } from 'vue';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import image4 from '@/assets/stock/diabetes/image-4.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -76,7 +77,7 @@ const setCardRef = (el: any) => {
           </p>
           
           <div class="diff-image-box">
-            <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&q=80&w=1000" alt="Clinical Precision" />
+            <img :src="image4" alt="Clinical Precision" />
             <div class="image-overlay">
               <span>98% Precisión en Diagnóstico Molecular</span>
             </div>
