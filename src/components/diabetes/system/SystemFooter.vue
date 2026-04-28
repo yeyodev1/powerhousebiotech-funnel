@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// No logic needed
+import PhbPrimaryBtn from '@/components/phb/PhbPrimaryBtn.vue';
 </script>
 
 <template>
@@ -7,6 +7,9 @@
     <div class="system-footer" data-aos="fade-up">
       <div class="footer-box">
         <p>Cada fase está interconectada. No son pasos aislados, es un <strong>ecosistema de recuperación</strong>.</p>
+      </div>
+      <div class="system-cta" data-aos="fade-up" data-aos-delay="200">
+        <PhbPrimaryBtn />
       </div>
     </div>
   </div>
@@ -20,7 +23,9 @@
 .system-footer {
   margin-top: 60px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
 
   .footer-box {
     background: rgba(33, 188, 251, 0.03);
@@ -38,6 +43,11 @@
         font-weight: 700;
       }
     }
+  }
+
+  .system-cta {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

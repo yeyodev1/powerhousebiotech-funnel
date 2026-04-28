@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Final statement slide
+import PhbPrimaryBtn from '@/components/phb/PhbPrimaryBtn.vue';
 </script>
 
 <template>
@@ -9,6 +9,9 @@
         Recuperar tu salud no es un lujo. <br />
         <strong>Es el cimiento sobre el cual construyes todo lo demás.</strong>
       </p>
+      <div class="statement-cta" data-aos="fade-up" data-aos-delay="200">
+        <PhbPrimaryBtn />
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +43,12 @@
       display: block;
       margin-top: 32px;
     }
+  }
+
+  .statement-cta {
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

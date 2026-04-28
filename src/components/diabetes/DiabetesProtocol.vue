@@ -2,6 +2,7 @@
 import { onMounted, ref, onUnmounted, nextTick } from 'vue';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import PhbPrimaryBtn from '@/components/phb/PhbPrimaryBtn.vue';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,6 +100,9 @@ onUnmounted(() => {
                 <span class="pulse-dot"></span>
                 PRE-TRATAMIENTO ACTIVADO
               </div>
+            </div>
+            <div class="protocol-cta">
+              <PhbPrimaryBtn theme="light" />
             </div>
           </div>
         </div>
@@ -233,6 +237,10 @@ onUnmounted(() => {
           animation: pulse 2s infinite;
         }
       }
+    }
+
+    .protocol-cta {
+      margin-top: 48px;
     }
   }
 

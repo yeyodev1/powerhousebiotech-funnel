@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import PhbPrimaryBtn from '@/components/phb/PhbPrimaryBtn.vue';
+
 const stats = [
   { value: "15+", label: "Años de experiencia" },
   { value: "15,000+", label: "Pacientes atendidos" },
@@ -26,6 +28,10 @@ const stats = [
               <i class="fa-solid fa-vial-circle-check badge-icon"></i>
               <span>Base Científica</span>
             </div>
+          </div>
+          
+          <div class="positioning-cta" data-aos="fade-up" data-aos-delay="200">
+            <PhbPrimaryBtn theme="light" />
           </div>
         </div>
 
@@ -135,6 +141,11 @@ const stats = [
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+  }
+
+  .positioning-cta {
+    margin-top: 48px;
+    display: flex;
   }
 
   .cert-badge {

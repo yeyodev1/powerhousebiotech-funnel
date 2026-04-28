@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
 const handleEvalClick = () => {
-  window.location.href = '/cualificar';
+  router.push('/cualificar');
 };
 
 const handleWhatsappClick = () => {

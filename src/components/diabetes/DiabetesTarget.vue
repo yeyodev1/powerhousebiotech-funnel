@@ -1,19 +1,3 @@
-<script setup lang="ts">
-const items = [
-  "Ya intentaron múltiples soluciones sin resultados sostenibles",
-  "Están cansadas de “controlar” sin mejorar realmente",
-  "Quieren entender qué está pasando de fondo en su cuerpo",
-  "Están listas para tomar decisiones inteligentes, no solo obedecer inercias médicas",
-  "Buscan una estrategia seria, integral y con criterio clínico"
-];
-
-const notItems = [
-  "No es para quien busca un atajo barato.",
-  "No es para quien quiere seguir pateando el problema.",
-  "No es para quien prefiere anestesiar síntomas y llamarle a eso progreso."
-];
-</script>
-
 <template>
   <section class="diabetes-target">
     <div class="container">
@@ -57,9 +41,31 @@ const notItems = [
           </div>
         </div>
       </div>
+      
+      <div class="target-cta" data-aos="fade-up" data-aos-delay="200">
+        <PhbPrimaryBtn />
+      </div>
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import PhbPrimaryBtn from '@/components/phb/PhbPrimaryBtn.vue';
+
+const items = [
+  "Ya intentaron múltiples soluciones sin resultados sostenibles",
+  "Están cansadas de “controlar” sin mejorar realmente",
+  "Quieren entender qué está pasando de fondo en su cuerpo",
+  "Están listas para tomar decisiones inteligentes, no solo obedecer inercias médicas",
+  "Buscan una estrategia seria, integral y con criterio clínico"
+];
+
+const notItems = [
+  "No es para quien busca un atajo barato.",
+  "No es para quien quiere seguir pateando el problema.",
+  "No es para quien prefiere anestesiar síntomas y llamarle a eso progreso."
+];
+</script>
 
 <style lang="scss" scoped>
 .diabetes-target {
@@ -221,6 +227,12 @@ const notItems = [
         margin-top: 4px;
       }
     }
+  }
+
+  .target-cta {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

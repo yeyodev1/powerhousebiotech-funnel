@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Logic can be added here if needed
+import PhbPrimaryBtn from '@/components/phb/PhbPrimaryBtn.vue';
 </script>
 
 <template>
@@ -37,11 +37,17 @@
               <p>Estrategia de <strong>continuidad biológica</strong> sostenida.</p>
             </div>
           </div>
+          
+          <div class="secret-cta" data-aos="fade-up" data-aos-delay="800">
+            <PhbPrimaryBtn />
+          </div>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+
 
 <style lang="scss" scoped>
 .diabetes-secret {
@@ -120,12 +126,18 @@
       padding: 40px 20px 0;
     }
 
-    .footer-label {
+      .footer-label {
       font-size: 12px;
       font-weight: 900;
       color: rgba(255, 255, 255, 0.2);
       letter-spacing: 0.3em;
       margin-bottom: 48px;
+    }
+
+    .secret-cta {
+      margin-top: 48px;
+      display: flex;
+      justify-content: center;
     }
   }
 

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import PhbPrimaryBtn from '@/components/phb/PhbPrimaryBtn.vue';
+
 const signals = [
   "Tu cuerpo no está usando la glucosa de forma eficiente",
   "Tu energía celular está comprometida",
@@ -60,6 +62,10 @@ const factors = [
             </ul>
           </div>
         </div>
+      </div>
+
+      <div class="truth-cta" data-aos="fade-up" data-aos-delay="200">
+        <PhbPrimaryBtn />
       </div>
     </div>
   </section>
@@ -227,6 +233,12 @@ const factors = [
         line-height: 1.4;
       }
     }
+  }
+
+  .truth-cta {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>
