@@ -347,9 +347,9 @@ export const es = {
       cta: 'Empezar evaluación',
     },
     success: {
-      title: 'Solicitud Recibida',
-      message: 'Hemos obtenido tus datos correctamente.',
-      sub: 'Pronto el asesor más calificado para tu caso se contactará contigo para dar seguimiento a tu evaluación.',
+      title: '¡Solicitud Enviada!',
+      message: 'Ya enviaste tu solicitud. Un agente te contactará en breve.',
+      sub: 'El asesor más calificado para tu caso se comunicará contigo para dar seguimiento a tu evaluación.',
       cta: 'Volver al inicio'
     },
     evaluating: {

@@ -4,6 +4,52 @@ import gsap from 'gsap'
 import { useLocale } from '@/composables/useLocale'
 // @ts-ignore
 import { useContactStore } from '@/stores/contact'
+import { pushLeadToPipedrive, createDealNote, updateDealNote } from '@/services/pipedrive'
+
+const LABEL_MAP: Record<string, string> = {
+  nombre: '👤 Nombre', apellido: '👤 Apellido', telefono: '📱 Celular', email: '📧 Email',
+  edad: '🎂 Edad', ubicacion: '📍 Ciudad / País',
+  diagnosis: '🩺 Diagnóstico principal', time: '⏳ Tiempo con la condición',
+  meds: '💊 Medicamentos actuales', past_therapies: '🔄 Terapias anteriores',
+  quality_of_life: '🌡️ Impacto en calidad de vida', worry: '😟 Mayor preocupación',
+  research: '🔍 Nivel de investigación', expectations_open: '💭 Expectativas',
+  work_stress: '😰 Estrés laboral', rest: '😴 Descanso y recuperación',
+  situation: '🎯 Situación actual', invest_clarity: '💰 Claridad de inversión',
+  final_confirmation: '✅ Confirmación final',
+}
+
+const NOTE_SECTIONS = [
+  { emoji: '👤', title: 'Información Básica',                   keys: ['nombre', 'apellido', 'telefono', 'email'] },
+  { emoji: '🫀', title: 'Condición de Salud',                   keys: ['edad', 'ubicacion', 'diagnosis', 'time', 'meds', 'past_therapies'] },
+  { emoji: '📋', title: 'Historial de Tratamientos',            keys: ['quality_of_life', 'worry'] },
+  { emoji: '🔬', title: 'Conocimiento sobre Med. Regenerativa', keys: ['research', 'expectations_open'] },
+  { emoji: '💼', title: 'Estrés y Carga Laboral',               keys: ['work_stress', 'rest'] },
+  { emoji: '🎯', title: 'Compromiso con el Protocolo',          keys: ['situation', 'invest_clarity', 'final_confirmation'] },
+]
+
+function buildNoteContent(data: Record<string, any>, source: string, completed = false): string {
+  const now = new Date().toLocaleString('es-MX', { dateStyle: 'short', timeStyle: 'short' })
+  const lines = [
+    '🏥 PowerHouse Biotech — Formulario PHB',
+    `📌 Fuente: ${source}`,
+    `🕐 Actualizado: ${now}`,
+    '',
+  ]
+  for (const section of NOTE_SECTIONS) {
+    const filled = section.keys.filter(k => data[k])
+    if (!filled.length) continue
+    lines.push(`${section.emoji} ${section.title}`)
+    lines.push('─'.repeat(32))
+    for (const key of filled) {
+      const label = LABEL_MAP[key] || key
+      const extra = data[`${key}_other`]
+      lines.push(`  ${label}: ${extra ? `${data[key]} (${extra})` : data[key]}`)
+    }
+    lines.push('')
+  }
+  if (completed) lines.push('🎉 FORMULARIO COMPLETADO AL 100%')
+  return lines.join('\n')
+}
 
 const props = defineProps({
   initialStep: {
@@ -39,6 +85,28 @@ async function nextStep() {
   if (currentStep.value < totalSteps.value - 1) {
     isAnimating.value = true
     await animateOut(1)
+
+    if (currentStep.value === 1) {
+      const source = sessionStorage.getItem('phb_source') || 'PHB Web'
+      sessionStorage.removeItem('phb_source')
+      sessionStorage.setItem('phb_form_source', source)
+      const result = await pushLeadToPipedrive({
+        firstName: formData.value.nombre?.trim() || '',
+        lastName: formData.value.apellido?.trim() || '',
+        email: formData.value.email?.trim() || '',
+        phone: formData.value.telefono?.trim() || '',
+        source,
+      })
+      if (result?.dealId) {
+        const noteId = await createDealNote(result.dealId, buildNoteContent(formData.value, source))
+        if (noteId) sessionStorage.setItem('phb_note_id', String(noteId))
+      }
+    } else {
+      const noteId = sessionStorage.getItem('phb_note_id')
+      const source = sessionStorage.getItem('phb_form_source') || 'PHB Web'
+      if (noteId) updateDealNote(Number(noteId), buildNoteContent(formData.value, source))
+    }
+
     currentStep.value++
     await nextTick()
     await animateIn(1)
@@ -104,6 +172,16 @@ onMounted(() => {
 })
 
 function finish() {
+  const noteId = sessionStorage.getItem('phb_note_id')
+  const source = sessionStorage.getItem('phb_form_source') || 'PHB Web'
+  if (noteId) updateDealNote(Number(noteId), buildNoteContent(formData.value, source, true))
+  sessionStorage.removeItem('phb_note_id')
+  sessionStorage.removeItem('phb_form_source')
+  localStorage.setItem('phb_submitted', JSON.stringify({
+    ...formData.value,
+    source,
+    submittedAt: new Date().toISOString(),
+  }))
   emit('complete', formData.value)
 }
 

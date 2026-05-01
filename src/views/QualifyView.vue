@@ -10,11 +10,22 @@ const router = useRouter()
 const contactStore = useContactStore()
 const { locale, t, toggleLocale } = useLocale()
 
-onMounted(() => {
-  // if (!localStorage.getItem('phb_contact')) router.replace('/')
-})
+const step = ref(localStorage.getItem('phb_submitted') ? 3 : 1)
 
-const step = ref(1) // 1 = form, 2 = evaluating
+const whatsappUrl = computed(() => {
+  const raw = localStorage.getItem('phb_submitted')
+  const base = 'https://wa.me/5218261295279'
+  if (!raw) return base
+  try {
+    const d = JSON.parse(raw)
+    const name = `${d.nombre || ''} ${d.apellido || ''}`.trim()
+    const parts = [`Hola, acabo de llenar el formulario para la Evaluación de Viabilidad Regenerativa 🧬 y me gustaría saber si soy candidato.`]
+    if (name) parts.push(`Soy ${name}.`)
+    if (d.email) parts.push(`Email: ${d.email}`)
+    if (d.telefono) parts.push(`Cel: ${d.telefono}`)
+    return `${base}?text=${encodeURIComponent(parts.join(' '))}`
+  } catch { return base }
+})
 const submissionData = ref<any>(null)
 
 function onFormComplete(data: any) {
@@ -110,10 +121,22 @@ function checkDisqualification(data: any) {
           <h2 class="qualify__title">{{ t.qualify.success.title }}</h2>
           <p class="qualify__success-message">{{ t.qualify.success.message }}</p>
           <p class="qualify__sub">{{ t.qualify.success.sub }}</p>
-          
-          <router-link to="/" class="btn btn--primary btn--lg qualify__back-btn">
-            {{ t.qualify.success.cta }}
-          </router-link>
+
+          <div class="qualify__success-actions">
+            <a
+              :href="whatsappUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--whatsapp btn--lg"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              Hablar con un agente ahora
+            </a>
+
+            <router-link to="/" class="btn btn--ghost btn--lg">
+              {{ t.qualify.success.cta }}
+            </router-link>
+          </div>
         </div>
       </Transition>
 
@@ -452,6 +475,16 @@ function checkDisqualification(data: any) {
     margin-top: 3rem;
     min-width: 240px;
   }
+
+  &__success-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 340px;
+  }
 }
 
 .lang-toggle {
@@ -502,7 +535,25 @@ function checkDisqualification(data: any) {
     &:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
   }
 
-  &--lg { padding: 1.1rem 2.2rem; font-size: 1.05rem; border-radius: 10px; }
+  &--lg { padding: 1.1rem 2.2rem; font-size: 1.05rem; border-radius: 10px; width: 100%; }
+
+  &--whatsapp {
+    background: #25D366;
+    color: #fff;
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.3);
+    i { font-size: 1.3rem; }
+    &:hover { filter: brightness(1.08); transform: translateY(-2px); }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    &:hover { color: rgba(255, 255, 255, 0.7); border-color: rgba(255, 255, 255, 0.25); }
+  }
 
   &:disabled { opacity: 0.4; cursor: not-allowed; }
 }

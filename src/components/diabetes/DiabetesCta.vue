@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const handleEvalClick = () => {
+  sessionStorage.setItem('phb_source', 'Diabetes PHB')
   router.push('/cualificar');
 };
 

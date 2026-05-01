@@ -7,6 +7,7 @@ import { parsePhoneNumberFromString, type CountryCode } from 'libphonenumber-js'
 gsap.registerPlugin(ScrollTrigger)
 
 import { useLocale } from '@/composables/useLocale'
+import { pushLeadToPipedrive } from '@/services/pipedrive'
 
 const { t } = useLocale()
 
@@ -94,7 +95,8 @@ const validatePhone = () => {
 
 const showPopup = () => {
   if (hasBeenShown.value) return
-  
+  if (localStorage.getItem('phb_submitted')) return
+
   isVisible.value = true
   hasBeenShown.value = true
   // localStorage.setItem('phb_popup_shown', 'true') // Disabled for testing
@@ -128,7 +130,15 @@ const closePopup = () => {
 const handleSubmit = async () => {
   if (!validatePhone()) return
   isLoading.value = true
-  await new Promise(resolve => setTimeout(resolve, 1500))
+
+  await pushLeadToPipedrive({
+    firstName: formData.value.firstName.trim(),
+    lastName: formData.value.lastName.trim(),
+    email: formData.value.email.trim(),
+    phone: formData.value.phone.trim(),
+    source: 'Home PHB',
+  })
+
   isLoading.value = false
   closePopup()
 }

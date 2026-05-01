@@ -10,10 +10,25 @@ const { locale, t, toggleLocale } = useLocale()
 
 const firstName = computed(() => contactStore.contact.nombre.split(' ')[0] || '')
 
+const whatsappUrl = computed(() => {
+  const raw = localStorage.getItem('phb_submitted')
+  const base = 'https://wa.me/5218261295279'
+  if (!raw) return base
+  try {
+    const d = JSON.parse(raw)
+    const name = `${d.nombre || ''} ${d.apellido || ''}`.trim()
+    const parts = [`Hola, acabo de llenar el formulario para la Evaluación de Viabilidad Regenerativa 🧬 y me gustaría saber si soy candidato.`]
+    if (name) parts.push(`Soy ${name}.`)
+    if (d.email) parts.push(`Email: ${d.email}`)
+    if (d.telefono) parts.push(`Cel: ${d.telefono}`)
+    return `${base}?text=${encodeURIComponent(parts.join(' '))}`
+  } catch { return base }
+})
+
 const form = ref({ nombre: firstName.value, email: contactStore.contact.email, whatsapp: contactStore.contact.telefono, archivos: null as FileList | null })
 const errors = ref({ nombre: '', email: '', whatsapp: '', archivos: '' })
 const submitting = ref(false)
-const submitted = ref(false)
+const submitted = ref(true)
 
 function onFiles(e: Event) {
   const input = e.target as HTMLInputElement
@@ -66,16 +81,28 @@ async function submit() {
       </button>
     </nav>
 
-    <!-- SUCCESS STATE -->
+    <!-- CONTACT STATE -->
     <div v-if="submitted" class="notq__success">
-      <div class="notq__success-icon">
-        <i class="fa-solid fa-circle-check"></i>
+      <div class="notq__success-icon notq__success-icon--cyan">
+        <i class="fa-solid fa-user-nurse"></i>
       </div>
-      <h1 class="notq__success-title">{{ t.notQualified.successTitle }}</h1>
-      <p class="notq__success-sub">{{ t.notQualified.successSub }}</p>
-      <button class="btn btn--primary" @click="router.push('/')">
+      <h1 class="notq__success-title">Pronto te contactamos</h1>
+      <p class="notq__success-sub">
+        Gracias por tu interés en PowerHouse Biotech.<br/>
+        Un asesor especializado se pondrá en contacto contigo en breve para darte seguimiento personalizado.
+      </p>
+      <a
+        :href="whatsappUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn--whatsapp"
+      >
+        <i class="fa-brands fa-whatsapp"></i>
+        Hablar con un asesor ahora
+      </a>
+      <button class="btn btn--ghost" @click="router.push('/')">
         <i class="fa-solid fa-house"></i>
-        {{ t.notQualified.successBtn }}
+        Volver al inicio
       </button>
     </div>
 
@@ -589,5 +616,27 @@ async function submit() {
   }
 
   &--full { width: 100%; }
+
+  &--whatsapp {
+    background: #25D366;
+    color: #fff;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    min-width: 260px;
+    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.3);
+    i { font-size: 1.3rem; }
+    &:hover { filter: brightness(1.08); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37, 211, 102, 0.4); }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.35);
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    &:hover { color: rgba(255, 255, 255, 0.65); border-color: rgba(255, 255, 255, 0.25); }
+  }
 }
+
+.notq__success-icon--cyan { color: var(--phb-cyan, #21bcfa); }
 </style>
