@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 export interface PhbContact {
   nombre: string
+  apellido: string
   email: string
   telefono: string
   timestamp?: number
@@ -13,6 +14,7 @@ const STORAGE_KEY = 'phb_contact'
 export const useContactStore = defineStore('contact', () => {
   const contact = ref<PhbContact>({
     nombre: '',
+    apellido: '',
     email: '',
     telefono: '',
   })
@@ -34,7 +36,7 @@ export const useContactStore = defineStore('contact', () => {
   }
 
   function clear() {
-    contact.value = { nombre: '', email: '', telefono: '' }
+    contact.value = { nombre: '', apellido: '', email: '', telefono: '' }
     localStorage.removeItem(STORAGE_KEY)
   }
 

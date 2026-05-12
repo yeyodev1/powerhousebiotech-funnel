@@ -178,7 +178,7 @@ onUnmounted(() => {
 const currentStep = ref(props.initialStep)
 const formData = ref<Record<string, any>>({
   nombre: contactStore.contact.nombre || '',
-  apellido: '',
+  apellido: contactStore.contact.apellido || '',
   email: contactStore.contact.email || '',
   telefono: contactStore.contact.telefono || '',
 })

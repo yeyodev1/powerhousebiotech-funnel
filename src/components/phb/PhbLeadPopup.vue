@@ -165,10 +165,12 @@ const handleSubmit = async () => {
   if (!validatePhone()) return
   isLoading.value = true
 
-  const nombre = `${formData.value.firstName.trim()} ${formData.value.lastName.trim()}`.trim()
+  const nombre = formData.value.firstName.trim()
+  const apellido = formData.value.lastName.trim()
+  const nombreCompleto = `${nombre} ${apellido}`
 
   await sendContactToGHL({
-    nombre,
+    nombre: nombreCompleto,
     email: formData.value.email.trim(),
     telefono: formData.value.phone.trim(),
     source: 'Home PHB',
@@ -178,6 +180,7 @@ const handleSubmit = async () => {
 
   contactStore.save({
     nombre,
+    apellido,
     email: formData.value.email.trim(),
     telefono: formData.value.phone.trim(),
   })
