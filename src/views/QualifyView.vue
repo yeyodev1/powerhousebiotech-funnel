@@ -37,12 +37,17 @@ const whatsappUrl = computed(() => {
   try {
     const d = JSON.parse(raw)
     const name = `${d.nombre || ''} ${d.apellido || ''}`.trim()
-    const parts = [`Hola, acabo de llenar el formulario de PowerHouse Biotech y me gustaría saber más.`]
-    if (name) parts.push(`Soy ${name}.`)
-    if (d.email) parts.push(`Email: ${d.email}`)
-    if (d.telefono) parts.push(`Cel: ${d.telefono}`)
-    if (d.approach) parts.push(`Relación: ${d.approach}`)
-    return `${base}?text=${encodeURIComponent(parts.join(' '))}`
+    const parts = ['🫀 NUEVO PACIENTE PHB — Resumen']
+    parts.push('')
+    parts.push(`👤 ${name}`)
+    if (d.email) parts.push(`📧 ${d.email}`)
+    if (d.telefono) parts.push(`📱 ${d.telefono}`)
+    if (d.approach) parts.push(`🎯 ${d.approach}`)
+    if (d.diagnosis) parts.push(`🩺 Diagnóstico: ${d.diagnosis}${d.diagnosis_other ? ` (${d.diagnosis_other})` : ''}`)
+    if (d.time_with_condition) parts.push(`⏳ Tiempo: ${d.time_with_condition}`)
+    if (d.tried_before) parts.push(`🔄 Tratamientos previos: ${d.tried_before}`)
+    if (d.investment_readiness) parts.push(`💰 Disposición: ${d.investment_readiness}`)
+    return `${base}?text=${encodeURIComponent(parts.join('\n'))}`
   } catch { return base }
 })
 const submissionData = ref<any>(null)
@@ -72,7 +77,8 @@ function evaluate() {
 
 function checkDisqualification(data: any) {
   if (!data.approach) return true
-  if (data.seller_experience === 'No me interesa vender' || data.seller_experience === 'I am not interested in selling') return true
+  if (!data.diagnosis) return true
+  if (data.investment_readiness === 'Aún no estoy seguro' || data.investment_readiness === 'I am not sure yet') return true
   return false
 }
 </script>

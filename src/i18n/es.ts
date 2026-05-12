@@ -385,38 +385,52 @@ export const es = {
         ]
       },
       {
-        id: 'seller_profile',
-        title: 'Perfil de Vendedor',
-        icon: 'fa-solid fa-chart-line',
+        id: 'condition',
+        title: 'Tu Condición de Salud',
+        icon: 'fa-solid fa-heart-pulse',
         questions: [
           {
-            id: 'seller_experience',
-            text: '¿Tienes experiencia en ventas o mercadeo?',
+            id: 'diagnosis',
+            text: '¿Cuál es tu diagnóstico o condición principal?',
             options: [
-              { label: 'Sí, tengo experiencia' },
-              { label: 'Algo de experiencia' },
-              { label: 'No, pero quiero aprender' },
-              { label: 'No me interesa vender' },
+              { label: 'Dolor articular / Artritis' },
+              { label: 'Fatiga crónica' },
+              { label: 'Enfermedad autoinmune' },
+              { label: 'Diabetes / Problemas metabólicos' },
+              { label: 'Problemas digestivos crónicos' },
+              { label: 'Envejecimiento prematuro / Vitalidad' },
+              { label: 'Otro:', hasInput: true },
             ]
           },
           {
-            id: 'seller_network',
-            text: '¿Tienes una red de contactos en el área de salud o bienestar?',
+            id: 'time_with_condition',
+            text: '¿Cuánto tiempo llevas con esta condición?',
             options: [
-              { label: 'Sí, una red amplia' },
-              { label: 'Algunos contactos' },
-              { label: 'Muy pocos' },
-              { label: 'Ninguno' },
+              { label: 'Menos de 1 año' },
+              { label: '1 a 3 años' },
+              { label: '3 a 10 años' },
+              { label: 'Más de 10 años' },
             ]
           },
           {
-            id: 'seller_time',
-            text: '¿Cuánto tiempo podrías dedicar a recomendar el programa?',
+            id: 'tried_before',
+            text: '¿Qué tratamientos has intentado antes?',
             options: [
-              { label: 'Tiempo completo' },
-              { label: 'Medio tiempo' },
-              { label: 'Algunas horas a la semana' },
-              { label: 'Muy poco tiempo' },
+              { label: 'Medicina convencional' },
+              { label: 'Terapias alternativas' },
+              { label: 'Suplementos / Nutrición' },
+              { label: 'Terapias regenerativas' },
+              { label: 'Varios sin éxito' },
+              { label: 'Ninguno aún' },
+            ]
+          },
+          {
+            id: 'investment_readiness',
+            text: 'Tratamientos regenerativos de alta calidad representan una inversión. ¿Estás preparado para invertir en tu salud?',
+            options: [
+              { label: 'Sí, estoy listo para invertir' },
+              { label: 'Necesito evaluar opciones de pago' },
+              { label: 'Aún no estoy seguro' },
             ]
           }
         ]

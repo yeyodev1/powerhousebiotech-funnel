@@ -386,38 +386,52 @@ export const en = {
         ]
       },
       {
-        id: 'seller_profile',
-        title: 'Seller Profile',
-        icon: 'fa-solid fa-chart-line',
+        id: 'condition',
+        title: 'Your Health Condition',
+        icon: 'fa-solid fa-heart-pulse',
         questions: [
           {
-            id: 'seller_experience',
-            text: 'Do you have sales or marketing experience?',
+            id: 'diagnosis',
+            text: 'What is your main diagnosis or condition?',
             options: [
-              { label: 'Yes, I have experience' },
-              { label: 'Some experience' },
-              { label: 'No, but I want to learn' },
-              { label: 'I am not interested in selling' },
+              { label: 'Joint pain / Arthritis' },
+              { label: 'Chronic fatigue' },
+              { label: 'Autoimmune disease' },
+              { label: 'Diabetes / Metabolic issues' },
+              { label: 'Chronic digestive problems' },
+              { label: 'Premature aging / Vitality' },
+              { label: 'Other:', hasInput: true },
             ]
           },
           {
-            id: 'seller_network',
-            text: 'Do you have a network of contacts in the health or wellness area?',
+            id: 'time_with_condition',
+            text: 'How long have you had this condition?',
             options: [
-              { label: 'Yes, a wide network' },
-              { label: 'Some contacts' },
-              { label: 'Very few' },
-              { label: 'None' },
+              { label: 'Less than 1 year' },
+              { label: '1 to 3 years' },
+              { label: '3 to 10 years' },
+              { label: 'More than 10 years' },
             ]
           },
           {
-            id: 'seller_time',
-            text: 'How much time could you dedicate to recommending the program?',
+            id: 'tried_before',
+            text: 'What treatments have you tried before?',
             options: [
-              { label: 'Full time' },
-              { label: 'Part time' },
-              { label: 'A few hours a week' },
-              { label: 'Very little time' },
+              { label: 'Conventional medicine' },
+              { label: 'Alternative therapies' },
+              { label: 'Supplements / Nutrition' },
+              { label: 'Regenerative therapies' },
+              { label: 'Several without success' },
+              { label: 'None yet' },
+            ]
+          },
+          {
+            id: 'investment_readiness',
+            text: 'High-quality regenerative treatments represent an investment. Are you prepared to invest in your health?',
+            options: [
+              { label: 'Yes, I am ready to invest' },
+              { label: 'I need to evaluate payment options' },
+              { label: 'I am not sure yet' },
             ]
           }
         ]

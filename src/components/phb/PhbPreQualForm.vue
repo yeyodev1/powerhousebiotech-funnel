@@ -65,15 +65,15 @@ function detectCountryCode(): CountryCode {
 const LABEL_MAP: Record<string, string> = {
   nombre: '👤 Nombre', apellido: '👤 Apellido', telefono: '📱 Celular', email: '📧 Email',
   approach: '🎯 Relación con el programa',
-  seller_experience: '💼 Experiencia en ventas', seller_network: '🔗 Red de contactos',
-  seller_time: '⏱️ Tiempo disponible',
+  diagnosis: '🩺 Diagnóstico', time_with_condition: '⏳ Tiempo con la condición',
+  tried_before: '🔄 Tratamientos previos', investment_readiness: '💰 Disposición a invertir',
   final_confirmation: '✅ Confirmación final',
 }
 
 const NOTE_SECTIONS = [
   { emoji: '👤', title: 'Información Básica',                   keys: ['nombre', 'apellido', 'telefono', 'email'] },
   { emoji: '🎯', title: 'Relación con el Programa',             keys: ['approach'] },
-  { emoji: '💼', title: 'Perfil de Vendedor',                   keys: ['seller_experience', 'seller_network', 'seller_time'] },
+  { emoji: '🫀', title: 'Condición de Salud',                   keys: ['diagnosis', 'time_with_condition', 'tried_before', 'investment_readiness'] },
 ]
 
 function buildNoteContent(data: Record<string, any>, source: string, completed = false): string {
@@ -295,16 +295,17 @@ function finish() {
   }
   sendContactToGHL({ ...contacto, nota: notaFinal, paso: 'completado' })
   sendNoteToGHL({ ...contacto, nota: notaFinal, paso: 'completado' })
-  const qualifica = formData.value.seller_experience !== 'No me interesa vender' && formData.value.approach !== ''
+  const qualifica = !!formData.value.diagnosis && !!formData.value.approach
   sendQualificationToGHL({
     nombre: `${formData.value.nombre?.trim() || ''} ${formData.value.apellido?.trim() || ''}`.trim(),
     email: formData.value.email?.trim() || '',
     telefono: formData.value.telefono?.trim() || '',
     approach: formData.value.approach || '',
     sellerProfile: [
-      formData.value.seller_experience || '',
-      formData.value.seller_network || '',
-      formData.value.seller_time || '',
+      `Diagnóstico: ${formData.value.diagnosis || ''}`,
+      `Tiempo: ${formData.value.time_with_condition || ''}`,
+      `Tratamientos: ${formData.value.tried_before || ''}`,
+      `Inversión: ${formData.value.investment_readiness || ''}`,
     ].filter(Boolean).join(' | '),
     califica: qualifica,
     nota: notaFinal,
