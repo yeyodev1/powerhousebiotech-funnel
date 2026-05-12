@@ -7,7 +7,7 @@ import { parsePhoneNumberFromString, type CountryCode } from 'libphonenumber-js'
 gsap.registerPlugin(ScrollTrigger)
 
 import { useLocale } from '@/composables/useLocale'
-import { pushLeadToPipedrive } from '@/services/pipedrive'
+import { sendContactToGHL } from '@/services/ghl'
 
 const { t } = useLocale()
 
@@ -93,13 +93,45 @@ const validatePhone = () => {
   return true
 }
 
+const IS_DEV = window.location.hostname === 'localhost'
+const FORTY_EIGHT_HOURS = 48 * 60 * 60 * 1000
+
+function isPopupBlocked(): boolean {
+  // Si el usuario ya comenzó el formulario de calificación
+  if (localStorage.getItem('phb_form_started_at')) return true
+
+  // Si ya envió el formulario — respetar ventana de 48h
+  const submitted = localStorage.getItem('phb_submitted')
+  if (submitted) {
+    try {
+      const data = JSON.parse(submitted)
+      const elapsed = Date.now() - new Date(data.submittedAt).getTime()
+      if (elapsed < FORTY_EIGHT_HOURS) return true
+      // Si pasaron 48h, limpiar para permitir nuevo envío
+      localStorage.removeItem('phb_submitted')
+      localStorage.removeItem('phb_form_started_at')
+    } catch {
+      localStorage.removeItem('phb_submitted')
+    }
+    return false
+  }
+
+  return false
+}
+
 const showPopup = () => {
   if (hasBeenShown.value) return
-  if (localStorage.getItem('phb_submitted')) return
+  if (isPopupBlocked()) return
+  // En prod, marcar como mostrado globalmente por 48h (localStorage)
+  // para no re-mostrar al recargar. En localhost siempre se reinicia.
+  if (!IS_DEV) {
+    const popupShown = localStorage.getItem('phb_popup_shown_at')
+    if (popupShown && Date.now() - Number(popupShown) < FORTY_EIGHT_HOURS) return
+    localStorage.setItem('phb_popup_shown_at', String(Date.now()))
+  }
 
   isVisible.value = true
   hasBeenShown.value = true
-  // localStorage.setItem('phb_popup_shown', 'true') // Disabled for testing
   
   setTimeout(() => {
     gsap.fromTo('.phb-popup__card', 
@@ -110,7 +142,7 @@ const showPopup = () => {
 }
 
 const handleExitIntent = (e: MouseEvent) => {
-  if (e.clientY <= 10 && !hasBeenShown.value) {
+  if (e.clientY <= 10 && !hasBeenShown.value && !isPopupBlocked()) {
     showPopup()
   }
 }
@@ -131,12 +163,13 @@ const handleSubmit = async () => {
   if (!validatePhone()) return
   isLoading.value = true
 
-  await pushLeadToPipedrive({
-    firstName: formData.value.firstName.trim(),
-    lastName: formData.value.lastName.trim(),
+  await sendContactToGHL({
+    nombre: `${formData.value.firstName.trim()} ${formData.value.lastName.trim()}`.trim(),
     email: formData.value.email.trim(),
-    phone: formData.value.phone.trim(),
+    telefono: formData.value.phone.trim(),
     source: 'Home PHB',
+    nota: `Lead capturado desde popup Home PHB`,
+    paso: 'popup-home',
   })
 
   isLoading.value = false

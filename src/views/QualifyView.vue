@@ -10,7 +10,25 @@ const router = useRouter()
 const contactStore = useContactStore()
 const { locale, t, toggleLocale } = useLocale()
 
-const step = ref(localStorage.getItem('phb_submitted') ? 3 : 1)
+const FORTY_EIGHT_HOURS = 48 * 60 * 60 * 1000
+
+function hasValidSubmission(): boolean {
+  const raw = localStorage.getItem('phb_submitted')
+  if (!raw) return false
+  try {
+    const data = JSON.parse(raw)
+    const elapsed = Date.now() - new Date(data.submittedAt).getTime()
+    if (elapsed < FORTY_EIGHT_HOURS) return true
+    localStorage.removeItem('phb_submitted')
+    localStorage.removeItem('phb_form_started_at')
+    localStorage.removeItem('phb_qualified_at')
+  } catch {
+    localStorage.removeItem('phb_submitted')
+  }
+  return false
+}
+
+const step = ref(hasValidSubmission() ? 3 : 1)
 
 const whatsappUrl = computed(() => {
   const raw = localStorage.getItem('phb_submitted')
@@ -19,10 +37,11 @@ const whatsappUrl = computed(() => {
   try {
     const d = JSON.parse(raw)
     const name = `${d.nombre || ''} ${d.apellido || ''}`.trim()
-    const parts = [`Hola, acabo de llenar el formulario para la Evaluación de Viabilidad Regenerativa 🧬 y me gustaría saber si soy candidato.`]
+    const parts = [`Hola, acabo de llenar el formulario de PowerHouse Biotech y me gustaría saber más.`]
     if (name) parts.push(`Soy ${name}.`)
     if (d.email) parts.push(`Email: ${d.email}`)
     if (d.telefono) parts.push(`Cel: ${d.telefono}`)
+    if (d.approach) parts.push(`Relación: ${d.approach}`)
     return `${base}?text=${encodeURIComponent(parts.join(' '))}`
   } catch { return base }
 })
@@ -52,10 +71,8 @@ function evaluate() {
 }
 
 function checkDisqualification(data: any) {
-  // Example: If they are not ready to invest or seek quick fix
-  if (data.financial === 'No estoy en posición de invertir actualmente' || data.financial === 'I am not in a position to invest currently') return true
-  if (data.situation === 'Busco una solución rápida' || data.situation === 'I am looking for a quick fix') return true
-  if (data.invest_clarity === 'No' || data.invest_clarity === 'No') return true
+  if (!data.approach) return true
+  if (data.seller_experience === 'No me interesa vender' || data.seller_experience === 'I am not interested in selling') return true
   return false
 }
 </script>

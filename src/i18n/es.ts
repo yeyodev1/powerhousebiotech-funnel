@@ -339,22 +339,22 @@ export const es = {
   qualify: {
     stepOf: 'de',
     title: 'FORMULARIO DE PRE-CALIFICACIÓN',
-    subtitle: 'HEALTH DECISION PLATFORM',
+    subtitle: 'CALIFICACIÓN DE PACIENTE',
     intro: {
-      title: '¿Es la Medicina Regenerativa una alternativa segura para tu condición?',
-      sub: 'Este formulario nos permite evaluar si la medicina regenerativa es viable, coherente y segura para tu caso específico.',
-      time: 'Tiempo estimado: 5–7 minutos.',
-      cta: 'Empezar evaluación',
+      title: '¿Eres el candidato ideal o conoces a alguien que lo sea?',
+      sub: 'Queremos conocerte para saber si tú o alguien que conoces puede beneficiarse de nuestro programa.',
+      time: 'Tiempo estimado: 2–3 minutos.',
+      cta: 'Empezar',
     },
     success: {
-      title: '¡Solicitud Enviada!',
-      message: 'Ya enviaste tu solicitud. Un agente te contactará en breve.',
-      sub: 'El asesor más calificado para tu caso se comunicará contigo para dar seguimiento a tu evaluación.',
+      title: '¡Registrado!',
+      message: 'Gracias por tu información.',
+      sub: 'Nos pondremos en contacto contigo para darte seguimiento.',
       cta: 'Volver al inicio'
     },
     evaluating: {
-      title: 'Evaluando viabilidad...',
-      sub: 'Nuestro sistema está analizando tu caso clínico.'
+      title: 'Evaluando perfil...',
+      sub: 'Estamos analizando tu información.'
     },
     sections: [
       {
@@ -369,284 +369,54 @@ export const es = {
         ]
       },
       {
-        id: 'condition',
-        title: 'Tu Condición de Salud Actual',
-        icon: 'fa-solid fa-heart-pulse',
-        fields: [
-          { name: 'edad', label: 'Edad:', type: 'number', placeholder: 'Ej. 45' },
-          { name: 'ubicacion', label: 'Ciudad / País:', type: 'text', placeholder: 'Ej. Madrid, España' },
-        ],
+        id: 'approach',
+        title: 'Tu Relación con el Programa',
+        icon: 'fa-solid fa-users',
         questions: [
           {
-            id: 'diagnosis',
-            text: '¿Cuál es tu diagnóstico principal?',
+            id: 'approach',
+            text: '¿Tú eres la persona que necesita el programa o conoces a alguien que lo necesita?',
             options: [
-              { label: 'Diabetes' },
-              { label: 'Hipertensión' },
-              { label: 'Artritis / Problema articular' },
-              { label: 'Enfermedad autoinmune' },
-              { label: 'Enfermedad neurodegenerativa' },
-              { label: 'Problema metabólico' },
-              { label: 'Otro:', hasInput: true },
-            ]
-          },
-          {
-            id: 'time',
-            text: '¿Cuánto tiempo llevas con esta condición?',
-            options: [
-              { label: 'Menos de 1 año' },
-              { label: '1–3 años' },
-              { label: '3–10 años' },
-              { label: 'Más de 10 años' },
-            ]
-          },
-          {
-            id: 'meds',
-            text: '¿Actualmente tomas medicamentos?',
-            options: [
-              { label: 'Sí' },
-              { label: 'No' },
-              { label: 'Varios' },
-            ]
-          },
-          {
-            id: 'past_therapies',
-            text: '¿Has intentado otras terapias antes?',
-            options: [
-              { label: 'Medicina tradicional' },
-              { label: 'Medicina alternativa' },
-              { label: 'Suplementos' },
-              { label: 'Terapias regenerativas' },
-              { label: 'Varias combinadas' },
-              { label: 'Ninguna' },
+              { label: 'Yo soy la persona que lo necesita' },
+              { label: 'Conozco a alguien que lo necesita' },
+              { label: 'Ambos, yo y alguien que conozco' },
             ]
           }
         ]
       },
       {
-        id: 'history',
-        title: 'Historial de Tratamientos',
-        icon: 'fa-solid fa-file-medical',
+        id: 'seller_profile',
+        title: 'Perfil de Vendedor',
+        icon: 'fa-solid fa-chart-line',
         questions: [
           {
-            id: 'quality_of_life',
-            text: '¿Cómo afecta esta condición tu calidad de vida?',
+            id: 'seller_experience',
+            text: '¿Tienes experiencia en ventas o mercadeo?',
             options: [
-              { label: 'Leve' },
-              { label: 'Moderada' },
-              { label: 'Alta' },
-              { label: 'Severamente limitante' },
+              { label: 'Sí, tengo experiencia' },
+              { label: 'Algo de experiencia' },
+              { label: 'No, pero quiero aprender' },
+              { label: 'No me interesa vender' },
             ]
           },
           {
-            id: 'worry',
-            text: '¿Qué es lo que más te preocupa?',
+            id: 'seller_network',
+            text: '¿Tienes una red de contactos en el área de salud o bienestar?',
             options: [
-              { label: 'Dolor' },
-              { label: 'Pérdida de función' },
-              { label: 'Dependencia futura' },
-              { label: 'No saber qué hacer' },
-              { label: 'Empeoramiento progresivo' },
-            ]
-          }
-        ]
-      },
-      {
-        id: 'knowledge',
-        title: 'Conocimiento sobre Medicina Regenerativa',
-        icon: 'fa-solid fa-book-open',
-        questions: [
-          {
-            id: 'research',
-            text: '¿Qué tanto has escuchado o investigado sobre medicina regenerativa (células madre, exosomas, péptidos, sueroterapia, etc.)?',
-            options: [
-              { label: 'Muy poco, apenas estoy explorando' },
-              { label: 'He leído información general' },
-              { label: 'He investigado a profundidad' },
-              { label: 'Ya he recibido terapias regenerativas' },
-              { label: 'Tengo expectativas muy claras sobre lo que puede lograr' },
+              { label: 'Sí, una red amplia' },
+              { label: 'Algunos contactos' },
+              { label: 'Muy pocos' },
+              { label: 'Ninguno' },
             ]
           },
           {
-            id: 'expectations_open',
-            text: '¿Qué crees que puede lograr la medicina regenerativa en tu caso?',
-            type: 'textarea',
-            placeholder: 'Escribe aquí tu respuesta...'
-          }
-        ]
-      },
-      {
-        id: 'stress',
-        title: 'Estrés y Carga Laboral',
-        icon: 'fa-solid fa-briefcase',
-        questions: [
-          {
-            id: 'work_stress',
-            text: '¿Cómo describirías tu nivel de estrés laboral actual?',
+            id: 'seller_time',
+            text: '¿Cuánto tiempo podrías dedicar a recomendar el programa?',
             options: [
-              { label: 'Bajo' },
-              { label: 'Moderado' },
-              { label: 'Alto' },
-              { label: 'Crónico / constante' },
-            ]
-          },
-          {
-            id: 'rest',
-            text: '¿Tu rutina diaria te permite descansar y recuperarte adecuadamente?',
-            options: [
-              { label: 'Sí' },
-              { label: 'A veces' },
-              { label: 'No' },
-            ]
-          }
-        ]
-      },
-      {
-        id: 'commitment',
-        title: 'Compromiso con el Protocolo',
-        icon: 'fa-solid fa-medal',
-        questions: [
-          {
-            id: 'situation',
-            text: '¿Cuál describe mejor tu situación actual?',
-            options: [
-              { label: 'Busco claridad antes de intervenir' },
-              { label: 'Estoy confundido y necesito orientación estructurada' },
-              { label: 'Estoy listo para evaluar medicina regenerativa' },
-              { label: 'Busco una solución rápida' },
-            ]
-          },
-          {
-            id: 'guarantee',
-            text: '¿Entiendes que la medicina regenerativa no es garantía universal?',
-            options: [
-              { label: 'Sí' },
-              { label: 'No estoy seguro' },
-              { label: 'Pensaba que sí lo era' },
-            ]
-          }
-        ]
-      },
-      {
-        id: 'decision',
-        title: 'Capacidad de Toma de Decisión',
-        icon: 'fa-solid fa-handshake',
-        questions: [
-          {
-            id: 'invest_clarity',
-            text: 'La evaluación DECIDE™ es una sesión estructurada especializada. ¿Estás dispuesto a invertir en claridad antes de tomar decisiones terapéuticas?',
-            options: [
-              { label: 'Sí' },
-              { label: 'Necesito más información' },
-              { label: 'No' },
-            ]
-          },
-          {
-            id: 'financial',
-            text: 'En caso de ser candidato, los tratamientos regenerativos pueden representar una inversión significativa dependiendo del caso. ¿Cuál describe mejor tu situación actual?',
-            options: [
-              { label: 'Estoy financieramente preparado para evaluar opciones avanzadas' },
-              { label: 'Necesitaría planificar la inversión' },
-              { label: 'No estoy en posición de invertir actualmente' },
-            ]
-          },
-          {
-            id: 'insurance',
-            text: '¿Cuentas con seguro de gastos médicos privado?',
-            options: [
-              { label: 'Sí' },
-              { label: 'No' },
-            ]
-          }
-        ]
-      },
-      {
-        id: 'responsible_alt',
-        title: 'Alternativa Responsable',
-        icon: 'fa-solid fa-shield-heart',
-        questions: [
-          {
-            id: 'stabilization',
-            text: 'Si determinamos que aún no calificas para tratamiento regenerativo, pero sí para un plan estructurado de optimización biológica durante 90 días: ¿Estarías dispuesto a seguir un plan estratégico para mejorar tu entorno metabólico y sistémico antes de intervenir?',
-            options: [
-              { label: 'Sí, si es lo más responsable' },
-              { label: 'Dependería del plan' },
-              { label: 'No' },
-            ]
-          }
-        ]
-      },
-      {
-        id: 'followup',
-        title: 'Seguimiento Médico',
-        icon: 'fa-solid fa-notes-medical',
-        questions: [
-          {
-            id: 'checkups',
-            text: '¿Cada cuánto realizas chequeos médicos?',
-            options: [
-              { label: 'Anual' },
-              { label: 'Semestral' },
-              { label: 'Solo cuando hay síntomas' },
-              { label: 'Rara vez' },
-            ]
-          }
-        ]
-      },
-      {
-        id: 'physician',
-        title: 'Relación con tu Médico Tratante',
-        icon: 'fa-solid fa-user-tie',
-        questions: [
-          {
-            id: 'has_doctor',
-            text: '¿Cuentas actualmente con un médico de cabecera o médico tratante principal?',
-            options: [
-              { label: 'Sí, tengo uno estable' },
-              { label: 'Sí, pero consulto varios sin coordinación clara' },
-              { label: 'No tengo médico de referencia' },
-              { label: 'Solo consulto cuando hay crisis' },
-            ]
-          },
-          {
-            id: 'doctor_relationship',
-            text: '¿Cómo describirías tu relación con tu médico actual?',
-            options: [
-              { label: 'Confianza alta y comunicación abierta' },
-              { label: 'Confianza moderada' },
-              { label: 'Distante / poco seguimiento' },
-              { label: 'No me siento escuchado' },
-              { label: 'Cambio frecuentemente de médico' },
-            ]
-          },
-          {
-            id: 'recommendations',
-            text: '¿Tu médico ha emitido recomendaciones específicas sobre tu condición actual?',
-            options: [
-              { label: 'Sí, tengo un plan claro' },
-              { label: 'Sí, pero no ha funcionado como esperaba' },
-              { label: 'Me han recomendado solo control farmacológico' },
-              { label: 'Me han dicho que “es normal para mi edad”' },
-              { label: 'No tengo recomendaciones claras' },
-            ]
-          },
-          {
-            id: 'mentioned_reg',
-            text: '¿Tu médico ha mencionado medicina regenerativa como opción?',
-            options: [
-              { label: 'Sí' },
-              { label: 'No' },
-              { label: 'La descartó' },
-              { label: 'No hemos hablado del tema' },
-            ]
-          },
-          {
-            id: 'coordinate_prep',
-            text: 'Si tu médico considerara que primero necesitas estabilización metabólica antes de evaluar regeneración, ¿estarías dispuesto a coordinar esa preparación?',
-            options: [
-              { label: 'Sí' },
-              { label: 'Dependería del contexto' },
-              { label: 'No' },
+              { label: 'Tiempo completo' },
+              { label: 'Medio tiempo' },
+              { label: 'Algunas horas a la semana' },
+              { label: 'Muy poco tiempo' },
             ]
           }
         ]
@@ -654,12 +424,12 @@ export const es = {
     ],
     confirmation: {
       title: '🔒 Confirmación Final',
-      body1: 'Power House Biotech no vende tratamientos ni promete resultados universales.',
-      body2: 'Primero evaluamos elegibilidad.',
-      question: '¿Deseas avanzar a una evaluación estructurada?',
+      body1: 'PowerHouse Biotech conecta pacientes con soluciones de salud.',
+      body2: 'Nos tomamos en serio cada referencia.',
+      question: '¿Confirmas tus datos para que te contactemos?',
       options: [
-        { label: 'Sí, quiero claridad antes de iniciar mi tratamiento' },
-        { label: 'Necesito pensarlo' },
+        { label: 'Sí, confirmo mis datos' },
+        { label: 'Prefiero pensarlo' },
       ]
     },
     next: 'Siguiente',
