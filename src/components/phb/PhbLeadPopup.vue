@@ -7,9 +7,11 @@ import { parsePhoneNumberFromString, type CountryCode } from 'libphonenumber-js'
 gsap.registerPlugin(ScrollTrigger)
 
 import { useLocale } from '@/composables/useLocale'
+import { useContactStore } from '@/stores/contact'
 import { sendContactToGHL } from '@/services/ghl'
 
 const { t } = useLocale()
+const contactStore = useContactStore()
 
 const isVisible = ref(false)
 const hasBeenShown = ref(false)
@@ -163,13 +165,21 @@ const handleSubmit = async () => {
   if (!validatePhone()) return
   isLoading.value = true
 
+  const nombre = `${formData.value.firstName.trim()} ${formData.value.lastName.trim()}`.trim()
+
   await sendContactToGHL({
-    nombre: `${formData.value.firstName.trim()} ${formData.value.lastName.trim()}`.trim(),
+    nombre,
     email: formData.value.email.trim(),
     telefono: formData.value.phone.trim(),
     source: 'Home PHB',
     nota: `Lead capturado desde popup Home PHB`,
     paso: 'popup-home',
+  })
+
+  contactStore.save({
+    nombre,
+    email: formData.value.email.trim(),
+    telefono: formData.value.phone.trim(),
   })
 
   isLoading.value = false
