@@ -44,7 +44,7 @@ const scrollToSection = async (sectionId: string) => {
 }
 
 const openWhatsApp = () => {
-  window.open('https://wa.me/5218261295279', '_blank', 'noopener,noreferrer')
+  window.open('https://wa.me/5215553518114', '_blank', 'noopener,noreferrer')
   closeMenu()
 }
 
