@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { getStoredFbParams } from '@/utils/fbclid'
+import { sendMetaEvent } from '@/utils/meta'
 
 // ── Webhooks ─────────────────────────────────────────────────────────────────
 const WH_CONTACT = 'https://services.leadconnectorhq.com/hooks/pEFChujwCCaMWBNbZYD1/webhook-trigger/6c18375e-289b-4dc8-95c8-84d55b65d513'
@@ -146,12 +147,23 @@ async function submitS1() {
       }),
     })
 
-    // Meta Pixel — CompleteRegistration: señal de volumen para el algoritmo
+    // Meta Pixel + CAPI — CompleteRegistration: señal de volumen para el algoritmo
     // Se dispara para TODO contacto que completa el formulario, sin importar calificación
     ;(window as any).fbq?.('track', 'CompleteRegistration',
       { content_name: 'contacto-web-bakano' },
       { eventID: regEventId },
     )
+    sendMetaEvent({
+      eventName: 'CompleteRegistration',
+      eventId: regEventId,
+      userData: {
+        email: s1.value.email.trim(),
+        phone,
+        firstName: s1.value.firstName.trim(),
+        lastName: s1.value.lastName.trim(),
+      },
+      customData: { content_name: 'contacto-web-bakano' },
+    })
 
     step.value = 2
   } catch {
@@ -192,6 +204,26 @@ async function submitS2() {
         // Resumen legible para notas en GHL
         notes,
       }),
+    })
+
+    // Meta Pixel + CAPI — Lead (cualificación completada)
+    const qualifyEventId = `qual_${regEventId || Date.now()}_${Math.random().toString(36).slice(2, 7)}`
+    const qualifiedTag = tags.includes('cualificado-web')
+    const metaUserData = {
+      email: s1.value.email.trim(),
+      phone,
+      firstName: s1.value.firstName.trim(),
+      lastName: s1.value.lastName.trim(),
+    }
+    ;(window as any).fbq?.('track', 'Lead',
+      { content_name: 'cualificacion-bakano-web', status: qualifiedTag ? 'cualificado' : 'no-cualificado' },
+      { eventID: qualifyEventId },
+    )
+    sendMetaEvent({
+      eventName: 'Lead',
+      eventId: qualifyEventId,
+      userData: metaUserData,
+      customData: { content_name: 'cualificacion-bakano-web', status: qualifiedTag ? 'cualificado' : 'no-cualificado' },
     })
 
     step.value = 'ok'

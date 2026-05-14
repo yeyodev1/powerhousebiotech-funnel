@@ -3,6 +3,7 @@ import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useContactStore } from '@/stores/contact'
 import { getStoredFbParams } from '@/utils/fbclid'
+import { sendMetaEvent } from '@/utils/meta'
 
 const contactStore = useContactStore()
 
@@ -113,18 +114,47 @@ const handleSubmit = async () => {
     body: JSON.stringify(finalPayload),
   }).catch(() => {})
 
-  // Meta Pixel — step 2 completado (todos los envíos)
+  // Meta Pixel + CAPI — step 2 completado (todos los envíos)
+  const metaUserData = {
+    email: contact.email,
+    phone: contact.telefono,
+    firstName: contact.nombre,
+  }
   ;(window as any).fbq?.('track', 'CompleteRegistration',
     { content_name: 'cualificacion-step2', status: califica ? 'califica' : 'no-califica' },
     { eventID: scheduleEventId }
   )
+  sendMetaEvent({
+    eventName: 'CompleteRegistration',
+    eventId: scheduleEventId,
+    userData: metaUserData,
+    customData: { content_name: 'cualificacion-step2', status: califica ? 'califica' : 'no-califica' },
+  })
 
   if (califica) {
-    // Meta Pixel — evento Schedule (deduplicado con CAPI via event_id)
+    // Meta Pixel + CAPI — Lead + Schedule (cualificado)
+    const qualifiedLeadId = `qlead_${scheduleEventId}`
+    ;(window as any).fbq?.('track', 'Lead',
+      { content_name: 'cualificado-agendar' },
+      { eventID: qualifiedLeadId }
+    )
+    sendMetaEvent({
+      eventName: 'Lead',
+      eventId: qualifiedLeadId,
+      userData: metaUserData,
+      customData: { content_name: 'cualificado-agendar' },
+    })
+
     ;(window as any).fbq?.('track', 'Schedule',
       { content_name: 'cita-estrategica' },
       { eventID: scheduleEventId }
     )
+    sendMetaEvent({
+      eventName: 'Schedule',
+      eventId: scheduleEventId,
+      userData: metaUserData,
+      customData: { content_name: 'cita-estrategica' },
+    })
   }
 
   submitting.value = false
