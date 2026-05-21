@@ -17,14 +17,7 @@ const isVisible = ref(false)
 const hasBeenShown = ref(false)
 const isLoading = ref(false)
 const formRef = ref<HTMLElement | null>(null)
-const toastVisible = ref(false)
-let toastTimer: ReturnType<typeof setTimeout> | null = null
 
-function showToast() {
-  toastVisible.value = true
-  if (toastTimer) clearTimeout(toastTimer)
-  toastTimer = setTimeout(() => { toastVisible.value = false }, 3000)
-}
 
 const formData = ref({
   firstName: '',
@@ -170,7 +163,7 @@ const closePopup = () => {
 }
 
 const attemptClose = () => {
-  showToast()
+  closePopup()
 }
 
 const handleSubmit = async () => {
@@ -222,7 +215,7 @@ onUnmounted(() => {
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape' && isVisible.value) {
     e.preventDefault()
-    showToast()
+    closePopup()
   }
 }
 </script>
@@ -314,12 +307,6 @@ function onKeydown(e: KeyboardEvent) {
       </div>
     </div>
 
-    <Transition name="toast-fade">
-      <div v-if="toastVisible" class="phb-popup__toast">
-        <i class="fa-solid fa-circle-exclamation"></i>
-        <span>Whoops — necesitas completar tus datos para continuar</span>
-      </div>
-    </Transition>
   </Teleport>
 </template>
 
@@ -593,45 +580,5 @@ function onKeydown(e: KeyboardEvent) {
   100% { transform: scale(1); opacity: 0.8; }
 }
 
-.phb-popup__toast {
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 24px;
-  background: #1a1a2e;
-  border: 1px solid rgba(255, 80, 100, 0.3);
-  border-radius: 12px;
-  color: #fff;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 500;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-  white-space: nowrap;
 
-  i {
-    color: #ff5064;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-  }
-}
-
-.toast-fade-enter-active {
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.toast-fade-leave-active {
-  transition: all 0.25s ease;
-}
-.toast-fade-enter-from {
-  opacity: 0;
-  transform: translateX(-50%) translateY(20px);
-}
-.toast-fade-leave-to {
-  opacity: 0;
-  transform: translateX(-50%) translateY(10px);
-}
 </style>
