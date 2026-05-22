@@ -63,17 +63,34 @@ function detectCountryCode(): CountryCode {
 }
 
 const LABEL_MAP: Record<string, string> = {
-  nombre: '👤 Nombre', apellido: '👤 Apellido', telefono: '📱 Celular', email: '📧 Email',
-  approach: '🎯 Relación con el programa',
-  diagnosis: '🩺 Diagnóstico', time_with_condition: '⏳ Tiempo con la condición',
-  tried_before: '🔄 Tratamientos previos', investment_readiness: '💰 Disposición a invertir',
+  nombre_completo: '👤 Nombre completo', edad: '🎂 Edad', ciudad_pais: '📍 Ciudad / País',
+  email: '📧 Email', telefono: '📱 Celular',
+  diagnosis: '🩺 Diagnóstico principal', time_with_condition: '⏳ Tiempo con la condición',
+  medications: '💊 Medicamentos', tried_before: '🔄 Terapias previas',
+  quality_of_life: '📊 Impacto calidad de vida', main_concern: '😟 Principal preocupación',
+  knowledge_level: '📚 Conocimiento', expectations: '💭 Expectativas',
+  stress_level: '⚡ Estrés laboral', rest_recovery: '😴 Descanso y recuperación',
+  current_situation: '🎯 Situación actual', understands_guarantee: '🔬 Entiende límites',
+  clarity_investment: '💰 Inversión en claridad', financial_readiness: '💵 Preparación financiera',
+  insurance: '🛡️ Seguro médico', alternative_plan: '🔄 Plan alternativo',
+  checkup_frequency: '📅 Chequeos médicos', has_doctor: '👨‍⚕️ Médico tratante',
+  doctor_relationship: '🤝 Relación con médico', doctor_recommendations: '📋 Recomendaciones médicas',
+  doctor_mentioned_regenerative: '🔬 Médico mencionó regenerativa',
+  metabolic_preparation: '⚕️ Preparación metabólica',
   final_confirmation: '✅ Confirmación final',
 }
 
 const NOTE_SECTIONS = [
-  { emoji: '👤', title: 'Información Básica',                   keys: ['nombre', 'apellido', 'telefono', 'email'] },
-  { emoji: '🎯', title: 'Relación con el Programa',             keys: ['approach'] },
-  { emoji: '🫀', title: 'Condición de Salud',                   keys: ['diagnosis', 'time_with_condition', 'tried_before', 'investment_readiness'] },
+  { emoji: '👤', title: 'Información Básica',                    keys: ['nombre_completo', 'edad', 'ciudad_pais', 'email', 'telefono'] },
+  { emoji: '🫀', title: 'Condición de Salud Actual',             keys: ['diagnosis', 'time_with_condition', 'medications', 'tried_before'] },
+  { emoji: '📊', title: 'Nivel de Impacto',                      keys: ['quality_of_life', 'main_concern'] },
+  { emoji: '📚', title: 'Conocimiento sobre Medicina Regenerativa', keys: ['knowledge_level', 'expectations'] },
+  { emoji: '⚡', title: 'Estrés y Carga Laboral',                keys: ['stress_level', 'rest_recovery'] },
+  { emoji: '🎯', title: 'Compromiso y Expectativas',            keys: ['current_situation', 'understands_guarantee'] },
+  { emoji: '💰', title: 'Capacidad Decisional y Económica',     keys: ['clarity_investment', 'financial_readiness', 'insurance'] },
+  { emoji: '🔄', title: 'Alternativa Responsable',               keys: ['alternative_plan'] },
+  { emoji: '📅', title: 'Seguimiento Médico',                    keys: ['checkup_frequency'] },
+  { emoji: '🏥', title: 'Relación con Médico Tratante',         keys: ['has_doctor', 'doctor_relationship', 'doctor_recommendations', 'doctor_mentioned_regenerative', 'metabolic_preparation'] },
 ]
 
 function buildNoteContent(data: Record<string, any>, source: string, completed = false): string {
@@ -168,6 +185,8 @@ const onPhoneInput = (e: Event) => {
 onMounted(() => {
   document.addEventListener('mousedown', handleClickOutside)
   animateIn(1)
+  // Block exit popup while in form
+  localStorage.setItem('phb_form_started_at', String(Date.now()))
 })
 
 onUnmounted(() => {
@@ -177,8 +196,7 @@ onUnmounted(() => {
 // ── Form state ─────────────────────────────────────────────────────────────
 const currentStep = ref(props.initialStep)
 const formData = ref<Record<string, any>>({
-  nombre: contactStore.contact.nombre || '',
-  apellido: contactStore.contact.apellido || '',
+  nombre_completo: contactStore.contact.nombre || '',
   email: contactStore.contact.email || '',
   telefono: contactStore.contact.telefono || '',
 })
@@ -188,6 +206,14 @@ const totalSteps = computed(() => sections.value.length + 2) // Intro + Sections
 
 // Animation state
 const isAnimating = ref(false)
+const processing = ref(false)
+const processingLabel = ref('')
+
+const PROCESSING_MESSAGES: Record<string, string> = {
+  es: 'Procesando información...',
+  en: 'Processing information...',
+}
+const { locale } = useLocale()
 
 // Navigation logic
 async function nextStep() {
@@ -197,6 +223,9 @@ async function nextStep() {
     isAnimating.value = true
     await animateOut(1)
 
+    processing.value = true
+    processingLabel.value = PROCESSING_MESSAGES[locale.value] || PROCESSING_MESSAGES.es
+
     if (currentStep.value === 1) {
       localStorage.setItem('phb_form_started_at', String(Date.now()))
       const source = sessionStorage.getItem('phb_source') || 'PHB Web'
@@ -204,7 +233,7 @@ async function nextStep() {
       sessionStorage.setItem('phb_form_source', source)
       const notaContent = buildNoteContent(formData.value, source)
       const contacto = {
-        nombre: `${formData.value.nombre?.trim() || ''} ${formData.value.apellido?.trim() || ''}`.trim(),
+        nombre: (formData.value.nombre_completo || '').trim(),
         email: formData.value.email?.trim() || '',
         telefono: formData.value.telefono?.trim() || '',
         source,
@@ -212,17 +241,21 @@ async function nextStep() {
       await sendContactToGHL({ ...contacto, nota: notaContent, paso: '1-datos-basicos' })
       await sendNoteToGHL({ ...contacto, nota: notaContent, paso: '1-datos-basicos' })
     } else {
-      const source = sessionStorage.getItem('phb_form_source') || 'PHB Web'
-      const notaContent = buildNoteContent(formData.value, source)
-      const contacto = {
-        nombre: `${formData.value.nombre?.trim() || ''} ${formData.value.apellido?.trim() || ''}`.trim(),
-        email: formData.value.email?.trim() || '',
-        telefono: formData.value.telefono?.trim() || '',
-        source,
-      }
-      await sendContactToGHL({ ...contacto, nota: notaContent, paso: `paso-${currentStep.value}` })
-      await sendNoteToGHL({ ...contacto, nota: notaContent, paso: `paso-${currentStep.value}` })
+    const source = sessionStorage.getItem('phb_form_source') || 'PHB Web'
+    const notaContent = buildNoteContent(formData.value, source)
+    const contacto = {
+      nombre: (formData.value.nombre_completo || '').trim(),
+      email: formData.value.email?.trim() || '',
+      telefono: formData.value.telefono?.trim() || '',
+      source,
     }
+    await sendContactToGHL({ ...contacto, nota: notaContent, paso: `paso-${currentStep.value}` })
+    await sendNoteToGHL({ ...contacto, nota: notaContent, paso: `paso-${currentStep.value}` })
+    }
+
+    // Brief processing pause to show loading state
+    await new Promise(r => setTimeout(r, 600))
+    processing.value = false
 
     currentStep.value++
     await nextTick()
@@ -288,25 +321,32 @@ function finish() {
   const source = sessionStorage.getItem('phb_form_source') || 'PHB Web'
   const notaFinal = buildNoteContent(formData.value, source, true)
   const contacto = {
-    nombre: `${formData.value.nombre?.trim() || ''} ${formData.value.apellido?.trim() || ''}`.trim(),
+    nombre: (formData.value.nombre_completo || '').trim(),
     email: formData.value.email?.trim() || '',
     telefono: formData.value.telefono?.trim() || '',
     source,
   }
   sendContactToGHL({ ...contacto, nota: notaFinal, paso: 'completado' })
   sendNoteToGHL({ ...contacto, nota: notaFinal, paso: 'completado' })
-  const qualifica = !!formData.value.diagnosis && !!formData.value.approach
+  const qualifica = !!formData.value.diagnosis
+  const profileParts = [
+    `Diagnóstico: ${formData.value.diagnosis || ''}`,
+    `Tiempo: ${formData.value.time_with_condition || ''}`,
+    `Medicamentos: ${formData.value.medications || ''}`,
+    `Terapias previas: ${formData.value.tried_before || ''}`,
+    `Impacto: ${formData.value.quality_of_life || ''}`,
+    `Conocimiento: ${formData.value.knowledge_level || ''}`,
+    `Estrés: ${formData.value.stress_level || ''}`,
+    `Inversión en claridad: ${formData.value.clarity_investment || ''}`,
+    `Preparación financiera: ${formData.value.financial_readiness || ''}`,
+    `Plan alternativo: ${formData.value.alternative_plan || ''}`,
+  ].filter(Boolean).join(' | ')
   sendQualificationToGHL({
-    nombre: `${formData.value.nombre?.trim() || ''} ${formData.value.apellido?.trim() || ''}`.trim(),
+    nombre: (formData.value.nombre_completo || '').trim(),
     email: formData.value.email?.trim() || '',
     telefono: formData.value.telefono?.trim() || '',
-    approach: formData.value.approach || '',
-    sellerProfile: [
-      `Diagnóstico: ${formData.value.diagnosis || ''}`,
-      `Tiempo: ${formData.value.time_with_condition || ''}`,
-      `Tratamientos: ${formData.value.tried_before || ''}`,
-      `Inversión: ${formData.value.investment_readiness || ''}`,
-    ].filter(Boolean).join(' | '),
+    approach: formData.value.current_situation || '',
+    sellerProfile: profileParts,
     califica: qualifica,
     nota: notaFinal,
     paso: 'calificacion-final',
@@ -330,6 +370,10 @@ function selectOption(qid: string, val: string) {
   )
 }
 
+// Helper for template type casting
+function qType(q: any): string { return q.type || '' }
+function qPlaceholder(q: any): string { return q.placeholder || '' }
+
 // Validation
 const canContinue = computed(() => {
   if (currentStep.value === 0) return true // Intro
@@ -347,7 +391,7 @@ const canContinue = computed(() => {
     
     if (section.questions) {
       return section.questions.every((q: any) => {
-        if (q.type === 'textarea') return true 
+        if (qType(q) === 'textarea') return true 
         return !!formData.value[q.id]
       })
     }
@@ -380,6 +424,14 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
       </div>
     </div>
 
+    <!-- Processing overlay between steps -->
+    <Transition name="fade">
+      <div v-if="processing" class="phb-form__processing">
+        <div class="phb-form__processing-spinner"></div>
+        <span class="phb-form__processing-label">{{ processingLabel }}</span>
+      </div>
+    </Transition>
+
     <div class="phb-form__container">
       <!-- Step 0: Intro -->
       <div v-if="currentStep === 0" class="phb-form__intro">
@@ -406,8 +458,7 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
         
         <!-- Fields (Grid for Step 1, Single for others) -->
         <div v-if="sections[currentStep - 1].fields" 
-             class="phb-form__fields" 
-             :class="{ 'phb-form__fields--grid': currentStep === 1 }">
+             class="phb-form__fields">
           <div v-for="field in sections[currentStep - 1].fields" :key="field.name" class="phb-form__field-group phb-form__animate-el">
             <label :for="field.name">{{ field.label }}</label>
 
@@ -499,9 +550,21 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
         <!-- Questions -->
         <div v-if="sections[currentStep - 1].questions" class="phb-form__questions">
           <div v-for="q in sections[currentStep - 1].questions" :key="q.id" class="phb-form__question-group">
+
             <p class="phb-form__question-text phb-form__animate-el">{{ q.text }}</p>
-            
-            <div v-if="q.options" class="phb-form__options">
+
+            <!-- Textarea type -->
+            <div v-if="qType(q) === 'textarea'" class="phb-form__animate-el">
+              <textarea
+                v-model="formData[q.id]"
+                :placeholder="qPlaceholder(q)"
+                class="phb-form__textarea"
+                rows="5"
+              />
+            </div>
+
+            <!-- Option buttons -->
+            <div v-else-if="q.options" class="phb-form__options">
               <button 
                 v-for="opt in q.options" 
                 :key="opt.label"
@@ -527,7 +590,6 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
                 />
               </Transition>
             </div>
-
 
           </div>
         </div>
@@ -577,27 +639,61 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
 <style lang="scss" scoped>
 .phb-form {
   width: 100%;
-  max-width: 700px; // Slightly wider for grid
+  max-width: 600px;
   margin: 0 auto;
   position: relative;
-  background: rgba(13, 15, 40, 0.45);
+  background: rgba(13, 15, 40, 0.6);
   backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
   overflow: hidden;
   box-shadow: 
-    0 30px 100px rgba(0, 0, 0, 0.5),
+    0 20px 60px rgba(0, 0, 0, 0.5),
     inset 0 0 40px rgba(255, 255, 255, 0.02);
 
   &__header {
-    padding: 3rem 3rem 0;
+    padding: 1.5rem 2rem 0;
+  }
+
+  &__processing {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    background: rgba(13, 15, 40, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 40px;
+
+    &-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(33, 188, 250, 0.15);
+      border-top-color: var(--phb-cyan, #21bcfa);
+      border-radius: 50%;
+      animation: phb-spin 0.7s linear infinite;
+    }
+
+    &-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.05em;
+    }
+  }
+
+  @keyframes phb-spin {
+    to { transform: rotate(360deg); }
   }
 
   &__progress-container {
-    height: 3px; // Thinner for a more professional look
+    height: 3px;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 100px;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     overflow: hidden;
     position: relative;
   }
@@ -644,7 +740,7 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
   }
 
   &__container {
-    padding: 3.5rem 3rem;
+    padding: 2rem 2rem;
   }
 
   &__intro {
@@ -653,40 +749,40 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
 
   &__badge {
     display: inline-block;
-    padding: 0.6rem 1.75rem;
+    padding: 0.5rem 1.5rem;
     background: rgba(33, 188, 250, 0.1);
     color: var(--phb-cyan, #21bcfa);
     border: 1px solid rgba(33, 188, 250, 0.2);
     border-radius: 100px;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 900;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
   }
 
   &__title {
-    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-size: clamp(1.6rem, 4vw, 2.25rem);
     font-weight: 300;
     line-height: 1.1;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     color: #fff;
     
     strong { font-weight: 700; color: var(--phb-cyan, #21bcfa); }
   }
 
   &__desc {
-    font-size: 1.15rem;
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.6;
     color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     max-width: 90%;
     margin-inline: auto;
   }
 
   &__meta {
-    margin-bottom: 3.5rem;
-    font-size: 1rem;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: center;
@@ -698,8 +794,8 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
   &__section-header {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 3.5rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
 
     &::after {
       content: '';
@@ -710,22 +806,21 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
   }
 
   &__section-icon {
-    width: 54px;
-    height: 54px;
+    width: 44px;
+    height: 44px;
     background: rgba(33, 188, 250, 0.05);
     border: 1px solid rgba(33, 188, 250, 0.2);
-    border-radius: 14px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--phb-cyan, #21bcfa);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     box-shadow: 0 0 20px rgba(33, 188, 250, 0.1);
   }
 
   &__section-title {
-    font-size: 1.75rem;
-    font-weight: 300; // Lighter weight for a more professional feel
+    font-size: 1.3rem;
+    font-weight: 300;
     color: #fff;
     margin: 0;
     letter-spacing: -0.01em;
@@ -739,42 +834,32 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
   &__fields {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-
-    &--grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem 2rem;
-
-      @media (max-width: 600px) {
-        grid-template-columns: 1fr;
-      }
-    }
+    gap: 1.25rem;
   }
 
   &__field-group {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.4rem;
     
     label {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 800;
       color: rgba(255, 255, 255, 0.25);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      padding-left: 0.5rem;
+      padding-left: 0.25rem;
     }
   }
 
   &__input {
     width: 100%;
-    padding: 1.4rem 1.75rem;
+    padding: 1rem 1.25rem;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+    border-radius: 16px;
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 1rem;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
     &:focus {
@@ -786,25 +871,25 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
     }
 
     &--small {
-      margin-top: 1rem;
-      padding: 1.1rem 1.5rem;
-      font-size: 1rem;
+      margin-top: 0.75rem;
+      padding: 0.8rem 1.25rem;
+      font-size: 0.95rem;
     }
   }
 
   &__option {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    padding: 1.4rem 1.75rem;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 20px;
+    border-radius: 16px;
     color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
     text-align: left;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     position: relative;
     overflow: hidden;
 
@@ -837,8 +922,8 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
   }
 
   &__radio {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     position: relative;
@@ -852,13 +937,13 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
 
   &__textarea {
     width: 100%;
-    min-height: 180px;
-    padding: 1.5rem 1.75rem;
+    min-height: 120px;
+    padding: 1rem 1.25rem;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+    border-radius: 16px;
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 1rem;
     resize: vertical;
     transition: all 0.4s;
 
@@ -870,35 +955,35 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
   }
 
   &__footer {
-    padding-top: 3rem;
+    padding-top: 1.5rem;
     display: flex;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 
   &__conf-content {
     color: rgba(255, 255, 255, 0.45);
-    font-size: 1.15rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.7;
     
-    p { margin-bottom: 2rem; }
+    p { margin-bottom: 1.25rem; }
     strong { color: #fff; font-weight: 700; }
     
-    hr { border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 3rem 0; }
+    hr { border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 1.5rem 0; }
   }
 
   &__options {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.6rem;
   }
 
   &__question-text {
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
     line-height: 1.4;
     color: #fff;
   }
@@ -910,7 +995,7 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
     align-items: center;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: visible;
     transition: border-color 0.2s;
 
@@ -924,7 +1009,7 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 1.4rem 1rem 1.4rem 1.75rem;
+    padding: 1rem 0.75rem 1rem 1.5rem;
     background: none;
     border: none;
     border-right: 1px solid rgba(255, 255, 255, 0.08);
@@ -932,8 +1017,8 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
     color: #fff;
     white-space: nowrap;
     flex-shrink: 0;
-    border-radius: 20px 0 0 20px;
-    font-size: 1rem;
+    border-radius: 16px 0 0 16px;
+    font-size: 0.95rem;
 
     &:hover {
       background: rgba(255, 255, 255, 0.04);
@@ -941,13 +1026,13 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
   }
 
   &__flag {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     line-height: 1;
   }
 
   &__dial {
     font-family: var(--font-mono, monospace);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.8);
   }
@@ -1044,8 +1129,8 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
-    padding: 1.4rem 44px 1.4rem 14px !important;
-    font-size: 1.1rem !important;
+    padding: 1rem 40px 1rem 12px !important;
+    font-size: 1rem !important;
     color: #fff;
     outline: none !important;
     box-shadow: none !important;
@@ -1055,11 +1140,11 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
 
   &__phone-status {
     position: absolute;
-    right: 16px;
+    right: 14px;
     top: 50%;
     transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1071,9 +1156,9 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
   }
 
   &__phone-preview {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: rgba(59, 183, 126, 0.8);
-    padding: 4px 0 0 4px;
+    padding: 2px 0 0 4px;
   }
 }
 
@@ -1081,22 +1166,22 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
   background: #fff;
   color: #05060f;
   border: none;
-  padding: 1.5rem 2.5rem;
+  padding: 1rem 2rem;
   border-radius: 100px;
   font-weight: 900;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   text-transform: uppercase;
   letter-spacing: 0.15em;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 
   &:hover:not(:disabled) {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     box-shadow: 0 20px 50px rgba(33, 188, 251, 0.4);
     background: var(--phb-cyan, #21bcfa);
     color: #fff;
@@ -1113,15 +1198,15 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
   background: transparent;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 1.5rem 2.25rem;
+  padding: 1rem 1.75rem;
   border-radius: 100px;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.9rem;
+  gap: 0.7rem;
   transition: all 0.4s;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1142,11 +1227,13 @@ const progress = computed(() => (currentStep.value / (totalSteps.value - 1)) * 1
 
 @media (max-width: 768px) {
   .phb-form {
-    border-radius: 30px;
+    border-radius: 24px;
     
-    &__container { padding: 2.5rem 2rem; }
-    &__section-title { font-size: 1.5rem; }
-    &__footer { flex-direction: column-reverse; padding-bottom: 1rem; }
+    &__container { padding: 1.5rem 1.25rem; }
+    &__header { padding: 1rem 1.25rem 0; }
+    &__section-title { font-size: 1.15rem; }
+    &__section-icon { width: 38px; height: 38px; font-size: 1.1rem; }
+    &__footer { flex-direction: column-reverse; padding-bottom: 0.5rem; }
     .btn-primary, .btn-secondary { width: 100%; }
   }
 }

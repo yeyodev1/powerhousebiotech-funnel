@@ -36,17 +36,20 @@ const whatsappUrl = computed(() => {
   if (!raw) return base
   try {
     const d = JSON.parse(raw)
-    const name = `${d.nombre || ''} ${d.apellido || ''}`.trim()
+    const name = d.nombre_completo || ''
     const parts = ['🫀 NUEVO PACIENTE PHB — Resumen']
     parts.push('')
     parts.push(`👤 ${name}`)
     if (d.email) parts.push(`📧 ${d.email}`)
     if (d.telefono) parts.push(`📱 ${d.telefono}`)
-    if (d.approach) parts.push(`🎯 ${d.approach}`)
     if (d.diagnosis) parts.push(`🩺 Diagnóstico: ${d.diagnosis}${d.diagnosis_other ? ` (${d.diagnosis_other})` : ''}`)
     if (d.time_with_condition) parts.push(`⏳ Tiempo: ${d.time_with_condition}`)
-    if (d.tried_before) parts.push(`🔄 Tratamientos previos: ${d.tried_before}`)
-    if (d.investment_readiness) parts.push(`💰 Disposición: ${d.investment_readiness}`)
+    if (d.medications) parts.push(`💊 Medicamentos: ${d.medications}`)
+    if (d.tried_before) parts.push(`🔄 Terapias previas: ${d.tried_before}`)
+    if (d.quality_of_life) parts.push(`📊 Impacto: ${d.quality_of_life}`)
+    if (d.clarity_investment) parts.push(`💰 Inversión en claridad: ${d.clarity_investment}`)
+    if (d.financial_readiness) parts.push(`💵 Preparación financiera: ${d.financial_readiness}`)
+    if (d.current_situation) parts.push(`🎯 Situación: ${d.current_situation}`)
     return `${base}?text=${encodeURIComponent(parts.join('\n'))}`
   } catch { return base }
 })
@@ -76,9 +79,9 @@ function evaluate() {
 }
 
 function checkDisqualification(data: any) {
-  if (!data.approach) return true
   if (!data.diagnosis) return true
-  if (data.investment_readiness === 'Aún no estoy seguro' || data.investment_readiness === 'I am not sure yet') return true
+  if (data.clarity_investment === 'No') return true
+  if (data.financial_readiness === 'No estoy en posición de invertir actualmente' || data.financial_readiness === 'I am not in a position to invest currently') return true
   return false
 }
 </script>
@@ -180,10 +183,10 @@ function checkDisqualification(data: any) {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
-    height: 64px;
-    background: rgba(10, 11, 40, 0.7); // Deeper navy
-    backdrop-filter: blur(30px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    height: 48px;
+    background: rgba(10, 11, 40, 0.6);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -227,8 +230,9 @@ function checkDisqualification(data: any) {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 73px);
-    padding: 2rem 1.5rem;
+    min-height: 100vh;
+    padding: 4rem 1rem;
+    box-sizing: border-box;
   }
 
   &__card {

@@ -340,11 +340,11 @@ export const en = {
   qualify: {
     stepOf: 'of',
     title: 'PRE-QUALIFICATION FORM',
-    subtitle: 'PATIENT QUALIFICATION',
+    subtitle: 'HEALTH DECISION PLATFORM',
     intro: {
-      title: 'Are you the ideal candidate or do you know someone who is?',
-      sub: 'We want to get to know you to find out if you or someone you know can benefit from our program.',
-      time: 'Estimated time: 2–3 minutes.',
+      title: 'Is Regenerative Medicine a safe alternative for your condition?',
+      sub: 'This form allows us to evaluate if regenerative medicine is viable, coherent, and safe for your specific case.',
+      time: 'Estimated time: 5–7 minutes.',
       cta: 'Start',
     },
     success: {
@@ -363,43 +363,28 @@ export const en = {
         title: 'Basic Information',
         icon: 'fa-solid fa-user-doctor',
         fields: [
-          { name: 'nombre', label: 'First Name:', type: 'text', placeholder: 'Your name' },
-          { name: 'apellido', label: 'Last Name:', type: 'text', placeholder: 'Your last name' },
-          { name: 'telefono', label: 'Cell / WhatsApp:', type: 'tel', placeholder: '+1 ...' },
-          { name: 'email', label: 'Email address:', type: 'email', placeholder: 'you@email.com' },
-        ]
-      },
-      {
-        id: 'approach',
-        title: 'Your Relationship with the Program',
-        icon: 'fa-solid fa-users',
-        questions: [
-          {
-            id: 'approach',
-            text: 'Are you the person who needs the program, or do you know someone who needs it?',
-            options: [
-              { label: 'I am the person who needs it' },
-              { label: 'I know someone who needs it' },
-              { label: 'Both, me and someone I know' },
-            ]
-          }
+          { name: 'nombre_completo', label: 'Full name:', type: 'text', placeholder: 'Your full name' },
+          { name: 'edad',             label: 'Age:',           type: 'number', placeholder: 'Your age' },
+          { name: 'ciudad_pais',      label: 'City / Country:', type: 'text',  placeholder: 'e.g. Quito, Ecuador' },
+          { name: 'email',            label: 'Email address:', type: 'email', placeholder: 'you@email.com' },
+          { name: 'telefono',         label: 'Phone / WhatsApp:', type: 'tel', placeholder: '+1 ...' },
         ]
       },
       {
         id: 'condition',
-        title: 'Your Health Condition',
+        title: 'Your Current Health Condition',
         icon: 'fa-solid fa-heart-pulse',
         questions: [
           {
             id: 'diagnosis',
-            text: 'What is your main diagnosis or condition?',
+            text: 'What is your main diagnosis?',
             options: [
-              { label: 'Joint pain / Arthritis' },
-              { label: 'Chronic fatigue' },
+              { label: 'Diabetes' },
+              { label: 'Hypertension' },
+              { label: 'Arthritis / Joint problem' },
               { label: 'Autoimmune disease' },
-              { label: 'Diabetes / Metabolic issues' },
-              { label: 'Chronic digestive problems' },
-              { label: 'Premature aging / Vitality' },
+              { label: 'Neurodegenerative disease' },
+              { label: 'Metabolic problem' },
               { label: 'Other:', hasInput: true },
             ]
           },
@@ -408,30 +393,258 @@ export const en = {
             text: 'How long have you had this condition?',
             options: [
               { label: 'Less than 1 year' },
-              { label: '1 to 3 years' },
-              { label: '3 to 10 years' },
+              { label: '1–3 years' },
+              { label: '3–10 years' },
               { label: 'More than 10 years' },
             ]
           },
           {
-            id: 'tried_before',
-            text: 'What treatments have you tried before?',
+            id: 'medications',
+            text: 'Do you currently take medication?',
             options: [
-              { label: 'Conventional medicine' },
-              { label: 'Alternative therapies' },
-              { label: 'Supplements / Nutrition' },
-              { label: 'Regenerative therapies' },
-              { label: 'Several without success' },
-              { label: 'None yet' },
+              { label: 'Yes' },
+              { label: 'No' },
+              { label: 'Several' },
             ]
           },
           {
-            id: 'investment_readiness',
-            text: 'High-quality regenerative treatments represent an investment. Are you prepared to invest in your health?',
+            id: 'tried_before',
+            text: 'Have you tried other therapies before?',
             options: [
-              { label: 'Yes, I am ready to invest' },
-              { label: 'I need to evaluate payment options' },
-              { label: 'I am not sure yet' },
+              { label: 'Traditional medicine' },
+              { label: 'Alternative medicine' },
+              { label: 'Supplements' },
+              { label: 'Regenerative therapies' },
+              { label: 'Various combined' },
+              { label: 'None' },
+            ]
+          }
+        ]
+      },
+      {
+        id: 'impact',
+        title: 'Impact Level',
+        icon: 'fa-solid fa-chart-line',
+        questions: [
+          {
+            id: 'quality_of_life',
+            text: 'How does this condition affect your quality of life?',
+            options: [
+              { label: 'Mild' },
+              { label: 'Moderate' },
+              { label: 'High' },
+              { label: 'Severely limiting' },
+            ]
+          },
+          {
+            id: 'main_concern',
+            text: 'What concerns you the most?',
+            options: [
+              { label: 'Pain' },
+              { label: 'Loss of function' },
+              { label: 'Future dependency' },
+              { label: 'Not knowing what to do' },
+              { label: 'Progressive worsening' },
+            ]
+          }
+        ]
+      },
+      {
+        id: 'knowledge',
+        title: 'Knowledge about Regenerative Medicine',
+        icon: 'fa-solid fa-brain',
+        questions: [
+          {
+            id: 'knowledge_level',
+            text: 'How much have you heard or researched about regenerative medicine (stem cells, exosomes, peptides, serotherapy, etc.)?',
+            options: [
+              { label: 'Very little, I am just exploring' },
+              { label: 'I have read general information' },
+              { label: 'I have researched in depth' },
+              { label: 'I have already received regenerative therapies' },
+              { label: 'I have very clear expectations about what it can achieve' },
+            ]
+          },
+          {
+            id: 'expectations',
+            type: 'textarea',
+            text: 'What do you think regenerative medicine can achieve in your case?',
+            placeholder: 'Write your answer...',
+          }
+        ]
+      },
+      {
+        id: 'stress',
+        title: 'Stress and Workload',
+        icon: 'fa-solid fa-bolt',
+        questions: [
+          {
+            id: 'stress_level',
+            text: 'How would you describe your current work stress level?',
+            options: [
+              { label: 'Low' },
+              { label: 'Moderate' },
+              { label: 'High' },
+              { label: 'Chronic / constant' },
+            ]
+          },
+          {
+            id: 'rest_recovery',
+            text: 'Does your daily routine allow you to rest and recover adequately?',
+            options: [
+              { label: 'Yes' },
+              { label: 'Sometimes' },
+              { label: 'No' },
+            ]
+          }
+        ]
+      },
+      {
+        id: 'commitment',
+        title: 'Commitment and Expectations',
+        icon: 'fa-solid fa-handshake',
+        questions: [
+          {
+            id: 'current_situation',
+            text: 'Which best describes your current situation?',
+            options: [
+              { label: 'I seek clarity before intervening' },
+              { label: 'I am confused and need structured guidance' },
+              { label: 'I am ready to evaluate regenerative medicine' },
+              { label: 'I am looking for a quick solution' },
+            ]
+          },
+          {
+            id: 'understands_guarantee',
+            text: 'Do you understand that regenerative medicine is not a universal guarantee?',
+            options: [
+              { label: 'Yes' },
+              { label: 'I am not sure' },
+              { label: 'I thought it was' },
+            ]
+          }
+        ]
+      },
+      {
+        id: 'capacity',
+        title: 'Decision and Financial Capacity',
+        icon: 'fa-solid fa-scale-balanced',
+        questions: [
+          {
+            id: 'clarity_investment',
+            text: 'The DECIDE™ evaluation is a specialized structured session. Are you willing to invest in clarity before making therapeutic decisions?',
+            options: [
+              { label: 'Yes' },
+              { label: 'I need more information' },
+              { label: 'No' },
+            ]
+          },
+          {
+            id: 'financial_readiness',
+            text: 'If you are a candidate, regenerative treatments may represent a significant investment depending on the case. Which best describes your current situation?',
+            options: [
+              { label: 'I am financially prepared to evaluate advanced options' },
+              { label: 'I would need to plan the investment' },
+              { label: 'I am not in a position to invest currently' },
+            ]
+          },
+          {
+            id: 'insurance',
+            text: 'Do you have private health insurance?',
+            options: [
+              { label: 'Yes' },
+              { label: 'No' },
+            ]
+          }
+        ]
+      },
+      {
+        id: 'alternative',
+        title: 'Responsible Alternative',
+        icon: 'fa-solid fa-shield-halved',
+        questions: [
+          {
+            id: 'alternative_plan',
+            text: 'If we determine that you do not yet qualify for regenerative treatment, but you do qualify for a structured 90-day biological optimization plan: Would you be willing to follow a strategic plan to improve your metabolic and systemic environment before intervening?',
+            options: [
+              { label: 'Yes, if it is the most responsible choice' },
+              { label: 'It would depend on the plan' },
+              { label: 'No' },
+            ]
+          }
+        ]
+      },
+      {
+        id: 'checkup',
+        title: 'Medical Checkups',
+        icon: 'fa-solid fa-calendar-check',
+        questions: [
+          {
+            id: 'checkup_frequency',
+            text: 'How often do you get medical checkups?',
+            options: [
+              { label: 'Annual' },
+              { label: 'Semi-annual' },
+              { label: 'Only when symptoms appear' },
+              { label: 'Rarely' },
+            ]
+          }
+        ]
+      },
+      {
+        id: 'doctor',
+        title: 'Relationship with Your Doctor',
+        icon: 'fa-solid fa-stethoscope',
+        questions: [
+          {
+            id: 'has_doctor',
+            text: 'Do you currently have a primary care physician or main treating doctor?',
+            options: [
+              { label: 'Yes, I have a stable one' },
+              { label: 'Yes, but I consult several without clear coordination' },
+              { label: 'I have no reference doctor' },
+              { label: 'I only consult when in crisis' },
+            ]
+          },
+          {
+            id: 'doctor_relationship',
+            text: 'How would you describe your relationship with your current doctor?',
+            options: [
+              { label: 'High trust and open communication' },
+              { label: 'Moderate trust' },
+              { label: 'Distant / little follow-up' },
+              { label: 'I do not feel heard' },
+              { label: 'I frequently change doctors' },
+            ]
+          },
+          {
+            id: 'doctor_recommendations',
+            text: 'Has your doctor made specific recommendations about your current condition?',
+            options: [
+              { label: 'Yes, I have a clear plan' },
+              { label: 'Yes, but it has not worked as expected' },
+              { label: 'I have only been recommended pharmacological control' },
+              { label: 'I have been told it is &quot;normal for my age&quot;' },
+              { label: 'I have no clear recommendations' },
+            ]
+          },
+          {
+            id: 'doctor_mentioned_regenerative',
+            text: 'Has your doctor mentioned regenerative medicine as an option?',
+            options: [
+              { label: 'Yes' },
+              { label: 'No' },
+              { label: 'They ruled it out' },
+              { label: 'We have not discussed it' },
+            ]
+          },
+          {
+            id: 'metabolic_preparation',
+            text: 'If your doctor considered that you first need metabolic stabilization before evaluating regeneration, would you be willing to coordinate that preparation?',
+            options: [
+              { label: 'Yes' },
+              { label: 'It would depend on the context' },
+              { label: 'No' },
             ]
           }
         ]
@@ -439,11 +652,11 @@ export const en = {
     ],
     confirmation: {
       title: '🔒 Final Confirmation',
-      body1: 'PowerHouse Biotech connects patients with health solutions.',
-      body2: 'We take every referral seriously.',
-      question: 'Do you confirm your data so we can contact you?',
+      body1: 'Power House Biotech does not sell treatments nor promise universal results.',
+      body2: 'We first evaluate eligibility.',
+      question: 'Do you wish to proceed to a structured evaluation?',
       options: [
-        { label: 'Yes, I confirm my data' },
+        { label: 'Yes, I want clarity before intervening' },
         { label: 'I need to think about it' },
       ]
     },
