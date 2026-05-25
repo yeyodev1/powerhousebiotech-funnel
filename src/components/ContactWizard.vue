@@ -30,15 +30,10 @@ const COUNTRIES = [
   { dial: '+504', label: '🇭🇳 +504 Honduras' },
 ]
 
+// Default forzado MX (CSP del dominio bloquea fetch externo, no se puede leer IP).
 function detectDial(): string {
-  const lang = navigator.language || ''
-  const map: Record<string, string> = {
-    'es-EC': '+593', 'es-CO': '+57', 'es-PE': '+51',
-    'es-MX': '+52', 'es-AR': '+54', 'es-CL': '+56',
-    'es-ES': '+34', 'en-US': '+1', 'es-VE': '+58',
-    'es-PA': '+507',
-  }
-  return map[lang] ?? '+593'
+  console.log('[ContactWizard] default forzado → +52 MX')
+  return '+52'
 }
 
 // ── Estado ───────────────────────────────────────────────────────────────────

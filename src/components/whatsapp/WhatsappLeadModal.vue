@@ -13,47 +13,11 @@ const contactStore = useContactStore()
 const isLoading = ref(false)
 const whatsappLink = 'https://chat.whatsapp.com/FRDRGGu2RP433j36MK8xrg'
 
-const KNOWN_COUNTRIES = ['ES','MX','CO','EC','PE','CL','AR','VE','US','PA','CR','GT','PY','UY','BO','DO','PR','SV','HN','NI'] as const
-
-function detectCountryFromLocale(): CountryCode | null {
-  const locale = Intl.DateTimeFormat().resolvedOptions().locale
-  if (locale && locale.includes('-')) {
-    const region = locale.split('-').pop()?.toUpperCase()
-    if (region && region.length === 2 && isNaN(Number(region))) {
-      return region as CountryCode
-    }
-  }
-  return null
-}
-
-function detectCountryFromLanguage(): CountryCode | null {
-  const languages = navigator.languages || [navigator.language]
-  for (const lang of languages) {
-    if (lang && lang.includes('-')) {
-      const parts = lang.split('-')
-      const region = parts[parts.length - 1].toUpperCase()
-      if (region.length === 2 && isNaN(Number(region)) && (KNOWN_COUNTRIES as readonly string[]).includes(region)) {
-        return region as CountryCode
-      }
-    }
-  }
-  return null
-}
-
-async function detectCountryByIP(): Promise<CountryCode | null> {
-  try {
-    const res = await fetch('https://ip-api.com/json/', { signal: AbortSignal.timeout(5000) })
-    const data = await res.json()
-    const cc = data?.countryCode
-    if (cc && cc.length === 2 && (KNOWN_COUNTRIES as readonly string[]).includes(cc)) {
-      return cc as CountryCode
-    }
-  } catch {}
-  return null
-}
-
+// Default forzado MX (CSP del dominio bloquea fetch externo, no se puede leer IP).
+// EC se excluye por requerimiento del producto: nunca caer en Ecuador.
 function detectCountryLocal(): CountryCode {
-  return detectCountryFromLocale() || detectCountryFromLanguage() || 'MX'
+  console.log('[WhatsappLeadModal] default forzado → MX (CSP bloquea IP lookup)')
+  return 'MX'
 }
 
 const formData = ref({
@@ -100,13 +64,10 @@ const modalLabels = {
 const activeLabels = ref(locale.value === 'en' ? modalLabels.en : modalLabels.es)
 
 // Keep labels in sync with locale changes
-onMounted(async () => {
+onMounted(() => {
   activeLabels.value = locale.value === 'en' ? modalLabels.en : modalLabels.es
   formData.value.countryCode = detectCountryLocal()
-  const ipCountry = await detectCountryByIP()
-  if (ipCountry) {
-    formData.value.countryCode = ipCountry
-  }
+  console.log('[WhatsappLeadModal] initial countryCode:', formData.value.countryCode)
   document.body.style.overflow = 'hidden'
   document.addEventListener('keydown', onKeydown)
 })
@@ -119,14 +80,6 @@ onUnmounted(() => {
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') {
     close()
-  }
-}
-
-const detectCountry = async () => {
-  formData.value.countryCode = detectCountryLocal()
-  const ipCountry = await detectCountryByIP()
-  if (ipCountry) {
-    formData.value.countryCode = ipCountry
   }
 }
 
@@ -169,7 +122,7 @@ const handleSubmit = async () => {
 
   isLoading.value = false
   close()
-  
+
   // Direct redirect to WhatsApp Invite link
   window.location.href = whatsappLink
 }

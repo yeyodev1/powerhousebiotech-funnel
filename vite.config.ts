@@ -20,6 +20,6 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['38828430451a.ngrok-free.app'],
+    allowedHosts: ['38828430451a.ngrok-free.app', 'testing-storybrand-frontend.bakano.ec'],
   },
 })
