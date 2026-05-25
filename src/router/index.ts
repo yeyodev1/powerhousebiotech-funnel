@@ -144,6 +144,19 @@ const router = createRouter({
         ogUrl: `${BASE}/diabetes-regenerativa`,
       } satisfies RouteMeta,
     },
+    {
+      path: '/comunidad',
+      name: 'whatsapp-community',
+      component: () => import('../views/WhatsappView.vue'),
+      meta: {
+        title: 'Comunidad de WhatsApp | PowerHouse Biotech',
+        description: 'Únete a nuestra comunidad exclusiva de longevidad y medicina regenerativa de precisión.',
+        canonical: `${BASE}/comunidad`,
+        ogTitle: 'Comunidad de WhatsApp | PowerHouse Biotech',
+        ogDescription: 'Accede a artículos de valor, casos de estudio clínicos y sesiones de preguntas y respuestas en nuestra comunidad exclusiva.',
+        ogUrl: `${BASE}/comunidad`,
+      } satisfies RouteMeta,
+    },
   ],
 })
 

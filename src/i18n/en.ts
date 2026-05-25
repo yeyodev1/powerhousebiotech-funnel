@@ -731,4 +731,53 @@ export const en = {
     privacy: 'Your data is protected by clinical-grade protocols.',
     errorPhone: 'Invalid phone number',
   },
+  whatsappCommunity: {
+    hero: {
+      badge: 'EXCLUSIVE COMMUNITY',
+      title: 'Your biological capacity deserves direction',
+      accent: 'Access precision knowledge and clinical guidance.',
+      sub: 'Join our exclusive WhatsApp channel designed for individuals and professionals focused on performance. Get scientific answers, biomarker insights, and biological optimization protocols before anyone else.',
+      cta: 'JOIN THE WHATSAPP COMMUNITY',
+      disclaimer: '100% free access · Exclusive channel · Zero spam',
+    },
+    benefits: {
+      title: 'Why join us?',
+      subtitle: 'An interactive space with high scientific value to understand your body and accelerate your results.',
+      items: [
+        {
+          icon: 'fa-solid fa-file-waveform',
+          title: 'Clinical Cases & Successes',
+          desc: 'Get early access to analysis of success cases and clinical redirection under the DECIDE™ Method.'
+        },
+        {
+          icon: 'fa-solid fa-graduation-cap',
+          title: 'Science Made Simple',
+          desc: 'Practical, actionable summaries of advanced scientific studies in regenerative medicine.'
+        },
+        {
+          icon: 'fa-solid fa-comments',
+          title: 'Clinical Q&A Sessions',
+          desc: 'Exclusive access to live Q&A sessions to clear up general health concerns with our clinical team.'
+        },
+        {
+          icon: 'fa-solid fa-user-shield',
+          title: 'Unfiltered Criteria',
+          desc: 'Honest guidance on which regenerative treatments actually work and which are a waste of money.'
+        }
+      ]
+    },
+    stats: {
+      members: '+2,400',
+      membersLabel: 'Active Members',
+      content: '3+',
+      contentLabel: 'Weekly Reports',
+      price: '$0',
+      priceLabel: 'Subscription Cost'
+    },
+    ctaBlock: {
+      title: 'Start your path to measurable longevity',
+      sub: 'Reactive medicine has failed. It is time to take control of your health with decisions backed by clinical data and biotechnology.',
+      btn: 'Enter the community now'
+    }
+  }
 }
