@@ -732,52 +732,36 @@ export const es = {
   },
   whatsappCommunity: {
     hero: {
-      badge: 'COMUNIDAD EXCLUSIVA',
-      title: 'Tu capacidad biológica merece dirección',
-      accent: 'Accede a conocimiento y soporte clínico de precisión.',
-      sub: 'Únete a nuestro canal exclusivo de WhatsApp diseñado para personas y profesionales enfocados en su rendimiento. Obtén respuestas científicas, reportes de biomarcadores y protocolos de optimización biológica antes que nadie.',
-      cta: 'UNIRME A LA COMUNIDAD EN WHATSAPP',
-      disclaimer: 'Acceso 100% gratuito · Canal exclusivo · Cero spam',
+      titleMain: 'Tu salud merece más',
+      titleAccent: 'que suerte.',
+      subtitleStart: 'Información clara, acompañamiento real',
+      subtitleAccent: 'y decisiones que te acercan a tu mejor versión.',
+      bodyBefore: 'Únete a nuestra comunidad en ',
+      bodyHighlight: 'WhatsApp',
+      bodyAfter: ' y recibe contenido pensado para personas que, como tú, quieren comprender su salud, explorar nuevas posibilidades y tomar decisiones con confianza.',
     },
-    benefits: {
-      title: '¿Por qué unirte a nosotros?',
-      subtitle: 'Un espacio interactivo y de alto valor científico para entender tu cuerpo y acelerar tus resultados.',
-      items: [
-        {
-          icon: 'fa-solid fa-file-waveform',
-          title: 'Casos Clínicos y Éxitos',
-          desc: 'Analizamos en primicia casos de éxito y de redirección clínica bajo el Método DECIDE™.'
-        },
-        {
-          icon: 'fa-solid fa-graduation-cap',
-          title: 'Ciencia Explicada Simple',
-          desc: 'Resúmenes prácticos y aplicables de estudios científicos avanzados en medicina regenerativa.'
-        },
-        {
-          icon: 'fa-solid fa-comments',
-          title: 'Sesiones Q&A Clínico',
-          desc: 'Acceso exclusivo a sesiones de preguntas y respuestas para resolver dudas generales con nuestro equipo.'
-        },
-        {
-          icon: 'fa-solid fa-user-shield',
-          title: 'Criterio sin Filtros',
-          desc: 'Orientación honesta y directa sobre qué tratamientos regenerativos funcionan y cuáles son una pérdida de dinero.'
-        }
-      ]
+    pillars: [
+      { icon: 'fa-solid fa-people-group', title: 'Humanos', desc: 'Somos un espacio de apoyo, respeto y comprensión.', color: '#c084fc' },
+      { icon: 'fa-solid fa-lightbulb', title: 'Claros', desc: 'Explicamos lo importante sin complicaciones.', color: '#18e7f0' },
+      { icon: 'fa-solid fa-hand-holding-heart', title: 'Honestos', desc: 'Sin promesas mágicas, solo información real.', color: '#fbbf24' },
+      { icon: 'fa-solid fa-shield-halved', title: 'Responsables', desc: 'Acompañamiento ético y consciente en cada paso.', color: '#34d399' },
+      { icon: 'fa-solid fa-sun', title: 'Esperanza real', desc: 'Nuevas alternativas para mejorar tu calidad de vida.', color: '#c084fc' }
+    ],
+    cta: {
+      eyebrow: 'No estás solo.',
+      body: 'Aquí encontrarás orientación, educación y acompañamiento para tomar decisiones que honran tu bienestar.',
+      bodyAccent: 'Estás en el lugar correcto.',
+      sealLine1: 'JUNTOS',
+      sealLine2: 'PODREMOS',
+      sealLine3: 'más',
+      btn: 'ÚNETE A NUESTRA COMUNIDAD EN WHATSAPP'
     },
-    stats: {
-      members: '+2,400',
-      membersLabel: 'Miembros Activos',
-      content: '3+',
-      contentLabel: 'Reportes Semanales',
-      price: '$0',
-      priceLabel: 'Costo de Suscripción'
-    },
-    ctaBlock: {
-      title: 'Comienza tu camino hacia una longevidad medible',
-      sub: 'La medicina reactiva ha fallado. Es momento de tomar el control de tu salud con decisiones respaldadas por datos clínicos y biotecnología.',
-      btn: 'Ingresar a la comunidad ahora'
-    }
+    trust: [
+      { icon: 'fa-solid fa-shield-halved', title: '100% GRATUITO', desc: 'Sin costos ocultos.', color: '#34d399' },
+      { icon: 'fa-solid fa-lock', title: 'EXCLUSIVO', desc: 'Contenido pensado para nuestra comunidad.', color: '#c084fc' },
+      { icon: 'fa-solid fa-face-smile', title: 'CERO SPAM', desc: 'Solo información que realmente suma.', color: '#18e7f0' },
+      { icon: 'fa-solid fa-heart', title: 'CONTIGO', desc: 'En tu camino hacia una mejor salud.', color: '#c084fc' }
+    ]
   }
 }
 

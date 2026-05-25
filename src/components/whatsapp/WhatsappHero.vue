@@ -7,48 +7,62 @@ const { t } = useLocale()
 
 <template>
   <section class="whatsapp-hero">
+    <!-- Portrait absolute background -->
+    <div class="whatsapp-hero__portrait" aria-hidden="true">
+      <div class="whatsapp-hero__portrait-glow"></div>
+      <img
+        src="@/assets/stock/couple_hugging.png"
+        alt=""
+        loading="lazy"
+      />
+    </div>
+
     <div class="whatsapp-hero__container">
-      <!-- Glow effect behind hero -->
       <div class="whatsapp-hero__glow"></div>
 
-      <!-- Content wrapper -->
-      <div class="whatsapp-hero__content" data-aos="fade-up" data-aos-duration="1000">
-        <!-- Badge -->
-        <span class="whatsapp-hero__badge">
-          <i class="fa-solid fa-circle-check"></i>
-          {{ t.whatsappCommunity.hero.badge }}
-        </span>
-
-        <!-- Title -->
-        <h1 class="whatsapp-hero__title">
-          {{ t.whatsappCommunity.hero.title }}
-          <span class="whatsapp-hero__accent-text">
-            {{ t.whatsappCommunity.hero.accent }}
-          </span>
-        </h1>
-
-        <!-- Glassmorphism Description Card -->
-        <div class="whatsapp-hero__card">
-          <p class="whatsapp-hero__sub">
-            {{ t.whatsappCommunity.hero.sub }}
-          </p>
-
-          <!-- CTA Wrapper -->
-          <div class="whatsapp-hero__action">
-            <button 
-              @click.prevent="$emit('click-cta')"
-              class="whatsapp-hero__cta"
-            >
-              <i class="fa-brands fa-whatsapp whatsapp-hero__icon"></i>
-              <span>{{ t.whatsappCommunity.hero.cta }}</span>
-            </button>
-            
-            <p class="whatsapp-hero__disclaimer">
-              <i class="fa-solid fa-shield-halved"></i>
-              {{ t.whatsappCommunity.hero.disclaimer }}
-            </p>
-          </div>
+      <!-- Headline -->
+      <div class="whatsapp-hero__top" data-aos="fade-up" data-aos-duration="1000">
+        <div class="whatsapp-hero__heading">
+          <h1 class="whatsapp-hero__title">
+            {{ t.whatsappCommunity.hero.titleMain }}
+            <span class="whatsapp-hero__accent">{{ t.whatsappCommunity.hero.titleAccent }}</span>
+            <span class="whatsapp-hero__underline" aria-hidden="true"></span>
+          </h1>
         </div>
+      </div>
+
+      <!-- Glass card with copy -->
+      <div class="whatsapp-hero__card" data-aos="fade-up" data-aos-delay="150">
+        <p class="whatsapp-hero__subtitle">
+          {{ t.whatsappCommunity.hero.subtitleStart }}<br />
+          <span class="whatsapp-hero__subtitle-accent">{{ t.whatsappCommunity.hero.subtitleAccent }}</span>
+        </p>
+
+        <div class="whatsapp-hero__divider" aria-hidden="true">
+          <span class="whatsapp-hero__divider-line"></span>
+          <i class="fa-solid fa-heart whatsapp-hero__divider-icon"></i>
+          <span class="whatsapp-hero__divider-line"></span>
+        </div>
+
+        <p class="whatsapp-hero__body">
+          {{ t.whatsappCommunity.hero.bodyBefore }}<span class="whatsapp-hero__body-highlight">{{ t.whatsappCommunity.hero.bodyHighlight }}</span>{{ t.whatsappCommunity.hero.bodyAfter }}
+        </p>
+
+        <!-- Pillars -->
+        <ul class="whatsapp-hero__pillars">
+          <li
+            v-for="(p, i) in t.whatsappCommunity.pillars"
+            :key="i"
+            class="pillar"
+            :style="{ '--pillar-color': p.color }"
+            data-aos="fade-up"
+            :data-aos-delay="200 + i * 80"
+          >
+            <span class="pillar__icon"><i :class="p.icon"></i></span>
+            <h3 class="pillar__title">{{ p.title }}</h3>
+            <p class="pillar__desc">{{ p.desc }}</p>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
@@ -57,7 +71,7 @@ const { t } = useLocale()
 <style lang="scss" scoped>
 .whatsapp-hero {
   position: relative;
-  padding: clamp(100px, 15vw, 160px) 0 clamp(40px, 6vw, 80px) 0;
+  padding: clamp(90px, 13vw, 150px) 0 clamp(40px, 6vw, 70px);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -65,180 +79,244 @@ const { t } = useLocale()
 
   &__container {
     width: 100%;
-    max-width: 1300px;
-    padding: 0 clamp(20px, 5vw, 60px);
+    max-width: 1200px;
+    padding: 0 clamp(20px, 5vw, 48px);
     position: relative;
     z-index: 2;
   }
 
   &__glow {
     position: absolute;
-    top: 15%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: clamp(300px, 60vw, 800px);
-    height: clamp(300px, 60vw, 800px);
-    background: radial-gradient(circle, rgba(37, 211, 102, 0.12) 0%, rgba(33, 188, 251, 0.05) 50%, transparent 70%);
+    top: -10%;
+    right: -10%;
+    width: clamp(400px, 70vw, 900px);
+    height: clamp(400px, 70vw, 900px);
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, rgba(37, 211, 102, 0.08) 45%, transparent 70%);
     pointer-events: none;
-    z-index: 1;
-    filter: blur(40px);
+    z-index: 0;
+    filter: blur(50px);
   }
 
-  &__content {
+  &__top {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
+    justify-content: center;
+    min-height: clamp(200px, 30vh, 320px);
+    margin-bottom: clamp(28px, 5vw, 48px);
     position: relative;
     z-index: 2;
   }
 
-  &__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: rgba(37, 211, 102, 0.1);
-    border: 1px solid rgba(37, 211, 102, 0.3);
-    border-radius: 100px;
-    color: #25D366;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
+  &__heading {
+    max-width: 100%;
+    position: relative;
+    z-index: 3;
 
-    i {
-      font-size: 12px;
+    @media (min-width: 900px) {
+      max-width: 55%;
     }
   }
 
   &__title {
     font-family: 'Outfit', sans-serif;
-    font-size: clamp(2rem, 5.5vw, 4rem);
+    font-size: clamp(2.4rem, 7vw, 4.5rem);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.05;
     letter-spacing: -0.02em;
     color: #ffffff;
-    margin-bottom: 32px;
+    margin: 0;
+    position: relative;
   }
 
-  &__accent-text {
+  &__accent {
     display: block;
+    font-family: 'Caveat', 'Outfit', cursive;
+    font-style: italic;
+    font-weight: 600;
     background: linear-gradient(135deg, #18e7f0 0%, #25D366 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-top: 8px;
+    background-clip: text;
+    margin-top: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  &__underline {
+    display: block;
+    width: 80px;
+    height: 3px;
+    margin-top: 12px;
+    background: linear-gradient(90deg, #18e7f0, #25D366);
+    border-radius: 4px;
+  }
+
+  &__portrait {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: clamp(380px, 55vh, 650px);
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+
+    @media (min-width: 600px) {
+      width: 75%;
+    }
+
+    @media (min-width: 900px) {
+      width: 55%;
+      height: clamp(550px, 75vh, 800px);
+    }
+
+    // Mask container to smoothly fade edges and remove the harsh box shape
+    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 100%),
+                        linear-gradient(to bottom, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 100%),
+                linear-gradient(to bottom, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
+    mask-composite: intersect;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: saturate(0.92) brightness(0.82);
+    }
+  }
+
+  &__portrait-glow {
+    position: absolute;
+    inset: -30%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 60%);
+    filter: blur(40px);
+    z-index: -1;
+    pointer-events: none;
   }
 
   &__card {
-    background: rgba(30, 34, 96, 0.3);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(33, 188, 251, 0.12);
-    border-radius: 24px;
-    padding: clamp(24px, 5vw, 48px) clamp(20px, 4vw, 40px);
-    width: 100%;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    background: linear-gradient(180deg, rgba(30, 34, 96, 0.45) 0%, rgba(23, 24, 70, 0.35) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(33, 188, 251, 0.14);
+    border-radius: 28px;
+    padding: clamp(28px, 5vw, 56px) clamp(20px, 4vw, 48px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
-  &__sub {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: clamp(0.95rem, 2vw, 1.15rem);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 32px;
+  &__subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.4;
+    color: #ffffff;
     text-align: center;
+    margin: 0 0 24px;
   }
 
-  &__action {
+  &__subtitle-accent {
+    color: #2dd4bf;
+  }
+
+  &__divider {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  &__cta {
-    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    width: 100%;
-    max-width: 440px;
-    padding: clamp(16px, 2vw, 20px) 32px;
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-    border: none;
-    border-radius: 100px;
-    color: #ffffff;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(0.85rem, 1.5vw, 0.95rem);
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
-    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    position: relative;
-    overflow: hidden;
+    gap: 16px;
+    margin-bottom: 24px;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-      transition: all 0.6s ease;
-    }
+    &-line {
+      flex: 0 0 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.5), transparent);
 
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5), 0 0 15px rgba(24, 231, 240, 0.3);
-      
-      &::before {
-        left: 100%;
+      @media (min-width: 640px) {
+        flex-basis: 140px;
       }
     }
 
-    &:active {
-      transform: translateY(-1px);
+    &-icon {
+      color: #2dd4bf;
+      font-size: 0.95rem;
     }
   }
 
-  &__icon {
-    font-size: 1.5rem;
-    animation: pulse-whatsapp 2s infinite;
+  &__body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.82);
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto clamp(32px, 5vw, 48px);
   }
 
-  &__disclaimer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Manrope', sans-serif;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0;
+  &__body-highlight {
+    color: #2dd4bf;
+    font-weight: 700;
+  }
 
-    i {
-      color: rgba(37, 211, 102, 0.7);
+  &__pillars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (min-width: 700px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1000px) {
+      grid-template-columns: repeat(5, 1fr);
     }
   }
 }
 
-@keyframes pulse-whatsapp {
-  0% {
-    transform: scale(1);
+.pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8px 4px;
+
+  &__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--pillar-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--pillar-color) 35%, transparent);
+    color: var(--pillar-color);
+    font-size: 1.5rem;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--pillar-color) 18%, transparent);
+    transition: transform 0.3s ease;
   }
-  50% {
-    transform: scale(1.15);
+
+  &:hover &__icon {
+    transform: translateY(-3px);
   }
-  100% {
-    transform: scale(1);
+
+  &__title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--pillar-color);
+    margin: 0 0 6px;
+  }
+
+  &__desc {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.62);
+    margin: 0;
   }
 }
 </style>

@@ -733,51 +733,35 @@ export const en = {
   },
   whatsappCommunity: {
     hero: {
-      badge: 'EXCLUSIVE COMMUNITY',
-      title: 'Your biological capacity deserves direction',
-      accent: 'Access precision knowledge and clinical guidance.',
-      sub: 'Join our exclusive WhatsApp channel designed for individuals and professionals focused on performance. Get scientific answers, biomarker insights, and biological optimization protocols before anyone else.',
-      cta: 'JOIN THE WHATSAPP COMMUNITY',
-      disclaimer: '100% free access · Exclusive channel · Zero spam',
+      titleMain: 'Your health deserves more',
+      titleAccent: 'than luck.',
+      subtitleStart: 'Clear information, real support',
+      subtitleAccent: 'and decisions that bring you closer to your best self.',
+      bodyBefore: 'Join our community on ',
+      bodyHighlight: 'WhatsApp',
+      bodyAfter: ' and receive content designed for people who, like you, want to understand their health, explore new possibilities, and make confident decisions.',
     },
-    benefits: {
-      title: 'Why join us?',
-      subtitle: 'An interactive space with high scientific value to understand your body and accelerate your results.',
-      items: [
-        {
-          icon: 'fa-solid fa-file-waveform',
-          title: 'Clinical Cases & Successes',
-          desc: 'Get early access to analysis of success cases and clinical redirection under the DECIDE™ Method.'
-        },
-        {
-          icon: 'fa-solid fa-graduation-cap',
-          title: 'Science Made Simple',
-          desc: 'Practical, actionable summaries of advanced scientific studies in regenerative medicine.'
-        },
-        {
-          icon: 'fa-solid fa-comments',
-          title: 'Clinical Q&A Sessions',
-          desc: 'Exclusive access to live Q&A sessions to clear up general health concerns with our clinical team.'
-        },
-        {
-          icon: 'fa-solid fa-user-shield',
-          title: 'Unfiltered Criteria',
-          desc: 'Honest guidance on which regenerative treatments actually work and which are a waste of money.'
-        }
-      ]
+    pillars: [
+      { icon: 'fa-solid fa-people-group', title: 'Human', desc: 'A space built on support, respect and understanding.', color: '#c084fc' },
+      { icon: 'fa-solid fa-lightbulb', title: 'Clear', desc: 'We explain what matters without complications.', color: '#18e7f0' },
+      { icon: 'fa-solid fa-hand-holding-heart', title: 'Honest', desc: 'No magical promises — just real information.', color: '#fbbf24' },
+      { icon: 'fa-solid fa-shield-halved', title: 'Responsible', desc: 'Ethical, conscious guidance at every step.', color: '#34d399' },
+      { icon: 'fa-solid fa-sun', title: 'Real hope', desc: 'New alternatives to improve your quality of life.', color: '#c084fc' }
+    ],
+    cta: {
+      eyebrow: 'You are not alone.',
+      body: 'Here you will find guidance, education and support to make decisions that honor your wellbeing.',
+      bodyAccent: 'You are in the right place.',
+      sealLine1: 'TOGETHER',
+      sealLine2: 'WE CAN DO',
+      sealLine3: 'more',
+      btn: 'JOIN OUR WHATSAPP COMMUNITY'
     },
-    stats: {
-      members: '+2,400',
-      membersLabel: 'Active Members',
-      content: '3+',
-      contentLabel: 'Weekly Reports',
-      price: '$0',
-      priceLabel: 'Subscription Cost'
-    },
-    ctaBlock: {
-      title: 'Start your path to measurable longevity',
-      sub: 'Reactive medicine has failed. It is time to take control of your health with decisions backed by clinical data and biotechnology.',
-      btn: 'Enter the community now'
-    }
+    trust: [
+      { icon: 'fa-solid fa-shield-halved', title: '100% FREE', desc: 'No hidden costs.', color: '#34d399' },
+      { icon: 'fa-solid fa-lock', title: 'EXCLUSIVE', desc: 'Content made for our community.', color: '#c084fc' },
+      { icon: 'fa-solid fa-face-smile', title: 'ZERO SPAM', desc: 'Only information that truly adds value.', color: '#18e7f0' },
+      { icon: 'fa-solid fa-heart', title: 'WITH YOU', desc: 'Along your path to better health.', color: '#c084fc' }
+    ]
   }
 }

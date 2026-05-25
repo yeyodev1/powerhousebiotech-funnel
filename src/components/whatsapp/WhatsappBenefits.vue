@@ -8,58 +8,67 @@ const { t } = useLocale()
 <template>
   <section class="whatsapp-benefits">
     <div class="whatsapp-benefits__container">
-      
-      <!-- Stats Block -->
-      <div class="whatsapp-benefits__stats" data-aos="fade-up">
-        <div class="stat-card">
-          <span class="stat-card__number">{{ t.whatsappCommunity.stats.members }}</span>
-          <span class="stat-card__label">{{ t.whatsappCommunity.stats.membersLabel }}</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-card__number">{{ t.whatsappCommunity.stats.content }}</span>
-          <span class="stat-card__label">{{ t.whatsappCommunity.stats.contentLabel }}</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-card__number highlight">{{ t.whatsappCommunity.stats.price }}</span>
-          <span class="stat-card__label">{{ t.whatsappCommunity.stats.priceLabel }}</span>
-        </div>
-      </div>
 
-      <!-- Benefits Header -->
-      <div class="whatsapp-benefits__header" data-aos="fade-up">
-        <h2 class="whatsapp-benefits__title">{{ t.whatsappCommunity.benefits.title }}</h2>
-        <p class="whatsapp-benefits__subtitle">{{ t.whatsappCommunity.benefits.subtitle }}</p>
-      </div>
+      <!-- CTA Card with phone + seal -->
+      <div class="cta-card" data-aos="zoom-in" data-aos-duration="800">
+        <div class="cta-card__bg-glow"></div>
 
-      <!-- Benefits Grid -->
-      <div class="whatsapp-benefits__grid">
-        <div 
-          v-for="(item, index) in t.whatsappCommunity.benefits.items" 
-          :key="index"
-          class="benefit-card"
-          data-aos="fade-up"
-          :data-aos-delay="index * 100"
-        >
-          <div class="benefit-card__icon-wrapper">
-            <i :class="item.icon"></i>
+        <div class="cta-card__top">
+          <!-- Phone illustration -->
+          <div class="cta-card__phone" aria-hidden="true">
+            <div class="cta-card__phone-glow"></div>
+            <div class="cta-card__phone-frame">
+              <div class="cta-card__phone-screen">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+            </div>
           </div>
-          <h3 class="benefit-card__title">{{ item.title }}</h3>
-          <p class="benefit-card__desc">{{ item.desc }}</p>
+
+          <!-- Text block -->
+          <div class="cta-card__text">
+            <p class="cta-card__eyebrow">{{ t.whatsappCommunity.cta.eyebrow }}</p>
+            <p class="cta-card__body">
+              {{ t.whatsappCommunity.cta.body }}
+              <span class="cta-card__body-accent">
+                {{ t.whatsappCommunity.cta.bodyAccent }}
+                <i class="fa-solid fa-heart cta-card__body-heart"></i>
+              </span>
+            </p>
+          </div>
+
+          <!-- Seal -->
+          <div class="cta-card__seal" aria-hidden="true">
+            <span class="cta-card__seal-line1">{{ t.whatsappCommunity.cta.sealLine1 }}</span>
+            <span class="cta-card__seal-line2">{{ t.whatsappCommunity.cta.sealLine2 }}</span>
+            <span class="cta-card__seal-line3">{{ t.whatsappCommunity.cta.sealLine3 }}</span>
+          </div>
         </div>
+
+        <!-- Big CTA Button -->
+        <button @click.prevent="$emit('click-cta')" class="cta-card__button">
+          <span class="cta-card__button-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+          </span>
+          <span class="cta-card__button-label">{{ t.whatsappCommunity.cta.btn }}</span>
+          <i class="fa-solid fa-chevron-right cta-card__button-chevron"></i>
+        </button>
       </div>
 
-      <!-- Bottom CTA Card -->
-      <div class="whatsapp-benefits__cta-block" data-aos="zoom-in" data-aos-duration="1000">
-        <div class="cta-card">
-          <div class="cta-card__bg-glow"></div>
-          <h3 class="cta-card__title">{{ t.whatsappCommunity.ctaBlock.title }}</h3>
-          <p class="cta-card__sub">{{ t.whatsappCommunity.ctaBlock.sub }}</p>
-          <button @click.prevent="$emit('click-cta')" class="cta-card__button">
-            <span>{{ t.whatsappCommunity.ctaBlock.btn }}</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </div>
+      <!-- Trust Badges -->
+      <ul class="whatsapp-benefits__trust" data-aos="fade-up">
+        <li
+          v-for="(item, i) in t.whatsappCommunity.trust"
+          :key="i"
+          class="trust"
+          :style="{ '--trust-color': item.color }"
+        >
+          <span class="trust__icon"><i :class="item.icon"></i></span>
+          <div class="trust__body">
+            <span class="trust__title">{{ item.title }}</span>
+            <span class="trust__desc">{{ item.desc }}</span>
+          </div>
+        </li>
+      </ul>
 
     </div>
   </section>
@@ -67,252 +76,350 @@ const { t } = useLocale()
 
 <style lang="scss" scoped>
 .whatsapp-benefits {
-  padding: clamp(40px, 6vw, 80px) 0 clamp(80px, 12vw, 160px) 0;
+  padding: clamp(20px, 4vw, 40px) 0 clamp(80px, 12vw, 140px);
   width: 100%;
   display: flex;
   justify-content: center;
 
   &__container {
     width: 100%;
-    max-width: 1300px;
-    padding: 0 clamp(20px, 5vw, 60px);
+    max-width: 1200px;
+    padding: 0 clamp(20px, 5vw, 48px);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: clamp(24px, 4vw, 40px);
   }
 
-  &__stats {
+  &__trust {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    width: 100%;
-    max-width: 900px;
-    margin-bottom: clamp(60px, 10vw, 100px);
 
-    @media (min-width: 640px) {
-      grid-template-columns: repeat(3, 1fr);
+    @media (min-width: 760px) {
+      grid-template-columns: repeat(4, 1fr);
     }
-  }
-
-  &__header {
-    text-align: center;
-    max-width: 680px;
-    margin-bottom: clamp(40px, 8vw, 64px);
-  }
-
-  &__title {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 16px;
-  }
-
-  &__subtitle {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0;
-  }
-
-  &__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    width: 100%;
-    margin-bottom: clamp(80px, 12vw, 120px);
-
-    @media (min-width: 640px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-}
-
-// Subcomponents / Card Styles
-.stat-card {
-  background: rgba(23, 24, 70, 0.5);
-  border: 1px solid rgba(33, 188, 251, 0.1);
-  border-radius: 20px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  transition: all 0.3s ease;
-
-  &:hover {
-    border-color: rgba(33, 188, 251, 0.25);
-    background: rgba(30, 34, 96, 0.6);
-    transform: translateY(-2px);
-  }
-
-  &__number {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(2rem, 4.5vw, 3rem);
-    font-weight: 800;
-    color: #21bcfb;
-    line-height: 1;
-    margin-bottom: 8px;
-
-    &.highlight {
-      color: #25D366;
-    }
-  }
-
-  &__label {
-    font-family: 'Manrope', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-}
-
-.benefit-card {
-  background: rgba(30, 34, 96, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 24px;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-
-  &:hover {
-    border-color: rgba(33, 188, 251, 0.15);
-    background: rgba(30, 34, 96, 0.45);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
-    transform: translateY(-4px);
-
-    .benefit-card__icon-wrapper {
-      background: rgba(37, 211, 102, 0.15);
-      border-color: rgba(37, 211, 102, 0.4);
-      color: #25D366;
-    }
-  }
-
-  &__icon-wrapper {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: rgba(33, 188, 251, 0.08);
-    border: 1px solid rgba(33, 188, 251, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #21bcfb;
-    font-size: 1.25rem;
-    margin-bottom: 24px;
-    transition: all 0.3s ease;
-  }
-
-  &__title {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(1.15rem, 2vw, 1.35rem);
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 12px 0;
-  }
-
-  &__desc {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.65);
-    margin: 0;
   }
 }
 
 .cta-card {
-  width: 100%;
-  max-width: 960px;
-  background: radial-gradient(100% 100% at 50% 0%, rgba(30, 34, 96, 0.8) 0%, rgba(23, 24, 70, 0.95) 100%);
-  border: 1px solid rgba(33, 188, 251, 0.15);
-  border-radius: 32px;
-  padding: clamp(32px, 6vw, 64px) clamp(24px, 4vw, 48px);
-  text-align: center;
   position: relative;
+  background: linear-gradient(180deg, rgba(30, 34, 96, 0.55) 0%, rgba(23, 24, 70, 0.7) 100%);
+  border: 1px solid rgba(33, 188, 251, 0.18);
+  border-radius: 32px;
+  padding: clamp(28px, 5vw, 56px) clamp(20px, 4vw, 48px);
   overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
   &__bg-glow {
     position: absolute;
-    bottom: -150px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(37, 211, 102, 0.15) 0%, transparent 70%);
+    inset: -10% -10% auto auto;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, transparent 70%);
     pointer-events: none;
+    filter: blur(40px);
+  }
+
+  &__top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    margin-bottom: clamp(28px, 5vw, 44px);
+
+    @media (min-width: 900px) {
+      grid-template-columns: auto 1fr auto;
+      gap: 36px;
+    }
+  }
+
+  // Phone illustration
+  &__phone {
+    position: relative;
+    width: 120px;
+    height: 180px;
+    margin: 0 auto;
+
+    @media (min-width: 900px) {
+      width: 140px;
+      height: 220px;
+    }
+  }
+
+  &__phone-glow {
+    position: absolute;
+    inset: -30%;
+    background: radial-gradient(circle, rgba(37, 211, 102, 0.4) 0%, transparent 65%);
     filter: blur(30px);
+    pointer-events: none;
   }
 
-  &__title {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(1.5rem, 3.5vw, 2.3rem);
-    font-weight: 800;
-    line-height: 1.2;
-    color: #ffffff;
-    margin-bottom: 16px;
-    max-width: 680px;
+  &__phone-frame {
     position: relative;
-    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, #1a1d3f 0%, #0a0b18 100%);
+    border-radius: 28px;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 16px;
+      background: #000;
+      border-radius: 0 0 12px 12px;
+    }
   }
 
-  &__sub {
+  &__phone-screen {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 2.4rem;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.55);
+
+    @media (min-width: 900px) {
+      width: 76px;
+      height: 76px;
+      font-size: 2.8rem;
+    }
+  }
+
+  // Text block
+  &__text {
+    text-align: center;
+
+    @media (min-width: 900px) {
+      text-align: left;
+    }
+  }
+
+  &__eyebrow {
+    font-family: 'Caveat', 'Outfit', cursive;
+    font-style: italic;
+    font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+    font-weight: 600;
+    color: #2dd4bf;
+    margin: 0 0 12px;
+    line-height: 1;
+  }
+
+  &__body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: clamp(0.9rem, 1.8vw, 1.05rem);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 32px;
-    max-width: 600px;
-    position: relative;
-    z-index: 2;
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.82);
+    margin: 0;
   }
 
+  &__body-accent {
+    display: inline;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  &__body-heart {
+    color: #c084fc;
+    margin-left: 6px;
+    font-size: 0.9em;
+  }
+
+  // Seal (Juntos podremos más)
+  &__seal {
+    width: clamp(120px, 18vw, 160px);
+    height: clamp(120px, 18vw, 160px);
+    border-radius: 50%;
+    border: 1.5px solid rgba(168, 85, 247, 0.45);
+    background: radial-gradient(circle, rgba(30, 34, 96, 0.5) 0%, rgba(23, 24, 70, 0.2) 100%);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.25), inset 0 0 20px rgba(168, 85, 247, 0.08);
+    flex-shrink: 0;
+
+    &-line1,
+    &-line2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.1em;
+      line-height: 1.2;
+    }
+
+    &-line3 {
+      font-family: 'Caveat', 'Outfit', cursive;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 600;
+      background: linear-gradient(135deg, #18e7f0 0%, #25D366 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-top: 4px;
+    }
+  }
+
+  // Big button
   &__button {
+    position: relative;
+    z-index: 2;
+    width: 100%;
     display: inline-flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
-    padding: 16px 36px;
-    background: #ffffff;
+    padding: 18px clamp(20px, 3vw, 28px);
+    background: linear-gradient(90deg, #18e7f0 0%, #25D366 100%);
     border: none;
     border-radius: 100px;
-    color: #0d0e23;
+    color: #06121b;
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    font-size: clamp(0.85rem, 1.6vw, 1rem);
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    text-decoration: none;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    position: relative;
-    z-index: 2;
+    box-shadow: 0 12px 40px rgba(37, 211, 102, 0.4), 0 0 30px rgba(24, 231, 240, 0.25);
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transition: left 0.7s ease;
+    }
 
     &:hover {
-      background: #25D366;
-      color: #ffffff;
-      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 18px 50px rgba(37, 211, 102, 0.55), 0 0 40px rgba(24, 231, 240, 0.4);
+
+      &::before {
+        left: 100%;
+      }
+
+      .cta-card__button-chevron {
+        transform: translateX(4px);
+      }
     }
 
     &:active {
-      transform: translateY(0);
+      transform: translateY(-1px);
     }
+  }
 
-    i {
-      font-size: 0.95rem;
-      transition: transform 0.3s ease;
-    }
+  &__button-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(6, 18, 27, 0.18);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
 
-    &:hover i {
-      transform: translateX(4px);
-    }
+  &__button-label {
+    flex: 1;
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  &__button-chevron {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(6, 18, 27, 0.18);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+}
+
+// Trust badges
+.trust {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  background: rgba(23, 24, 70, 0.4);
+  border: 1px solid color-mix(in srgb, var(--trust-color) 18%, transparent);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(30, 34, 96, 0.55);
+    border-color: color-mix(in srgb, var(--trust-color) 45%, transparent);
+    transform: translateY(-2px);
+  }
+
+  &__icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--trust-color) 14%, transparent);
+    color: var(--trust-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  &__title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--trust-color);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  &__desc {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.6);
   }
 }
 </style>
