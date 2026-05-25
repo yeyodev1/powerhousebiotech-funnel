@@ -36,8 +36,8 @@ const modalLabels = {
   es: {
     title: 'Únete a la Comunidad',
     sub: 'Completa tus datos para recibir el enlace de acceso directo al canal de WhatsApp.',
-    nameLabel: 'Nombre completo',
-    namePlaceholder: 'Ej. Juan Pérez',
+    nameLabel: 'Nombre y apellido',
+    namePlaceholder: 'Ej. Diego Reyes',
     emailLabel: 'Correo electrónico',
     emailPlaceholder: 'tu@email.com',
     phoneLabel: 'Celular',
@@ -50,7 +50,7 @@ const modalLabels = {
     title: 'Join the Community',
     sub: 'Enter your details to receive the direct access link to the WhatsApp channel.',
     nameLabel: 'Full name',
-    namePlaceholder: 'e.g. John Doe',
+    namePlaceholder: 'e.g. Diego Reyes',
     emailLabel: 'Email address',
     emailPlaceholder: 'you@email.com',
     phoneLabel: 'Mobile',
@@ -144,9 +144,11 @@ const handleSubmit = async () => {
   if (!validatePhone()) return
   isLoading.value = true
 
-  const nameParts = formData.value.fullName.trim().split(' ')
-  const firstName = nameParts[0] || ''
-  const lastName = nameParts.slice(1).join(' ') || ''
+  // Parse fullName into firstName and lastName
+  const fullName = formData.value.fullName.trim()
+  const parts = fullName.split(/\s+/)
+  const firstName = parts[0] || ''
+  const lastName = parts.slice(1).join(' ') || ''
 
   // Sync with GoHighLevel CRM
   await sendContactToGHL({
@@ -157,6 +159,7 @@ const handleSubmit = async () => {
     source: 'Comunidad WhatsApp',
     nota: 'Lead registrado para unirse a la comunidad de WhatsApp de PowerHouse Biotech.',
     paso: 'whatsapp-community-optin',
+    tags: 'comunidad-whatsapp',
   })
 
   // Save to Pinia store / LocalStorage
@@ -203,7 +206,7 @@ const close = () => {
 
         <!-- Form -->
         <form @submit.prevent="handleSubmit" class="whatsapp-modal__form">
-          <!-- Name Field -->
+          <!-- Name & Surname Field -->
           <div class="whatsapp-modal__field">
             <label class="whatsapp-modal__label">{{ activeLabels.nameLabel }}</label>
             <div class="whatsapp-modal__input-wrapper">

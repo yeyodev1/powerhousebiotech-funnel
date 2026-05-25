@@ -10,6 +10,7 @@ export interface GHLContactData {
   source?: string
   nota?: string
   paso?: string
+  tags?: string
   timestamp?: string
 }
 
