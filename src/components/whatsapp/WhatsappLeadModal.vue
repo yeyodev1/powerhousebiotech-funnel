@@ -40,7 +40,7 @@ const modalLabels = {
     namePlaceholder: 'Ej. Juan Pérez',
     emailLabel: 'Correo electrónico',
     emailPlaceholder: 'tu@email.com',
-    phoneLabel: 'WhatsApp / Teléfono',
+    phoneLabel: 'Celular',
     submit: 'Acceder a la comunidad',
     submitting: 'Redirigiendo...',
     disclaimer: 'Tus datos están protegidos por protocolos de confidencialidad.',
@@ -53,7 +53,7 @@ const modalLabels = {
     namePlaceholder: 'e.g. John Doe',
     emailLabel: 'Email address',
     emailPlaceholder: 'you@email.com',
-    phoneLabel: 'WhatsApp / Phone',
+    phoneLabel: 'Mobile',
     submit: 'Access the community',
     submitting: 'Redirecting...',
     disclaimer: 'Your data is protected by confidentiality protocols.',
@@ -104,7 +104,8 @@ const handleSubmit = async () => {
 
   // Sync with GoHighLevel CRM
   await sendContactToGHL({
-    nombre: formData.value.fullName.trim(),
+    nombre: firstName,
+    apellido: lastName,
     email: formData.value.email.trim(),
     telefono: formData.value.phone.trim(),
     source: 'Comunidad WhatsApp',
@@ -401,7 +402,7 @@ const close = () => {
 
   .phone-wrapper {
     input {
-      padding-left: 116px;
+      padding-left: 150px;
     }
   }
 
@@ -409,13 +410,14 @@ const close = () => {
     position: absolute;
     left: 42px;
     height: 36px;
+    width: 96px;
     background: transparent;
     border: none;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     color: #ffffff;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.85rem;
-    padding-right: 8px;
+    padding-right: 4px;
     cursor: pointer;
     outline: none;
 
