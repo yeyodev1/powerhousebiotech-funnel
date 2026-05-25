@@ -84,7 +84,53 @@ function onKeydown(e: KeyboardEvent) {
 }
 
 const validatePhone = () => {
-  const phoneNumber = parsePhoneNumberFromString(formData.value.phone, formData.value.countryCode)
+  let rawPhone = formData.value.phone.trim().replace(/\s+/g, '')
+  
+  // Normalization for Mexico (MX) mobile prefix '1'
+  if (formData.value.countryCode === 'MX') {
+    let clean = rawPhone
+    if (clean.startsWith('+52')) {
+      clean = clean.substring(3)
+    } else if (clean.startsWith('52')) {
+      clean = clean.substring(2)
+    }
+    if (clean.startsWith('1') && clean.length === 11) {
+      clean = clean.substring(1)
+    }
+    rawPhone = clean
+  }
+
+  // Normalization for Argentina (AR) mobile prefix '9'
+  if (formData.value.countryCode === 'AR') {
+    let clean = rawPhone
+    if (clean.startsWith('+54')) {
+      clean = clean.substring(3)
+    } else if (clean.startsWith('54')) {
+      clean = clean.substring(2)
+    }
+    if (clean.startsWith('9') && clean.length === 11) {
+      clean = clean.substring(1)
+    }
+    rawPhone = clean
+  }
+  
+  const dials: Record<string, string> = {
+    ES: '+34', MX: '+52', CO: '+57', EC: '+593', PE: '+51', CL: '+56', AR: '+54',
+    VE: '+58', US: '+1', PA: '+507', CR: '+506', GT: '+502', PY: '+595',
+    UY: '+598', BO: '+591', DO: '+1', PR: '+1', SV: '+503', HN: '+504', NI: '+505'
+  }
+  const dial = dials[formData.value.countryCode] || ''
+  
+  let phoneToParse = rawPhone
+  if (!phoneToParse.startsWith('+')) {
+    if (dial && rawPhone.startsWith(dial.substring(1))) {
+      phoneToParse = '+' + rawPhone
+    } else if (dial) {
+      phoneToParse = dial + rawPhone
+    }
+  }
+
+  const phoneNumber = parsePhoneNumberFromString(phoneToParse, formData.value.countryCode)
   if (!phoneNumber || !phoneNumber.isValid()) {
     errors.value.phone = activeLabels.value.errorPhone
     return false
