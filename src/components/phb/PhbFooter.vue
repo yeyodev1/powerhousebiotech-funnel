@@ -30,6 +30,17 @@ const currentYear = new Date().getFullYear()
               <li><a href="#cases">{{ t.nav.menu.cases }}</a></li>
             </ul>
           </div>
+          
+          <div class="phb-footer__group">
+            <span class="phb-footer__group-title">Contacto</span>
+            <ul class="phb-footer__links">
+              <li>
+                <a href="https://wa.me/5215553518114" target="_blank" rel="noopener noreferrer" class="whatsapp-link">
+                  <i class="fa-brands fa-whatsapp"></i> +52 1 55 5351 8114
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -43,6 +54,9 @@ const currentYear = new Date().getFullYear()
             © {{ currentYear }} PowerHouse Biotech. {{ t.footer.rights }}
           </span>
           <div class="phb-footer__social">
+             <a href="https://wa.me/5215553518114" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+               <i class="fa-brands fa-whatsapp"></i>
+             </a>
              <i class="fa-brands fa-instagram"></i>
              <i class="fa-brands fa-linkedin"></i>
           </div>
@@ -147,6 +161,22 @@ const currentYear = new Date().getFullYear()
         color: #ffffff;
         padding-left: 5px;
       }
+
+      &.whatsapp-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #25D366;
+        font-weight: 500;
+        
+        i {
+          font-size: 1.3rem;
+        }
+        
+        &:hover {
+          color: #128C7E;
+        }
+      }
     }
   }
 
@@ -188,10 +218,19 @@ const currentYear = new Date().getFullYear()
     font-size: 1.3rem;
     color: rgba(255, 255, 255, 0.5);
 
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
     i {
       cursor: pointer;
       transition: color 0.3s ease;
       &:hover { color: var(--phb-cyan, #21bcfa); }
+
+      &.fa-whatsapp:hover {
+        color: #25D366;
+      }
     }
   }
 
