@@ -18,6 +18,7 @@ import PhbCtaTransition from '@/components/phb/PhbCtaTransition.vue'
 import PhbExpectations from '@/components/phb/PhbExpectations.vue'
 import PhbCta from '@/components/phb/PhbCta.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
+import PhbAuthority from '@/components/phb/PhbAuthority.vue'
 import PhbProblem from '@/components/phb/PhbProblem.vue'
 import ShaDiscover from '@/components/sha/ShaDiscover.vue'
 
@@ -63,6 +64,7 @@ onUnmounted(() => {
     <ShaHeader />
     <PhbHero />
     <PhbAbout />
+    <PhbAuthority />
     <PhbProblem /> 
     <PhbExpectations />
     <!-- New SHA-inspired sections -->
