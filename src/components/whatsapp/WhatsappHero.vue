@@ -28,6 +28,10 @@ const { t } = useLocale()
             <span class="whatsapp-hero__accent">{{ t.whatsappCommunity.hero.titleAccent }}</span>
             <span class="whatsapp-hero__underline" aria-hidden="true"></span>
           </h1>
+          <button @click.prevent="$emit('click-cta')" class="whatsapp-hero__btn">
+            <i class="fa-brands fa-whatsapp"></i>
+            {{ t.whatsappCommunity.cta.btn }}
+          </button>
         </div>
       </div>
 
@@ -148,6 +152,41 @@ const { t } = useLocale()
     margin-top: 12px;
     background: linear-gradient(90deg, #18e7f0, #25D366);
     border-radius: 4px;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: linear-gradient(90deg, #18e7f0 0%, #25D366 100%);
+    border: none;
+    border-radius: 100px;
+    color: #06121b;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s ease;
+    margin-top: 24px;
+    z-index: 10;
+    position: relative;
+
+    i {
+      font-size: 16px;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(37, 211, 102, 0.5);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
   }
 
   &__portrait {

@@ -5,6 +5,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLocale } from '@/composables/useLocale'
 
 // Global Header & Footer
 import ShaHeader from '@/components/sha/ShaHeader.vue'
@@ -17,6 +18,7 @@ import WhatsappLeadModal from '@/components/whatsapp/WhatsappLeadModal.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const { t } = useLocale()
 const isLeadModalOpen = ref(false)
 
 const openLeadModal = () => {
@@ -69,7 +71,11 @@ onUnmounted(() => {
     <!-- Global Mesh Background -->
     <div class="whatsapp-view__mesh"></div>
     
-    <ShaHeader />
+    <ShaHeader
+      :cta-text="t.whatsappCommunity.cta.enter"
+      :is-custom-click="true"
+      @click-cta="openLeadModal"
+    />
     
     <main>
       <WhatsappHero @click-cta="openLeadModal" />

@@ -754,7 +754,8 @@ export const es = {
       sealLine1: 'JUNTOS',
       sealLine2: 'PODREMOS',
       sealLine3: 'más',
-      btn: 'ÚNETE A NUESTRA COMUNIDAD EN WHATSAPP'
+      btn: 'ÚNETE A NUESTRA COMUNIDAD EN WHATSAPP',
+      enter: 'Ingresar'
     },
     trust: [
       { icon: 'fa-solid fa-shield-halved', title: '100% GRATUITO', desc: 'Sin costos ocultos.', color: '#34d399' },

@@ -2,6 +2,26 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useLocale } from '@/composables/useLocale'
 
+const props = defineProps({
+  ctaText: {
+    type: String,
+    required: false,
+    default: '',
+  },
+  ctaLink: {
+    type: String,
+    required: false,
+    default: '/cualificar',
+  },
+  isCustomClick: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+})
+
+defineEmits(['click-cta'])
+
 const isScrolled = ref(false)
 const isMenuOpen = ref(false)
 const { locale, t, toggleLocale } = useLocale()
@@ -69,8 +89,12 @@ onUnmounted(() => {
           {{ locale === 'es' ? 'ES' : 'EN' }}
         </button>
         
-        <router-link to="/cualificar" class="cta-book">
-          {{ t.nav.cta }}
+        <a v-if="isCustomClick" href="#" class="cta-book cta-whatsapp" @click.prevent="$emit('click-cta')">
+          <i class="fa-brands fa-whatsapp"></i>
+          {{ ctaText || t.nav.cta }}
+        </a>
+        <router-link v-else :to="ctaLink" class="cta-book">
+          {{ ctaText || t.nav.cta }}
         </router-link>
 
         <!-- Mobile Menu Toggle -->
@@ -94,8 +118,12 @@ onUnmounted(() => {
             <button @click="toggleLocale" class="mobile-lang-switch">
               {{ locale === 'es' ? 'English Version' : 'Versión en Español' }}
             </button>
-            <router-link to="/cualificar" class="mobile-cta">
-              {{ t.nav.cta }}
+            <a v-if="isCustomClick" href="#" class="mobile-cta mobile-cta-whatsapp" @click.prevent="$emit('click-cta')">
+              <i class="fa-brands fa-whatsapp"></i>
+              {{ ctaText || t.nav.cta }}
+            </a>
+            <router-link v-else :to="ctaLink" class="mobile-cta">
+              {{ ctaText || t.nav.cta }}
             </router-link>
           </div>
         </div>
@@ -245,6 +273,31 @@ onUnmounted(() => {
   }
 }
 
+.cta-whatsapp {
+  border-color: #25d366;
+  color: #25d366;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  i {
+    font-size: 14px;
+  }
+
+  &:hover {
+    background: #25d366;
+    color: #06121b;
+    border-color: #25d366;
+  }
+
+  @media (max-width: 600px) {
+    display: inline-flex !important;
+    font-size: 10px;
+    padding: 8px 16px;
+    gap: 6px;
+  }
+}
+
 .hamburger {
   display: none;
   position: relative;
@@ -345,6 +398,15 @@ onUnmounted(() => {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.mobile-cta-whatsapp {
+  background: #25d366;
+  color: #06121b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 /* Transitions */

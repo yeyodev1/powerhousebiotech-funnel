@@ -755,7 +755,8 @@ export const en = {
       sealLine1: 'TOGETHER',
       sealLine2: 'WE CAN DO',
       sealLine3: 'more',
-      btn: 'JOIN OUR WHATSAPP COMMUNITY'
+      btn: 'JOIN OUR WHATSAPP COMMUNITY',
+      enter: 'Join'
     },
     trust: [
       { icon: 'fa-solid fa-shield-halved', title: '100% FREE', desc: 'No hidden costs.', color: '#34d399' },
