@@ -15,9 +15,9 @@ import PhbFooter from '@/components/phb/PhbFooter.vue'
 import WhatsappHero from '@/components/whatsapp/WhatsappHero.vue'
 import WhatsappBenefits from '@/components/whatsapp/WhatsappBenefits.vue'
 
-gsap.registerPlugin(ScrollTrigger)
-
 const { t } = useLocale()
+
+gsap.registerPlugin(ScrollTrigger)
 
 const WHATSAPP_LINK = 'https://chat.whatsapp.com/K43yrnUQbVq2O9hn93X03c?mode=gi_t'
 
