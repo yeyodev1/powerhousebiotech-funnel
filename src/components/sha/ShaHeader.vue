@@ -79,6 +79,7 @@ onUnmounted(() => {
           <li><a href="#ciencia" @click="handleNavClick($event, '#ciencia')">{{ t.nav.menu.science }}</a></li>
           <li><a href="#metodo" @click="handleNavClick($event, '#metodo')">{{ t.nav.menu.method }}</a></li>
           <li><a href="#casos" @click="handleNavClick($event, '#casos')">{{ t.nav.menu.cases }}</a></li>
+          <li><a href="https://chat.whatsapp.com/K43yrnUQbVq2O9hn93X03c?mode=gi_t" target="_blank" rel="noopener noreferrer" class="nav-community"><i class="fa-brands fa-whatsapp"></i> {{ t.nav.menu.community }}</a></li>
         </ul>
       </nav>
 
@@ -116,6 +117,7 @@ onUnmounted(() => {
             <li><a href="#ciencia" @click="handleNavClick($event, '#ciencia')">{{ t.nav.menu.science }}</a></li>
             <li><a href="#metodo" @click="handleNavClick($event, '#metodo')">{{ t.nav.menu.method }}</a></li>
             <li><a href="#casos" @click="handleNavClick($event, '#casos')">{{ t.nav.menu.cases }}</a></li>
+            <li><a href="https://chat.whatsapp.com/K43yrnUQbVq2O9hn93X03c?mode=gi_t" target="_blank" rel="noopener noreferrer" class="nav-community"><i class="fa-brands fa-whatsapp"></i> {{ t.nav.menu.community }}</a></li>
           </ul>
           
           <div class="mobile-nav__footer">
@@ -233,6 +235,43 @@ onUnmounted(() => {
       color: var(--phb-cyan, #21bcfa);
       letter-spacing: 0.25em;
     }
+  }
+}
+
+.nav-community {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border: 1px solid rgba(37, 211, 102, 0.4);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #25D366;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  i {
+    font-size: 13px;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    border-color: #25D366;
+    box-shadow: 0 0 20px rgba(37, 211, 102, 0.3), inset 0 0 20px rgba(37, 211, 102, 0.05);
+    transform: scale(1.05);
+
+    i {
+      transform: scale(1.2);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 10px 20px;
+    font-size: 14px;
+    justify-content: center;
   }
 }
 

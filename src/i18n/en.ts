@@ -7,6 +7,7 @@ export const en = {
       science: 'Science',
       team: 'Team',
       cases: 'Cases',
+      community: 'Community',
     }
   },
   hero: {
