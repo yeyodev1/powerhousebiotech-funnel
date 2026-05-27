@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import Lenis from 'lenis'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -14,25 +14,19 @@ import PhbFooter from '@/components/phb/PhbFooter.vue'
 // WhatsApp Components
 import WhatsappHero from '@/components/whatsapp/WhatsappHero.vue'
 import WhatsappBenefits from '@/components/whatsapp/WhatsappBenefits.vue'
-import WhatsappLeadModal from '@/components/whatsapp/WhatsappLeadModal.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const { t } = useLocale()
-const isLeadModalOpen = ref(false)
 
-const openLeadModal = () => {
-  isLeadModalOpen.value = true
-}
+const WHATSAPP_LINK = 'https://chat.whatsapp.com/K43yrnUQbVq2O9hn93X03c?mode=gi_t'
 
 let lenis: Lenis | null = null
 let lenisTicker: ((time: number) => void) | null = null
 
 onMounted(() => {
-  // Scroll to top instantly on route entry
   window.scrollTo({ top: 0, behavior: 'instant' })
 
-  // Initialize Lenis for smooth scroll
   lenis = new Lenis({
     duration: 1.2,
     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -45,7 +39,6 @@ onMounted(() => {
   gsap.ticker.lagSmoothing(0)
   lenis.on('scroll', ScrollTrigger.update)
 
-  // Initialize AOS
   AOS.init({
     duration: 800,
     easing: 'ease-out-quart',
@@ -53,7 +46,6 @@ onMounted(() => {
     offset: 80,
   })
 
-  // Refresh ScrollTrigger after components mount
   setTimeout(() => {
     ScrollTrigger.refresh()
   }, 1000)
@@ -73,18 +65,15 @@ onUnmounted(() => {
     
     <ShaHeader
       :cta-text="t.whatsappCommunity.cta.enter"
-      :is-custom-click="true"
-      @click-cta="openLeadModal"
+      :cta-link="WHATSAPP_LINK"
     />
     
     <main>
-      <WhatsappHero @click-cta="openLeadModal" />
-      <WhatsappBenefits @click-cta="openLeadModal" />
+      <WhatsappHero :whatsapp-link="WHATSAPP_LINK" />
+      <WhatsappBenefits :whatsapp-link="WHATSAPP_LINK" />
     </main>
 
     <PhbFooter />
-
-    <WhatsappLeadModal v-if="isLeadModalOpen" @close="isLeadModalOpen = false" />
   </div>
 </template>
 

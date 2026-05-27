@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useLocale } from '@/composables/useLocale'
 
-defineEmits(['click-cta'])
+const props = defineProps<{ whatsappLink: string }>()
 const { t } = useLocale()
 </script>
 
@@ -45,13 +45,13 @@ const { t } = useLocale()
         </div>
 
         <!-- Big CTA Button -->
-        <button @click.prevent="$emit('click-cta')" class="cta-card__button">
+        <a :href="props.whatsappLink" target="_blank" rel="noopener noreferrer" class="cta-card__button">
           <span class="cta-card__button-icon">
             <i class="fa-brands fa-whatsapp"></i>
           </span>
           <span class="cta-card__button-label">{{ t.whatsappCommunity.cta.btn }}</span>
           <i class="fa-solid fa-chevron-right cta-card__button-chevron"></i>
-        </button>
+        </a>
       </div>
 
       <!-- Trust Badges -->

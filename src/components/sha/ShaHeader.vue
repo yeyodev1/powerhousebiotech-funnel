@@ -89,7 +89,11 @@ onUnmounted(() => {
           {{ locale === 'es' ? 'ES' : 'EN' }}
         </button>
         
-        <a v-if="isCustomClick" href="#" class="cta-book cta-whatsapp" @click.prevent="$emit('click-cta')">
+        <a v-if="ctaLink.startsWith('http')" :href="ctaLink" target="_blank" rel="noopener noreferrer" class="cta-book cta-whatsapp">
+          <i class="fa-brands fa-whatsapp"></i>
+          {{ ctaText || t.nav.cta }}
+        </a>
+        <a v-else-if="isCustomClick" href="#" class="cta-book cta-whatsapp" @click.prevent="$emit('click-cta')">
           <i class="fa-brands fa-whatsapp"></i>
           {{ ctaText || t.nav.cta }}
         </a>
@@ -118,7 +122,11 @@ onUnmounted(() => {
             <button @click="toggleLocale" class="mobile-lang-switch">
               {{ locale === 'es' ? 'English Version' : 'Versión en Español' }}
             </button>
-            <a v-if="isCustomClick" href="#" class="mobile-cta mobile-cta-whatsapp" @click.prevent="$emit('click-cta')">
+            <a v-if="ctaLink.startsWith('http')" :href="ctaLink" target="_blank" rel="noopener noreferrer" class="mobile-cta mobile-cta-whatsapp">
+              <i class="fa-brands fa-whatsapp"></i>
+              {{ ctaText || t.nav.cta }}
+            </a>
+            <a v-else-if="isCustomClick" href="#" class="mobile-cta mobile-cta-whatsapp" @click.prevent="$emit('click-cta')">
               <i class="fa-brands fa-whatsapp"></i>
               {{ ctaText || t.nav.cta }}
             </a>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useLocale } from '@/composables/useLocale'
 
-defineEmits(['click-cta'])
+const props = defineProps<{ whatsappLink: string }>()
 const { t } = useLocale()
 </script>
 
@@ -28,10 +28,10 @@ const { t } = useLocale()
             <span class="whatsapp-hero__accent">{{ t.whatsappCommunity.hero.titleAccent }}</span>
             <span class="whatsapp-hero__underline" aria-hidden="true"></span>
           </h1>
-          <button @click.prevent="$emit('click-cta')" class="whatsapp-hero__btn">
+          <a :href="props.whatsappLink" target="_blank" rel="noopener noreferrer" class="whatsapp-hero__btn">
             <i class="fa-brands fa-whatsapp"></i>
             {{ t.whatsappCommunity.cta.btn }}
-          </button>
+          </a>
         </div>
       </div>
 

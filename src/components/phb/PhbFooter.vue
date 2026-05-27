@@ -28,6 +28,7 @@ const currentYear = new Date().getFullYear()
               <li><a href="#method">{{ t.nav.menu.method }}</a></li>
               <li><a href="#science">{{ t.nav.menu.science }}</a></li>
               <li><a href="#cases">{{ t.nav.menu.cases }}</a></li>
+              <li><a href="/comunidad">Comunidad WhatsApp</a></li>
             </ul>
           </div>
           
@@ -37,6 +38,11 @@ const currentYear = new Date().getFullYear()
               <li>
                 <a href="https://wa.me/5215553518114" target="_blank" rel="noopener noreferrer" class="whatsapp-link">
                   <i class="fa-brands fa-whatsapp"></i> +52 1 55 5351 8114
+                </a>
+              </li>
+              <li>
+                <a href="/comunidad" class="whatsapp-link">
+                  <i class="fa-brands fa-whatsapp"></i> Comunidad WhatsApp
                 </a>
               </li>
             </ul>
