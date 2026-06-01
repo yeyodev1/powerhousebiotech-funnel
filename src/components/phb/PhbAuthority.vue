@@ -1,180 +1,261 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import juanImg from '@/assets/team/juan.png'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const sectionRef = ref<HTMLElement | null>(null)
+
+// Cloudinary Images
+const imgHeadshot = 'https://res.cloudinary.com/drw5sn8qw/image/upload/v1780095174/assets-juan/db808425-b579-4ae3-bca6-1cb1cc73fa7d.jpg'
+const imgSpeaking = 'https://res.cloudinary.com/drw5sn8qw/image/upload/v1780095157/assets-juan/0c1b4726-41c7-49cf-83ea-6569e887393e.jpg'
+const imgOutdoor = 'https://res.cloudinary.com/drw5sn8qw/image/upload/v1780095175/assets-juan/e218f195-9aeb-4e69-a502-38a0cc524535.jpg'
+
 onMounted(() => {
-  gsap.fromTo('.phb-authority__image-wrap', 
-    { opacity: 0, scale: 0.95, y: 30 },
-    {
-      opacity: 1, scale: 1, y: 0,
-      duration: 1.2,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.phb-authority',
-        start: 'top 75%',
+  if (!sectionRef.value) return
+
+  const ctx = gsap.context(() => {
+    // Reveal text elements
+    gsap.fromTo('.phb-authority__reveal',
+      { y: 100, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        stagger: 0.1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: sectionRef.value,
+          start: 'top 75%',
+        }
       }
-    }
-  )
-  
-  gsap.fromTo('.phb-authority__content > *',
-    { opacity: 0, x: -30 },
-    {
-      opacity: 1, x: 0,
-      duration: 1,
-      stagger: 0.15,
-      ease: 'power2.out',
+    )
+
+    // Parallax on images
+    gsap.to('.phb-img-parallax-1', {
+      yPercent: -15,
+      ease: 'none',
       scrollTrigger: {
-        trigger: '.phb-authority',
-        start: 'top 75%',
+        trigger: sectionRef.value,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
       }
-    }
-  )
+    })
+
+    gsap.to('.phb-img-parallax-2', {
+      yPercent: 15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: sectionRef.value,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    })
+
+    gsap.to('.phb-img-parallax-3', {
+      yPercent: -25,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: sectionRef.value,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    })
+
+    // Image reveal mask
+    gsap.utils.toArray('.phb-authority__img-wrap').forEach((wrap: any) => {
+      gsap.fromTo(wrap,
+        { clipPath: 'inset(100% 0 0 0)' },
+        {
+          clipPath: 'inset(0% 0 0 0)',
+          duration: 1.5,
+          ease: 'power3.inOut',
+          scrollTrigger: {
+            trigger: wrap,
+            start: 'top 85%',
+          }
+        }
+      )
+    })
+  }, sectionRef.value)
 })
 </script>
 
 <template>
-  <section class="phb-authority">
-    <div class="phb-container">
-      <div class="phb-authority__grid">
-        <div class="phb-authority__content">
-          <div class="phb-line-title">
-            <span class="phb-line-title__line"></span>
-            Liderazgo Científico
+  <section class="phb-authority" ref="sectionRef" id="fundador">
+    <div class="phb-authority__container">
+      
+      <!-- Typography & Context -->
+      <div class="phb-authority__content">
+        <div class="phb-authority__label phb-authority__reveal">
+          <span class="phb-authority__line"></span>
+          Founder & CEO — Health Decision Platform
+        </div>
+        
+        <h2 class="phb-authority__title phb-authority__reveal">
+          Juan Román Garza.
+        </h2>
+        
+        <div class="phb-authority__subtitle phb-authority__reveal">
+          Longevidad Regenerativa y <em>Medicina de Frontera</em>.
+        </div>
+        
+        <p class="phb-authority__desc phb-authority__reveal">
+          Conecta Psicología, Tecnología y Medicina Regenerativa para ayudarte a optimizar tu salud celular y el rendimiento humano. Como fundador de PowerHouse Biotech, Juan Román ha liderado la evaluación de viabilidad de más de 100,000 casos clínicos. Su enfoque integral abarca desde Células Madre y Exosomas hasta la Psicooncología y la Psicología Organizacional, estableciendo un estándar internacional para líderes empresariales y pacientes que buscan la verdad biológica.
+        </p>
+
+        <div class="phb-authority__stats">
+          <div class="phb-authority__stat phb-authority__reveal">
+            <span class="phb-authority__stat-num">+15</span>
+            <span class="phb-authority__stat-label">Años de<br>Investigación</span>
           </div>
-          <h2 class="phb-authority__title">
-            Ciencia y experiencia compartida a nivel <em>internacional</em>.
-          </h2>
-          <p class="phb-authority__desc">
-            En PowerHouse Biotech no solo aplicamos los protocolos más avanzados del mundo; también somos parte activa de la comunidad científica internacional. Nuestra presencia en conferencias médicas globales garantiza que cada evaluación y protocolo esté fundamentado en los últimos descubrimientos de la medicina regenerativa.
-          </p>
-          
-          <div class="phb-authority__stats">
-            <div class="phb-authority__stat">
-              <span class="phb-authority__stat-num">+15</span>
-              <span class="phb-authority__stat-label">Años de Investigación</span>
-            </div>
-            <div class="phb-authority__stat">
-              <span class="phb-authority__stat-num">Top</span>
-              <span class="phb-authority__stat-label">Estándares Globales</span>
-            </div>
+          <div class="phb-authority__stat phb-authority__reveal">
+            <span class="phb-authority__stat-num">100k+</span>
+            <span class="phb-authority__stat-label">Casos Clínicos<br>Evaluados</span>
+          </div>
+          <div class="phb-authority__stat phb-authority__reveal">
+            <span class="phb-authority__stat-num">Global</span>
+            <span class="phb-authority__stat-label">Speaker<br>Internacional</span>
           </div>
         </div>
-
-        <div class="phb-authority__visual">
-          <div class="phb-authority__image-wrap">
-            <img :src="juanImg" alt="Juan en conferencia internacional" class="phb-authority__image" />
-            <div class="phb-authority__badge">
-              <i class="fa-solid fa-microphone-lines"></i>
-              <span>Speaker Internacional</span>
-            </div>
-          </div>
+        
+        <div class="phb-authority__action phb-authority__reveal">
+          <a href="https://juanromangarza.com/" target="_blank" rel="noopener noreferrer" class="phb-authority__btn">
+            Conoce más sobre Juan <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
         </div>
       </div>
+
+      <!-- Masonry/Parallax Image Gallery -->
+      <div class="phb-authority__gallery">
+        <div class="phb-authority__img-wrap phb-authority__img-1">
+          <img :src="imgHeadshot" alt="Juan Román Garza - Investigador Principal" class="phb-img-parallax-1" />
+          <div class="phb-authority__img-caption">
+            <i class="fa-solid fa-microscope"></i> Principal Investigator
+          </div>
+        </div>
+        
+        <div class="phb-authority__img-wrap phb-authority__img-2">
+          <img :src="imgSpeaking" alt="Juan Román Garza en conferencia internacional" class="phb-img-parallax-2" />
+          <div class="phb-authority__img-caption">
+            <i class="fa-solid fa-microphone-lines"></i> Global Speaker
+          </div>
+        </div>
+        
+        <div class="phb-authority__img-wrap phb-authority__img-3">
+          <img :src="imgOutdoor" alt="Juan Román Garza" class="phb-img-parallax-3" />
+        </div>
+      </div>
+
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
 .phb-authority {
-  background: #ffffff;
-  padding: clamp(80px, 10vw, 140px) 0;
-  color: #05060f;
+  background-color: #0c1445; // Dark premium navy theme
+  color: #ffffff;
+  padding: clamp(100px, 12vw, 180px) 0;
   position: relative;
   overflow: hidden;
-
+  
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 45%;
-    height: 100%;
-    background: #f8fbff;
+    top: -50%;
+    right: -20%;
+    width: 80%;
+    height: 150%;
+    background: radial-gradient(ellipse at center, rgba(33, 188, 250, 0.08) 0%, transparent 70%);
+    pointer-events: none;
     z-index: 0;
-    border-radius: 40px 0 0 40px;
-
-    @media (max-width: 1024px) {
-      width: 100%;
-      height: 60%;
-      top: auto;
-      bottom: 0;
-      border-radius: 40px 40px 0 0;
-    }
   }
 
-  .phb-container {
-    width: 100%;
-    max-width: 1300px;
+  &__container {
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 clamp(20px, 5vw, 60px);
-    position: relative;
-    z-index: 1;
-  }
-
-  &__grid {
+    padding: 0 clamp(24px, 5vw, 80px);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: clamp(40px, 8vw, 100px);
+    gap: clamp(60px, 8vw, 120px);
     align-items: center;
+    position: relative;
+    z-index: 1;
 
     @media (max-width: 1024px) {
       grid-template-columns: 1fr;
     }
   }
 
-  .phb-line-title {
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
     display: flex;
     align-items: center;
     gap: 16px;
-    font-size: 12px;
+    font-size: 0.8rem;
     font-weight: 800;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--phb-blue, #1278f3);
-    margin-bottom: 24px;
+    color: var(--phb-cyan, #21bcfa);
+    margin-bottom: 2rem;
+  }
 
-    &__line {
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: var(--phb-blue, #1278f3);
-      flex-shrink: 0;
-    }
+  &__line {
+    width: 40px;
+    height: 1px;
+    background: var(--phb-cyan, #21bcfa);
   }
 
   &__title {
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: clamp(3rem, 6vw, 5.5rem);
     font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.03em;
-    color: #05060f;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+
+  &__subtitle {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2.5rem;
 
     em {
-      font-style: normal;
+      font-style: italic;
       color: var(--phb-cyan, #21bcfa);
+      font-weight: 600;
     }
   }
 
   &__desc {
-    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-    line-height: 1.6;
-    color: rgba(5, 6, 15, 0.7);
-    margin-bottom: 3rem;
+    font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4rem;
     font-weight: 300;
+    max-width: 600px;
   }
 
   &__stats {
     display: flex;
-    gap: 3rem;
+    gap: clamp(2rem, 4vw, 4rem);
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 4rem;
     
     @media (max-width: 600px) {
-      flex-direction: column;
-      gap: 1.5rem;
+      flex-wrap: wrap;
+      gap: 2rem;
     }
   }
 
@@ -184,88 +265,128 @@ onMounted(() => {
     gap: 0.5rem;
 
     &-num {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: #05060f;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 800;
+      color: #ffffff;
       line-height: 1;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.03em;
     }
 
     &-label {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(5, 6, 15, 0.5);
+      letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.4;
     }
   }
 
-  &__visual {
-    position: relative;
-    padding: 2rem 0;
-  }
-
-  &__image-wrap {
-    position: relative;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
-    transform: translateZ(0);
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 24px;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-      pointer-events: none;
-    }
-  }
-
-  &__image {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    aspect-ratio: 4/5;
-    transform: scale(1.02);
-    transition: transform 0.7s ease;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-
-  &__badge {
-    position: absolute;
-    bottom: 30px;
-    left: -20px;
-    background: #ffffff;
-    padding: 16px 24px;
-    border-radius: 16px;
-    display: flex;
+  &__btn {
+    display: inline-flex;
     align-items: center;
     gap: 12px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    z-index: 10;
-    
-    @media (max-width: 768px) {
-      left: 20px;
-      bottom: 20px;
-    }
+    padding: 18px 32px;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
 
     i {
-      color: var(--phb-blue, #1278f3);
-      font-size: 1.2rem;
+      color: var(--phb-cyan, #21bcfa);
+      transition: transform 0.3s ease;
     }
 
-    span {
-      font-size: 0.9rem;
-      font-weight: 800;
-      color: #05060f;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.4);
+
+      i {
+        transform: translate(3px, -3px);
+      }
     }
+  }
+
+  &__gallery {
+    position: relative;
+    height: 800px;
+    width: 100%;
+
+    @media (max-width: 1024px) {
+      height: 600px;
+    }
+
+    @media (max-width: 600px) {
+      height: 500px;
+    }
+  }
+
+  &__img-wrap {
+    position: absolute;
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.3); // Scale up for parallax room
+    }
+  }
+
+  &__img-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(12, 20, 69, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    i {
+      color: var(--phb-cyan, #21bcfa);
+    }
+  }
+
+  &__img-1 {
+    width: 55%;
+    height: 60%;
+    top: 5%;
+    right: 0;
+    z-index: 2;
+  }
+
+  &__img-2 {
+    width: 60%;
+    height: 45%;
+    bottom: 5%;
+    left: 0;
+    z-index: 3;
+  }
+
+  &__img-3 {
+    width: 40%;
+    height: 50%;
+    top: 25%;
+    left: 10%;
+    z-index: 1;
+    filter: brightness(0.6);
   }
 }
 </style>

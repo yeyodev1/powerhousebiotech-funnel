@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import LanguageTransition from '@/components/globals/LanguageTransition.vue'
 import PhbSocialProof from '@/components/phb/PhbSocialProof.vue'
+import JuanLoader from '@/components/juan/JuanLoader.vue'
 </script>
 
 <template>
+  <JuanLoader />
   <LanguageTransition />
   <PhbSocialProof />
   <RouterView />

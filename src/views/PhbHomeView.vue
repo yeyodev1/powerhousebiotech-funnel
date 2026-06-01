@@ -7,10 +7,9 @@ import 'aos/dist/aos.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import ShaHeader from '@/components/sha/ShaHeader.vue'
+import JuanHeader from '@/components/juan/JuanHeader.vue'
 import PhbHero from '@/components/phb/PhbHero.vue'
 import PhbAbout from '@/components/phb/PhbAbout.vue'
-import ShaKpiSection from '@/components/sha/ShaKpiSection.vue'
 import PhbScience from '@/components/phb/PhbScience.vue'
 import PhbTeam from '@/components/phb/PhbTeam.vue'
 import PhbCases from '@/components/phb/PhbCases.vue'
@@ -20,7 +19,6 @@ import PhbCta from '@/components/phb/PhbCta.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
 import PhbAuthority from '@/components/phb/PhbAuthority.vue'
 import PhbProblem from '@/components/phb/PhbProblem.vue'
-import ShaDiscover from '@/components/sha/ShaDiscover.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -61,15 +59,13 @@ onUnmounted(() => {
 
 <template>
   <div class="phb-home">
-    <ShaHeader />
+    <JuanHeader />
     <PhbHero />
     <PhbAbout />
     <PhbAuthority />
     <PhbProblem /> 
     <PhbExpectations />
-    <!-- New SHA-inspired sections -->
-    <ShaKpiSection />
-    <ShaDiscover />
+    <!-- Removed SHA-inspired sections -->
     <PhbCtaTransition />
     <PhbTeam />
     <PhbCases />

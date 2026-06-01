@@ -7,7 +7,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // Header & Footer
-import ShaHeader from '@/components/sha/ShaHeader.vue'
+import JuanHeader from '@/components/juan/JuanHeader.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
 
 // Diabetes Sections
@@ -69,7 +69,7 @@ onUnmounted(() => {
     <!-- Global Mesh Background -->
     <div class="diabetes-view__mesh"></div>
     
-    <ShaHeader />
+    <JuanHeader />
     
     <main>
       <DiabetesHero />

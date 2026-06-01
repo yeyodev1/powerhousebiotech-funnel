@@ -1,5 +1,5 @@
 <template>
-  <section class="phb-about">
+  <section class="phb-about" id="acerca">
     <div class="phb-container">
 
       <div class="phb-about__grid">

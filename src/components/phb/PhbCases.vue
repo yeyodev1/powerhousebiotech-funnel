@@ -74,34 +74,27 @@ onMounted(() => {
         }
       })
 
-      // Progress bar animation
-      gsap.to('.phb-cases__progress-bar', {
-        scaleX: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.value,
-          scrub: 1,
-          start: 'top top',
-          end: () => `+=${horizontalLength + (isMobile ? 800 : 1200)}`,
-        }
-      })
+
 
       // Animation for card contents as they enter the view
       const cards = gsap.utils.toArray('.phb-case-card')
       cards.forEach((card: any) => {
-        gsap.from(card.querySelectorAll('.phb-case-card__content > *'), {
-          opacity: 0,
-          y: 30,
-          stagger: 0.1,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'left 85%',
-            containerAnimation: gsap.getById('horizontalScroll'),
-            toggleActions: 'play none none reverse',
-          }
-        })
+        const elements = card.querySelectorAll('.phb-case-card__content > *')
+        if (elements.length > 0) {
+          gsap.from(elements, {
+            opacity: 0,
+            y: 30,
+            stagger: 0.1,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'left 85%',
+              containerAnimation: gsap.getById('horizontalScroll'),
+              toggleActions: 'play none none reverse',
+            }
+          })
+        }
       })
     })
   }, sectionRef.value)

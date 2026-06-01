@@ -6,9 +6,8 @@ import ConfirmedView from '../views/ConfirmedView.vue'
 import NotQualifiedView from '../views/NotQualifiedView.vue'
 import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import LegalNoticeView from '../views/LegalNoticeView.vue'
-import ShaHomeView from '../views/ShaHomeView.vue'
-
 import 'vue-router'
+import { showLoader, hideLoader } from '../composables/useLoader'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -105,19 +104,7 @@ const router = createRouter({
         ogUrl: `${BASE}/politicas-privacidad`,
       } satisfies RouteMeta,
     },
-    {
-      path: '/sha',
-      name: 'sha-home',
-      component: ShaHomeView,
-      meta: {
-        title: 'SHA — Masters of Longevity',
-        description: 'Science-based programs for measurable health transformation.',
-        canonical: `${BASE}/sha`,
-        ogTitle: 'SHA — Masters of Longevity',
-        ogDescription: 'Defining the Next Frontier of Health Optimization.',
-        ogUrl: `${BASE}/sha`,
-      } satisfies RouteMeta,
-    },
+
     {
       path: '/aviso-legal',
       name: 'legal-notice',
@@ -161,7 +148,11 @@ const router = createRouter({
 })
 
 // ── Guards de navegación ───────────────────────────────────────────────────────
-router.beforeEach((to) => {
+router.beforeEach(async (to, from) => {
+  if (to.path !== from.path) {
+    await showLoader()
+  }
+
   if ((to.name === 'booking' || to.name === 'confirmed') && !localStorage.getItem('phb_qualified_at')) {
     if (!localStorage.getItem('phb_contact')) return { name: 'home' }
     return { name: 'qualify' }
@@ -197,6 +188,10 @@ router.afterEach((to) => {
   setOgMeta('twitter:title', meta.ogTitle ?? meta.title ?? '')
   setOgMeta('twitter:description', meta.ogDescription ?? meta.description ?? '')
   setCanonical(meta.canonical ?? '')
+
+  setTimeout(() => {
+    hideLoader()
+  }, 100)
 })
 
 export default router

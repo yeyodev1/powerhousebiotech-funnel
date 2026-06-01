@@ -34,30 +34,6 @@ onMounted(() => {
       stagger: 0.2,
       ease: 'power3.out'
     })
-
-    // Parallax on the large number in background or items
-    gsap.to('.phb-expect__bg-text', {
-      scrollTrigger: {
-        trigger: sectionRef.value,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1
-      },
-      y: -100,
-      ease: 'none'
-    })
-
-    // Bottom quote entrance
-    gsap.from('.phb-expect__quote', {
-      scrollTrigger: {
-        trigger: '.phb-expect__footer',
-        start: 'top 90%',
-      },
-      x: -30,
-      opacity: 0,
-      duration: 1.2,
-      ease: 'power3.out'
-    })
   }, sectionRef.value)
 })
 </script>

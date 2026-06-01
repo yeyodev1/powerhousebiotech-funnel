@@ -8,7 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLocale } from '@/composables/useLocale'
 
 // Global Header & Footer
-import ShaHeader from '@/components/sha/ShaHeader.vue'
+import JuanHeader from '@/components/juan/JuanHeader.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
 
 // WhatsApp Components
@@ -63,10 +63,7 @@ onUnmounted(() => {
     <!-- Global Mesh Background -->
     <div class="whatsapp-view__mesh"></div>
     
-    <ShaHeader
-      :cta-text="t.whatsappCommunity.cta.enter"
-      :cta-link="WHATSAPP_LINK"
-    />
+    <JuanHeader />
     
     <main>
       <WhatsappHero :whatsapp-link="WHATSAPP_LINK" />
