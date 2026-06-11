@@ -13,7 +13,6 @@ const links = [
   { label: 'Inicio', href: '#' },
   { label: 'Filosofía', href: '#acerca' },
   { label: 'El Fundador', href: '#fundador' },
-  { label: 'El Problema', href: '#problema' },
   { label: 'Casos Clínicos', href: '#casos' },
   { label: 'Solicitar Revisión', href: '/cualificar' },
 ]
