@@ -51,6 +51,21 @@ onMounted(() => {
     <div class="phb-container">
       <div class="hero-content">
         
+        
+        <h1 class="hero-title phb-hero__reveal">
+          {{ t.hero.title1 }}
+          <span>{{ t.hero.titleAccent }}</span>
+        </h1>
+        
+        <div class="hero-box phb-hero__reveal">
+          <ul class="hero-bullets">
+            <li v-for="(bullet, index) in t.hero.bullets" :key="index">
+              <i class="fa-solid fa-check"></i>
+              {{ bullet }}
+            </li>
+          </ul>
+        </div>
+        
         <div class="hero-badge phb-hero__reveal">
           <i class="fa-solid fa-microscope"></i> 
           <span>PowerHouse Biotech by 
@@ -60,21 +75,6 @@ onMounted(() => {
             </a>
           </span>
         </div>
-
-        <h1 class="hero-title phb-hero__reveal">
-          {{ t.hero.title1 }}
-          <span>{{ t.hero.titleAccent }}</span>
-        </h1>
-
-        <div class="hero-box phb-hero__reveal">
-          <ul class="hero-bullets">
-            <li v-for="(bullet, index) in t.hero.bullets" :key="index">
-              <i class="fa-solid fa-check"></i>
-              {{ bullet }}
-            </li>
-          </ul>
-        </div>
-
         <p class="hero-disclaimer phb-hero__reveal" @click="goToQualify">
           {{ t.hero.disclaimer }}
         </p>
@@ -122,8 +122,19 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 30% 10%; // Ajustado para mover al sujeto a la derecha
+    object-position: 10% 10%; // Base position
     opacity: 0.8;
+
+    @media (min-width: 1025px) {
+      // Force the image to be wider than the screen on desktop
+      // and align it to the left, pushing the center (Juan) to the right.
+      width: 135%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-position: 0% 10%; 
+      transform-origin: left top;
+    }
   }
 
   &__overlay {
@@ -158,23 +169,25 @@ onMounted(() => {
   }
 
   .hero-badge {
-    display: inline-flex;
-    align-items: center;
+    display: flex;
+    align-items: flex-start;
     gap: 12px;
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 100px;
-    backdrop-filter: blur(10px);
-    font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 2.5rem;
+    text-align: left;
 
     >i {
       color: var(--phb-cyan, #21bcfa);
+      margin-top: 2px;
+      font-size: 1rem;
+    }
+
+    span {
+      line-height: 1.5;
     }
 
     .founder-link {
@@ -228,6 +241,8 @@ onMounted(() => {
     margin-bottom: 40px;
     color: #ffffff;
     letter-spacing: -0.04em;
+
+    margin-top: 150px;
 
     span {
       display: block;
@@ -303,7 +318,7 @@ onMounted(() => {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     backdrop-filter: blur(10px);
-    
+
     @media (max-width: 768px) {
       align-items: center;
       width: 100%;
@@ -316,16 +331,16 @@ onMounted(() => {
       color: rgba(255, 255, 255, 0.5);
       text-transform: uppercase;
     }
-    
+
     &__links {
       display: flex;
       gap: 1.5rem;
-      
+
       a {
         color: #ffffff;
         font-size: 1.5rem;
         transition: all 0.3s ease;
-        
+
         &:hover {
           color: var(--phb-cyan, #21bcfa);
           transform: translateY(-3px);
