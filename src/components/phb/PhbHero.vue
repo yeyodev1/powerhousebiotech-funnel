@@ -132,7 +132,7 @@ onMounted(() => {
       position: absolute;
       top: 0;
       left: 0;
-      object-position: 0% 10%; 
+      object-position: 0% 10%;
       transform-origin: left top;
     }
   }
@@ -309,6 +309,7 @@ onMounted(() => {
 
   .hero-social {
     margin-top: 2rem;
+    margin-bottom: 2rem;
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
