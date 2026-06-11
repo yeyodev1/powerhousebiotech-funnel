@@ -60,11 +60,12 @@ const currentYear = new Date().getFullYear()
             © {{ currentYear }} PowerHouse Biotech. {{ t.footer.rights }}
           </span>
           <div class="phb-footer__social">
-             <a href="https://wa.me/5215553518114" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-               <i class="fa-brands fa-whatsapp"></i>
+             <a href="https://www.instagram.com/jromangarzainc/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+               <i class="fa-brands fa-instagram"></i>
              </a>
-             <i class="fa-brands fa-instagram"></i>
-             <i class="fa-brands fa-linkedin"></i>
+             <a href="https://www.tiktok.com/@jromangarzainc" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+               <i class="fa-brands fa-tiktok"></i>
+             </a>
           </div>
         </div>
         
@@ -233,10 +234,6 @@ const currentYear = new Date().getFullYear()
       cursor: pointer;
       transition: color 0.3s ease;
       &:hover { color: var(--phb-cyan, #21bcfa); }
-
-      &.fa-whatsapp:hover {
-        color: #25D366;
-      }
     }
   }
 

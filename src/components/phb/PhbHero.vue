@@ -85,6 +85,18 @@ onMounted(() => {
             <span class="btn-icon">→</span>
           </button>
         </div>
+
+        <div class="hero-social phb-hero__reveal">
+          <span class="hero-social__label">SÍGUENOS</span>
+          <div class="hero-social__links">
+            <a href="https://www.instagram.com/jromangarzainc/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@jromangarzainc" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -277,6 +289,48 @@ onMounted(() => {
     &:hover {
       color: #ffffff;
       text-decoration-color: var(--phb-cyan, #21bcfa);
+    }
+  }
+
+  .hero-social {
+    margin-top: 2rem;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    
+    @media (max-width: 768px) {
+      align-items: center;
+      width: 100%;
+    }
+
+    &__label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+    }
+    
+    &__links {
+      display: flex;
+      gap: 1.5rem;
+      
+      a {
+        color: #ffffff;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          color: var(--phb-cyan, #21bcfa);
+          transform: translateY(-3px);
+        }
+      }
     }
   }
 
