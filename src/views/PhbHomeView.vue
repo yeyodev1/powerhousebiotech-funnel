@@ -66,7 +66,7 @@ onUnmounted(() => {
     <PhbProblem /> 
     <PhbExpectations />
     <!-- Removed SHA-inspired sections -->
-    <PhbCtaTransition />
+    <!-- <PhbCtaTransition /> -->
     <PhbTeam />
     <PhbCases />
     <!-- End new sections -->

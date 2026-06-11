@@ -32,54 +32,43 @@ onMounted(() => {
       }
     )
 
-    // Parallax on images
-    gsap.to('.phb-img-parallax-1', {
-      yPercent: -15,
-      ease: 'none',
+    // Main Pinning ScrollTrigger for Gallery Slider
+    const slides = gsap.utils.toArray('.phb-authority__img-wrap')
+    
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.value,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1
+        pin: true,
+        scrub: 1, 
+        snap: 1 / (slides.length - 1), // Adds snap to ensure image-by-image lock
+        start: 'top top',
+        end: `+=${slides.length * 100}%`,
       }
     })
 
-    gsap.to('.phb-img-parallax-2', {
-      yPercent: 15,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: sectionRef.value,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1
+    // Animate each image slide sequentially
+    slides.forEach((slide: any, i: number) => {
+      // Enter animation for next slides
+      if (i > 0) {
+        tl.from(slide, {
+          yPercent: 100,
+          opacity: 0,
+          scale: 0.95,
+          duration: 1,
+          ease: 'power2.inOut'
+        }, i)
       }
-    })
 
-    gsap.to('.phb-img-parallax-3', {
-      yPercent: -25,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: sectionRef.value,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1
+      // Exit animation for current slide
+      if (i < slides.length - 1) {
+        tl.to(slide, {
+          scale: 0.9,
+          opacity: 0,
+          yPercent: -20,
+          duration: 1,
+          ease: 'power2.inOut'
+        }, i + 0.8)
       }
-    })
-
-    // Image reveal mask
-    gsap.utils.toArray('.phb-authority__img-wrap').forEach((wrap: any) => {
-      gsap.fromTo(wrap,
-        { clipPath: 'inset(100% 0 0 0)' },
-        {
-          clipPath: 'inset(0% 0 0 0)',
-          duration: 1.5,
-          ease: 'power3.inOut',
-          scrollTrigger: {
-            trigger: wrap,
-            start: 'top 85%',
-          }
-        }
-      )
     })
   }, sectionRef.value)
 })
@@ -130,24 +119,27 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Masonry/Parallax Image Gallery -->
+      <!-- Pinned Image Slider Gallery -->
       <div class="phb-authority__gallery">
         <div class="phb-authority__img-wrap phb-authority__img-1">
-          <img :src="imgHeadshot" alt="Juan Román Garza - Investigador Principal" class="phb-img-parallax-1" />
+          <img :src="imgHeadshot" alt="Juan Román Garza - Investigador Principal" />
           <div class="phb-authority__img-caption">
             <i class="fa-solid fa-microscope"></i> Principal Investigator
           </div>
         </div>
         
         <div class="phb-authority__img-wrap phb-authority__img-2">
-          <img :src="imgSpeaking" alt="Juan Román Garza en conferencia internacional" class="phb-img-parallax-2" />
+          <img :src="imgSpeaking" alt="Juan Román Garza en conferencia internacional" />
           <div class="phb-authority__img-caption">
             <i class="fa-solid fa-microphone-lines"></i> Global Speaker
           </div>
         </div>
         
         <div class="phb-authority__img-wrap phb-authority__img-3">
-          <img :src="imgOutdoor" alt="Juan Román Garza" class="phb-img-parallax-3" />
+          <img :src="imgOutdoor" alt="Juan Román Garza" />
+          <div class="phb-authority__img-caption">
+            <i class="fa-solid fa-leaf"></i> Longevity Pioneer
+          </div>
         </div>
       </div>
 
@@ -159,10 +151,13 @@ onMounted(() => {
 .phb-authority {
   background-color: #0c1445; // Dark premium navy theme
   color: #ffffff;
-  padding: clamp(100px, 12vw, 180px) 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   position: relative;
   overflow: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -177,8 +172,9 @@ onMounted(() => {
 
   &__container {
     max-width: 1440px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 clamp(24px, 5vw, 80px);
+    padding: clamp(100px, 10vw, 140px) clamp(24px, 5vw, 80px);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: clamp(60px, 8vw, 120px);
@@ -188,6 +184,16 @@ onMounted(() => {
 
     @media (max-width: 1024px) {
       grid-template-columns: 1fr;
+      padding: clamp(100px, 10vw, 120px) 24px;
+      
+      .phb-authority__content {
+        order: 2;
+      }
+      .phb-authority__gallery {
+        order: 1;
+        height: 60vh;
+        margin-bottom: 2rem;
+      }
     }
   }
 
@@ -252,7 +258,7 @@ onMounted(() => {
     padding-top: 3rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 4rem;
-    
+
     @media (max-width: 600px) {
       flex-wrap: wrap;
       gap: 2rem;
@@ -329,64 +335,57 @@ onMounted(() => {
 
   &__img-wrap {
     position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     border-radius: 24px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-    
+    will-change: transform, opacity;
+
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scale(1.3); // Scale up for parallax room
+      object-position: center top; // Keep head visible
     }
   }
 
   &__img-caption {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background: rgba(12, 20, 69, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 10px 16px;
-    border-radius: 12px;
-    font-size: 0.75rem;
+    bottom: 30px;
+    left: 30px;
+    background: rgba(12, 20, 69, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 14px 24px;
+    border-radius: 100px; 
+    font-size: 0.85rem;
     font-weight: 800;
     color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     display: flex;
     align-items: center;
-    gap: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 
     i {
       color: var(--phb-cyan, #21bcfa);
+      font-size: 1.1rem;
     }
   }
 
   &__img-1 {
-    width: 55%;
-    height: 60%;
-    top: 5%;
-    right: 0;
-    z-index: 2;
+    z-index: 1;
   }
 
   &__img-2 {
-    width: 60%;
-    height: 45%;
-    bottom: 5%;
-    left: 0;
-    z-index: 3;
+    z-index: 2;
   }
 
   &__img-3 {
-    width: 40%;
-    height: 50%;
-    top: 25%;
-    left: 10%;
-    z-index: 1;
-    filter: brightness(0.6);
+    z-index: 3;
   }
 }
 </style>

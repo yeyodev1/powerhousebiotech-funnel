@@ -21,7 +21,7 @@ onMounted(() => {
     { scale: 1.1, opacity: 0 },
     { scale: 1, opacity: 0.8, duration: 1.5, ease: 'power3.out' }
   )
-  
+
   // Text stagger reveal
   tl.fromTo('.phb-hero__reveal',
     { y: 40, opacity: 0 },
@@ -52,7 +52,13 @@ onMounted(() => {
       <div class="hero-content">
         
         <div class="hero-badge phb-hero__reveal">
-          <i class="fa-solid fa-microscope"></i> PowerHouse Biotech by Juan Román Garza
+          <i class="fa-solid fa-microscope"></i> 
+          <span>PowerHouse Biotech by 
+            <a href="https://juanromangarza.com/" target="_blank" rel="noopener noreferrer" class="founder-link">
+              Juan Román Garza
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </span>
         </div>
 
         <h1 class="hero-title phb-hero__reveal">
@@ -104,23 +110,21 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 70% 30%; // Focus more on his face/figure on the right side
+    object-position: 30% 10%; // Ajustado para mover al sujeto a la derecha
     opacity: 0.8;
   }
 
   &__overlay {
     position: absolute;
     inset: 0;
-    // Radial gradient to make text readable on the left and show image on the right
-    background: radial-gradient(circle at 75% 50%, transparent 0%, rgba(5, 6, 15, 0.4) 40%, #05060f 90%);
+    // background: radial-gradient(circle at 75% 50%, transparent 0%, rgba(5, 6, 15, 0.4) 40%, #05060f 90%);
   }
 
   &__gradient {
     position: absolute;
     inset: 0;
-    // Linear gradient for mobile readibility
-    background: linear-gradient(90deg, #05060f 0%, rgba(5, 6, 15, 0.9) 40%, transparent 100%);
-    
+    background: linear-gradient(90deg, #05060f 0%, rgba(5, 6, 15, 0.5) 40%, transparent 100%);
+
     @media (max-width: 768px) {
       background: linear-gradient(0deg, #05060f 0%, rgba(5, 6, 15, 0.8) 60%, transparent 100%);
     }
@@ -150,20 +154,63 @@ onMounted(() => {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 100px;
     backdrop-filter: blur(10px);
-    font-size: 0.8rem;
+    font-size: clamp(0.7rem, 1.2vw, 0.9rem);
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: #ffffff;
     margin-bottom: 2.5rem;
 
-    i {
+    >i {
       color: var(--phb-cyan, #21bcfa);
+    }
+
+    .founder-link {
+      color: #ffffff;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      i {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.8em;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: var(--phb-cyan, #21bcfa);
+        transform-origin: bottom right;
+        transition: transform 0.3s ease-out;
+      }
+
+      &:hover {
+        color: var(--phb-cyan, #21bcfa);
+
+        i {
+          color: var(--phb-cyan, #21bcfa);
+          transform: translate(2px, -2px);
+        }
+
+        &::after {
+          transform: scaleX(1);
+          transform-origin: bottom left;
+        }
+      }
     }
   }
 
   .hero-title {
-    font-size: clamp(3rem, 6.5vw, 5.5rem);
+    font-size: clamp(2rem, 4vw, 4rem);
     line-height: 1.05;
     font-weight: 800;
     margin-bottom: 40px;
@@ -201,7 +248,7 @@ onMounted(() => {
       display: flex;
       align-items: flex-start;
       gap: 1.2rem;
-      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      font-size: clamp(0.9rem, 1.2vw, 1.15rem);
       line-height: 1.6;
       color: rgba(255, 255, 255, 0.7);
       font-weight: 300;
@@ -215,7 +262,7 @@ onMounted(() => {
   }
 
   .hero-disclaimer {
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 1vw, 1rem);
     color: rgba(255, 255, 255, 0.5);
     margin-bottom: 48px;
     font-style: italic;
@@ -272,9 +319,9 @@ onMounted(() => {
   .phb-hero {
     padding-top: 140px;
     text-align: left;
-    
+
     &__image {
-      object-position: 80% 20%;
+      object-position: 25% 10%; // Ajustado para mover al sujeto a la derecha
     }
 
     .hero-content {
