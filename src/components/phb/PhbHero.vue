@@ -7,7 +7,7 @@ import { useLocale } from '@/composables/useLocale'
 const { t } = useLocale()
 const router = useRouter()
 
-const heroImg = 'https://res.cloudinary.com/drw5sn8qw/image/upload/v1780095175/assets-juan/e218f195-9aeb-4e69-a502-38a0cc524535.jpg'
+const heroVideo = 'https://res.cloudinary.com/drw5sn8qw/video/upload/v1782231565/assets-juan/uicyiqkjhaoxi7fzoioa.mp4'
 
 const goToQualify = () => {
   router.push('/cualificar')
@@ -16,8 +16,8 @@ const goToQualify = () => {
 onMounted(() => {
   const tl = gsap.timeline()
 
-  // Background Image scale down reveal
-  tl.fromTo('.phb-hero__image',
+  // Background video scale down reveal
+  tl.fromTo('.phb-hero__video',
     { scale: 1.1, opacity: 0 },
     { scale: 1, opacity: 0.8, duration: 1.5, ease: 'power3.out' }
   )
@@ -41,9 +41,18 @@ onMounted(() => {
 <template>
   <section class="phb-hero">
     
-    <!-- Hero Image Background -->
+    <!-- Hero Video Background -->
     <div class="phb-hero__visual">
-      <img :src="heroImg" alt="Juan Román Garza - Founder" class="phb-hero__image" />
+      <video
+        :src="heroVideo"
+        class="phb-hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="https://res.cloudinary.com/drw5sn8qw/image/upload/v1780095175/assets-juan/e218f195-9aeb-4e69-a502-38a0cc524535.jpg"
+        aria-hidden="true"
+      />
       <div class="phb-hero__overlay"></div>
       <div class="phb-hero__gradient"></div>
     </div>
@@ -118,7 +127,7 @@ onMounted(() => {
     z-index: 0;
   }
 
-  &__image {
+  &__video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -126,7 +135,7 @@ onMounted(() => {
     opacity: 0.8;
 
     @media (min-width: 1025px) {
-      // Force the image to be wider than the screen on desktop
+      // Force the video to be wider than the screen on desktop
       // and align it to the left, pushing the center (Juan) to the right.
       width: 135%;
       position: absolute;
@@ -390,7 +399,7 @@ onMounted(() => {
     padding-top: 140px;
     text-align: left;
 
-    &__image {
+    &__video {
       object-position: 25% 10%; // Ajustado para mover al sujeto a la derecha
     }
 
