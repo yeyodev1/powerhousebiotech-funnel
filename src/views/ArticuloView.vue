@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import JuanHeader from '@/components/juan/JuanHeader.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
 import { api, type Article } from '@/services/api'
 
@@ -42,6 +43,7 @@ onMounted(fetchArticle)
 
 <template>
   <div class="articulo-page">
+    <JuanHeader />
 
     <!-- Loading -->
     <div v-if="loading" class="articulo-loading">
