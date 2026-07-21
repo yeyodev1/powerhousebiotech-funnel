@@ -24,6 +24,7 @@ const navLinks = [
 ]
 
 const toolsLink = { id: 'herramientas', num: '05', label: 'Herramientas', route: '/herramientas' }
+const investigacionesLink = { id: 'investigaciones', num: '06', label: 'Investigaciones', route: '/investigaciones' }
 
 // ── Scroll / nav helpers ───────────────────────────────────────────────────────
 const handleScroll = () => { isScrolled.value = window.scrollY > 30 }
@@ -139,6 +140,13 @@ onUnmounted(() => {
               @click="closeMenu"
             >{{ toolsLink.label }}</RouterLink>
           </li>
+          <li>
+            <RouterLink
+              :to="investigacionesLink.route"
+              class="nav__link nav__link--inv"
+              @click="closeMenu"
+            >{{ investigacionesLink.label }}</RouterLink>
+          </li>
         </ul>
 
         <!-- ── CTA desktop ───────────────────────────── -->
@@ -220,6 +228,16 @@ onUnmounted(() => {
             <span class="nav__overlay-num" aria-hidden="true">{{ toolsLink.num }}</span>
             <span class="nav__overlay-label">{{ toolsLink.label }}</span>
             <span class="nav__overlay-badge" aria-hidden="true">Nuevo</span>
+          </RouterLink>
+
+          <!-- Investigaciones — navega a página -->
+          <RouterLink
+            :to="investigacionesLink.route"
+            class="nav__overlay-link nav__overlay-link--inv"
+            @click="closeMenu"
+          >
+            <span class="nav__overlay-num" aria-hidden="true">{{ investigacionesLink.num }}</span>
+            <span class="nav__overlay-label">{{ investigacionesLink.label }}</span>
           </RouterLink>
         </nav>
 
@@ -371,6 +389,25 @@ $dark-bg: #283645; // Match new $PHB-BG
         color: colors.$white;
         background: colors.$BAKANO-PINK;
         border-color: colors.$BAKANO-PINK;
+      }
+    }
+
+    // Investigaciones — estilo cyan PHB
+    &--inv {
+      color: #21bcfb;
+      border: 1px solid rgba(#21bcfb, 0.3);
+      border-radius: 100px;
+      padding: 4px 12px;
+
+      &::after {
+        display: none;
+      }
+
+      &:hover,
+      &.router-link-active {
+        color: #171846;
+        background: #21bcfb;
+        border-color: #21bcfb;
       }
     }
   }

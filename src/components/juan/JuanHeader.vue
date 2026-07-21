@@ -14,6 +14,7 @@ const links = [
   { label: 'Filosofía', href: '#acerca' },
   { label: 'El Fundador', href: '#fundador' },
   { label: 'Casos Clínicos', href: '#casos' },
+  { label: 'Investigaciones', href: '/investigaciones' },
   { label: 'Solicitar Revisión', href: '/cualificar' },
 ]
 

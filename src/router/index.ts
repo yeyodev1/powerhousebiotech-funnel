@@ -144,6 +144,32 @@ const router = createRouter({
         ogUrl: `${BASE}/comunidad`,
       } satisfies RouteMeta,
     },
+    {
+      path: '/investigaciones',
+      name: 'investigaciones',
+      component: () => import('../views/InvestigacionesView.vue'),
+      meta: {
+        title: 'Investigaciones | PowerHouse Biotech',
+        description: 'Explora artículos de medicina regenerativa, células madre, y longevidad del Dr. Juan Antonio Garza Quintanilla.',
+        canonical: `${BASE}/investigaciones`,
+        ogTitle: 'Investigaciones en Medicina Regenerativa | PowerHouse Biotech',
+        ogDescription: 'Más de 200 artículos sobre células madre, longevidad y tratamientos regenerativos.',
+        ogUrl: `${BASE}/investigaciones`,
+      } satisfies RouteMeta,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue'),
+      meta: {
+        title: 'Iniciar Sesión | PowerHouse Biotech',
+        description: 'Accede a tu cuenta PowerHouse Biotech.',
+        canonical: `${BASE}/login`,
+        ogTitle: 'Iniciar Sesión | PowerHouse Biotech',
+        ogDescription: 'Accede a tu cuenta PowerHouse Biotech.',
+        ogUrl: `${BASE}/login`,
+      } satisfies RouteMeta,
+    },
   ],
 })
 
