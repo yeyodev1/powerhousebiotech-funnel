@@ -142,12 +142,10 @@ onMounted(() => fetchArticles(1))
 
         <!-- Grid -->
         <div v-else class="inv-grid">
-          <a
+          <RouterLink
             v-for="article in articles"
             :key="article._id"
-            :href="article.sourceUrl"
-            target="_blank"
-            rel="noopener noreferrer"
+            :to="{ name: 'articulo', params: { slug: article.slug } }"
             class="inv-card"
           >
             <div class="inv-card__img-wrap">
@@ -170,7 +168,7 @@ onMounted(() => fetchArticles(1))
               <p class="inv-card__excerpt">{{ article.excerpt }}</p>
               <span class="inv-card__link">Leer artículo →</span>
             </div>
-          </a>
+          </RouterLink>
         </div>
 
         <!-- Pagination -->

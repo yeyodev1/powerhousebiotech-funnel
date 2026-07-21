@@ -145,6 +145,19 @@ const router = createRouter({
       } satisfies RouteMeta,
     },
     {
+      path: '/investigaciones/:slug',
+      name: 'articulo',
+      component: () => import('../views/ArticuloView.vue'),
+      meta: {
+        title: 'Artículo | PowerHouse Biotech',
+        description: 'Artículo de investigación en medicina regenerativa.',
+        canonical: `${BASE}/investigaciones`,
+        ogTitle: 'Artículo | PowerHouse Biotech',
+        ogDescription: 'Investigación en medicina regenerativa.',
+        ogUrl: `${BASE}/investigaciones`,
+      } satisfies RouteMeta,
+    },
+    {
       path: '/investigaciones',
       name: 'investigaciones',
       component: () => import('../views/InvestigacionesView.vue'),
