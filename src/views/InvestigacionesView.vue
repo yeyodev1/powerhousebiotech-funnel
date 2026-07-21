@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import JuanHeader from '@/components/juan/JuanHeader.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
 import { api, type Article } from '@/services/api'
 
@@ -71,6 +72,8 @@ onMounted(() => fetchArticles(1))
 
 <template>
   <div class="investigaciones-page">
+    <JuanHeader />
+
     <!-- Hero -->
     <section class="inv-hero">
       <div class="inv-hero__bg"></div>
