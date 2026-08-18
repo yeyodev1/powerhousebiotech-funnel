@@ -22,4 +22,21 @@ export default defineConfig({
   server: {
     allowedHosts: ['38828430451a.ngrok-free.app', 'testing-storybrand-frontend.bakano.ec'],
   },
+  build: {
+    // Las librerías de animación y carrusel pesan y cambian con muy poca
+    // frecuencia. Separarlas en chunks propios permite que el navegador las
+    // conserve en caché entre despliegues, en vez de volver a descargarlas
+    // cada vez que cambia el código de la aplicación.
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-vue': ['vue', 'vue-router', 'pinia'],
+          'vendor-animation': ['gsap', 'lenis', 'aos'],
+          'vendor-carousel': ['swiper', '@splidejs/splide'],
+          'vendor-forms': ['libphonenumber-js'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 700,
+  },
 })
