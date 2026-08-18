@@ -1,27 +1,45 @@
+# robots.txt — PowerHouse Biotech
+# https://powerhousebiotech.com/robots.txt
+
 User-agent: *
 Allow: /
 
-# Bloquear archivos internos de build
+# Rutas transaccionales y privadas: no aportan valor de búsqueda
+Disallow: /admin
+Disallow: /login
+Disallow: /evaluacion-confirmada
+Disallow: /no-califica
+
+# Archivos internos de build
 Disallow: /src/
 Disallow: /.vite/
 
-# Sitemaps
-Sitemap: https://bakano.ec/sitemap.xml
+# ── Crawlers de modelos de lenguaje ────────────────────────────────────────
+# Permitidos de forma explícita para que PowerHouse Biotech sea citado
+# correctamente en respuestas generadas por IA.
 
-# LLM crawlers — permitidos para indexación en AI
 User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
 Allow: /
 
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: Claude-Web
+Allow: /
+
 User-agent: anthropic-ai
 Allow: /
 
-User-agent: Google-Extended
+User-agent: PerplexityBot
 Allow: /
 
-User-agent: PerplexityBot
+User-agent: Google-Extended
 Allow: /
 
 User-agent: Applebot-Extended
@@ -32,3 +50,6 @@ Allow: /
 
 User-agent: CCBot
 Allow: /
+
+# ── Sitemaps ───────────────────────────────────────────────────────────────
+Sitemap: https://powerhousebiotech.com/sitemap.xml

@@ -2,38 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Página principal -->
+  <!-- Home -->
   <url>
-    <loc>https://bakano.ec/</loc>
-    <lastmod>2026-03-05</lastmod>
+    <loc>https://powerhousebiotech.com/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="es-EC" href="https://bakano.ec/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://bakano.ec/"/>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://powerhousebiotech.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://powerhousebiotech.com/"/>
   </url>
 
-  <!-- Herramientas -->
+  <!-- Evaluación de Viabilidad Regenerativa — entrada al embudo -->
   <url>
-    <loc>https://bakano.ec/herramientas</loc>
-    <lastmod>2026-03-06</lastmod>
+    <loc>https://powerhousebiotech.com/cualificar</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Agendamiento -->
+  <url>
+    <loc>https://powerhousebiotech.com/agendar</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es-EC" href="https://bakano.ec/herramientas"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://bakano.ec/herramientas"/>
   </url>
 
-  <!-- Política de Privacidad -->
+  <!-- Diabetes regenerativa — landing de campaña -->
   <url>
-    <loc>https://bakano.ec/politicas-privacidad</loc>
-    <lastmod>2026-03-05</lastmod>
+    <loc>https://powerhousebiotech.com/diabetes-regenerativa</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Comunidad -->
+  <url>
+    <loc>https://powerhousebiotech.com/comunidad</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Investigaciones -->
+  <url>
+    <loc>https://powerhousebiotech.com/investigaciones</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Legales -->
+  <url>
+    <loc>https://powerhousebiotech.com/politicas-privacidad</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-
-  <!-- Aviso Legal -->
   <url>
-    <loc>https://bakano.ec/aviso-legal</loc>
-    <lastmod>2026-03-05</lastmod>
+    <loc>https://powerhousebiotech.com/aviso-legal</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
