@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import JuanHeader from '@/components/juan/JuanHeader.vue'
 import PhbFooter from '@/components/phb/PhbFooter.vue'
-import { api, type Article } from '@/services/api'
+import { api, type Article, type ArticlesResponse } from '@/services/api'
+import ArticlesPager from '@/components/ArticlesPager.vue'
 
 const articles = ref<Article[]>([])
 const loading = ref(true)
@@ -12,6 +13,8 @@ const searchInput = ref('')
 const currentPage = ref(1)
 const totalPages = ref(1)
 const totalArticles = ref(0)
+const pagination = ref<ArticlesResponse['pagination']>({ page: 1, limit: 12, total: 0, pages: 1 })
+const gridTop = ref<HTMLElement | null>(null)
 const LIMIT = 12
 
 async function fetchArticles(page = 1) {
@@ -27,6 +30,7 @@ async function fetchArticles(page = 1) {
     articles.value = res.data
     totalPages.value = res.pagination.pages
     totalArticles.value = res.pagination.total
+    pagination.value = res.pagination
     currentPage.value = page
   } catch (e: unknown) {
     error.value = e instanceof Error ? e.message : 'Error al cargar artículos'
@@ -56,16 +60,8 @@ function clearSearch() {
 function goToPage(page: number) {
   if (page < 1 || page > totalPages.value) return
   fetchArticles(page)
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+  gridTop.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
-
-const pages = computed(() => {
-  const range: number[] = []
-  const start = Math.max(1, currentPage.value - 2)
-  const end = Math.min(totalPages.value, currentPage.value + 2)
-  for (let i = start; i <= end; i++) range.push(i)
-  return range
-})
 
 onMounted(() => fetchArticles(1))
 </script>
@@ -108,12 +104,11 @@ onMounted(() => fetchArticles(1))
     <!-- Content -->
     <section class="inv-content">
       <div class="inv-wrap">
-        <!-- Stats bar -->
-        <div class="inv-stats" v-if="!loading">
-          <span class="inv-stats__count">
-            {{ search ? `${totalArticles} resultados para "${search}"` : `${totalArticles} artículos` }}
-          </span>
+        <div ref="gridTop" class="inv-anchor"></div>
+        <div class="inv-stats" v-if="!loading && search">
+          <span class="inv-stats__count">{{ totalArticles }} resultados para "{{ search }}"</span>
         </div>
+        <ArticlesPager v-if="!loading && articles.length" class="inv-pager-top" :pagination="pagination" :loading="loading" @change="goToPage" />
 
         <!-- Loading -->
         <div v-if="loading" class="inv-loading">
@@ -174,30 +169,7 @@ onMounted(() => fetchArticles(1))
           </RouterLink>
         </div>
 
-        <!-- Pagination -->
-        <div v-if="!loading && totalPages > 1" class="inv-pagination">
-          <button class="inv-page-btn" :disabled="currentPage === 1" @click="goToPage(currentPage - 1)">←</button>
-          <button
-            v-if="pages[0] > 1"
-            class="inv-page-btn"
-            @click="goToPage(1)"
-          >1</button>
-          <span v-if="pages[0] > 2" class="inv-page-ellipsis">…</span>
-          <button
-            v-for="p in pages"
-            :key="p"
-            class="inv-page-btn"
-            :class="{ 'inv-page-btn--active': p === currentPage }"
-            @click="goToPage(p)"
-          >{{ p }}</button>
-          <span v-if="pages[pages.length - 1] < totalPages - 1" class="inv-page-ellipsis">…</span>
-          <button
-            v-if="pages[pages.length - 1] < totalPages"
-            class="inv-page-btn"
-            @click="goToPage(totalPages)"
-          >{{ totalPages }}</button>
-          <button class="inv-page-btn" :disabled="currentPage === totalPages" @click="goToPage(currentPage + 1)">→</button>
-        </div>
+        <ArticlesPager v-if="!loading && articles.length" class="inv-pager-bottom" :pagination="pagination" :loading="loading" @change="goToPage" />
       </div>
     </section>
 
@@ -529,51 +501,8 @@ onMounted(() => fetchArticles(1))
 }
 
 /* Pagination */
-.inv-pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 3.5rem;
-  flex-wrap: wrap;
-}
 
-.inv-page-btn {
-  min-width: 2.5rem;
-  height: 2.5rem;
-  padding: 0 0.75rem;
-  border-radius: 0.5rem;
-  border: 1px solid $PHB-BORDER;
-  background: $PHB-SURFACE;
-  color: $PHB-TEXT-2;
-  font-family: $font-interface;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
 
-  &:hover:not(:disabled) {
-    border-color: $PHB-CYAN;
-    color: $PHB-CYAN;
-  }
-
-  &--active {
-    background: $PHB-CYAN;
-    border-color: $PHB-CYAN;
-    color: $PHB-NAVY-DARK;
-    font-weight: 700;
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-}
-
-.inv-page-ellipsis {
-  color: $PHB-TEXT-3;
-  font-family: $font-interface;
-  padding: 0 0.25rem;
-}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -584,4 +513,7 @@ onMounted(() => fetchArticles(1))
     grid-template-columns: 1fr;
   }
 }
+.inv-anchor { scroll-margin-top: 100px; }
+.inv-pager-top { margin-bottom: 2rem; }
+.inv-pager-bottom { margin-top: 3rem; }
 </style>
