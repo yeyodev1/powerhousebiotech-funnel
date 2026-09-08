@@ -19,11 +19,41 @@ async function fetchArticle() {
   try {
     const res = await api.articles.get(slug.value)
     article.value = res.data
+    applyArticleMeta(res.data)
   } catch (e: unknown) {
     error.value = e instanceof Error ? e.message : 'Artículo no encontrado'
   } finally {
     loading.value = false
   }
+}
+
+// Mantiene <head> coherente al navegar dentro del SPA (el HTML inicial ya viene
+// con estas etiquetas desde api/article-meta.js para los crawlers).
+function applyArticleMeta(a: Article) {
+  const set = (attr: 'name' | 'property', key: string, content: string) => {
+    let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`)
+    if (!el) {
+      el = document.createElement('meta')
+      el.setAttribute(attr, key)
+      document.head.appendChild(el)
+    }
+    el.setAttribute('content', content)
+  }
+  const url = `${location.origin}/investigaciones/${a.slug}`
+  document.title = `${a.title} | PowerHouse Biotech`
+  set('name', 'description', a.excerpt)
+  set('property', 'og:type', 'article')
+  set('property', 'og:url', url)
+  set('property', 'og:title', a.title)
+  set('property', 'og:description', a.excerpt)
+  set('name', 'twitter:title', a.title)
+  set('name', 'twitter:description', a.excerpt)
+  if (a.featuredImage) {
+    set('property', 'og:image', a.featuredImage)
+    set('name', 'twitter:image', a.featuredImage)
+  }
+  const canon = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+  if (canon) canon.href = url
 }
 
 function formatDate(dateStr: string) {

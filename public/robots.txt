@@ -2,6 +2,7 @@
 # https://powerhousebiotech.com/robots.txt
 
 User-agent: *
+Disallow: /api/
 Allow: /
 
 # Rutas transaccionales y privadas: no aportan valor de búsqueda
